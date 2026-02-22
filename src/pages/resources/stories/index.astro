@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../components/ResourceIndex.astro';
+
+const stories = (await getCollection('stories')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<ResourcesLayout
+  title="Customer stories"
+  description="See how different teams use planning and optimization to improve their operations."
+  currentPath="/resources/stories"
+>
+  <ResourceIndex
+    items={stories}
+    dateField="date"
+    metaField="industry"
+    titleField="title"
+    subtitleField="customer"
+  />
+</ResourcesLayout>

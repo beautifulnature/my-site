@@ -1,0 +1,13 @@
+= Optimization Patterns
+Hemanya
+:toc!:
+:last-update-label!:
+:revdate!:
+
+== Time Slot Pattern
+
+Describe your constraint patterns here in AsciiDoc.
+
+== Resource Allocation
+
+Another pattern with examples from your work.

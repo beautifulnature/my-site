@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../../layouts/Docs.astro';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories');
+  return stories.map((story) => ({
+    params: { slug: story.slug },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+const { Content } = await story.render();
+---
+
+<DocsLayout title={story.data.title}>
+  <article class="prose prose-invert max-w-none">
+    <h1>{story.data.title}</h1>
+
+    <p class="text-xs text-slate-500">
+      {story.data.date.toLocaleDateString()}
+      {story.data.industry ? ` · ${story.data.industry}` : ''}
+    </p>
+
+    <p class="text-sm text-slate-300 mb-4">
+      {story.data.customer}
+    </p>
+
+    <Content />
+  </article>
+</DocsLayout>

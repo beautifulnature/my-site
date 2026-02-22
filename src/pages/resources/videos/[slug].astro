@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ShareBar from '../../../components/ShareBar.astro';
+
+export async function getStaticPaths() {
+  const videos = await getCollection('videos');
+  return videos.map((video) => ({
+    params: { slug: video.slug },
+    props: { video },
+  }));
+}
+
+const { video } = Astro.props;
+const { Content } = await video.render();
+
+const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
+const pageUrl = origin
+  ? `${origin}/resources/videos/${video.slug}/`
+  : `/resources/videos/${video.slug}/`;
+---
+
+<ResourcesLayout
+  title={video.data.title}
+  description={video.data.description}
+  currentPath="/resources/videos"
+>
+  <article class="prose prose-invert max-w-none">
+    {/* meta + share row */}
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+      <div class="flex flex-wrap items-center gap-3">
+        <span>{video.data.date.toLocaleDateString()}</span>
+        {video.data.length && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-slate-600" />
+            <span>{video.data.length}</span>
+          </>
+        )}
+      </div>
+
+      <ShareBar url={pageUrl} title={video.data.title} />
+    </div>
+
+    {/* responsive YouTube embed */}
+    {video.data.youtubeId && (
+      <div class="mb-6 overflow-hidden rounded-xl border border-slate-800 bg-black">
+        <div class="aspect-video">
+          <iframe
+            class="h-full w-full"
+            src={`https://www.youtube.com/embed/${video.data.youtubeId}`}
+            title={video.data.title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          />
+        </div>
+      </div>
+    )}
+
+    <Content />
+  </article>
+</ResourcesLayout>

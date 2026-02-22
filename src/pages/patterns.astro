@@ -1,0 +1,26 @@
+---
+import DocsLayout from '../layouts/Docs.astro';
+// astro-asciidoc exposes a component to render the .adoc file
+import Patterns from '../content/docs/patterns.adoc';
+import Note1 from '../content/notes/note1.md';
+//import MatrixDemo from '../content/math/matrix.typ';
+import MatrixDemo from '../content/math/matrix.md';
+---
+
+<DocsLayout title="Patterns">
+  <h1 class="text-2xl font-bold mb-4">Patterns</h1>
+
+  <section class="prose prose-invert max-w-none mb-8">
+    <Patterns />
+  </section>
+
+  <h2 class="text-xl font-semibold mb-2">Related Note (Logseq export)</h2>
+  <div class="prose prose-invert max-w-none mb-8">
+    <Note1 />
+  </div>
+
+  <h2 class="text-xl font-semibold mb-2">Typst Math Demo</h2>
+  <div class="mt-4 border border-slate-800 rounded-lg p-4 bg-slate-900/60 overflow-auto">
+    <MatrixDemo />
+  </div>
+</DocsLayout>

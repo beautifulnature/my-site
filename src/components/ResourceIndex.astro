@@ -1,0 +1,114 @@
+---
+type Item = {
+  slug: string;
+  data: Record<string, any>;
+  body?: string;
+};
+
+const {
+  items = [],
+  // config for fields
+  dateField = 'date',
+  metaField,          // e.g. 'length', 'industry', 'location', 'outlet', 'issue'
+  metaLabel,          // optional override label if you want custom text
+  titleField = 'title',
+  subtitleField,      // e.g. 'customer'
+  showBody = false,
+  isHeroLinkExternal = false,
+  heroExternalUrlField, // e.g. 'url' for events
+} = Astro.props as {
+  items: Item[];
+  dateField?: string;
+  metaField?: string;
+  metaLabel?: string;
+  titleField?: string;
+  subtitleField?: string;
+  showBody?: boolean;
+  isHeroLinkExternal?: boolean;
+  heroExternalUrlField?: string;
+};
+
+if (!items.length) {
+  throw new Error('ResourceIndex: items is empty');
+}
+
+const [latest, ...rest] = items;
+const formatMeta = (item: Item) => {
+  if (!metaField) return '';
+  const v = item.data[metaField];
+  if (!v) return '';
+  if (metaLabel) return ` · ${metaLabel}: ${v}`;
+  return ` · ${v}`;
+};
+---
+
+{latest && (
+  <article class="mb-10 border border-slate-800 rounded-2xl bg-slate-900/60 p-6 md:p-8">
+    <p class="text-xs text-slate-500 mb-2">
+      {latest.data[dateField].toLocaleDateString()}
+      {formatMeta(latest)}
+    </p>
+
+    {!isHeroLinkExternal && (
+      <a
+        href={`${Astro.url.pathname}/${latest.slug}`.replace(/\/$/, '')}
+        class="text-2xl font-semibold text-sky-400 hover:text-sky-300"
+      >
+        {latest.data[titleField]}
+      </a>
+    )}
+
+    {isHeroLinkExternal && heroExternalUrlField && (
+      <a
+        href={latest.data[heroExternalUrlField]}
+        target="_blank"
+        class="text-2xl font-semibold text-sky-400 hover:text-sky-300"
+      >
+        {latest.data[titleField]}
+      </a>
+    )}
+
+    {subtitleField && latest.data[subtitleField] && (
+      <p class="mt-3 text-sm text-slate-300">
+        {latest.data[subtitleField]}
+      </p>
+    )}
+
+    {showBody && latest.body && (
+      <p class="mt-3 text-slate-300">
+        {latest.body}
+      </p>
+    )}
+  </article>
+)}
+
+<section aria-label="More items">
+  <div class="grid gap-6 md:grid-cols-2">
+    {rest.map((item) => (
+      <article class="border border-slate-800 rounded-xl bg-slate-900/60 p-5">
+        <p class="text-xs text-slate-500 mb-1">
+          {item.data[dateField].toLocaleDateString()}
+          {formatMeta(item)}
+        </p>
+        <a
+          href={`${Astro.url.pathname}/${item.slug}`.replace(/\/$/, '')}
+          class="text-lg font-semibold text-sky-400 hover:text-sky-300"
+        >
+          {item.data[titleField]}
+        </a>
+
+        {subtitleField && item.data[subtitleField] && (
+          <p class="mt-2 text-sm text-slate-300">
+            {item.data[subtitleField]}
+          </p>
+        )}
+
+        {showBody && item.body && (
+          <p class="mt-2 text-sm text-slate-300">
+            {item.body}
+          </p>
+        )}
+      </article>
+    ))}
+  </div>
+</section>

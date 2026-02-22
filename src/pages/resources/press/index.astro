@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../components/ResourceIndex.astro';
+
+const press = (await getCollection('press')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<ResourcesLayout
+  title="Press"
+  description="Recent articles, announcements, and coverage from around the web."
+  currentPath="/resources/press"
+>
+  <ResourceIndex
+    items={press}
+    dateField="date"
+    metaField="outlet"
+    titleField="title"
+  />
+</ResourcesLayout>

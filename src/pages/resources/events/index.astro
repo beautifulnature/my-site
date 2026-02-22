@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../components/ResourceIndex.astro';
+
+const events = (await getCollection('events')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<ResourcesLayout
+  title="Events"
+  description="Join live sessions, webinars, and conferences about planning and optimization."
+  currentPath="/resources/events"
+>
+  <ResourceIndex
+    items={events}
+    dateField="date"
+    metaField="location"
+    titleField="title"
+  />
+</ResourcesLayout>
+
+// If instead you want the hero title to go straight to the external registration URL, set isHeroLinkExternal and heroExternalUrlField.

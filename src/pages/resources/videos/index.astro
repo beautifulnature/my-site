@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../components/ResourceIndex.astro';
+
+const videos = (await getCollection('videos')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<ResourcesLayout
+  title="Videos"
+  description="Watch demos, deep dives, and office hours on planning and optimization."
+  currentPath="/resources/videos"
+>
+  <ResourceIndex
+    items={videos}
+    dateField="date"
+    metaField="length"
+    titleField="title"
+    showBody={true}
+  />
+</ResourcesLayout>

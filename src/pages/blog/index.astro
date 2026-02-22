@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../components/ResourceIndex.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<ResourcesLayout
+  title="Blog"
+  description="Insights, deep dives, and updates on planning and optimization."
+  currentPath="/blog"
+>
+  <ResourceIndex
+    items={posts}
+    dateField="date"
+    titleField="title"
+    showBody={false}
+  />
+</ResourcesLayout>

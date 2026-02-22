@@ -1,11 +1,24 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import DocsLayout from '../layouts/Docs.astro';
+import PatternCard from '../components/PatternCard.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<DocsLayout title="Sample Optimization Site">
+  <h1 class="text-3xl font-bold mb-4">Optimization Notes Hub</h1>
+  <p class="text-slate-300 mb-6">
+    Mixed content from AsciiDoc, Typst, and Logseq-style notes in one Astro site.
+  </p>
+
+  <PatternCard
+    title="Time Slot Pattern"
+    desc="Allocate tasks into discrete time slots while respecting capacity and precedence constraints."
+  />
+  <PatternCard
+    title="Resource Allocation"
+    desc="Assign resources to jobs with skills, availability, and fairness constraints."
+  />
+
+  <a href="/patterns" class="inline-flex mt-4 text-sm text-sky-400 hover:text-sky-300">
+    View all patterns →
+  </a>
+</DocsLayout>

@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../layouts/Docs.astro';
+---
+
+<DocsLayout title="Resources">
+  <h1 class="text-3xl font-bold mb-6">Resources</h1>
+  <p class="text-slate-300 mb-8">
+    Explore blog posts, videos, customer stories, events, press, and newsletters.
+  </p>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <a href="/blog" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1">Blog</h2>
+      <p class="text-sm text-slate-300">Deep dives into optimization patterns and implementation details.</p>
+    </a>
+    <a href="/resources/videos" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1">Videos</h2>
+      <p class="text-sm text-slate-300">Short explainers and demos of solver features.</p>
+    </a>
+    <a href="/resources/stories" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1">Customer stories</h2>
+      <p class="text-sm text-slate-300">Real-world results from scheduling and routing projects.</p>
+    </a>
+    <a href="/resources/events" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1">Events</h2>
+      <p class="text-sm text-slate-300">Upcoming talks, webinars, and workshops.</p>
+    </a>
+    <a href="/resources/press" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1">Press</h2>
+      <p class="text-sm text-slate-300">Mentions and articles from around the web.</p>
+    </a>
+    <a href="/resources/newsletter" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1">Newsletter</h2>
+      <p class="text-sm text-slate-300">Periodic updates on new features and case studies.</p>
+    </a>
+  </div>
+</DocsLayout>

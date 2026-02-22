@@ -1,0 +1,128 @@
+---
+interface Props {
+  enableToc?: boolean;
+}
+
+const { enableToc = false } = Astro.props;
+---
+
+<script define:vars={{ enableToc }}>
+  console.log("DocsTocScript loaded", { enableToc });
+
+  const ENABLE_TOC = enableToc;
+
+  let lastKey = null;
+  let timer = null;
+
+  function resetSequence() {
+    lastKey = null;
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+
+  function startSequence(key) {
+    lastKey = key;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      lastKey = null;
+    }, 800);
+  }
+
+  function buildArticleToc() {
+    if (!ENABLE_TOC) return;
+
+    const articleRoot = document.getElementById("article-root");
+    const tocList = document.getElementById("article-toc-list");
+    if (!articleRoot || !tocList) {
+      console.log("TOC: missing articleRoot or tocList", { articleRoot, tocList });
+      return;
+    }
+
+    const headings = articleRoot.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    console.log("TOC: found headings:", headings.length);
+
+    tocList.innerHTML = "";
+
+    headings.forEach((heading, index) => {
+      if (!heading.id) {
+        heading.id = "section-" + index;
+      }
+
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = "#" + heading.id;
+      a.textContent =
+        heading.textContent?.trim() || "Section " + (index + 1);
+      a.className =
+        "block truncate text-slate-300 hover:text-white transition-colors";
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+  }
+
+  // Init TOC once DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", buildArticleToc);
+  } else {
+    buildArticleToc();
+  }
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    const target = event.target;
+
+    if (
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement ||
+      target.isContentEditable
+    ) {
+      return;
+    }
+
+    // t + l => toggle left sidebar
+    if (lastKey === "t" && key === "l") {
+      const sidebar = document.getElementById("sidebar");
+      if (sidebar) {
+        sidebar.classList.toggle("hidden"); // Tailwind `hidden`
+      }
+      resetSequence();
+      return;
+    }
+
+    // t + r => toggle right TOC ("On this page")
+    if (lastKey === "t" && key === "r") {
+      if (!ENABLE_TOC) {
+        console.warn("TOC disabled - pass enableToc={true}");
+        resetSequence();
+        return;
+      }
+
+      const rightNav = document.getElementById("article-toc");
+      if (rightNav) {
+        rightNav.classList.toggle("hidden"); // Tailwind `hidden`
+        console.log(
+          "Right nav toggled:",
+          !rightNav.classList.contains("hidden"),
+        );
+        if (!rightNav.classList.contains("hidden")) {
+          buildArticleToc();
+        }
+      } else {
+        console.warn("No #article-toc element found");
+      }
+      resetSequence();
+      return;
+    }
+
+    if (key === "t") {
+      startSequence("t");
+    } else {
+      resetSequence();
+    }
+  });
+</script>
+
+<!-- No HTML output; pure client-side script -->

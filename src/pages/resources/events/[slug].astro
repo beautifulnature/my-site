@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ShareBar from '../../../components/ShareBar.astro';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+const { Content } = await event.render();
+
+// Build absolute or fallback URL for sharing
+const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
+const pageUrl = origin
+  ? `${origin}/resources/events/${event.slug}/`
+  : `/resources/events/${event.slug}/`;
+---
+
+<ResourcesLayout
+  title={event.data.title}
+  description={event.data.description}
+  currentPath="/resources/events"
+>
+  <article class="prose prose-invert max-w-none">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+      {/* left: meta */}
+      <div class="flex flex-wrap items-center gap-3">
+        <span>{event.data.date.toLocaleDateString()}</span>
+
+        {event.data.location && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-slate-600" />
+            <span>{event.data.location}</span>
+          </>
+        )}
+
+        {event.data.url && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-slate-600" />
+            <a
+              href={event.data.url}
+              target="_blank"
+              rel="noreferrer"
+              class="underline hover:text-sky-300"
+            >
+              Registration
+            </a>
+          </>
+        )}
+      </div>
+
+      {/* right: shared social icons */}
+      <ShareBar url={pageUrl} title={event.data.title} />
+    </div>
+
+    <Content />
+  </article>
+</ResourcesLayout>

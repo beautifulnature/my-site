@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../../layouts/Docs.astro';
+
+export async function getStaticPaths() {
+  const issues = await getCollection('newsletter');
+  return issues.map((issue) => ({
+    params: { slug: issue.slug },
+    props: { issue },
+  }));
+}
+
+const { issue } = Astro.props;
+const { Content } = await issue.render();
+---
+
+<DocsLayout title={issue.data.title}>
+  <article class="prose prose-invert max-w-none">
+    <p class="text-xs text-slate-500 mb-4">
+      {issue.data.date.toLocaleDateString()}
+      {issue.data.issue ? ` · ${issue.data.issue}` : ''}
+    </p>
+
+    <Content />
+  </article>
+</DocsLayout>

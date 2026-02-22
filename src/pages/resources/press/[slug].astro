@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ShareBar from '../../../components/ShareBar.astro';
+
+export async function getStaticPaths() {
+  const pressItems = await getCollection('press');
+  return pressItems.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+
+const origin = Astro.request?.url
+  ? new URL(Astro.request.url).origin
+  : '';
+const pageUrl = origin
+  ? `${origin}/resources/press/${item.slug}/`
+  : `/resources/press/${item.slug}/`;
+---
+
+<ResourcesLayout
+  title={item.data.title}
+  description={item.data.description}
+  currentPath="/resources/press"
+>
+  <article class="prose prose-invert max-w-none">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+      <div class="flex flex-wrap items-center gap-3">
+        <span>{item.data.date.toLocaleDateString()}</span>
+        <span class="h-1 w-1 rounded-full bg-slate-600" />
+        <span>{item.data.outlet}</span>
+      </div>
+
+      <ShareBar url={pageUrl} title={item.data.title} />
+    </div>
+
+    <Content />
+  </article>
+</ResourcesLayout>

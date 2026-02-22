@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* your existing body styles */
+body {
+  @apply bg-slate-950 text-slate-50;
+}
+
+/* custom utility to hide the sidebar */
+.sidebar-hidden {
+  display: none !important;
+}
+
+.right-nav-hidden {
+    display: none !important;
+}

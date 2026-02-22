@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../components/ResourceIndex.astro';
+
+const issues = (await getCollection('newsletter')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<ResourcesLayout
+  title="Newsletter"
+  description="Periodic updates on new features, case studies, and upcoming events."
+  currentPath="/resources/newsletter"
+>
+  <ResourceIndex
+    items={issues}
+    dateField="date"
+    metaField="issue"
+    titleField="title"
+  />
+</ResourcesLayout>
