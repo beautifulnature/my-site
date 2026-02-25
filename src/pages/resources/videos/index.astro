@@ -11,6 +11,7 @@ const videos = (await getCollection('videos')).sort(
 <ResourcesLayout
   title="Videos"
   description="Watch demos, deep dives, and office hours on planning and optimization."
+  descriptionClass="desc-black"
   currentPath="/resources/videos"
 >
   <ResourceIndex
@@ -18,6 +19,6 @@ const videos = (await getCollection('videos')).sort(
     dateField="date"
     metaField="length"
     titleField="title"
-    showBody={true}
+    showBody={false}
   />
 </ResourcesLayout>

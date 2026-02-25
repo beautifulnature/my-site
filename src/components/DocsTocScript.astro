@@ -27,7 +27,7 @@ const { enableToc = false } = Astro.props;
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       lastKey = null;
-    }, 800);
+    }, 1500);
   }
 
   function buildArticleToc() {
@@ -51,16 +51,93 @@ const { enableToc = false } = Astro.props;
       }
 
       const li = document.createElement("li");
+      li.style.position = "relative";
+
       const a = document.createElement("a");
       a.href = "#" + heading.id;
-      a.textContent =
-        heading.textContent?.trim() || "Section " + (index + 1);
-      a.className =
-        "block truncate text-slate-300 hover:text-white transition-colors";
+      a.textContent = heading.textContent?.trim() || "Section " + (index + 1);
+      a.className = "block truncate text-black hover:text-white transition-colors";
+      a.addEventListener("click", function(e) {
+        e.preventDefault();
+        const target = document.getElementById(heading.id);
+        if (target) {
+          const offset = 80; // adjust for fixed header
+          const y = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: y, behavior: "smooth" });
 
+          // After scrolling, update TOC highlight and scroll active item into view
+          setTimeout(() => {
+            const tocItems = tocList.querySelectorAll("li");
+            tocItems.forEach((li, idx) => {
+              const indicator = li.querySelector(".toc-indicator");
+              if (indicator) {
+                indicator.style.background = headings[idx].id === heading.id ? "#4900f8" : "transparent";
+              }
+            });
+            // Scroll the active TOC item into view
+            const activeIdx = Array.from(headings).findIndex(h => h.id === heading.id);
+            const tocItemsArr = Array.from(tocList.querySelectorAll("li"));
+            const activeItem = tocItemsArr[activeIdx];
+            if (activeItem) {
+              const container = tocList.parentElement;
+              const itemRect = activeItem.getBoundingClientRect();
+              const containerRect = container.getBoundingClientRect();
+              if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
+                activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+              }
+            }
+          }, 350); // wait for scroll to finish
+        }
+      });
+
+      // Add left blue line indicator
+      const indicator = document.createElement("span");
+      indicator.className = "toc-indicator";
+      indicator.style.position = "absolute";
+      indicator.style.left = "-16px"; // align with border
+      indicator.style.top = "0";
+      indicator.style.bottom = "0";
+      indicator.style.width = "4px";
+      indicator.style.background = "transparent";
+      indicator.style.borderRadius = "2px";
+      indicator.style.transition = "background 0.2s";
+      li.appendChild(indicator);
       li.appendChild(a);
       tocList.appendChild(li);
     });
+
+    // Scroll sync and highlight
+    function onScroll() {
+      const headingsArr = Array.from(headings);
+      let activeIdx = 0;
+      const scrollY = window.scrollY;
+      const offset = 80; // adjust for fixed header
+      for (let i = 0; i < headingsArr.length; i++) {
+        const rect = headingsArr[i].getBoundingClientRect();
+        if (rect.top + scrollY - offset <= scrollY) {
+          activeIdx = i;
+        }
+      }
+      const tocItems = tocList.querySelectorAll("li");
+      tocItems.forEach((li, idx) => {
+        const indicator = li.querySelector(".toc-indicator");
+        if (indicator) {
+          indicator.style.background = idx === activeIdx ? "#4900f8" : "transparent";
+        }
+      });
+      // Scroll only if not visible
+      const activeItem = tocItems[activeIdx];
+      if (activeItem) {
+        const container = tocList.parentElement;
+        const itemRect = activeItem.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        if (itemRect.top < containerRect.top || itemRect.bottom > containerRect.bottom) {
+          activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        }
+      }
+    }
+    window.addEventListener("scroll", onScroll);
+    onScroll();
   }
 
   // Init TOC once DOM is ready
@@ -74,19 +151,24 @@ const { enableToc = false } = Astro.props;
     const key = event.key.toLowerCase();
     const target = event.target;
 
+    console.log("Key pressed:", key, "| lastKey:", lastKey, "| target:", target.tagName);
+
     if (
       target instanceof HTMLInputElement ||
       target instanceof HTMLTextAreaElement ||
       target.isContentEditable
     ) {
+      console.log("Key event ignored - input target");
       return;
     }
 
     // t + l => toggle left sidebar
     if (lastKey === "t" && key === "l") {
+      console.log("✓ Toggling left sidebar (t+l detected)");
       const sidebar = document.getElementById("sidebar");
       if (sidebar) {
-        sidebar.classList.toggle("hidden"); // Tailwind `hidden`
+        sidebar.classList.toggle("sidebar-hidden"); // Custom class with !important
+        console.log("Sidebar hidden state:", sidebar.classList.contains("sidebar-hidden"));
       }
       resetSequence();
       return;
@@ -94,6 +176,7 @@ const { enableToc = false } = Astro.props;
 
     // t + r => toggle right TOC ("On this page")
     if (lastKey === "t" && key === "r") {
+      console.log("✓✓ T+R DETECTED. ENABLE_TOC:", ENABLE_TOC);
       if (!ENABLE_TOC) {
         console.warn("TOC disabled - pass enableToc={true}");
         resetSequence();
@@ -101,15 +184,40 @@ const { enableToc = false } = Astro.props;
       }
 
       const rightNav = document.getElementById("article-toc");
+      console.log("Found article-toc element:", !!rightNav);
       if (rightNav) {
-        rightNav.classList.toggle("hidden"); // Tailwind `hidden`
-        console.log(
-          "Right nav toggled:",
-          !rightNav.classList.contains("hidden"),
-        );
-        if (!rightNav.classList.contains("hidden")) {
+        console.log("Before toggle - classList:", rightNav.className);
+
+        // Determine current hidden state (either Tailwind `hidden` or our `right-nav-hidden`).
+        const currentlyHidden =
+          rightNav.classList.contains("right-nav-hidden") ||
+          rightNav.classList.contains("hidden");
+
+        if (currentlyHidden) {
+          // Show the TOC: remove hide markers and force-show class.
+          rightNav.classList.remove("right-nav-hidden");
+          rightNav.classList.remove("hidden");
+          rightNav.classList.add("right-nav-shown");
+          // Force display with inline !important to override any conflicting rules.
+          try {
+            rightNav.style.setProperty('display', 'block', 'important');
+          } catch (e) {
+            // setProperty with priority may not be supported in all environments; fallback to inline style
+            rightNav.style.display = 'block';
+          }
+          console.log("TOC: forcing show (removed hidden classes, added right-nav-shown)");
           buildArticleToc();
+        } else {
+          // Hide the TOC: remove force-show and add our hide marker.
+          rightNav.classList.remove("right-nav-shown");
+          rightNav.classList.add("right-nav-hidden");
+          // Remove inline display override so classes take effect
+          rightNav.style.removeProperty('display');
+          console.log("TOC: hiding (added right-nav-hidden)");
         }
+
+        console.log("After toggle - classList:", rightNav.className);
+        console.log("Computed display:", window.getComputedStyle(rightNav).display);
       } else {
         console.warn("No #article-toc element found");
       }
@@ -118,8 +226,10 @@ const { enableToc = false } = Astro.props;
     }
 
     if (key === "t") {
+      console.log("→ T pressed, starting sequence. Will clear after 1500ms");
       startSequence("t");
     } else {
+      console.log("Key is not 't', resetting sequence");
       resetSequence();
     }
   });

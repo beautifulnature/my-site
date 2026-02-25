@@ -1,11 +1,63 @@
+/* Set all paragraph text to abstract paragraph color globally */
+p {
+  color: var(--color-paragraph) !important;
+}
+/* Set all headings to abstract heading color */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-heading);
+}
+/* Utility class for accent color text */
+.text-accent {
+  color: var(--color-accent) !important;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* your existing body styles */
-body {
+/* body {
   @apply bg-slate-950 text-slate-50;
+} */
+
+  /* antialiased text, light background, dark text */
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-bg) !important;
+  color: var(--color-text);
+
+:root {
+  --timefold-purple: #9353c9;
+  --primary: #4900f8;
+  --timefold-blue: #4f62f5;
+  --timefold-green: #00c85e;
+  --timefold-yellow: #f5b200;
+  --timefold-orange: #fc6d00;
+  --timefold-red: #f51515;
+  --timefold-brown: #a65908;
+  --timefold-text: #12131c;
+  --timefold-dark-grey: #89898b;
+  --timefold-light-grey: #e5e5e6;
+
+  /* Abstract color roles */
+  --color-bg: var(--timefold-light-grey);
+  --color-text: #12131c;
+  --color-heading: #000;
+  --color-paragraph: #000;
+  --color-accent: var(--timefold-purple);
 }
+
+
+/* @layer base { 
+  body {
+    @apply bg-slate-950 text-slate-50 font-sans antialiased;
+  }
+  
+  :root {
+    --primary-blue: #0ea5e9;
+    --accent-orange: #f97316;
+  }
+}
+*/
 
 /* custom utility to hide the sidebar */
 .sidebar-hidden {
@@ -14,4 +66,9 @@ body {
 
 .right-nav-hidden {
     display: none !important;
+}
+
+/* force-show TOC on small screens when toggled */
+.right-nav-shown {
+  display: block !important;
 }

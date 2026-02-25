@@ -1,0 +1,13 @@
+---
+import DocsLayout from '../layouts/Docs.astro';
+import SampleTypst from '../content/math/sample.typ';
+import Matrix from '../content/math/matrix.md';
+---
+
+<DocsLayout title="Math">
+  <h1 class="text-3xl font-bold mb-6 text-black">Math Demo</h1>
+  <section class="prose max-w-none mb-8 text-slate-900">
+    <SampleTypst />
+    <Matrix />
+  </section>
+</DocsLayout>

@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import DocsTocScript from '../components/DocsTocScript.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 const { title, enableToc = false } = Astro.props;
 ---
@@ -10,53 +12,42 @@ const { title, enableToc = false } = Astro.props;
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-slate-950 text-slate-50">
-    <div class="flex min-h-screen">
+  <body class="min-h-screen bg-[#e5e5e6] text-black">
+    <div class="flex min-h-screen pt-16">
+      <Header />
       <!-- LEFT NAV -->
       <aside
         id="sidebar"
-        class="w-64 border-r border-slate-800 p-6 md:block sidebar-hidden"
+        class="w-64 border-r border-slate-800 p-6 md:block sidebar-hidden text-black"
       >
+        <button id="sidebar-toggle-btn" class="mb-4 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 focus:outline-none md:hidden">
+          Toggle Navigation
+        </button>
         <h2 class="mb-4 text-lg font-semibold">Navigation</h2>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
-            Docs
-          </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
-            <li><a href="/" class="hover:text-white">Overview</a></li>
-            <li><a href="/patterns" class="hover:text-white">Patterns</a></li>
-            <li><a href="/docs/api" class="hover:text-white">API</a></li>
+          <ul class="space-y-1 text-sm">
+            <li><a href="/docs" class="hover:text-white">Documentation</a></li>
           </ul>
         </div>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
-            Math
-          </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
-            <li><a href="/math" class="hover:text-white">Overview</a></li>
-            <li><a href="/math/matrix" class="hover:text-white">Matrix Notes</a></li>
-            <li><a href="/math/optimization" class="hover:text-white">Optimization</a></li>
+          <ul class="space-y-1 text-sm">
+            <li><a href="/math" class="hover:text-white">Math</a></li>
           </ul>
         </div>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
-            Notes
-          </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
-            <li><a href="/notes" class="hover:text-white">All Notes</a></li>
-            <li><a href="/notes/today" class="hover:text-white">Today</a></li>
-            <li><a href="/notes/ideas" class="hover:text-white">Ideas</a></li>
+          <ul class="space-y-1 text-sm">
+            <li><a href="/notes" class="hover:text-white">Notes</a></li>
           </ul>
         </div>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide">
             Resources
           </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
+          <ul class="space-y-1 text-sm">
             <li><a href="/resources" class="hover:text-white">Overview</a></li>
             <li><a href="/blog" class="hover:text-white">Blog</a></li>
             <li><a href="/resources/videos" class="hover:text-white">Videos</a></li>
@@ -78,19 +69,16 @@ const { title, enableToc = false } = Astro.props;
 
       <!-- MAIN + RIGHT TOC -->
       <main class="flex flex-1">
-        <div
-          id="article-root"
-          class="mx-auto flex-1 max-w-3xl p-6 md:p-10"
-        >
+        <div class="mx-auto flex-1 max-w-3xl p-6 md:p-10">
           <slot />
         </div>
 
         {enableToc && (
           <aside
             id="article-toc"
-            class="hidden w-64 border-l border-slate-800 p-4 text-sm text-slate-300 xl:block"
+            class="hidden xl:block w-64 border-l border-slate-800 p-4 text-sm text-black sticky top-16 self-start"
           >
-            <h2 class="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <h2 class="mb-3 text-xs font-semibold uppercase tracking-wide">
               On this page
             </h2>
             <nav>
@@ -102,5 +90,6 @@ const { title, enableToc = false } = Astro.props;
     </div>
 
     <DocsTocScript enableToc={enableToc} />
+    <Footer />
   </body>
 </html>

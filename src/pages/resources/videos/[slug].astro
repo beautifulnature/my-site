@@ -1,7 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
-import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
-import ShareBar from '../../../components/ShareBar.astro';
+import DocsLayout from '../../../layouts/Docs.astro';
+import ResponsiveShareBar from '../../../components/ResponsiveShareBar.astro';
+import ResourceIcons from '../../../components/ResourceIcons.astro';
+
+// Color constants
+const COLOR_PRIMARY = '#4900f8';
+const COLOR_SECONDARY = '#9353c9';
+const COLOR_BORDER = 'border-slate-700';
+const COLOR_BG = 'bg-black';
+const COLOR_BG_CARD = 'bg-slate-900/60';
+const COLOR_TEXT = 'text-black';
+const COLOR_TEXT_LIGHT = 'text-slate-400';
+const COLOR_BORDER_CARD = 'border-slate-200';
+const COLOR_WHITE = 'white';
 
 export async function getStaticPaths() {
   const videos = await getCollection('videos');
@@ -18,32 +30,65 @@ const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
 const pageUrl = origin
   ? `${origin}/resources/videos/${video.slug}/`
   : `/resources/videos/${video.slug}/`;
+
+// Get all videos, sorted newest → oldest
+const allVideos = (await getCollection('videos')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+// Find current index
+const currentIndex = allVideos.findIndex((v) => v.slug === video.slug);
+
+// Take next 3 videos after current one
+const moreVideos =
+  currentIndex === -1 ? [] : allVideos.slice(currentIndex + 1, currentIndex + 4);
 ---
 
-<ResourcesLayout
-  title={video.data.title}
-  description={video.data.description}
-  currentPath="/resources/videos"
->
-  <article class="prose prose-invert max-w-none">
+<DocsLayout>
+  <article class="prose max-w-none text-slate-900">
+    {/* Top row: Videos back link only, right-aligned */}
+    <div class="mb-4 flex justify-end">
+      <a
+        href="/resources/videos"
+        class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#4900f8] px-6 py-2 text-lg font-bold text-white shadow-sm transition-colors hover:bg-[#9353c9] hover:text-white no-underline"
+      >
+        <span class="flex h-5 w-5 items-center justify-center rounded-full">
+          <ResourceIcons name="videos" size={32} color={COLOR_WHITE} />
+        </span>
+        <span style="font-size: 18px;">Videos</span>
+      </a>
+    </div>
+
     {/* meta + share row */}
-    <div class="mb-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3 text-xs {COLOR_TEXT}">
       <div class="flex flex-wrap items-center gap-3">
         <span>{video.data.date.toLocaleDateString()}</span>
         {video.data.length && (
           <>
-            <span class="h-1 w-1 rounded-full bg-slate-600" />
+            <span class="h-1 w-1 rounded-full bg-[${COLOR_TEXT}]" />
             <span>{video.data.length}</span>
+          </>
+        )}
+        {video.data.tags && video.data.tags.length > 0 && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-[${COLOR_PRIMARY}]" />
+            <span class="flex flex-wrap gap-1">
+              {video.data.tags.map((tag) => (
+                <span class="rounded-full border border-[${COLOR_PRIMARY}] px-2 py-0.5 text-[10px] uppercase tracking-wide">
+                  {tag}
+                </span>
+              ))}
+            </span>
           </>
         )}
       </div>
 
-      <ShareBar url={pageUrl} title={video.data.title} />
+      <ResponsiveShareBar url={pageUrl} title={video.data.title} />
     </div>
 
     {/* responsive YouTube embed */}
     {video.data.youtubeId && (
-      <div class="mb-6 overflow-hidden rounded-xl border border-slate-800 bg-black">
+      <div class="mb-6 overflow-hidden rounded-xl border ${COLOR_BORDER} ${COLOR_BG}">
         <div class="aspect-video">
           <iframe
             class="h-full w-full"
@@ -59,4 +104,49 @@ const pageUrl = origin
 
     <Content />
   </article>
-</ResourcesLayout>
+
+  {/* More videos – OUTSIDE article, similar pattern to blog */}
+  {moreVideos.length > 0 && (
+    <section class="mt-12 border-t-4 pt-6" style={`border-color: ${COLOR_PRIMARY};`} data-toc-exclude>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide" style={`color: ${COLOR_PRIMARY};`}>
+        More videos
+      </h2>
+      <div class="grid gap-4 md:grid-cols-3" id="more-videos-grid">
+        {moreVideos.map((v) => (
+          <div
+            class="flex flex-col rounded-xl border p-4 more-videos-card"
+            style={`border-color: ${COLOR_BORDER_CARD}; transition: border-color 0.2s; position: relative;`}
+          >
+            <p class="mb-1 text-[11px] uppercase tracking-wide" style={`color: ${COLOR_TEXT};`}>
+              {v.data.date.toLocaleDateString()}
+            </p>
+            <h3 class="text-sm font-semibold" style={`color: ${COLOR_TEXT};`}>
+              {v.data.title}
+            </h3>
+            {v.data.length && (
+              <p class="mt-2 text-xs" style={`color: ${COLOR_TEXT};`}>
+                {v.data.length}
+              </p>
+            )}
+            <a href={`/resources/videos/${v.slug}/`} style="display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;" />
+          </div>
+        ))}
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const COLOR_PRIMARY = '#4900f8';
+          const COLOR_BORDER_CARD = 'rgb(226, 232, 240)'; // border-slate-200
+          const cards = document.querySelectorAll('.more-videos-card');
+          cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+              (card as HTMLElement).style.borderColor = COLOR_PRIMARY;
+            });
+            card.addEventListener('mouseleave', function() {
+              (card as HTMLElement).style.borderColor = COLOR_BORDER_CARD;
+            });
+          });
+        });
+      </script>
+    </section>
+  )}
+</DocsLayout>

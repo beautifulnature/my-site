@@ -1,0 +1,27 @@
+---
+// TagFilter.astro: Astro Island for interactive tag filtering
+const { items = [], dateField = 'date', titleField = 'title' } = Astro.props;
+const allTags = [...new Set(items.flatMap((item: any) => item.data.tags || []))];
+let selectedTag = '';
+const filteredItems = () => selectedTag
+  ? items.filter((item: any) => (item.data.tags || []).includes(selectedTag))
+  : items;
+---
+<div class="flex flex-wrap gap-2 mb-6">
+  {allTags.map((tag: any) => {
+    return (
+      <button
+        type="button"
+        class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${selectedTag === tag ? 'bg-[#4900f8] text-white border-[#4900f8]' : 'border-[#4900f8] text-[#4900f8] bg-white hover:bg-[#4900f8] hover:text-white'}`}
+        onclick={`selectedTag='${tag}'`}
+        aria-pressed={selectedTag === tag}
+      >
+        {tag}
+      </button>
+    );
+  })}
+  {selectedTag && (
+    <button
+      type="button"
+      class="rounded-full border border-slate-400 px-3 py-1 text-xs uppercase tracking-wide bg-white text-slate-600 ml-2"
+      onclick="selectedTag=''"

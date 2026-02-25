@@ -1,7 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
-import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
-import ShareBar from '../../../components/ShareBar.astro';
+import DocsLayout from '../../../layouts/Docs.astro';
+import ResponsiveShareBar from '../../../components/ResponsiveShareBar.astro';
+import ResourceIcons from '../../../components/ResourceIcons.astro';
+
+// Color constants
+const COLOR_PRIMARY = '#4900f8';
+const COLOR_SECONDARY = '#9353c9';
+const COLOR_BORDER = 'border-slate-700';
+const COLOR_TEXT = 'text-black';
+const COLOR_TEXT_LIGHT = 'text-slate-400';
+const COLOR_BORDER_CARD = 'border-slate-200';
+const COLOR_WHITE = 'white';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -19,15 +29,36 @@ const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
 const pageUrl = origin
   ? `${origin}/resources/events/${event.slug}/`
   : `/resources/events/${event.slug}/`;
+
+// Get all events, sorted newest → oldest
+const allEvents = (await getCollection('events')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+// Find current index
+const currentIndex = allEvents.findIndex((e) => e.slug === event.slug);
+
+// Take next 3 events after current one
+const moreEvents =
+  currentIndex === -1 ? [] : allEvents.slice(currentIndex + 1, currentIndex + 4);
 ---
 
-<ResourcesLayout
-  title={event.data.title}
-  description={event.data.description}
-  currentPath="/resources/events"
->
-  <article class="prose prose-invert max-w-none">
-    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+<DocsLayout>
+  <article class="prose max-w-none text-slate-900">
+    {/* Back to events index */}
+    <div class="mb-4 flex justify-end">
+      <a
+        href="/resources/events"
+        class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#4900f8] px-6 py-2 text-lg font-bold text-white shadow-sm transition-colors hover:bg-[#9353c9] hover:text-white no-underline"
+      >
+        <span class="flex h-6 w-6 items-center justify-center rounded-full">
+          <ResourceIcons name="events" size={18} color="white" />
+        </span>
+        <span style="font-size: 18px;">Events</span>
+      </a>
+    </div>
+
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-black">
       {/* left: meta */}
       <div class="flex flex-wrap items-center gap-3">
         <span>{event.data.date.toLocaleDateString()}</span>
@@ -46,18 +77,75 @@ const pageUrl = origin
               href={event.data.url}
               target="_blank"
               rel="noreferrer"
-              class="underline hover:text-sky-300"
+              class="underline hover:text-[#4900f8]"
             >
               Registration
             </a>
           </>
         )}
+        {event.data.tags && event.data.tags.length > 0 && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-[#4900f8]" />
+            <span class="flex flex-wrap gap-1">
+              {event.data.tags.map((tag) => (
+                <span class="rounded-full border border-[#4900f8] px-2 py-0.5 text-[10px] uppercase tracking-wide">
+                  {tag}
+                </span>
+              ))}
+            </span>
+          </>
+        )}
       </div>
 
       {/* right: shared social icons */}
-      <ShareBar url={pageUrl} title={event.data.title} />
+      <ResponsiveShareBar url={pageUrl} title={event.data.title} />
     </div>
 
     <Content />
   </article>
-</ResourcesLayout>
+
+  {/* More events – OUTSIDE article */}
+  {moreEvents.length > 0 && (
+    <section class="mt-12 border-t-4 pt-6" style={`border-color: ${COLOR_PRIMARY};`} data-toc-exclude>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide" style={`color: ${COLOR_PRIMARY};`}>
+        More events
+      </h2>
+      <div class="grid gap-4 md:grid-cols-3" id="more-events-grid">
+        {moreEvents.map((e) => (
+          <a
+            href={`/resources/events/${e.slug}/`}
+            class="flex flex-col rounded-xl border p-4 more-events-card"
+            style={`border-color: ${COLOR_BORDER_CARD}; transition: border-color 0.2s; position: relative;`}
+          >
+            <p class="mb-1 text-[11px] uppercase tracking-wide" style={`color: ${COLOR_TEXT_LIGHT};`}>
+              {e.data.date.toLocaleDateString()}
+            </p>
+            <h3 class="text-sm font-semibold" style={`color: ${COLOR_TEXT};`}>
+              {e.data.title}
+            </h3>
+            {e.data.location && (
+              <p class="mt-2 text-xs" style={`color: ${COLOR_TEXT_LIGHT};`}>
+                {e.data.location}
+              </p>
+            )}
+          </a>
+        ))}
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const COLOR_PRIMARY = '#4900f8';
+          const COLOR_BORDER_CARD = 'rgb(226, 232, 240)'; // border-slate-200
+          const cards = document.querySelectorAll('.more-events-card');
+          cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+              (card as HTMLElement).style.borderColor = COLOR_PRIMARY;
+            });
+            card.addEventListener('mouseleave', function() {
+              (card as HTMLElement).style.borderColor = COLOR_BORDER_CARD;
+            });
+          });
+        });
+      </script>
+    </section>
+  )}
+</DocsLayout>

@@ -1,6 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import DocsLayout from '../../../layouts/Docs.astro';
+import ResponsiveShareBar from '../../../components/ResponsiveShareBar.astro';
+import ResourceIcons from '../../../components/ResourceIcons.astro';
+
+// Color constants
+const COLOR_PRIMARY = '#4900f8';
+const COLOR_SECONDARY = '#9353c9';
+const COLOR_BORDER = 'border-slate-700';
+const COLOR_TEXT = 'text-black';
+const COLOR_TEXT_LIGHT = 'text-slate-400';
+const COLOR_BORDER_CARD = 'border-slate-200';
+const COLOR_WHITE = 'white';
 
 export async function getStaticPaths() {
   const stories = await getCollection('stories');
@@ -12,21 +23,110 @@ export async function getStaticPaths() {
 
 const { story } = Astro.props;
 const { Content } = await story.render();
+
+const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
+const pageUrl = origin
+  ? `${origin}/resources/stories/${story.slug}/`
+  : `/resources/stories/${story.slug}/`;
+
+// Get all stories, sorted newest → oldest
+const allStories = (await getCollection('stories')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+// Find current index
+const currentIndex = allStories.findIndex((s) => s.slug === story.slug);
+
+// Take next 3 stories after current one
+const moreStories =
+  currentIndex === -1 ? [] : allStories.slice(currentIndex + 1, currentIndex + 4);
 ---
 
-<DocsLayout title={story.data.title}>
-  <article class="prose prose-invert max-w-none">
-    <h1>{story.data.title}</h1>
+<DocsLayout>
+  <article class="prose max-w-none text-slate-900">
+    {/* Top row: Customer stories back link only, right-aligned */}
+    <div class="mb-4 flex justify-end">
+      <a
+        href="/resources/stories"
+        class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#4900f8] px-6 py-2 text-lg font-bold text-white shadow-sm transition-colors hover:bg-[#9353c9] hover:text-white no-underline"
+      >
+        <span class="flex h-6 w-6 items-center justify-center rounded-full">
+          <ResourceIcons name="stories" size={18} color="white" />
+        </span>
+        <span style="font-size: 18px;">Customer Stories</span>
+      </a>
+    </div>
 
-    <p class="text-xs text-slate-500">
-      {story.data.date.toLocaleDateString()}
-      {story.data.industry ? ` · ${story.data.industry}` : ''}
-    </p>
+    {/* Meta row: date, customer, and share */}
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs" style={`color: ${COLOR_TEXT};`}>
+      {/* left: meta */}
+      <div class="flex flex-col gap-1">
+        <p class="m-0 text-xs">
+          {story.data.date.toLocaleDateString()}
+          {story.data.industry ? ` · ${story.data.industry}` : ''}
+        </p>
+        <p class="m-0 text-sm">
+          {story.data.customer}
+        </p>
+        {story.data.tags && story.data.tags.length > 0 && (
+          <span class="flex flex-wrap gap-1 mt-1">
+            {story.data.tags.map((tag) => (
+              <span class="rounded-full border border-[#4900f8] px-2 py-0.5 text-[10px] uppercase tracking-wide">
+                {tag}
+              </span>
+            ))}
+          </span>
+        )}
+      </div>
 
-    <p class="text-sm text-slate-300 mb-4">
-      {story.data.customer}
-    </p>
+      <ResponsiveShareBar url={pageUrl} title={story.data.title} />
+    </div>
 
     <Content />
   </article>
+
+  {/* More stories – OUTSIDE article */}
+  {moreStories.length > 0 && (
+    <section class="mt-12 border-t-4 pt-6" style={`border-color: ${COLOR_PRIMARY};`} data-toc-exclude>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide" style={`color: ${COLOR_PRIMARY};`}>
+        More stories
+      </h2>
+      <div class="grid gap-4 md:grid-cols-3" id="more-stories-grid">
+        {moreStories.map((s) => (
+          <a
+            href={`/resources/stories/${s.slug}/`}
+            class="flex flex-col rounded-xl border p-4 more-stories-card"
+            style={`border-color: ${COLOR_BORDER_CARD}; transition: border-color 0.2s; position: relative;`}
+          >
+            <p class="mb-1 text-[11px] uppercase tracking-wide" style={`color: ${COLOR_TEXT_LIGHT};`}>
+              {s.data.date.toLocaleDateString()}
+            </p>
+            <h3 class="text-sm font-semibold" style={`color: ${COLOR_TEXT};`}>
+              {s.data.title}
+            </h3>
+            {s.data.customer && (
+              <p class="mt-2 text-xs" style={`color: ${COLOR_TEXT_LIGHT};`}>
+                {s.data.customer}
+              </p>
+            )}
+          </a>
+        ))}
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const COLOR_PRIMARY = '#4900f8';
+          const COLOR_BORDER_CARD = 'rgb(226, 232, 240)'; // border-slate-200
+          const cards = document.querySelectorAll('.more-stories-card');
+          cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+              (card as HTMLElement).style.borderColor = COLOR_PRIMARY;
+            });
+            card.addEventListener('mouseleave', function() {
+              (card as HTMLElement).style.borderColor = COLOR_BORDER_CARD;
+            });
+          });
+        });
+      </script>
+    </section>
+  )}
 </DocsLayout>

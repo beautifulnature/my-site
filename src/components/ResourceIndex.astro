@@ -7,15 +7,17 @@ type Item = {
 
 const {
   items = [],
-  // config for fields
   dateField = 'date',
-  metaField,          // e.g. 'length', 'industry', 'location', 'outlet', 'issue'
-  metaLabel,          // optional override label if you want custom text
+  metaField,
+  metaLabel,
   titleField = 'title',
-  subtitleField,      // e.g. 'customer'
+  subtitleField,
   showBody = false,
   isHeroLinkExternal = false,
-  heroExternalUrlField, // e.g. 'url' for events
+  heroExternalUrlField,
+  selectedTagOverride,
+  tagBasePath,
+  tagAllPath,
 } = Astro.props as {
   items: Item[];
   dateField?: string;
@@ -26,13 +28,59 @@ const {
   showBody?: boolean;
   isHeroLinkExternal?: boolean;
   heroExternalUrlField?: string;
+  selectedTagOverride?: string;
+  tagBasePath?: string;
+  tagAllPath?: string;
 };
+
+const normalizeTag = (tag: string) => tag.trim().toLowerCase();
+
+const selectedTag = (selectedTagOverride ?? decodeURIComponent(Astro.url.searchParams.get('tag') || ''))
+  .trim()
+  .toLowerCase();
+
+const buildTagHref = (tag?: string) => {
+  if (tagBasePath) {
+    if (!tag) return tagAllPath || tagBasePath.replace(/\/tag\/?$/, '');
+    return `${tagBasePath.replace(/\/$/, '')}/${encodeURIComponent(normalizeTag(tag))}`;
+  }
+  const params = new URLSearchParams(Astro.url.searchParams);
+  if (tag) params.set('tag', normalizeTag(tag));
+  else params.delete('tag');
+  const qs = params.toString();
+  return qs ? `${Astro.url.pathname}?${qs}` : Astro.url.pathname;
+};
+
+const allTags = Array.from(new Set(items.flatMap(item => item.data.tags || [])));
+
+const filteredItems = selectedTag
+  ? items.filter(item =>
+      Array.isArray(item.data.tags) &&
+      item.data.tags.some((tag: string) => tag && normalizeTag(tag) === selectedTag)
+    )
+  : items;
+
+const [latestFiltered, ...restFiltered] = filteredItems.length > 0 ? filteredItems : [];
 
 if (!items.length) {
   throw new Error('ResourceIndex: items is empty');
 }
 
-const [latest, ...rest] = items;
+import ResourceIcons from './ResourceIcons.astro';
+
+const getIconName = () => {
+  const path = Astro.url.pathname;
+  if (path.startsWith('/blog')) return 'blog';
+  if (path.startsWith('/resources/videos')) return 'videos';
+  if (path.startsWith('/resources/stories')) return 'stories';
+  if (path.startsWith('/resources/events')) return 'events';
+  if (path.startsWith('/resources/press')) return 'press';
+  if (path.startsWith('/resources/newsletter')) return 'newsletter';
+  return 'blog';
+};
+
+const iconName = getIconName();
+
 const formatMeta = (item: Item) => {
   if (!metaField) return '';
   const v = item.data[metaField];
@@ -40,73 +88,94 @@ const formatMeta = (item: Item) => {
   if (metaLabel) return ` · ${metaLabel}: ${v}`;
   return ` · ${v}`;
 };
+
+const getItemHref = (item: Item) => {
+  if (isHeroLinkExternal && heroExternalUrlField && item.data[heroExternalUrlField]) {
+    return String(item.data[heroExternalUrlField]);
+  }
+  const basePath = Astro.url.pathname.replace(/\/tag\/[^/]+$/, '').replace(/\/$/, '');
+  return `${basePath}/${item.slug}`;
+};
+
+const formatDate = (item: Item) => {
+  const v = item.data[dateField];
+  if (!v) return '';
+  const d = v instanceof Date ? v : new Date(v);
+  return isNaN(d.getTime())
+    ? String(v)
+    : d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+};
 ---
 
-{latest && (
-  <article class="mb-10 border border-slate-800 rounded-2xl bg-slate-900/60 p-6 md:p-8">
-    <p class="text-xs text-slate-500 mb-2">
-      {latest.data[dateField].toLocaleDateString()}
-      {formatMeta(latest)}
-    </p>
+{allTags.length > 0 && (
+  <div class="flex flex-wrap gap-2 mb-6">
+    <a
+      class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${!selectedTag ? 'bg-[#4900f8] text-white border-[#4900f8]' : 'border-[#4900f8] text-[#4900f8] bg-white hover:bg-[#4900f8] hover:text-white'}`}
+      href={buildTagHref()}
+    >
+      All
+    </a>
 
-    {!isHeroLinkExternal && (
+    {allTags.map(tag => (
       <a
-        href={`${Astro.url.pathname}/${latest.slug}`.replace(/\/$/, '')}
-        class="text-2xl font-semibold text-sky-400 hover:text-sky-300"
+        class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${selectedTag === normalizeTag(tag) ? 'bg-[#4900f8] text-white border-[#4900f8]' : 'border-[#4900f8] text-[#4900f8] bg-white hover:bg-[#4900f8] hover:text-white'}`}
+        href={buildTagHref(tag)}
       >
-        {latest.data[titleField]}
+        {tag}
       </a>
-    )}
+    ))}
+  </div>
+)}
 
-    {isHeroLinkExternal && heroExternalUrlField && (
+{latestFiltered ? (
+  <article class="mb-10 rounded-2xl border p-6">
+    <div class="mb-3 flex items-center gap-2 text-sm text-slate-600">
+      <ResourceIcons name={iconName} />
+      <span>{formatDate(latestFiltered)}{formatMeta(latestFiltered)}</span>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-2">
       <a
-        href={latest.data[heroExternalUrlField]}
-        target="_blank"
-        class="text-2xl font-semibold text-sky-400 hover:text-sky-300"
+        href={getItemHref(latestFiltered)}
+        target={isHeroLinkExternal ? '_blank' : undefined}
+        rel={isHeroLinkExternal ? 'noreferrer' : undefined}
+        class="hover:underline"
       >
-        {latest.data[titleField]}
+        {latestFiltered.data[titleField]}
       </a>
+    </h2>
+
+    {subtitleField && latestFiltered.data[subtitleField] && (
+      <p class="text-slate-600 mb-3">{latestFiltered.data[subtitleField]}</p>
     )}
 
-    {subtitleField && latest.data[subtitleField] && (
-      <p class="mt-3 text-sm text-slate-300">
-        {latest.data[subtitleField]}
-      </p>
-    )}
-
-    {showBody && latest.body && (
-      <p class="mt-3 text-slate-300">
-        {latest.body}
-      </p>
+    {showBody && latestFiltered.body && (
+      <div class="prose max-w-none" set:html={latestFiltered.body} />
     )}
   </article>
+) : (
+  <p class="text-sm text-slate-600">No items match this tag.</p>
 )}
 
 <section aria-label="More items">
   <div class="grid gap-6 md:grid-cols-2">
-    {rest.map((item) => (
-      <article class="border border-slate-800 rounded-xl bg-slate-900/60 p-5">
-        <p class="text-xs text-slate-500 mb-1">
-          {item.data[dateField].toLocaleDateString()}
-          {formatMeta(item)}
-        </p>
-        <a
-          href={`${Astro.url.pathname}/${item.slug}`.replace(/\/$/, '')}
-          class="text-lg font-semibold text-sky-400 hover:text-sky-300"
-        >
-          {item.data[titleField]}
-        </a>
+    {restFiltered.map((item) => (
+      <article class="rounded-2xl border p-5">
+        <div class="mb-2 text-xs uppercase tracking-wide text-slate-500">
+          {formatDate(item)}{formatMeta(item)}
+        </div>
+
+        <h3 class="text-lg font-semibold mb-1">
+          <a
+            href={getItemHref(item)}
+            class="hover:underline"
+          >
+            {item.data[titleField]}
+          </a>
+        </h3>
 
         {subtitleField && item.data[subtitleField] && (
-          <p class="mt-2 text-sm text-slate-300">
-            {item.data[subtitleField]}
-          </p>
-        )}
-
-        {showBody && item.body && (
-          <p class="mt-2 text-sm text-slate-300">
-            {item.body}
-          </p>
+          <p class="text-slate-600">{item.data[subtitleField]}</p>
         )}
       </article>
     ))}

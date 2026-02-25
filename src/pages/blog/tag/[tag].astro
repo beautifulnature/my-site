@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../components/ResourceIndex.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog');
+  const tags = Array.from(new Set(all.flatMap(p => p.data.tags || [])))
+    .map(t => String(t).trim().toLowerCase())
+    .filter(Boolean);
+  return tags.map(tag => ({ params: { tag } }));
+}
+
+const selectedTag = String(Astro.params.tag || '').trim().toLowerCase();
+---
+
+<ResourcesLayout
+  title="Blog"
+  description="Insights, deep dives, and updates on planning and optimization."
+  descriptionClass="desc-black"
+  currentPath="/blog"
+>
+  <ResourceIndex
+    items={posts}
+    dateField="date"
+    titleField="title"
+    selectedTagOverride={selectedTag}
+    tagBasePath="/blog/tag"
+    tagAllPath="/blog"
+  />
+</ResourcesLayout>

@@ -1,37 +1,68 @@
 ---
 import DocsLayout from '../../layouts/Docs.astro';
+import ResourceIcons from '../../components/ResourceIcons.astro';
 ---
 
 <DocsLayout title="Resources">
-  <h1 class="text-3xl font-bold mb-6">Resources</h1>
-  <p class="text-slate-300 mb-8">
+  <h1 class="text-3xl font-bold mb-6 text-black">Resources</h1>
+  <p class="text-slate-900 mb-8">
     Explore blog posts, videos, customer stories, events, press, and newsletters.
   </p>
 
   <div class="grid gap-6 md:grid-cols-2">
-    <a href="/blog" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
-      <h2 class="text-xl font-semibold mb-1">Blog</h2>
-      <p class="text-sm text-slate-300">Deep dives into optimization patterns and implementation details.</p>
+    <a href="/blog" class="flex items-start gap-4 p-5 rounded-xl border border-slate-200 bg-white hover:border-[#4900f8] transition-colors">
+      <span class="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#f3f0ff]">
+        <ResourceIcons name="blog" size={24} color="#4900f8" />
+      </span>
+      <span>
+        <h2 class="text-xl font-semibold mb-1 text-slate-900">Blog</h2>
+        <p class="text-sm text-slate-700">Deep dives into optimization patterns and implementation details.</p>
+      </span>
     </a>
-    <a href="/resources/videos" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
-      <h2 class="text-xl font-semibold mb-1">Videos</h2>
-      <p class="text-sm text-slate-300">Short explainers and demos of solver features.</p>
+    <a href="/resources/videos" class="flex items-start gap-4 p-5 rounded-xl border border-slate-200 bg-white hover:border-[#4900f8] transition-colors">
+      <span class="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#f3f0ff]">
+        <ResourceIcons name="videos" size={24} color="#4900f8" />
+      </span>
+      <span>
+        <h2 class="text-xl font-semibold mb-1 text-slate-900">Videos</h2>
+        <p class="text-sm text-slate-700">Short explainers and demos of solver features.</p>
+      </span>
     </a>
-    <a href="/resources/stories" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
-      <h2 class="text-xl font-semibold mb-1">Customer stories</h2>
-      <p class="text-sm text-slate-300">Real-world results from scheduling and routing projects.</p>
+    <a href="/resources/stories" class="flex items-start gap-4 p-5 rounded-xl border border-slate-200 bg-white hover:border-[#4900f8] transition-colors">
+      <span class="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#f3f0ff]">
+        <ResourceIcons name="stories" size={24} color="#4900f8" />
+      </span>
+      <span>
+        <h2 class="text-xl font-semibold mb-1 text-slate-900">Customer stories</h2>
+        <p class="text-sm text-slate-700">Real-world results from scheduling and routing projects.</p>
+      </span>
     </a>
-    <a href="/resources/events" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
-      <h2 class="text-xl font-semibold mb-1">Events</h2>
-      <p class="text-sm text-slate-300">Upcoming talks, webinars, and workshops.</p>
+    <a href="/resources/events" class="flex items-start gap-4 p-5 rounded-xl border border-slate-200 bg-white hover:border-[#4900f8] transition-colors">
+      <span class="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#f3f0ff]">
+        <ResourceIcons name="events" size={24} color="#4900f8" />
+      </span>
+      <span>
+        <h2 class="text-xl font-semibold mb-1 text-slate-900">Events</h2>
+        <p class="text-sm text-slate-700">Upcoming talks, webinars, and workshops.</p>
+      </span>
     </a>
-    <a href="/resources/press" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
-      <h2 class="text-xl font-semibold mb-1">Press</h2>
-      <p class="text-sm text-slate-300">Mentions and articles from around the web.</p>
+    <a href="/resources/press" class="flex items-start gap-4 p-5 rounded-xl border border-slate-200 bg-white hover:border-[#4900f8] transition-colors">
+      <span class="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#f3f0ff]">
+        <ResourceIcons name="press" size={24} color="#4900f8" />
+      </span>
+      <span>
+        <h2 class="text-xl font-semibold mb-1 text-slate-900">Press</h2>
+        <p class="text-sm text-slate-700">Mentions and articles from around the web.</p>
+      </span>
     </a>
-    <a href="/resources/newsletter" class="block p-5 rounded-xl border border-slate-800 bg-slate-900/60 hover:border-sky-500 transition-colors">
-      <h2 class="text-xl font-semibold mb-1">Newsletter</h2>
-      <p class="text-sm text-slate-300">Periodic updates on new features and case studies.</p>
+    <a href="/resources/newsletter" class="flex items-start gap-4 p-5 rounded-xl border border-slate-200 bg-white hover:border-[#4900f8] transition-colors">
+      <span class="inline-flex items-center justify-center rounded-full w-10 h-10 bg-[#f3f0ff]">
+        <ResourceIcons name="newsletter" size={24} color="#4900f8" />
+      </span>
+      <span>
+        <h2 class="text-xl font-semibold mb-1 text-slate-900">Newsletter</h2>
+        <p class="text-sm text-slate-700">Periodic updates on new features and case studies.</p>
+      </span>
     </a>
   </div>
 </DocsLayout>

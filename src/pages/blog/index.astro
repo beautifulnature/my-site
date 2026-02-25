@@ -11,12 +11,14 @@ const posts = (await getCollection('blog')).sort(
 <ResourcesLayout
   title="Blog"
   description="Insights, deep dives, and updates on planning and optimization."
+  descriptionClass="desc-black"
   currentPath="/blog"
 >
   <ResourceIndex
     items={posts}
     dateField="date"
     titleField="title"
-    showBody={false}
+    tagBasePath="/blog/tag"
+    tagAllPath="/blog"
   />
 </ResourcesLayout>

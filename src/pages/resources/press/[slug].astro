@@ -1,7 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
-import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
-import ShareBar from '../../../components/ShareBar.astro';
+import DocsLayout from '../../../layouts/Docs.astro';
+import ResponsiveShareBar from '../../../components/ResponsiveShareBar.astro';
+import ResourceIcons from '../../../components/ResourceIcons.astro';
+
+// Color constants
+const COLOR_PRIMARY = '#4900f8';
+const COLOR_SECONDARY = '#9353c9';
+const COLOR_BORDER = 'border-slate-700';
+const COLOR_TEXT = 'text-black';
+const COLOR_TEXT_LIGHT = 'text-slate-400';
+const COLOR_BORDER_CARD = 'border-slate-200';
+const COLOR_WHITE = 'white';
 
 export async function getStaticPaths() {
   const pressItems = await getCollection('press');
@@ -20,24 +30,103 @@ const origin = Astro.request?.url
 const pageUrl = origin
   ? `${origin}/resources/press/${item.slug}/`
   : `/resources/press/${item.slug}/`;
+
+// Get all press items, sorted newest → oldest
+const allPress = (await getCollection('press')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+// Find current index
+const currentIndex = allPress.findIndex((p) => p.slug === item.slug);
+
+// Take next 3 press items after current one
+const morePress =
+  currentIndex === -1 ? [] : allPress.slice(currentIndex + 1, currentIndex + 4);
 ---
 
-<ResourcesLayout
-  title={item.data.title}
-  description={item.data.description}
-  currentPath="/resources/press"
->
-  <article class="prose prose-invert max-w-none">
-    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+<DocsLayout>
+  <article class="prose max-w-none text-black">
+    {/* Back to events index */}
+    {/* Back to press index */}
+    <div class="mb-4 flex justify-end">
+      <a
+        href="/resources/press"
+        class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#4900f8] px-6 py-2 text-lg font-bold text-white shadow-sm transition-colors hover:bg-[#9353c9] hover:text-white no-underline"
+      >
+        <span class="flex h-6 w-6 items-center justify-center rounded-full">
+          <ResourceIcons name="press" size={18} color="white" />
+        </span>
+        <span style="font-size: 18px;">Press</span>
+      </a>
+    </div>
+
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs ">
       <div class="flex flex-wrap items-center gap-3">
         <span>{item.data.date.toLocaleDateString()}</span>
         <span class="h-1 w-1 rounded-full bg-slate-600" />
         <span>{item.data.outlet}</span>
+        {item.data.tags && item.data.tags.length > 0 && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-[#4900f8]" />
+            <span class="flex flex-wrap gap-1">
+              {item.data.tags.map((tag) => (
+                <span class="rounded-full border border-[#4900f8] px-2 py-0.5 text-[10px] uppercase tracking-wide">
+                  {tag}
+                </span>
+              ))}
+            </span>
+          </>
+        )}
       </div>
 
-      <ShareBar url={pageUrl} title={item.data.title} />
+      <ResponsiveShareBar url={pageUrl} title={item.data.title} />
     </div>
 
     <Content />
   </article>
-</ResourcesLayout>
+
+  {/* More press – OUTSIDE article */}
+  {morePress.length > 0 && (
+    <section class="mt-12 border-t-4 pt-6" style={`border-color: ${COLOR_PRIMARY};`} data-toc-exclude>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide" style={`color: ${COLOR_PRIMARY};`}>
+        More press
+      </h2>
+      <div class="grid gap-4 md:grid-cols-3" id="more-press-grid">
+        {morePress.map((p) => (
+          <a
+            href={`/resources/press/${p.slug}/`}
+            class="flex flex-col rounded-xl border p-4 more-press-card"
+            style={`border-color: ${COLOR_BORDER_CARD}; transition: border-color 0.2s; position: relative;`}
+          >
+            <p class="mb-1 text-[11px] uppercase tracking-wide" style={`color: ${COLOR_TEXT_LIGHT};`}>
+              {p.data.date.toLocaleDateString()}
+            </p>
+            <h3 class="text-sm font-semibold" style={`color: ${COLOR_TEXT};`}>
+              {p.data.title}
+            </h3>
+            {p.data.outlet && (
+              <p class="mt-2 text-xs" style={`color: ${COLOR_TEXT_LIGHT};`}>
+                {p.data.outlet}
+              </p>
+            )}
+          </a>
+        ))}
+      </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const COLOR_PRIMARY = '#4900f8';
+          const COLOR_BORDER_CARD = 'rgb(226, 232, 240)'; // border-slate-200
+          const cards = document.querySelectorAll('.more-press-card');
+          cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+              (card as HTMLElement).style.borderColor = COLOR_PRIMARY;
+            });
+            card.addEventListener('mouseleave', function() {
+              (card as HTMLElement).style.borderColor = COLOR_BORDER_CARD;
+            });
+          });
+        });
+      </script>
+    </section>
+  )}
+</DocsLayout>

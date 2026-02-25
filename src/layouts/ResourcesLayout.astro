@@ -1,16 +1,21 @@
 ---
 import '../styles/global.css';
+import DocsTocScript from '../components/DocsTocScript.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ResourceIcons from '../components/ResourceIcons.astro';
 
 const {
   title = 'Resources',
   description = '',
+  descriptionClass = '',
   currentPath = '',
 } = Astro.props;
 
 const linkBase =
-  'px-3 py-1 rounded-full border border-slate-700 bg-slate-900/60 hover:border-sky-500 hover:text-sky-300';
+  'px-3 py-1 rounded-full border border-slate-700 bg-white hover:border-[#4900f8]';
 const linkActive =
-  'px-3 py-1 rounded-full border border-sky-500 bg-slate-900 text-sky-300';
+  'px-3 py-1 rounded-full border border-sky-500 bg-[#4900f8] text-white';
 ---
 
 <html lang="en">
@@ -18,61 +23,124 @@ const linkActive =
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-slate-950 text-slate-50">
-    <div class="min-h-screen px-4 py-8 md:px-10">
-      <header class="max-w-5xl mx-auto mb-8">
-        <h1 class="text-3xl font-bold mb-2">{title}</h1>
-        {description && (
-          <p class="text-slate-300">
-            {description}
-          </p>
-        )}
+  <body class="min-h-screen bg-[#e5e5e6] text-black">
+    <div class="flex min-h-screen pt-16">
+      <Header />
+      <!-- LEFT NAV -->
+      <aside
+        id="sidebar"
+        class="w-64 border-r border-slate-800 p-6 md:block sidebar-hidden"
+      >
+        <h2 class="mb-4 text-lg font-semibold">Navigation</h2>
 
-        <nav class="mt-4 flex flex-wrap gap-3 text-sm text-slate-300">
-          <a
-            href="/blog"
-            class={currentPath === '/blog' ? linkActive : linkBase}
-          >
-            Blog
-          </a>
-          <a
-            href="/resources/videos"
-            class={currentPath === '/resources/videos' ? linkActive : linkBase}
-          >
-            Videos
-          </a>
-          <a
-            href="/resources/stories"
-            class={currentPath === '/resources/stories' ? linkActive : linkBase}
-          >
-            Customer stories
-          </a>
-          <a
-            href="/resources/events"
-            class={currentPath === '/resources/events' ? linkActive : linkBase}
-          >
-            Events
-          </a>
-          <a
-            href="/resources/press"
-            class={currentPath === '/resources/press' ? linkActive : linkBase}
-          >
-            Press
-          </a>
-          <a
-            href="/resources/newsletter"
-            class={
-              currentPath === '/resources/newsletter' ? linkActive : linkBase
-            }
-          >
-            Newsletter
-          </a>
-        </nav>
-      </header>
+        <div class="mb-6">
+          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+            Docs
+          </h3>
+          <ul class="space-y-1 text-sm text-slate-300">
+            <li><a href="/" class="hover:text-white">Documentation</a></li>
+          </ul>
+        </div>
 
-      <main class="max-w-5xl mx-auto">
-        <slot />
+        <div class="mb-6">
+          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+            Math
+          </h3>
+          <ul class="space-y-1 text-sm text-slate-300">
+            <li><a href="/math/matrix" class="hover:text-white">Matrix Notes</a></li>
+          </ul>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+            Notes
+          </h3>
+          <ul class="space-y-1 text-sm text-slate-300">
+            <li><a href="/notes" class="hover:text-white">All Notes</a></li>
+          </ul>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+            Resources
+          </h3>
+          <ul class="space-y-1 text-sm text-slate-300">
+            <li><a href="/resources" class="hover:text-white">Overview</a></li>
+            <li><a href="/blog" class="hover:text-white">Blog</a></li>
+            <li><a href="/resources/videos" class="hover:text-white">Videos</a></li>
+            <li>
+              <a href="/resources/stories" class="hover:text-white">
+                Customer stories
+              </a>
+            </li>
+            <li><a href="/resources/events" class="hover:text-white">Events</a></li>
+            <li><a href="/resources/press" class="hover:text-white">Press</a></li>
+            <li>
+              <a href="/resources/newsletter" class="hover:text-white">
+                Newsletter
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-1">
+        <div class="mx-auto max-w-5xl p-4 py-8 md:px-10">
+          {title && (
+            <header class="mb-8">
+              <nav class="flex gap-3 text-sm text-slate-300 mb-4">
+                <a href="/blog" class={currentPath === '/blog' ? linkActive : linkBase} aria-label="Blog">
+                  <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/blog' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/blog' ? '' : 'background: var(--color-bg);'}>
+                    <ResourceIcons name="blog" size={20} color={currentPath === '/blog' ? 'white' : 'black'} />
+                  </span>
+                </a>
+
+                <a href="/resources/videos" class={currentPath === '/resources/videos' ? linkActive : linkBase} aria-label="Videos">
+                  <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/resources/videos' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/resources/videos' ? '' : 'background: var(--color-bg);'}>
+                    <ResourceIcons name="videos" size={20} color={currentPath === '/resources/videos' ? 'white' : 'black'} />
+                  </span>
+                </a>
+
+                <a href="/resources/stories" class={currentPath === '/resources/stories' ? linkActive : linkBase} aria-label="Customer stories">
+                  <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/resources/stories' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/resources/stories' ? '' : 'background: var(--color-bg);'}>
+                    <ResourceIcons name="stories" size={20} color={currentPath === '/resources/stories' ? 'white' : 'black'} />
+                  </span>
+                </a>
+
+                <a href="/resources/events" class={currentPath === '/resources/events' ? linkActive : linkBase} aria-label="Events">
+                  <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/resources/events' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/resources/events' ? '' : 'background: var(--color-bg);'}>
+                    <ResourceIcons name="events" size={20} color={currentPath === '/resources/events' ? 'white' : 'black'} />
+                  </span>
+                </a>
+
+                <a href="/resources/press" class={currentPath === '/resources/press' ? linkActive : linkBase} aria-label="Press">
+                  <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/resources/press' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/resources/press' ? '' : 'background: var(--color-bg);'}>
+                    <ResourceIcons name="press" size={20} color={currentPath === '/resources/press' ? 'white' : 'black'} />
+                  </span>
+                </a>
+
+                <a href="/resources/newsletter" class={currentPath === '/resources/newsletter' ? linkActive : linkBase} aria-label="Newsletter">
+                  <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/resources/newsletter' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/resources/newsletter' ? '' : 'background: var(--color-bg);'}>
+                    <ResourceIcons name="newsletter" size={20} color={currentPath === '/resources/newsletter' ? 'white' : 'black'} />
+                  </span>
+                </a>
+              </nav>
+
+              <div>
+                {description && (
+                  <p class={`text-slate-300 ${descriptionClass}`} set:html={description}></p>
+                )}
+              </div>
+            </header>
+          )}
+
+          <slot />
+        </div>
       </main>
     </div>
+
+    <DocsTocScript enableToc={false} />
+    <Footer />
   </body>
 </html>

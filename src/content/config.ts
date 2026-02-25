@@ -21,6 +21,7 @@ const videos = defineCollection({
     youtubeId: z.string().optional(),
     date: z.date(),
     length: z.string().optional(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
@@ -31,6 +32,7 @@ const stories = defineCollection({
     customer: z.string(),
     date: z.date(),
     industry: z.string().optional(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
@@ -41,6 +43,7 @@ const events = defineCollection({
     date: z.date(),
     location: z.string().optional(),
     url: z.string().optional(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
@@ -51,6 +54,7 @@ const press = defineCollection({
     outlet: z.string(),
     date: z.date(),
     url: z.string(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
@@ -60,6 +64,7 @@ const newsletter = defineCollection({
     title: z.string(),
     date: z.date(),
     issue: z.string().optional(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
