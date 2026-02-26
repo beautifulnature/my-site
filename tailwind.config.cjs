@@ -6,7 +6,7 @@ module.exports = {
         DEFAULT: {
           css: {
             'ul > li::marker': {
-              color: '#4900f8',
+              color: 'var(--primary)',
             },
           },
         },

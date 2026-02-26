@@ -3,6 +3,8 @@ import "../styles/global.css";
 import DocsTocScript from "../components/DocsTocScript.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { SIDEBAR_SECTIONS } from "../utils/navigation";
+import { SITE_CONTENT } from "../utils/siteContent";
 
 const { title, enableToc = false } = Astro.props;
 ---
@@ -24,10 +26,9 @@ const { title, enableToc = false } = Astro.props;
     <div
       class="bg-indigo-600 px-4 py-2 text-center text-[11px] font-medium tracking-wide text-white sm:py-2.5 sm:text-xs"
     >
-      Timefold launches Scheduling Intelligence: the future of workforce
-      scheduling is here.
+      {SITE_CONTENT.announcement}
       <a href="#intelligence" class="ml-2 underline underline-offset-2"
-        >Read more</a
+        >{SITE_CONTENT.announcementLinkLabel}</a
       >
     </div>
     <Header />
@@ -43,54 +44,22 @@ const { title, enableToc = false } = Astro.props;
         >
           Toggle Navigation
         </button>
-        <h2 class="mb-4 text-lg font-semibold">Navigation</h2>
+        <h2 class="text-lg font-semibold">{SITE_CONTENT.sidebarHeading}</h2>
 
-        <div class="mb-6">
-          <ul class="space-y-1 text-sm">
-            <li><a href="/docs" class="hover:text-white">Documentation</a></li>
-          </ul>
-        </div>
-
-        <div class="mb-6">
-          <ul class="space-y-1 text-sm">
-            <li><a href="/math" class="hover:text-white">Math</a></li>
-          </ul>
-        </div>
-
-        <div class="mb-6">
-          <ul class="space-y-1 text-sm">
-            <li><a href="/notes" class="hover:text-white">Notes</a></li>
-          </ul>
-        </div>
-
-        <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide">
-            Resources
-          </h3>
-          <ul class="space-y-1 text-sm">
-            <li><a href="/resources" class="hover:text-white">Overview</a></li>
-            <li><a href="/blog" class="hover:text-white">Blog</a></li>
-            <li>
-              <a href="/resources/videos" class="hover:text-white">Videos</a>
-            </li>
-            <li>
-              <a href="/resources/stories" class="hover:text-white">
-                Customer stories
-              </a>
-            </li>
-            <li>
-              <a href="/resources/events" class="hover:text-white">Events</a>
-            </li>
-            <li>
-              <a href="/resources/press" class="hover:text-white">Press</a>
-            </li>
-            <li>
-              <a href="/resources/newsletter" class="hover:text-white">
-                Newsletter
-              </a>
-            </li>
-          </ul>
-        </div>
+        {SIDEBAR_SECTIONS.map((section) => (
+          <div class="mb-6">
+            {section.heading && (
+              <h3 class="h3-section-label">
+                {section.heading}
+              </h3>
+            )}
+            <ul class="space-y-1 text-sm">
+              {section.links.map((link) => (
+                <li><a href={link.href} class="hover:text-white">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </aside>
 
       <button
@@ -115,8 +84,8 @@ const { title, enableToc = false } = Astro.props;
             id="article-toc"
             class="hidden xl:block w-64 border-l border-slate-800 p-4 text-sm text-black sticky top-16 self-start"
           >
-            <h2 class="mb-3 text-xs font-semibold uppercase tracking-wide">
-              On this page
+            <h2 class="h2-section-label text-xs font-semibold">
+              {SITE_CONTENT.tocHeading}
             </h2>
             <nav>
               <ul id="article-toc-list" class="space-y-1 text-xs" />

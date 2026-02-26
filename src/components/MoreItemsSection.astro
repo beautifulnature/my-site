@@ -1,9 +1,11 @@
 ---
+import type { MoreListItem } from '../types/content';
+
 interface Props {
-  items: any[];
+  items: MoreListItem[];
   title: string;
   basePath: string;
-  renderMetadata?: (item: any) => string;
+  renderMetadata?: (item: MoreListItem) => string;
 }
 
 const { items, title, basePath, renderMetadata } = Astro.props;
@@ -11,23 +13,23 @@ const { items, title, basePath, renderMetadata } = Astro.props;
 
 {items.length > 0 && (
   <section class="mt-12 border-t border-slate-800 pt-6">
-    <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-400">
+    <h2 class="h2-section-label text-sm font-semibold text-slate-400">
       {title}
     </h2>
-    <div class="grid gap-4 md:grid-cols-3">
-      {items.map((item, idx) => (
+    <div class="more-grid">
+      {items.map((item) => (
         <a
           href={`${basePath}${item.slug}/`}
           class="flex flex-col rounded-xl border border-slate-800 bg-slate-900/60 p-4 hover:border-sky-500"
         >
-          <p class="mb-1 text-[11px] uppercase tracking-wide text-slate-500">
-            {item.data.date.toLocaleDateString()}
+            <p class="eyebrow-label text-[11px] text-slate-500">
+              {item.data.date.toLocaleDateString()}
           </p>
           <h3 class="text-sm font-semibold text-slate-50">
             {item.data.title}
           </h3>
           {renderMetadata && (
-            <p class="mt-2 line-clamp-3 text-xs text-slate-400">
+            <p class="line-clamp-3 text-xs text-slate-400">
               {renderMetadata(item)}
             </p>
           )}

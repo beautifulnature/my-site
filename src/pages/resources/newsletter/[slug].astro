@@ -1,125 +1,88 @@
 ---
 import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
 import DocsLayout from '../../../layouts/Docs.astro';
-import ResponsiveShareBar from '../../../components/ResponsiveShareBar.astro';
-import ResourceIcons from '../../../components/ResourceIcons.astro';
+import ResourceDetailArticle from '../../../components/ResourceDetailArticle.astro';
+import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
+import MoreItemCard from '../../../components/MoreItemCard.astro';
+import {
+  buildPageUrl,
+  getRelatedItems,
+  getRequestOrigin,
+  getStringTags,
+} from '../../../utils/content';
+import type { NewsletterEntry } from '../../../types/collections';
+import {
+  COLOR_BORDER_CARD,
+  COLOR_PRIMARY,
+  COLOR_TEXT,
+  COLOR_TEXT_LIGHT,
+} from '../../../utils/colors';
+import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
-// Color constants
-const COLOR_PRIMARY = '#4900f8';
-const COLOR_SECONDARY = '#9353c9';
-const COLOR_BORDER = 'border-slate-700';
-const COLOR_TEXT = 'text-black';
-const COLOR_TEXT_LIGHT = 'text-slate-400';
-const COLOR_BORDER_CARD = 'border-slate-200';
-const COLOR_WHITE = 'white';
-
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const issues = await getCollection('newsletter');
   return issues.map((issue) => ({
     params: { slug: issue.slug },
     props: { issue },
   }));
-}
+};
 
-const { issue } = Astro.props;
+const { issue } = Astro.props as { issue: NewsletterEntry };
 const { Content } = await issue.render();
+const resourceType = RESOURCE_TYPES.newsletter;
 
-const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
-const pageUrl = origin
-  ? `${origin}/resources/newsletter/${issue.slug}/`
-  : `/resources/newsletter/${issue.slug}/`;
-
-// Get all newsletters, sorted newest → oldest
-const allNewsletters = (await getCollection('newsletter')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
-
-// Find current index
-const currentIndex = allNewsletters.findIndex((n) => n.slug === issue.slug);
-
-// Take next 3 newsletters after current one
-const moreNewsletters =
-  currentIndex === -1 ? [] : allNewsletters.slice(currentIndex + 1, currentIndex + 4);
+const origin = getRequestOrigin(Astro.request?.url);
+const pageUrl = buildPageUrl(origin, `${resourceType.detailBasePath}/${issue.slug}/`);
+const moreNewsletters = getRelatedItems(await getCollection('newsletter'), issue.slug, 3);
+const issueTags = getStringTags(issue.data.tags);
 ---
 
 <DocsLayout enableToc={true}>
-  <article class="prose max-w-none text-black" id="article-root">
-    {/* Back to newsletter index */}
-    <div class="mb-4 flex justify-end">
-      <a
-        href="/resources/newsletter"
-        class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#4900f8] px-6 py-2 text-lg font-bold text-white shadow-sm transition-colors hover:bg-[#9353c9] hover:text-white no-underline"
-      >
-        <span class="flex h-6 w-6 items-center justify-center rounded-full">
-          <ResourceIcons name="newsletter" size={18} color="white" />
-        </span>
-        <span style="font-size: 18px;">Newsletter</span>
-      </a>
-    </div>
-
-    <div class="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs">
-      <p class="m-0 text-xs">
+  <ResourceDetailArticle
+    backHref={resourceType.backHref}
+    backLabel={resourceType.backLabel}
+    iconName={resourceType.iconName}
+    pageUrl={pageUrl}
+    shareTitle={issue.data.title}
+    articleClass="prose blog-prose"
+    articleId="article-root"
+  >
+    <Fragment slot="meta">
+      <span>
         {issue.data.date.toLocaleDateString()}
         {issue.data.issue ? ` · ${issue.data.issue}` : ''}
-      </p>
-      {issue.data.tags && issue.data.tags.length > 0 && (
+      </span>
+      {issueTags.length > 0 && (
         <span class="flex flex-wrap gap-1 mt-1">
-          {issue.data.tags.map((tag) => (
-            <span class="rounded-full border border-[#4900f8] px-2 py-0.5 text-[10px] uppercase tracking-wide">
+          {issueTags.map((tag) => (
+            <span class="tag-chip">
               {tag}
             </span>
           ))}
         </span>
       )}
-
-      <ResponsiveShareBar url={pageUrl} title={issue.data.title} />
-    </div>
+    </Fragment>
 
     <Content />
-  </article>
+  </ResourceDetailArticle>
 
   {/* More newsletters – OUTSIDE article */}
   {moreNewsletters.length > 0 && (
-    <section class="mt-12 border-t-4 pt-6" style={`border-color: ${COLOR_PRIMARY};`} data-toc-exclude>
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide" style={`color: ${COLOR_PRIMARY};`}>
-        More newsletters
-      </h2>
-      <div class="grid gap-4 md:grid-cols-3" id="more-newsletters-grid">
+    <MoreItemsGrid title={resourceType.moreTitle} accentColor={COLOR_PRIMARY} gridId="more-newsletters-grid">
         {moreNewsletters.map((n) => (
-          <a
-            href={`/resources/newsletter/${n.slug}/`}
-            class="flex flex-col rounded-xl border p-4 more-newsletters-card"
-            style={`border-color: ${COLOR_BORDER_CARD}; transition: border-color 0.2s; position: relative;`}
-          >
-            <p class="mb-1 text-[11px] uppercase tracking-wide" style={`color: ${COLOR_TEXT_LIGHT};`}>
-              {n.data.date.toLocaleDateString()}
-            </p>
-            <h3 class="text-sm font-semibold" style={`color: ${COLOR_TEXT};`}>
-              {n.data.title}
-            </h3>
-            {n.data.issue && (
-              <p class="mt-2 text-xs" style={`color: ${COLOR_TEXT_LIGHT};`}>
-                {n.data.issue}
-              </p>
-            )}
-          </a>
+          <MoreItemCard
+            href={`${resourceType.detailBasePath}/${n.slug}/`}
+            title={n.data.title}
+            dateText={n.data.date.toLocaleDateString()}
+            borderColor={COLOR_BORDER_CARD}
+            hoverBorderColor={COLOR_PRIMARY}
+            dateStyle={`color: ${COLOR_TEXT_LIGHT};`}
+            titleStyle={`color: ${COLOR_TEXT};`}
+            secondaryText={n.data.issue}
+            secondaryStyle={`color: ${COLOR_TEXT_LIGHT};`}
+          />
         ))}
-      </div>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const COLOR_PRIMARY = '#4900f8';
-          const COLOR_BORDER_CARD = 'rgb(226, 232, 240)'; // border-slate-200
-          const cards = document.querySelectorAll('.more-newsletters-card');
-          cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-              (card as HTMLElement).style.borderColor = COLOR_PRIMARY;
-            });
-            card.addEventListener('mouseleave', function() {
-              (card as HTMLElement).style.borderColor = COLOR_BORDER_CARD;
-            });
-          });
-        });
-      </script>
-    </section>
+    </MoreItemsGrid>
   )}
 </DocsLayout>

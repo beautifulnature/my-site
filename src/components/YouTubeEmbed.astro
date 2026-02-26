@@ -11,7 +11,6 @@ const { id, title = 'Video' } = Astro.props;
   <iframe
     src={`https://www.youtube.com/embed/${id}?autoplay=0&rel=0`}
     title={title}
-    frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
     loading="lazy"

@@ -1,0 +1,60 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  dateText: string;
+  borderColor: string;
+  hoverBorderColor: string;
+  dateClass?: string;
+  dateStyle?: string;
+  titleClass?: string;
+  titleStyle?: string;
+  secondaryText?: string;
+  secondaryClass?: string;
+  secondaryStyle?: string;
+  description?: string;
+  descriptionClass?: string;
+  descriptionStyle?: string;
+}
+
+const {
+  href,
+  title,
+  dateText,
+  borderColor,
+  hoverBorderColor,
+  dateClass = 'meta-label',
+  dateStyle,
+  titleClass = 'font-semibold',
+  titleStyle,
+  secondaryText,
+  secondaryClass,
+  secondaryStyle,
+  description,
+  descriptionClass,
+  descriptionStyle,
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class="more-card more-card-hover"
+  style={`--card-border: ${borderColor}; --card-border-hover: ${hoverBorderColor}; position: relative;`}
+>
+  <p class={dateClass} style={dateStyle}>
+    {dateText}
+  </p>
+  <h3 class={titleClass} style={titleStyle}>
+    {title}
+  </h3>
+  {secondaryText && (
+    <p class={secondaryClass} style={secondaryStyle}>
+      {secondaryText}
+    </p>
+  )}
+  {description && (
+    <p class={descriptionClass} style={descriptionStyle}>
+      {description}
+    </p>
+  )}
+</a>

@@ -1,5 +1,7 @@
 ---
 // Simple site footer used across layouts
+import { SITE_CONTENT } from "../utils/siteContent";
+import { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS } from "../utils/navigation";
 ---
 
 <!-- <footer class="border-t border-slate-900 bg-slate-950">
@@ -40,43 +42,29 @@
           <div class="md:col-span-2 lg:col-span-2">
             <a href="/" class="mb-3 inline-flex items-center gap-2">
               <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
-              <span class="font-semibold tracking-tight text-slate-900">Timefold</span>
+              <span class="font-semibold tracking-tight text-slate-900">{SITE_CONTENT.siteName}</span>
             </a>
             <p class="max-w-md text-slate-600">
-              The intelligent scheduling optimization platform for routing, shift scheduling and task assignment.
+              {SITE_CONTENT.footerDescription}
             </p>
           </div>
-          <div>
-            <h3 class="mb-3 font-semibold text-slate-900">Solutions</h3>
-            <ul class="space-y-2 text-slate-600">
-              <li><a href="https://timefold.ai/solutions/route-optimization" class="hover:text-slate-900">Route Scheduling</a></li>
-              <li><a href="https://timefold.ai/solutions/shift-scheduling-optimization" class="hover:text-slate-900">Shift Scheduling</a></li>
-              <li><a href="https://timefold.ai/solutions/task-assignment-optimization" class="hover:text-slate-900">Task Scheduling</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="mb-3 font-semibold text-slate-900">Platform</h3>
-            <ul class="space-y-2 text-slate-600">
-              <li><a href="https://timefold.ai/model" class="hover:text-slate-900">Planning Models</a></li>
-              <li><a href="https://docs.timefold.ai" class="hover:text-slate-900">Documentation</a></li>
-              <li><a href="https://app.timefold.ai" class="hover:text-slate-900">Explore APIs</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="mb-3 font-semibold text-slate-900">Company</h3>
-            <ul class="space-y-2 text-slate-600">
-              <li><a href="https://timefold.ai/about-us" class="hover:text-slate-900">About Us</a></li>
-              <li><a href="https://timefold.ai/partners" class="hover:text-slate-900">Partners</a></li>
-              <li><a href="https://jobs.timefold.ai" class="hover:text-slate-900">Jobs</a></li>
-            </ul>
-          </div>
+          {FOOTER_SECTIONS.map((section) => (
+            <div>
+              <h3 class="font-semibold text-slate-900">{section.heading}</h3>
+              <ul class="space-y-2 text-slate-600">
+                {section.links.map((link) => (
+                  <li><a href={link.href} class="hover:text-slate-900">{link.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div class="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-6 text-slate-500">
-          <span>© {new Date().getFullYear()} Timefold BV</span>
+          <span>© {new Date().getFullYear()} {SITE_CONTENT.companyName}</span>
           <div class="flex items-center gap-4">
-            <a href="https://timefold.ai/terms" class="hover:text-slate-700">Legal</a>
-            <a href="https://timefold.ai/privacy" class="hover:text-slate-700">Privacy</a>
-            <a href="https://timefold.ai/trademarks" class="hover:text-slate-700">Brand Assets</a>
+            {FOOTER_LEGAL_LINKS.map((link) => (
+              <a href={link.href} class="hover:text-slate-700">{link.label}</a>
+            ))}
           </div>
         </div>
       </div>

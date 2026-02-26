@@ -1,0 +1,55 @@
+---
+import ResponsiveShareBar from './ResponsiveShareBar.astro';
+import ResourceIcons from './ResourceIcons.astro';
+
+interface Props {
+  backHref: string;
+  backLabel: string;
+  iconName: string;
+  pageUrl: string;
+  shareTitle: string;
+  articleClass?: string;
+  metaRowClass?: string;
+  metaRowStyle?: string;
+  articleId?: string;
+  iconSize?: number;
+}
+
+const {
+  backHref,
+  backLabel,
+  iconName,
+  pageUrl,
+  shareTitle,
+  articleClass = 'prose blog-prose text-slate-900',
+  metaRowClass = '',
+  metaRowStyle,
+  articleId,
+  iconSize = 18,
+} = Astro.props;
+---
+
+<article class={articleClass} id={articleId}>
+  <div class="mb-4 flex justify-end">
+    <a href={backHref} class="resource-back-btn">
+      <span class="resource-back-icon">
+        <ResourceIcons name={iconName} size={iconSize} color="white" />
+      </span>
+      <span style="font-size: 18px;">{backLabel}</span>
+    </a>
+  </div>
+
+  <slot name="preMeta" />
+
+  <div class="mb-6">
+    <div class={`meta-share-row ${metaRowClass}`.trim()} style={metaRowStyle}>
+      <div class="flex flex-wrap items-center gap-3">
+        <slot name="meta" />
+      </div>
+
+      <ResponsiveShareBar url={pageUrl} title={shareTitle} />
+    </div>
+  </div>
+
+  <slot />
+</article>

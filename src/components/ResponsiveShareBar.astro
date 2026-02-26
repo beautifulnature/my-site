@@ -1,14 +1,14 @@
 ---
 import ResourceIcons from "./ResourceIcons.astro";
+import { COLOR_PRIMARY, COLOR_WHITE } from '../utils/colors';
 
 const { url, title } = Astro.props;
 
 // Color constants for easy reuse and updates
-const SHARE_BG_HOVER = '#4900f8';
-const SHARE_BORDER_HOVER = '#4900f8';
-const SHARE_TEXT_HOVER = 'white';
+const SHARE_BG_HOVER = COLOR_PRIMARY;
+const SHARE_BORDER_HOVER = COLOR_PRIMARY;
+const SHARE_TEXT_HOVER = COLOR_WHITE;
 const SHARE_BORDER = 'border-slate-700';
-const SHARE_TEXT = 'text-slate-100';
 
 const pageUrl = url;
 const tweetText = encodeURIComponent(title);
@@ -65,7 +65,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
 <div class="lg:hidden">
   <button
     id="mobile-share-btn"
-    class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black hover:bg-[#4900f8] hover:text-white hover:border-[#4900f8] transition-colors"
+    class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black hover:bg-[var(--scheme-accent)] hover:text-white hover:border-[var(--scheme-accent)] transition-colors"
     aria-label="Share"
   >
     <svg
@@ -102,7 +102,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              class="h-5 w-5 group-hover:stroke-[#4900f8]"
+              class="h-5 w-5 group-hover:stroke-[var(--scheme-accent)]"
               fill="none"
               stroke="currentColor"
               stroke-width="2"

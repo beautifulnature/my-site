@@ -1,3 +1,8 @@
+---
+import { SITE_CONTENT } from "../utils/siteContent";
+import { MAIN_NAV_ITEMS, TALK_TO_US_URL } from "../utils/navigation";
+---
+
 <header
   class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur"
 >
@@ -11,7 +16,7 @@
       </div>
       <span
         class="font-semibold tracking-tight text-slate-900"
-        >Timefold</span
+        >{SITE_CONTENT.siteName}</span
       >
     </a>
     <nav
@@ -19,33 +24,21 @@
       class="hidden items-center gap-6 font-medium text-slate-600 lg:flex"
       data-main-nav
     >
-      <a href="#solutions" class="hover:text-slate-900" data-section-link
-        >Solutions</a
-      >
-      <a href="#models" class="hover:text-slate-900" data-section-link
-        >Planning Models</a
-      >
-      <a href="#proof" class="hover:text-slate-900" data-section-link
-        >Customer Stories</a
-      >
-      <a href="https://timefold.ai/blog" class="hover:text-slate-900">Blog</a>
-      <a href="#pricing" class="hover:text-slate-900" data-section-link
-        >Pricing</a
-      >
-      <a href="https://docs.timefold.ai" class="hover:text-slate-900"
-        >Documentation</a
-      >
-      <a href="/blog" class="hover:text-[#4900f8]">Blog</a>
-      <a href="/docs" class="hover:text-[#4900f8]">Documentation</a>
-      <a href="/math" class="hover:text-[#4900f8]">Math</a>
-      <a href="/notes" class="hover:text-[#4900f8]">Notes</a>
-      <a href="/resources" class="hover:text-[#4900f8]">Resources</a>
+      {MAIN_NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class={item.href.startsWith('/') ? 'hover:text-[var(--scheme-accent)]' : 'hover:text-slate-900'}
+          data-section-link={item.sectionLink ? true : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
     </nav>
     <a
-      href="https://timefold.ai/talk-to-us"
+      href={TALK_TO_US_URL}
       class="rounded-full bg-slate-900 px-4 py-2 font-semibold text-white shadow-sm transition hover:bg-black sm:px-5 sm:py-2.5"
     >
-      Talk to us
+      {SITE_CONTENT.talkToUsLabel}
     </a>
 
     <button
@@ -70,39 +63,20 @@
       class="grid gap-1.5 font-medium text-slate-700"
       data-main-nav
     >
+      {MAIN_NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class="rounded-md px-2 py-2 hover:bg-slate-50"
+          data-section-link={item.sectionLink ? true : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
       <a
-        href="#solutions"
-        class="rounded-md px-2 py-2 hover:bg-slate-50"
-        data-section-link>Solutions</a
-      >
-      <a
-        href="#models"
-        class="rounded-md px-2 py-2 hover:bg-slate-50"
-        data-section-link>Planning Models</a
-      >
-      <a
-        href="#proof"
-        class="rounded-md px-2 py-2 hover:bg-slate-50"
-        data-section-link>Customer Stories</a
-      >
-      <a
-        href="#pricing"
-        class="rounded-md px-2 py-2 hover:bg-slate-50"
-        data-section-link>Pricing</a
-      >
-      <a
-        href="https://timefold.ai/blog"
-        class="rounded-md px-2 py-2 hover:bg-slate-50">Blog</a
-      >
-      <a
-        href="https://docs.timefold.ai"
-        class="rounded-md px-2 py-2 hover:bg-slate-50">Documentation</a
-      >
-      <a
-        href="https://timefold.ai/talk-to-us"
+        href={TALK_TO_US_URL}
         class="mt-1 rounded-full bg-slate-900 px-4 py-2 text-center font-semibold text-white"
       >
-        Talk to us
+        {SITE_CONTENT.talkToUsLabel}
       </a>
     </nav>
   </div>

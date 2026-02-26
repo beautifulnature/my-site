@@ -19,7 +19,7 @@ const videos = defineCollection({
     title: z.string(),
     url: z.string(),
     youtubeId: z.string().optional(),
-    date: z.date(),
+    date: z.coerce.date(),
     length: z.string().optional(),
     tags: z.array(z.string()).optional(),
   }),
@@ -30,7 +30,7 @@ const stories = defineCollection({
   schema: z.object({
     title: z.string(),
     customer: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     industry: z.string().optional(),
     tags: z.array(z.string()).optional(),
   }),
@@ -40,7 +40,7 @@ const events = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     location: z.string().optional(),
     url: z.string().optional(),
     tags: z.array(z.string()).optional(),
@@ -52,7 +52,7 @@ const press = defineCollection({
   schema: z.object({
     title: z.string(),
     outlet: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     url: z.string(),
     tags: z.array(z.string()).optional(),
   }),
@@ -62,10 +62,25 @@ const newsletter = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.coerce.date(),
     issue: z.string().optional(),
     tags: z.array(z.string()).optional(),
   }),
+});
+
+const docs = defineCollection({
+  type: 'content',
+  schema: z.object({}).passthrough(),
+});
+
+const math = defineCollection({
+  type: 'content',
+  schema: z.object({}).passthrough(),
+});
+
+const notes = defineCollection({
+  type: 'content',
+  schema: z.object({}).passthrough(),
 });
 
 export const collections = {
@@ -75,4 +90,7 @@ export const collections = {
   events,
   press,
   newsletter,
+  docs,
+  math,
+  notes,
 };

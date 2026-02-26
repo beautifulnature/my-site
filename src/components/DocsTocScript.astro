@@ -6,10 +6,9 @@ interface Props {
 const { enableToc = false } = Astro.props;
 ---
 
-<script define:vars={{ enableToc }}>
-  console.log("DocsTocScript loaded", { enableToc });
-
-  const ENABLE_TOC = enableToc;
+<script is:inline data-enable-toc={String(enableToc)}>
+  const ENABLE_TOC = document.currentScript?.getAttribute("data-enable-toc") === "true";
+  console.log("DocsTocScript loaded", { enableToc: ENABLE_TOC });
 
   let lastKey = null;
   let timer = null;
@@ -71,7 +70,7 @@ const { enableToc = false } = Astro.props;
             tocItems.forEach((li, idx) => {
               const indicator = li.querySelector(".toc-indicator");
               if (indicator) {
-                indicator.style.background = headings[idx].id === heading.id ? "#4900f8" : "transparent";
+                indicator.style.background = headings[idx].id === heading.id ? "var(--scheme-accent)" : "transparent";
               }
             });
             // Scroll the active TOC item into view
@@ -122,7 +121,7 @@ const { enableToc = false } = Astro.props;
       tocItems.forEach((li, idx) => {
         const indicator = li.querySelector(".toc-indicator");
         if (indicator) {
-          indicator.style.background = idx === activeIdx ? "#4900f8" : "transparent";
+          indicator.style.background = idx === activeIdx ? "var(--scheme-accent)" : "transparent";
         }
       });
       // Scroll only if not visible

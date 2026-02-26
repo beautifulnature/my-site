@@ -1,46 +1,86 @@
-# Astro Starter Kit: Basics
+# My Sample Site
 
-```sh
-npm create astro@latest -- --template basics
+This repository contains two Astro applications:
+
+- Root app: `my-sample-site`
+- Nested app: `timefold/`
+
+## Prerequisites
+
+- Node.js 20+
+- npm 10+
+
+## Environment variables
+
+Both Astro configs use environment-based `site` URLs.
+
+- Root app (`astro.config.mjs`):
+	- `PUBLIC_SITE_URL` (fallback: `https://your-domain.com`)
+- Nested `timefold` app (`timefold/astro.config.mjs`):
+	- `PUBLIC_TIMEFOLD_SITE_URL` (fallback to `PUBLIC_SITE_URL`, then `https://your-site.com`)
+
+Example:
+
+```bash
+PUBLIC_SITE_URL=https://example.com
+PUBLIC_TIMEFOLD_SITE_URL=https://timefold.example.com
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Template files are included:
 
-## 🚀 Project Structure
+- `.env.example` (root app)
+- `timefold/.env.example` (nested app)
 
-Inside of your Astro project, you'll see the following folders and files:
+Copy each template to `.env` before local development.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+Quick copy commands:
+
+```powershell
+Copy-Item .env.example .env
+Copy-Item timefold/.env.example timefold/.env
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+```bash
+cp .env.example .env
+cp timefold/.env.example timefold/.env
+```
 
-## 🧞 Commands
+## Install
 
-All commands are run from the root of the project, from a terminal:
+Install dependencies for both apps:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+npm ci
+npm --prefix timefold ci
+```
 
-## 👀 Want to learn more?
+## Scripts (root)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `npm run dev` – run root app dev server
+- `npm run check` – run Astro check for root app
+- `npm run build` – build root app
+- `npm run ci` – check + build root app
+- `npm run check:all` – check root + build nested app
+- `npm run build:all` – build root + build nested app
+- `npm run ci:all` – ci root + build nested app
+
+## Scripts (timefold)
+
+- `npm --prefix timefold run dev`
+- `npm --prefix timefold run check`
+- `npm --prefix timefold run build`
+- `npm --prefix timefold run ci`
+
+## CI
+
+GitHub Actions validates both apps independently using their own lockfiles:
+
+- Root: `npm ci`, `npm run check`, `npm run build`
+- Nested `timefold`: `npm ci`, `npm run check`, `npm run build`
+
+Workflow file: `.github/workflows/ci.yml`
+
+## Content collection note
+
+- `src/content/docs/index.md` is an intentional anchor file.
+- It keeps the `docs` collection non-empty so `astro check` stays clean while AsciiDoc files (such as `src/content/docs/patterns.adoc`) remain in place.

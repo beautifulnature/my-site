@@ -1,161 +1,117 @@
 ---
 import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
 import DocsLayout from '../../layouts/Docs.astro';
-import ResponsiveShareBar from '../../components/ResponsiveShareBar.astro';
-import ResourceIcons from '../../components/ResourceIcons.astro';
+import ResourceDetailArticle from '../../components/ResourceDetailArticle.astro';
+import MoreItemsGrid from '../../components/MoreItemsGrid.astro';
+import MoreItemCard from '../../components/MoreItemCard.astro';
+import {
+  buildPageUrl,
+  getRelatedItems,
+  getRequestOrigin,
+  getStringTags,
+} from '../../utils/content';
+import type { BlogEntry } from '../../types/collections';
+import {
+  COLOR_BORDER_CARD,
+  COLOR_PRIMARY,
+  COLOR_TEXT,
+  COLOR_TEXT_LIGHT,
+} from '../../utils/colors';
+import { RESOURCE_TYPES } from '../../utils/resourceTypes';
 
-// Color constants
-const COLOR_PRIMARY = '#4900f8';
-const COLOR_SECONDARY = '#9353c9';
-const COLOR_BORDER = 'border-slate-700';
-const COLOR_TEXT = 'text-black';
-const COLOR_TEXT_LIGHT = 'text-slate-400';
-const COLOR_BORDER_CARD = 'border-slate-200';
-const COLOR_WHITE = 'white';
-
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
-}
+};
 
-const { post } = Astro.props;
+const { post } = Astro.props as { post: BlogEntry };
 const { Content } = await post.render();
+const resourceType = RESOURCE_TYPES.blog;
 
-// Build origin + page URL for sharing
-const origin = Astro.request?.url ? new URL(Astro.request.url).origin : '';
-const pageUrl = origin
-  ? `${origin}/blog/${post.slug}/`
-  : `/blog/${post.slug}/`;
-
-// Get all posts, sorted newest → oldest
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
-
-// Find current index
-const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
-
-// Take next 3 posts after current one (older posts)
-const morePosts =
-  currentIndex === -1 ? [] : allPosts.slice(currentIndex + 1, currentIndex + 4);
+const origin = getRequestOrigin(Astro.request?.url);
+const pageUrl = buildPageUrl(origin, `${resourceType.detailBasePath}/${post.slug}/`);
+const morePosts = getRelatedItems(await getCollection('blog'), post.slug, 3);
+const postTags = getStringTags(post.data.tags);
 ---
 
 <DocsLayout enableToc={true}>
   {/* Main article: TOC reads only from here */}
-  <article class="prose max-w-none text-slate-900" id="article-root">
-    {/* Top row: Blog button only, right-aligned */}
-    <div class="mb-4 flex justify-end">
-      <a
-        href="/blog"
-        class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#4900f8] px-4 py-1.5 text-xs font-medium text-white shadow-sm transition-colors hover:bg-[#9353c9] hover:text-white no-underline"
-      >
-        <span class="flex h-5 w-5 items-center justify-center rounded-full">
-          <ResourceIcons name="blog" size={32} color="white" />
-        </span>
-        <span style="font-size: 18px;">Blog</span>
-      </a>
-    </div>
-
-    {/* Description row (if present) */}
+  <ResourceDetailArticle
+    backHref={resourceType.backHref}
+    backLabel={resourceType.backLabel}
+    iconName={resourceType.iconName}
+    iconSize={32}
+    pageUrl={pageUrl}
+    shareTitle={post.data.title}
+    articleClass="prose blog-prose"
+    articleId="article-root"
+  >
     {post.data.description && (
-      <div class="mb-4">
-        <p class="m-0 text-sm text-slate-300 md:text-base">
+      <div slot="preMeta" class="mb-4">
+        <p>
           {post.data.description}
         </p>
       </div>
     )}
 
-    {/* Meta + share: normal flow, no sticky */}
-    <div class="mb-6">
-      <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-black">
-        <div class="flex flex-wrap items-center gap-3">
-        <span>{post.data.date.toLocaleDateString()}</span>
-        <span class="h-1 w-1 rounded-full bg-[#4900f8]" />
-        <span>
-          By{' '}
-          {post.data.authorUrl ? (
-            <a
-              href={post.data.authorUrl}
-              class="underline hover:text-sky-300"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {post.data.author}
-            </a>
-          ) : (
-            post.data.author
-          )}
-        </span>
-        {post.data.tags && post.data.tags.length > 0 && (
-          <>
-            <span class="h-1 w-1 rounded-full bg-[#4900f8]" />
-            <span class="flex flex-wrap gap-1">
-              {post.data.tags.map((tag) => (
-                <span class="rounded-full border border-[#4900f8] px-2 py-0.5 text-[10px] uppercase tracking-wide">
-                  {tag}
-                </span>
-              ))}
-            </span>
-          </>
+    <Fragment slot="meta">
+      <span>{post.data.date.toLocaleDateString()}</span>
+      <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
+      <span>
+        By{' '}
+        {post.data.authorUrl ? (
+          <a
+            href={post.data.authorUrl}
+            class="underline hover:text-[var(--scheme-accent)]"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {post.data.author}
+          </a>
+        ) : (
+          post.data.author
         )}
-      </div>
-
-        <ResponsiveShareBar url={pageUrl} title={post.data.title} />
-      </div>
-    </div>
+      </span>
+      {postTags.length > 0 && (
+        <>
+          <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
+          <span class="flex flex-wrap gap-1">
+            {postTags.map((tag) => (
+              <span class="tag-chip">
+                {tag}
+              </span>
+            ))}
+          </span>
+        </>
+      )}
+    </Fragment>
 
     {/* Main content – headings here are used for TOC */}
     <Content />
-  </article>
-
-
+  </ResourceDetailArticle>
 
   {/* More posts – OUTSIDE article-root, ignored by TOC */}
   {morePosts.length > 0 && (
-    <section class="mt-12 border-t-4 pt-6" style={`border-color: ${COLOR_PRIMARY};`} data-toc-exclude>
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide" style={`color: ${COLOR_PRIMARY};`}>
-        More from the blog
-      </h2>
-      <div class="grid gap-4 md:grid-cols-3" id="more-blog-grid">
+    <MoreItemsGrid title={resourceType.moreTitle} accentColor={COLOR_PRIMARY} gridId="more-blog-grid">
           {morePosts.map((p) => (
-            <a
-              href={`/blog/${p.slug}/`}
-              class="flex flex-col rounded-xl border p-4 more-blog-card"
-              style={`border-color: ${COLOR_BORDER_CARD}; transition: border-color 0.2s; position: relative;`}
-            >
-              <p class="mb-1 text-[11px] uppercase tracking-wide" style={`color: ${COLOR_TEXT_LIGHT};`}>
-                {p.data.date.toLocaleDateString()}
-              </p>
-              <h3 class="text-sm font-semibold" style={`color: ${COLOR_TEXT};`}>
-                {p.data.title}
-              </h3>
-              {p.data.description && (
-                <p class="mt-2 line-clamp-3 text-xs" style="color: #334155;">
-                  {p.data.description}
-                </p>
-              )}
-            </a>
+            <MoreItemCard
+              href={`${resourceType.detailBasePath}/${p.slug}/`}
+              title={p.data.title}
+              dateText={p.data.date.toLocaleDateString()}
+              borderColor={COLOR_BORDER_CARD}
+              hoverBorderColor={COLOR_PRIMARY}
+              dateStyle={`color: ${COLOR_TEXT_LIGHT};`}
+              titleStyle={`color: ${COLOR_TEXT};`}
+              description={p.data.description}
+              descriptionClass="line-clamp-3"
+              descriptionStyle="color: #334155;"
+            />
           ))}
-      </div>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const COLOR_PRIMARY = '#4900f8';
-          const COLOR_BORDER_CARD = 'rgb(226, 232, 240)'; // border-slate-200
-          const cards = document.querySelectorAll('.more-blog-card');
-          cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-              (card as HTMLElement).style.borderColor = COLOR_PRIMARY;
-            });
-            card.addEventListener('mouseleave', function() {
-              (card as HTMLElement).style.borderColor = COLOR_BORDER_CARD;
-            });
-          });
-        });
-      </script>
-    </section>
+    </MoreItemsGrid>
   )}
 
   {/* DocsTocScript is included by the layout; avoid duplicate inclusion here */}

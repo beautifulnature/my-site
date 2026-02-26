@@ -2,17 +2,20 @@
 import { getCollection } from 'astro:content';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
+import type { NewsletterEntry } from '../../../types/collections';
+import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
-const issues = (await getCollection('newsletter')).sort(
+const issues: NewsletterEntry[] = (await getCollection('newsletter')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
+const resourceType = RESOURCE_TYPES.newsletter;
 ---
 
 <ResourcesLayout
-  title="Newsletter"
-  description="Periodic updates on new features, case studies, and upcoming events."
+  title={resourceType.indexTitle}
+  description={resourceType.indexDescription}
   descriptionClass="desc-black"
-  currentPath="/resources/newsletter"
+  currentPath={resourceType.indexCurrentPath}
 >
   <ResourceIndex
     items={issues}

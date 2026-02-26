@@ -2,6 +2,9 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_CONTENT } from '../utils/siteContent';
+
+const { title = SITE_CONTENT.defaultTitle } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,7 +15,7 @@ import Footer from '../components/Footer.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>My Site</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<Header />

@@ -8,6 +8,22 @@
     @apply bg-white text-slate-900 antialiased;
   }
 
+  h1 {
+    margin-block: 0.67em;
+  }
+
+  h2 {
+    margin-block: 0.83em;
+  }
+
+  h3 {
+    margin-block: 1em;
+  }
+
+  p {
+    margin-block: 1em;
+  }
+
   html {
     scroll-padding-top: 6rem;
   }
@@ -22,5 +38,12 @@
     outline: 2px solid rgb(79 70 229);
     outline-offset: 2px;
     border-radius: 0.375rem;
+  }
+}
+
+@layer components {
+  .eyebrow-label {
+    @apply block font-semibold uppercase tracking-[0.12em];
+    margin-block: 0;
   }
 }

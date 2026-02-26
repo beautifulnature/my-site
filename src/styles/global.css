@@ -2,25 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --timefold-purple: #9353c9;
-  --primary: #4900f8;
-  --timefold-blue: #4f62f5;
-  --timefold-green: #00c85e;
-  --timefold-yellow: #f5b200;
-  --timefold-orange: #fc6d00;
-  --timefold-red: #f51515;
-  --timefold-brown: #a65908;
-  --timefold-text: #12131c;
-  --timefold-dark-grey: #89898b;
-  --timefold-light-grey: #ffffff;
+.scheme-dark {
+    --scheme-base: hsl(var(--color-neutral-0));
+    --scheme-shade: hsl(var(--color-mediumgrey-20));
+    --scheme-accent: hsl(var(--color-purple-60));
+    --scheme-contrast: hsl(var(--color-neutral-100));
+    --scheme-hover: hsl(var(--color-neutral-0)/.8);
+    --scheme-text: hsl(var(--color-neutral-60));
+    --scheme-title: hsl(var(--color-neutral-100));
+    --scheme-border: hsl(var(--color-neutral-100)/.3);
+    --scheme-icon-background: hsl(var(--color-neutral-90));
+    --scheme-light: hsl(var(--color-smoke-90))
+}
 
+:root,
+.scheme-default {
+    --scheme-base: hsl(var(--color-neutral-100));
+    --scheme-shade: hsl(var(--color-neutral-90));
+    --scheme-accent: hsl(var(--color-purple-50));
+    --scheme-contrast: hsl(var(--color-neutral-0));
+    --scheme-hover: hsl(var(--color-purple-50)/.8);
+    --scheme-text: hsl(var(--color-mediumgrey-20));
+    --scheme-title: hsl(var(--color-neutral-0));
+    --scheme-border: hsl(var(--color-neutral-90));
+    --scheme-icon-background: hsl(var(--color-purple-50));
+    --scheme-light: hsl(var(--color-smoke-90))
+}
+
+.scheme-grey {
+    --scheme-base: hsl(var(--color-platinum-90));
+    --scheme-shade: hsl(var(--color-smoke-90));
+    --scheme-accent: hsl(var(--color-purple-50));
+    --scheme-contrast: hsl(var(--color-neutral-0));
+    --scheme-hover: hsl(var(--color-neutral-0)/.8);
+    --scheme-text: hsl(var(--color-mediumgrey-20));
+    --scheme-title: hsl(var(--color-neutral-0));
+    --scheme-border: hsl(var(--color-mediumgrey-20)/.2);
+    --scheme-icon-background: hsl(var(--color-darkgrey-10));
+    --scheme-light: hsl(var(--color-neutral-100))
+}
+
+.scheme-purple {
+    --scheme-base: hsl(var(--color-purple-50));
+    --scheme-shade: hsl(var(--color-purple-60));
+    --scheme-accent: hsl(var(--color-neutral-100));
+    --scheme-contrast: hsl(var(--color-neutral-100));
+    --scheme-hover: hsl(var(--color-neutral-0)/.8);
+    --scheme-text: hsl(var(--color-neutral-100)/.9);
+    --scheme-title: hsl(var(--color-neutral-100));
+    --scheme-border: hsl(var(--color-neutral-100)/.3);
+    --scheme-icon-background: hsl(var(--color-neutral-90));
+    --scheme-light: hsl(var(--color-neutral-100))
+}
+
+.scheme-smoke {
+    --scheme-base: hsl(var(--color-smoke-90));
+    --scheme-shade: hsl(var(--color-platinum-90));
+    --scheme-accent: hsl(var(--color-purple-50));
+    --scheme-contrast: hsl(var(--color-neutral-0));
+    --scheme-hover: hsl(var(--color-neutral-0)/.8);
+    --scheme-text: hsl(var(--color-mediumgrey-20));
+    --scheme-title: hsl(var(--color-neutral-0));
+    --scheme-border: hsl(var(--color-mediumgrey-20)/.2);
+    --scheme-icon-background: hsl(var(--color-darkgrey-10));
+    --scheme-light: hsl(var(--color-neutral-100))
+}
+
+:root {
   /* Abstract color roles */
-  --color-bg: var(--timefold-light-grey);
-  --color-text: #12131c;
-  --color-heading: #000;
-  --color-paragraph: #000;
-  --color-accent: var(--timefold-purple);
+  --color-bg: var(--scheme-base);
+  --color-text: var(--scheme-text);
+  --color-heading: var(--scheme-title);
+  --color-paragraph: var(--scheme-text);
+  --color-accent: var(--scheme-accent);
+  --color-text-light: hsl(var(--color-neutral-60));
+  --color-border-card: var(--scheme-border);
 }
 
 body {
@@ -51,23 +107,192 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-heading);
 }
 
+@layer base {
+  h1 {
+    margin-block: 0.67em;
+  }
+
+  h2 {
+    margin-block: 0.83em;
+  }
+
+  h3 {
+    margin-block: 1em;
+  }
+
+  p {
+    margin-block: 1em;
+  }
+}
+
+.h3-section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.h2-section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.blog-prose {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.blog-prose :where(h1) {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.blog-prose :where(h2) {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.blog-prose :where(h3) {
+  margin-top: 2.25rem;
+  margin-bottom: 0.875rem;
+}
+
+.blog-prose :where(p, ul, ol, blockquote) {
+  margin-top: 1.125rem;
+  margin-bottom: 1.125rem;
+}
+
+.blog-prose :where(h2 + p, h3 + p) {
+  margin-top: 0.75rem;
+}
+
+.blog-prose :where(ul, ol) {
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 59.999em) {
+  .blog-prose :where(h1) {
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-prose :where(h2) {
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-prose :where(h3) {
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-prose :where(p, ul, ol, blockquote) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-prose :where(h2 + p, h3 + p) {
+    margin-top: 0.625rem;
+  }
+}
+
+  .eyebrow-label {
+    @apply block font-semibold uppercase tracking-[0.12em];
+    margin-block: 0;
+  }
+
+@layer components {
+  /*
+   * Style dictionary (shared UI patterns)
+   * - .h1-page-title: default page title h1
+   * - .meta-share-row: shared meta + share bar row layout
+   * - .meta-label: uppercase metadata label line
+   * - .more-card: base card shell in "More ..." grids
+   * - .more-grid: responsive 3-column grid used by "More ..." cards
+   * - .more-section: wrapper for "More ..." sections below content
+   * - .resource-back-btn: top-right resource/blog back pill button
+   * - .resource-back-icon: icon wrapper inside resource-back-btn
+   * - .resource-link-card: resource index card link shell
+   * - .resource-link-icon: icon circle used in resource index cards
+   * - .resource-nav-icon / -active / -inactive: icon pills in ResourcesLayout nav
+   * - .simple-link-card: simple card links (e.g., home page)
+   * - .tag-chip: standardized primary-outlined tag pill
+   */
+  .h1-page-title {
+    @apply font-bold;
+  }
+
+  .meta-label {
+    @apply mb-1 uppercase tracking-wide;
+  }
+
+  .meta-share-row {
+    @apply flex flex-wrap items-center justify-between gap-3;
+  }
+
+  .more-card {
+    @apply flex flex-col rounded-xl border p-4;
+  }
+
+  .more-card-hover {
+    border-color: var(--card-border, var(--scheme-border));
+    transition: border-color 0.2s;
+  }
+
+  .more-card-hover:hover {
+    border-color: var(--card-border-hover, var(--scheme-accent));
+  }
+
+  .more-grid {
+    @apply grid gap-4 md:grid-cols-3;
+  }
+
+  .more-section {
+    @apply mt-12 border-t-4 pt-6;
+  }
+
+  .resource-back-btn {
+    @apply inline-flex items-center gap-2 rounded-full border border-[var(--scheme-border)] bg-[var(--scheme-accent)] px-6 py-2 text-lg font-bold text-[var(--scheme-base)] shadow-sm transition-colors hover:bg-[var(--scheme-hover)] hover:text-[var(--scheme-base)] no-underline;
+  }
+
+  .resource-back-icon {
+    @apply flex h-6 w-6 items-center justify-center rounded-full;
+  }
+
+  .resource-link-card {
+    @apply flex items-start gap-4 rounded-xl border border-[var(--scheme-border)] bg-[var(--scheme-base)] p-5 transition-colors hover:border-[var(--scheme-accent)];
+  }
+
+  .resource-link-icon {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full;
+    background: var(--scheme-light);
+  }
+
+  .simple-link-card {
+    @apply block rounded-xl border border-[var(--scheme-border)] bg-[var(--scheme-base)] p-5 transition-colors hover:border-[var(--scheme-accent)];
+  }
+
+  .tag-chip {
+    @apply rounded-full border border-[var(--scheme-accent)] px-2 py-0.5 uppercase tracking-wide;
+  }
+
+  .resource-nav-icon {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full;
+  }
+
+  .resource-nav-icon-active {
+    @apply bg-[var(--scheme-accent)];
+  }
+
+  .resource-nav-icon-inactive {
+    @apply bg-[var(--scheme-base)];
+  }
+}
+
 /* Utility class for accent color text */
 .text-accent {
   color: var(--color-accent) !important;
 }
 
-
-/* @layer base { 
-  body {
-    @apply bg-slate-950 text-slate-50 font-sans antialiased;
-  }
-  
-  :root {
-    --primary-blue: #0ea5e9;
-    --accent-orange: #f97316;
-  }
-}
-*/
 
 /* custom utility to hide the sidebar */
 .sidebar-hidden {

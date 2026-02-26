@@ -2,17 +2,20 @@
 import { getCollection } from 'astro:content';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
+import type { PressEntry } from '../../../types/collections';
+import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
-const press = (await getCollection('press')).sort(
+const press: PressEntry[] = (await getCollection('press')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
+const resourceType = RESOURCE_TYPES.press;
 ---
 
 <ResourcesLayout
-  title="Press"
-  description="Recent articles, announcements, and coverage from around the web."
+  title={resourceType.indexTitle}
+  description={resourceType.indexDescription}
   descriptionClass="desc-black"
-  currentPath="/resources/press"
+  currentPath={resourceType.indexCurrentPath}
 >
   <ResourceIndex
     items={press}

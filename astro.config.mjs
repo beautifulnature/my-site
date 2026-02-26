@@ -4,8 +4,10 @@ import { typst } from 'astro-typst';
 // import logseq from 'astroplugin-logseq';
 import tailwind from '@astrojs/tailwind';
 
+const site = process.env.PUBLIC_SITE_URL ?? 'https://your-domain.com';
+
 export default defineConfig({
-  site: 'https://your-domain.com', // must be absolute
+  site,
   integrations: [
     asciidoc({
       options: {

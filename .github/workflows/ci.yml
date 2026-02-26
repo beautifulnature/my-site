@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - name: root
+            path: .
+            lockfile: package-lock.json
+            validateCommand: npm run check
+            buildCommand: npm run build
+          - name: timefold
+            path: timefold
+            lockfile: timefold/package-lock.json
+            validateCommand: npm run check
+            buildCommand: npm run build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: ${{ matrix.project.lockfile }}
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.project.path }}
+        run: npm ci
+
+      - name: Validate
+        working-directory: ${{ matrix.project.path }}
+        run: ${{ matrix.project.validateCommand }}
+
+      - name: Build
+        working-directory: ${{ matrix.project.path }}
+        run: ${{ matrix.project.buildCommand }}

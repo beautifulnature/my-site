@@ -1,9 +1,6 @@
 ---
-type Item = {
-  slug: string;
-  data: Record<string, any>;
-  body?: string;
-};
+import type { ResourceItem } from '../types/content';
+import { getStringTags } from '../utils/content';
 
 const {
   items = [],
@@ -19,7 +16,7 @@ const {
   tagBasePath,
   tagAllPath,
 } = Astro.props as {
-  items: Item[];
+  items: ResourceItem[];
   dateField?: string;
   metaField?: string;
   metaLabel?: string;
@@ -51,12 +48,13 @@ const buildTagHref = (tag?: string) => {
   return qs ? `${Astro.url.pathname}?${qs}` : Astro.url.pathname;
 };
 
-const allTags = Array.from(new Set(items.flatMap(item => item.data.tags || [])));
+const getTags = (item: ResourceItem): string[] => getStringTags(item.data.tags);
+
+const allTags = Array.from(new Set(items.flatMap(getTags)));
 
 const filteredItems = selectedTag
   ? items.filter(item =>
-      Array.isArray(item.data.tags) &&
-      item.data.tags.some((tag: string) => tag && normalizeTag(tag) === selectedTag)
+      getTags(item).some((tag) => normalizeTag(tag) === selectedTag)
     )
   : items;
 
@@ -81,7 +79,7 @@ const getIconName = () => {
 
 const iconName = getIconName();
 
-const formatMeta = (item: Item) => {
+const formatMeta = (item: ResourceItem) => {
   if (!metaField) return '';
   const v = item.data[metaField];
   if (!v) return '';
@@ -89,7 +87,7 @@ const formatMeta = (item: Item) => {
   return ` · ${v}`;
 };
 
-const getItemHref = (item: Item) => {
+const getItemHref = (item: ResourceItem) => {
   if (isHeroLinkExternal && heroExternalUrlField && item.data[heroExternalUrlField]) {
     return String(item.data[heroExternalUrlField]);
   }
@@ -97,9 +95,12 @@ const getItemHref = (item: Item) => {
   return `${basePath}/${item.slug}`;
 };
 
-const formatDate = (item: Item) => {
+const formatDate = (item: ResourceItem) => {
   const v = item.data[dateField];
   if (!v) return '';
+  if (!(v instanceof Date) && typeof v !== 'string' && typeof v !== 'number') {
+    return String(v);
+  }
   const d = v instanceof Date ? v : new Date(v);
   return isNaN(d.getTime())
     ? String(v)
@@ -110,7 +111,7 @@ const formatDate = (item: Item) => {
 {allTags.length > 0 && (
   <div class="flex flex-wrap gap-2 mb-6">
     <a
-      class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${!selectedTag ? 'bg-[#4900f8] text-white border-[#4900f8]' : 'border-[#4900f8] text-[#4900f8] bg-white hover:bg-[#4900f8] hover:text-white'}`}
+      class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${!selectedTag ? 'bg-[var(--scheme-accent)] text-white border-[var(--scheme-accent)]' : 'border-[var(--scheme-accent)] text-[var(--scheme-accent)] bg-white hover:bg-[var(--scheme-accent)] hover:text-white'}`}
       href={buildTagHref()}
     >
       All
@@ -118,7 +119,7 @@ const formatDate = (item: Item) => {
 
     {allTags.map(tag => (
       <a
-        class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${selectedTag === normalizeTag(tag) ? 'bg-[#4900f8] text-white border-[#4900f8]' : 'border-[#4900f8] text-[#4900f8] bg-white hover:bg-[#4900f8] hover:text-white'}`}
+        class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${selectedTag === normalizeTag(tag) ? 'bg-[var(--scheme-accent)] text-white border-[var(--scheme-accent)]' : 'border-[var(--scheme-accent)] text-[var(--scheme-accent)] bg-white hover:bg-[var(--scheme-accent)] hover:text-white'}`}
         href={buildTagHref(tag)}
       >
         {tag}
@@ -134,7 +135,7 @@ const formatDate = (item: Item) => {
       <span>{formatDate(latestFiltered)}{formatMeta(latestFiltered)}</span>
     </div>
 
-    <h2 class="text-2xl font-semibold mb-2">
+    <h2 class="text-2xl font-semibold">
       <a
         href={getItemHref(latestFiltered)}
         target={isHeroLinkExternal ? '_blank' : undefined}
@@ -146,7 +147,7 @@ const formatDate = (item: Item) => {
     </h2>
 
     {subtitleField && latestFiltered.data[subtitleField] && (
-      <p class="text-slate-600 mb-3">{latestFiltered.data[subtitleField]}</p>
+      <p class="text-slate-600">{latestFiltered.data[subtitleField]}</p>
     )}
 
     {showBody && latestFiltered.body && (
@@ -165,7 +166,7 @@ const formatDate = (item: Item) => {
           {formatDate(item)}{formatMeta(item)}
         </div>
 
-        <h3 class="text-lg font-semibold mb-1">
+        <h3 class="text-lg font-semibold">
           <a
             href={getItemHref(item)}
             class="hover:underline"
