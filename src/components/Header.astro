@@ -1,20 +1,109 @@
-<header class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 bg-white">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 h-16 px-4 md:px-6">
-    <a href="/" class="flex items-center gap-3">
-      <img src="/favicon.svg" alt="logo" class="h-6 w-6" />
-      <span class="text-sm font-semibold text-black">My Site</span>
+<header
+  class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur"
+>
+  <div
+    class="mx-auto flex max-w-[1575px] items-center justify-between px-4 py-3.5 sm:py-4 lg:py-4"
+  >
+    <a href="/" class="flex items-center gap-2">
+      <div
+        class="h-7 w-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500"
+      >
+      </div>
+      <span
+        class="font-semibold tracking-tight text-slate-900"
+        >Timefold</span
+      >
     </a>
-
-    <nav class="hidden md:flex items-center gap-4 text-sm text-black">
+    <nav
+      aria-label="Main"
+      class="hidden items-center gap-6 font-medium text-slate-600 lg:flex"
+      data-main-nav
+    >
+      <a href="#solutions" class="hover:text-slate-900" data-section-link
+        >Solutions</a
+      >
+      <a href="#models" class="hover:text-slate-900" data-section-link
+        >Planning Models</a
+      >
+      <a href="#proof" class="hover:text-slate-900" data-section-link
+        >Customer Stories</a
+      >
+      <a href="https://timefold.ai/blog" class="hover:text-slate-900">Blog</a>
+      <a href="#pricing" class="hover:text-slate-900" data-section-link
+        >Pricing</a
+      >
+      <a href="https://docs.timefold.ai" class="hover:text-slate-900"
+        >Documentation</a
+      >
       <a href="/blog" class="hover:text-[#4900f8]">Blog</a>
       <a href="/docs" class="hover:text-[#4900f8]">Documentation</a>
       <a href="/math" class="hover:text-[#4900f8]">Math</a>
       <a href="/notes" class="hover:text-[#4900f8]">Notes</a>
       <a href="/resources" class="hover:text-[#4900f8]">Resources</a>
     </nav>
+    <a
+      href="https://timefold.ai/talk-to-us"
+      class="rounded-full bg-slate-900 px-4 py-2 font-semibold text-white shadow-sm transition hover:bg-black sm:px-5 sm:py-2.5"
+    >
+      Talk to us
+    </a>
 
-    <div class="ml-auto flex items-center gap-3">
-      <a href="/" class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs text-black hover:border-[#4900f8] hover:text-[#4900f8]">Get started</a>
-    </div>
+    <button
+      type="button"
+      aria-label="Open menu"
+      aria-controls="mobile-nav"
+      aria-expanded="false"
+      data-mobile-menu-button
+      class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 lg:hidden"
+    >
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+
+  <div
+    id="mobile-nav"
+    class="hidden border-t border-slate-200 bg-white px-4 py-3 lg:hidden"
+    data-mobile-nav
+  >
+    <nav
+      aria-label="Mobile"
+      class="grid gap-1.5 font-medium text-slate-700"
+      data-main-nav
+    >
+      <a
+        href="#solutions"
+        class="rounded-md px-2 py-2 hover:bg-slate-50"
+        data-section-link>Solutions</a
+      >
+      <a
+        href="#models"
+        class="rounded-md px-2 py-2 hover:bg-slate-50"
+        data-section-link>Planning Models</a
+      >
+      <a
+        href="#proof"
+        class="rounded-md px-2 py-2 hover:bg-slate-50"
+        data-section-link>Customer Stories</a
+      >
+      <a
+        href="#pricing"
+        class="rounded-md px-2 py-2 hover:bg-slate-50"
+        data-section-link>Pricing</a
+      >
+      <a
+        href="https://timefold.ai/blog"
+        class="rounded-md px-2 py-2 hover:bg-slate-50">Blog</a
+      >
+      <a
+        href="https://docs.timefold.ai"
+        class="rounded-md px-2 py-2 hover:bg-slate-50">Documentation</a
+      >
+      <a
+        href="https://timefold.ai/talk-to-us"
+        class="mt-1 rounded-full bg-slate-900 px-4 py-2 text-center font-semibold text-white"
+      >
+        Talk to us
+      </a>
+    </nav>
   </div>
 </header>

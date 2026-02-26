@@ -2,7 +2,7 @@
 // Simple site footer used across layouts
 ---
 
-<footer class="border-t border-slate-900 bg-slate-950">
+<!-- <footer class="border-t border-slate-900 bg-slate-950">
   <div class="mx-auto max-w-6xl p-6 text-sm text-slate-400">
     <div class="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
       <div>
@@ -32,4 +32,52 @@
       </div>
     </div>
   </div>
-</footer>
+</footer> -->
+
+<footer id="resources" aria-label="Footer" class="border-t border-slate-200">
+      <div class="mx-auto max-w-[1575px] px-4 py-12 sm:py-14">
+        <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-5">
+          <div class="md:col-span-2 lg:col-span-2">
+            <a href="/" class="mb-3 inline-flex items-center gap-2">
+              <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
+              <span class="font-semibold tracking-tight text-slate-900">Timefold</span>
+            </a>
+            <p class="max-w-md text-slate-600">
+              The intelligent scheduling optimization platform for routing, shift scheduling and task assignment.
+            </p>
+          </div>
+          <div>
+            <h3 class="mb-3 font-semibold text-slate-900">Solutions</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li><a href="https://timefold.ai/solutions/route-optimization" class="hover:text-slate-900">Route Scheduling</a></li>
+              <li><a href="https://timefold.ai/solutions/shift-scheduling-optimization" class="hover:text-slate-900">Shift Scheduling</a></li>
+              <li><a href="https://timefold.ai/solutions/task-assignment-optimization" class="hover:text-slate-900">Task Scheduling</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="mb-3 font-semibold text-slate-900">Platform</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li><a href="https://timefold.ai/model" class="hover:text-slate-900">Planning Models</a></li>
+              <li><a href="https://docs.timefold.ai" class="hover:text-slate-900">Documentation</a></li>
+              <li><a href="https://app.timefold.ai" class="hover:text-slate-900">Explore APIs</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="mb-3 font-semibold text-slate-900">Company</h3>
+            <ul class="space-y-2 text-slate-600">
+              <li><a href="https://timefold.ai/about-us" class="hover:text-slate-900">About Us</a></li>
+              <li><a href="https://timefold.ai/partners" class="hover:text-slate-900">Partners</a></li>
+              <li><a href="https://jobs.timefold.ai" class="hover:text-slate-900">Jobs</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-6 text-slate-500">
+          <span>© {new Date().getFullYear()} Timefold BV</span>
+          <div class="flex items-center gap-4">
+            <a href="https://timefold.ai/terms" class="hover:text-slate-700">Legal</a>
+            <a href="https://timefold.ai/privacy" class="hover:text-slate-700">Privacy</a>
+            <a href="https://timefold.ai/trademarks" class="hover:text-slate-700">Brand Assets</a>
+          </div>
+        </div>
+      </div>
+    </footer>

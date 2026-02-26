@@ -23,48 +23,48 @@ const linkActive =
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-[#e5e5e6] text-black">
-    <div class="flex min-h-screen pt-16">
-      <Header />
+  <body>
+    <Header />
+    <div class="flex pt-16">
       <!-- LEFT NAV -->
       <aside
         id="sidebar"
         class="w-64 border-r border-slate-800 p-6 md:block sidebar-hidden"
       >
-        <h2 class="mb-4 text-lg font-semibold">Navigation</h2>
+        <h2 class="mb-4 font-semibold">Navigation</h2>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+          <h3 class="mb-2 font-semibold uppercase tracking-wide text-slate-400">
             Docs
           </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
+          <ul class="space-y-1 text-slate-300">
             <li><a href="/" class="hover:text-white">Documentation</a></li>
           </ul>
         </div>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+          <h3 class="mb-2 font-semibold uppercase tracking-wide text-slate-400">
             Math
           </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
+          <ul class="space-y-1 text-slate-300">
             <li><a href="/math/matrix" class="hover:text-white">Matrix Notes</a></li>
           </ul>
         </div>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+          <h3 class="mb-2 font-semibold uppercase tracking-wide text-slate-400">
             Notes
           </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
+          <ul class="space-y-1 text-slate-300">
             <li><a href="/notes" class="hover:text-white">All Notes</a></li>
           </ul>
         </div>
 
         <div class="mb-6">
-          <h3 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-400">
+          <h3 class="mb-2 font-semibold uppercase tracking-wide text-slate-400">
             Resources
           </h3>
-          <ul class="space-y-1 text-sm text-slate-300">
+          <ul class="space-y-1 text-slate-300">
             <li><a href="/resources" class="hover:text-white">Overview</a></li>
             <li><a href="/blog" class="hover:text-white">Blog</a></li>
             <li><a href="/resources/videos" class="hover:text-white">Videos</a></li>
@@ -86,10 +86,10 @@ const linkActive =
 
       <!-- MAIN CONTENT -->
       <main class="flex-1">
-        <div class="mx-auto max-w-5xl p-4 py-8 md:px-10">
+        <div class="mx-auto p-4 py-8 md:px-10">
           {title && (
             <header class="mb-8">
-              <nav class="flex gap-3 text-sm text-slate-300 mb-4">
+              <nav class="flex gap-3 text-slate-300 mb-4">
                 <a href="/blog" class={currentPath === '/blog' ? linkActive : linkBase} aria-label="Blog">
                   <span class={`inline-flex items-center justify-center rounded-full w-8 h-8 ${currentPath === '/blog' ? 'bg-[#4900f8]' : ''}`} style={currentPath === '/blog' ? '' : 'background: var(--color-bg);'}>
                     <ResourceIcons name="blog" size={20} color={currentPath === '/blog' ? 'white' : 'black'} />
