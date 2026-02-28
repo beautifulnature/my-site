@@ -25,7 +25,7 @@ const linkActive =
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="scheme-default">
     <Header />
     <div class="flex pt-16">
       <!-- LEFT NAV -->
@@ -53,10 +53,18 @@ const linkActive =
 
       <!-- MAIN CONTENT -->
       <main class="flex-1">
-        <div class="mx-auto p-4 py-8 md:px-10">
+        <div class="layout-container py-8">
           {title && (
             <header class="mb-8">
-              <nav class="flex gap-3 mb-4">
+              <h1 class="h1-page-title mb-2">{title}</h1>
+
+              <div>
+                {description && (
+                  <p class={`${descriptionClass}`} set:html={description}></p>
+                )}
+              </div>
+
+              <nav class="mt-4 flex gap-3">
                 {RESOURCE_NAV_ITEMS.map((item) => (
                   <a href={item.href} class={currentPath === item.href ? linkActive : linkBase} aria-label={item.label}>
                     <span class={`resource-nav-icon ${currentPath === item.href ? 'resource-nav-icon-active' : 'resource-nav-icon-inactive'}`}>
@@ -65,12 +73,6 @@ const linkActive =
                   </a>
                 ))}
               </nav>
-
-              <div>
-                {description && (
-                  <p class={`${descriptionClass}`} set:html={description}></p>
-                )}
-              </div>
             </header>
           )}
 

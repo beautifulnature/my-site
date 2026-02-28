@@ -17,10 +17,10 @@ const { title = SITE_CONTENT.defaultTitle } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="scheme-default">
 		<Header />
 
-		<main class="mx-auto max-w-6xl p-6 pt-16">
+		<main class="layout-container pb-6 pt-16">
 			<slot />
 		</main>
 

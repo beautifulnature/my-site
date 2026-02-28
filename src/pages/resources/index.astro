@@ -1,13 +1,14 @@
 ---
-import DocsLayout from '../../layouts/Docs.astro';
+import ResourcesLayout from '../../layouts/ResourcesLayout.astro';
 import ResourceIcons from '../../components/ResourceIcons.astro';
 ---
 
-<DocsLayout title="Resources">
-  <h1 class="h1-page-title">Resources</h1>
-  <p class="text-slate-900">
-    Explore blog posts, videos, customer stories, events, press, and newsletters.
-  </p>
+<ResourcesLayout
+  title="Resources"
+  description="Explore blog posts, videos, customer stories, events, press, and newsletters."
+  descriptionClass="text-slate-900"
+  currentPath="/resources"
+>
 
   <div class="grid gap-6 md:grid-cols-2">
     <a href="/blog" class="resource-link-card">
@@ -65,4 +66,4 @@ import ResourceIcons from '../../components/ResourceIcons.astro';
       </span>
     </a>
   </div>
-</DocsLayout>
+</ResourcesLayout>

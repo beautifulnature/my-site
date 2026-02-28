@@ -14,7 +14,7 @@ const { title, enableToc = false } = Astro.props;
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="scheme-default">
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900 focus:shadow-lg"
@@ -32,7 +32,6 @@ const { title, enableToc = false } = Astro.props;
       >
     </div>
     <Header />
-    <div class="flex flex-1 pt-16">
       <!-- LEFT NAV -->
       <aside
         id="sidebar"
@@ -68,8 +67,10 @@ const { title, enableToc = false } = Astro.props;
         class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] lg:hidden"
         data-mobile-backdrop></button>
 
-      <main id="main-content" class="flex-1 p-6 md:p-10">
-        <slot />
+      <main id="main-content">
+        <!-- <div class="layout-container"> -->
+          <slot />
+        <!-- </div> -->
       </main>
 
       <!-- MAIN + RIGHT TOC -->
@@ -93,7 +94,6 @@ const { title, enableToc = false } = Astro.props;
           </aside>
         )
       }
-    </div>
     </div>
 
     <DocsTocScript enableToc={enableToc} />
