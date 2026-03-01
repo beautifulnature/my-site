@@ -1,0 +1,30 @@
+---
+const {
+  items = [],
+  size = 'mobile',
+  className = '',
+} = Astro.props as {
+  items: Array<{ label: string; href: string; active?: boolean }>;
+  size?: 'mobile' | 'desktop';
+  className?: string;
+};
+
+const chipBase = 'rounded-full border uppercase transition-colors';
+const chipSize =
+  size === 'desktop'
+    ? 'px-2 py-0.5 text-[10px] tracking-[0.12em]'
+    : 'px-3 py-1 text-xs tracking-wide';
+
+const getChipClass = (active?: boolean) =>
+  `${chipBase} ${chipSize} ${active
+    ? 'bg-[var(--scheme-accent)] text-white border-[var(--scheme-accent)]'
+    : 'border-[var(--scheme-accent)] text-[var(--scheme-accent)] bg-white hover:bg-[var(--scheme-accent)] hover:text-white'}`;
+---
+
+<div class={className}>
+  {items.map((item) => (
+    <a href={item.href} class={getChipClass(item.active)}>
+      {item.label}
+    </a>
+  ))}
+</div>

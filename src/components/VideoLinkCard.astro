@@ -1,0 +1,54 @@
+---
+import MediaOverlayCard from './MediaOverlayCard.astro';
+import ResourceIcons from './ResourceIcons.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  thumbnailUrl?: string;
+  dateText: string;
+  subtitle?: string;
+  headingLevel?: 'h2' | 'h3';
+  spanTwoCols?: boolean;
+  target?: '_blank' | '_self';
+  rel?: string;
+}
+
+const {
+  href,
+  title,
+  thumbnailUrl = '',
+  dateText,
+  subtitle,
+  headingLevel = 'h3',
+  spanTwoCols = false,
+  target,
+  rel,
+} = Astro.props as Props;
+
+const HeadingTag = headingLevel;
+const cardClass = `c-link-card c-link-card--media c-link-card--vertical c-link-card--video border border-[var(--scheme-border)]${spanTwoCols ? ' md:col-span-2' : ''}`;
+---
+
+<MediaOverlayCard
+  articleClass={cardClass}
+  imageSrc={thumbnailUrl || undefined}
+  imageSrcSet={thumbnailUrl ? `${thumbnailUrl} 1200w` : undefined}
+  imageAlt={`YouTube thumbnail for ${title}`}
+  headerHref={href}
+  headerTarget={target}
+  headerRel={rel}
+  headerAriaLabel={title}
+>
+  <span slot="label" class="c-link-card__label">Videos</span>
+  <HeadingTag slot="title" class="c-link-card__title">{title}</HeadingTag>
+  <span slot="button" class="c-link-card__button" aria-hidden="true">
+    <ResourceIcons name="arrow-right" size={16} />
+  </span>
+
+  <div slot="body" class="c-link-card__meta">{dateText}</div>
+
+  {subtitle && (
+    <p slot="body" class="c-link-card__subtitle">{subtitle}</p>
+  )}
+</MediaOverlayCard>

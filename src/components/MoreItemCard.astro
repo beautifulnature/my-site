@@ -1,60 +1,73 @@
 ---
+import {
+  RESOURCE_CARD_PLACEHOLDER_SRC,
+  RESOURCE_CARD_PLACEHOLDER_SRCSET,
+} from '../utils/cardMedia';
+
 interface Props {
   href: string;
   title: string;
   dateText: string;
-  borderColor: string;
-  hoverBorderColor: string;
   dateClass?: string;
-  dateStyle?: string;
   titleClass?: string;
-  titleStyle?: string;
   secondaryText?: string;
   secondaryClass?: string;
-  secondaryStyle?: string;
   description?: string;
   descriptionClass?: string;
-  descriptionStyle?: string;
+  imageSrc?: string;
+  imageSrcSet?: string;
+  imageAlt?: string;
 }
 
 const {
   href,
   title,
   dateText,
-  borderColor,
-  hoverBorderColor,
   dateClass = 'meta-label',
-  dateStyle,
   titleClass = 'font-semibold',
-  titleStyle,
   secondaryText,
   secondaryClass,
-  secondaryStyle,
   description,
   descriptionClass,
-  descriptionStyle,
+  imageSrc = RESOURCE_CARD_PLACEHOLDER_SRC,
+  imageSrcSet = RESOURCE_CARD_PLACEHOLDER_SRCSET,
+  imageAlt = '',
 } = Astro.props;
 ---
 
 <a
   href={href}
-  class="more-card more-card-hover"
-  style={`--card-border: ${borderColor}; --card-border-hover: ${hoverBorderColor}; position: relative;`}
+  class="resource-link-card more-item-resource-card more-item-resource-card--tone"
 >
-  <p class={dateClass} style={dateStyle}>
-    {dateText}
-  </p>
-  <h3 class={titleClass} style={titleStyle}>
-    {title}
-  </h3>
-  {secondaryText && (
-    <p class={secondaryClass} style={secondaryStyle}>
-      {secondaryText}
+  <picture class="c-picture c-link-card__media c-picture--focal-center u-overlay u-overlay--strong more-item-resource-picture">
+    <img
+      class="c-picture__image eager"
+      sizes="(min-width: 768px) 33vw, 100vw"
+      src={imageSrc}
+      srcset={imageSrcSet}
+      height="144"
+      width="180"
+      alt={imageAlt}
+      loading="lazy"
+    />
+  </picture>
+
+  <span class="more-item-resource-card-content">
+    <p class={dateClass}>
+      {dateText}
     </p>
-  )}
-  {description && (
-    <p class={descriptionClass} style={descriptionStyle}>
-      {description}
-    </p>
-  )}
+    <h3 class={titleClass}>
+      {title}
+    </h3>
+    {secondaryText && (
+      <p class={secondaryClass}>
+        {secondaryText}
+      </p>
+    )}
+    {description && (
+      <p class={descriptionClass}>
+        {description}
+      </p>
+    )}
+  </span>
 </a>

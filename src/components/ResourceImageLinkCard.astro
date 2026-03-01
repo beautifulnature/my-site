@@ -1,0 +1,66 @@
+---
+import MediaOverlayCard from './MediaOverlayCard.astro';
+import ResourceIcons from './ResourceIcons.astro';
+import {
+  RESOURCE_CARD_PLACEHOLDER_SRC,
+  RESOURCE_CARD_PLACEHOLDER_SRCSET,
+} from '../utils/cardMedia';
+
+interface Props {
+  href: string;
+  title: string;
+  label: string;
+  dateText: string;
+  detailText?: string;
+  headingLevel?: 'h2' | 'h3';
+  spanTwoCols?: boolean;
+  target?: '_blank' | '_self';
+  rel?: string;
+}
+
+const {
+  href,
+  title,
+  label,
+  dateText,
+  detailText,
+  headingLevel = 'h3',
+  spanTwoCols = false,
+  target,
+  rel,
+} = Astro.props as Props;
+
+const HeadingTag = headingLevel;
+const cardClass = `c-link-card c-link-card--vertical scheme-default border border-[var(--scheme-border)]${spanTwoCols ? ' md:col-span-2' : ''}`;
+---
+
+<MediaOverlayCard
+  articleClass={cardClass}
+  imageSrc={RESOURCE_CARD_PLACEHOLDER_SRC}
+  imageSrcSet={RESOURCE_CARD_PLACEHOLDER_SRCSET}
+  imageAlt=""
+>
+  <div slot="label" class="c-label c-link-card__label c-label--square">
+    <span class="c-label__text">{label}</span>
+  </div>
+
+  <HeadingTag slot="title" class="c-title c-link-card__title">{title}</HeadingTag>
+
+  <a slot="button" class="c-button c-button--icon-only c-button-primary c-link-card__button" href={href} target={target ?? '_self'} rel={rel}>
+    <span class="c-icon c-button__icon c-icon--after">
+      <ResourceIcons name="arrow-right" size={16} />
+    </span>
+  </a>
+
+  <div slot="body" class="c-text s-wysiwyg c-link-card__text">
+    <p>
+      <strong>{dateText}</strong>
+      {detailText && (
+        <>
+          <br />
+          {detailText}
+        </>
+      )}
+    </p>
+  </div>
+</MediaOverlayCard>

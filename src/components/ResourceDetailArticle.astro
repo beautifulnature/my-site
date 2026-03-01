@@ -10,7 +10,6 @@ interface Props {
   shareTitle: string;
   articleClass?: string;
   metaRowClass?: string;
-  metaRowStyle?: string;
   articleId?: string;
   iconSize?: number;
 }
@@ -23,7 +22,6 @@ const {
   shareTitle,
   articleClass = 'prose blog-prose text-slate-900',
   metaRowClass = '',
-  metaRowStyle,
   articleId,
   iconSize = 18,
 } = Astro.props;
@@ -35,14 +33,14 @@ const {
       <span class="resource-back-icon">
         <ResourceIcons name={iconName} size={iconSize} color="white" />
       </span>
-      <span style="font-size: 18px;">{backLabel}</span>
+      <span class="resource-back-label">{backLabel}</span>
     </a>
   </div>
 
   <slot name="preMeta" />
 
   <div class="mb-6">
-    <div class={`meta-share-row ${metaRowClass}`.trim()} style={metaRowStyle}>
+    <div class={`meta-share-row ${metaRowClass}`.trim()}>
       <div class="flex flex-wrap items-center gap-3">
         <slot name="meta" />
       </div>

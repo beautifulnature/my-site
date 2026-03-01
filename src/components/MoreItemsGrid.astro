@@ -1,15 +1,14 @@
 ---
 interface Props {
   title: string;
-  accentColor: string;
   gridId?: string;
 }
 
-const { title, accentColor, gridId } = Astro.props;
+const { title, gridId } = Astro.props;
 ---
 
-<section class="more-section" style={`border-color: ${accentColor};`} data-toc-exclude>
-  <h2 class="h2-section-label" style={`color: ${accentColor};`}>
+<section class="more-section more-section--accent" data-toc-exclude>
+  <h2 class="h2-section-label more-section__title">
     {title}
   </h2>
   <div class="more-grid" id={gridId}>

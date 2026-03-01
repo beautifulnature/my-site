@@ -1,0 +1,91 @@
+---
+interface Props {
+  articleClass: string;
+  imageSrc?: string;
+  imageSrcSet?: string;
+  imageAlt?: string;
+  imageSizes?: string;
+  imageWidth?: string;
+  imageHeight?: string;
+  imageLoading?: 'lazy' | 'eager';
+  headerHref?: string;
+  headerTarget?: '_blank' | '_self';
+  headerRel?: string;
+  headerAriaLabel?: string;
+}
+
+const {
+  articleClass,
+  imageSrc,
+  imageSrcSet,
+  imageAlt = '',
+  imageSizes = '(min-width: 720px) 33vw, 100vw',
+  imageWidth = '180',
+  imageHeight = '144',
+  imageLoading = 'lazy',
+  headerHref,
+  headerTarget,
+  headerRel,
+  headerAriaLabel,
+} = Astro.props as Props;
+---
+
+<article class={articleClass}>
+  <div class="c-link-card__container">
+    {headerHref ? (
+      <a
+        href={headerHref}
+        target={headerTarget}
+        rel={headerRel}
+        class="c-link-card__header"
+        aria-label={headerAriaLabel}
+      >
+        {imageSrc && (
+          <picture class="c-picture c-link-card__media c-picture--focal-center u-overlay u-overlay--strong">
+            <img
+              class="c-picture__image eager"
+              sizes={imageSizes}
+              src={imageSrc}
+              srcset={imageSrcSet}
+              height={imageHeight}
+              width={imageWidth}
+              alt={imageAlt}
+              loading={imageLoading}
+            />
+          </picture>
+        )}
+
+        <div class="c-link-card__content">
+          <slot name="label" />
+          <slot name="title" />
+          <slot name="button" />
+        </div>
+      </a>
+    ) : (
+      <div class="c-link-card__header">
+        {imageSrc && (
+          <picture class="c-picture c-link-card__media c-picture--focal-center u-overlay u-overlay--strong">
+            <img
+              class="c-picture__image eager"
+              sizes={imageSizes}
+              src={imageSrc}
+              srcset={imageSrcSet}
+              height={imageHeight}
+              width={imageWidth}
+              alt={imageAlt}
+              loading={imageLoading}
+            />
+          </picture>
+        )}
+
+        <div class="c-link-card__content">
+          <slot name="label" />
+          <slot name="title" />
+          <slot name="button" />
+        </div>
+      </div>
+    )}
+
+    <slot name="body" />
+  </div>
+</article>
