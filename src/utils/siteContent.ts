@@ -20,5 +20,5 @@ export const HOME_PAGE_CONTENT = {
   contactUrl: 'mailto:hello@timefold.ai',
   whyTimefoldLabel: 'Why Timefold',
   testimonialLeadQuote:
-    '“Timefold’s clean APIs and engineering-first approach made integration straightforward and fast.”',
+    '“Timefold’s engineering-first mindset and clean APIs made integration fast, predictable, and low-friction.”',
 } as const;

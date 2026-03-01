@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="96" viewBox="0 0 320 96" role="img" aria-labelledby="title desc">
+  <title id="title">Thales logo</title>
+  <desc id="desc">Simple text logo placeholder for Thales</desc>
+  <rect width="320" height="96" fill="white"/>
+  <text x="0" y="62" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="700" fill="#111827">Thales</text>
+</svg>
