@@ -6,36 +6,27 @@ import ResourceDetailArticle from '../../../components/ResourceDetailArticle.ast
 import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
 import MoreItemCard from '../../../components/MoreItemCard.astro';
 import {
-  buildPageUrl,
-  getRelatedItems,
-  getRequestOrigin,
-  getStringTags,
+  buildDetailPageMeta,
+  buildStaticPathsForCollection,
 } from '../../../utils/content';
 import type { EventEntry } from '../../../types/collections';
-import {
-  COLOR_BORDER_CARD,
-  COLOR_PRIMARY,
-  COLOR_TEXT,
-  COLOR_TEXT_LIGHT,
-} from '../../../utils/colors';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const events = await getCollection('events');
-  return events.map((event) => ({
-    params: { slug: event.slug },
-    props: { event },
-  }));
+  return buildStaticPathsForCollection(events, 'event');
 };
 
 const { event } = Astro.props as { event: EventEntry };
 const { Content } = await event.render();
 const resourceType = RESOURCE_TYPES.events;
 
-const origin = getRequestOrigin(Astro.request?.url);
-const pageUrl = buildPageUrl(origin, `${resourceType.detailBasePath}/${event.slug}/`);
-const moreEvents = getRelatedItems(await getCollection('events'), event.slug, 3);
-const eventTags = getStringTags(event.data.tags);
+const allEvents = await getCollection('events');
+const {
+  pageUrl,
+  moreItems: moreEvents,
+  tags: eventTags,
+} = buildDetailPageMeta(allEvents, event, resourceType.detailBasePath, Astro.request?.url, 3);
 ---
 
 <DocsLayout>
@@ -90,18 +81,16 @@ const eventTags = getStringTags(event.data.tags);
 
   {/* More events – OUTSIDE article */}
   {moreEvents.length > 0 && (
-    <MoreItemsGrid title={resourceType.moreTitle} accentColor={COLOR_PRIMARY} gridId="more-events-grid">
+    <MoreItemsGrid title={resourceType.moreTitle} gridId="more-events-grid">
         {moreEvents.map((e) => (
           <MoreItemCard
             href={`${resourceType.detailBasePath}/${e.slug}/`}
             title={e.data.title}
             dateText={e.data.date.toLocaleDateString()}
-            borderColor={COLOR_BORDER_CARD}
-            hoverBorderColor={COLOR_PRIMARY}
-            dateStyle={`color: ${COLOR_TEXT_LIGHT};`}
-            titleStyle={`color: ${COLOR_TEXT};`}
+            dateClass="meta-label text-slate-600"
+            titleClass="font-semibold text-slate-900"
             secondaryText={e.data.location}
-            secondaryStyle={`color: ${COLOR_TEXT_LIGHT};`}
+            secondaryClass="text-slate-600"
           />
         ))}
     </MoreItemsGrid>

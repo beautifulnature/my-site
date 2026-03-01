@@ -6,36 +6,27 @@ import ResourceDetailArticle from '../../components/ResourceDetailArticle.astro'
 import MoreItemsGrid from '../../components/MoreItemsGrid.astro';
 import MoreItemCard from '../../components/MoreItemCard.astro';
 import {
-  buildPageUrl,
-  getRelatedItems,
-  getRequestOrigin,
-  getStringTags,
+  buildDetailPageMeta,
+  buildStaticPathsForCollection,
 } from '../../utils/content';
 import type { BlogEntry } from '../../types/collections';
-import {
-  COLOR_BORDER_CARD,
-  COLOR_PRIMARY,
-  COLOR_TEXT,
-  COLOR_TEXT_LIGHT,
-} from '../../utils/colors';
 import { RESOURCE_TYPES } from '../../utils/resourceTypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  return buildStaticPathsForCollection(posts, 'post');
 };
 
 const { post } = Astro.props as { post: BlogEntry };
 const { Content } = await post.render();
 const resourceType = RESOURCE_TYPES.blog;
 
-const origin = getRequestOrigin(Astro.request?.url);
-const pageUrl = buildPageUrl(origin, `${resourceType.detailBasePath}/${post.slug}/`);
-const morePosts = getRelatedItems(await getCollection('blog'), post.slug, 3);
-const postTags = getStringTags(post.data.tags);
+const allPosts = await getCollection('blog');
+const {
+  pageUrl,
+  moreItems: morePosts,
+  tags: postTags,
+} = buildDetailPageMeta(allPosts, post, resourceType.detailBasePath, Astro.request?.url, 3);
 ---
 
 <DocsLayout enableToc={true}>
@@ -96,19 +87,16 @@ const postTags = getStringTags(post.data.tags);
 
   {/* More posts – OUTSIDE article-root, ignored by TOC */}
   {morePosts.length > 0 && (
-    <MoreItemsGrid title={resourceType.moreTitle} accentColor={COLOR_PRIMARY} gridId="more-blog-grid">
+    <MoreItemsGrid title={resourceType.moreTitle} gridId="more-blog-grid">
           {morePosts.map((p) => (
             <MoreItemCard
               href={`${resourceType.detailBasePath}/${p.slug}/`}
               title={p.data.title}
               dateText={p.data.date.toLocaleDateString()}
-              borderColor={COLOR_BORDER_CARD}
-              hoverBorderColor={COLOR_PRIMARY}
-              dateStyle={`color: ${COLOR_TEXT_LIGHT};`}
-              titleStyle={`color: ${COLOR_TEXT};`}
+              dateClass="meta-label text-slate-600"
+              titleClass="font-semibold text-slate-900"
               description={p.data.description}
-              descriptionClass="line-clamp-3"
-              descriptionStyle="color: #334155;"
+              descriptionClass="line-clamp-3 text-slate-700"
             />
           ))}
     </MoreItemsGrid>

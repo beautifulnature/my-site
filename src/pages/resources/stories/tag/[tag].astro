@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ResourcesLayout from '../../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../../components/ResourceIndex.astro';
+import { RESOURCE_TYPES } from '../../../../utils/resourceTypes';
+import { getSortedDateCollection, getStringTags, normalizeTag } from '../../../../utils/content';
+
+const stories = await getSortedDateCollection('stories');
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const all = await getSortedDateCollection('stories');
+  const tags = Array.from(new Set(all.flatMap((item) => getStringTags(item.data.tags))));
+  return tags.map((tag) => ({ params: { tag } }));
+};
+
+const selectedTag = normalizeTag(String(Astro.params.tag || ''));
+const resourceType = RESOURCE_TYPES.stories;
+---
+
+<ResourcesLayout
+  title={resourceType.indexTitle}
+  description={resourceType.indexDescription}
+  descriptionClass="desc-black"
+  currentPath={resourceType.indexCurrentPath}
+>
+  <ResourceIndex
+    items={stories}
+    dateField="date"
+    metaField="industry"
+    titleField="title"
+    subtitleField="customer"
+    selectedTagOverride={selectedTag}
+    tagBasePath={resourceType.tagBasePath}
+    tagAllPath={resourceType.tagAllPath}
+  />
+</ResourcesLayout>

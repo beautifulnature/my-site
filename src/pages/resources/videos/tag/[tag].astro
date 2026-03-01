@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ResourcesLayout from '../../../../layouts/ResourcesLayout.astro';
+import ResourceIndex from '../../../../components/ResourceIndex.astro';
+import { RESOURCE_TYPES } from '../../../../utils/resourceTypes';
+import { getSortedDateCollection, getStringTags, normalizeTag } from '../../../../utils/content';
+
+const videos = await getSortedDateCollection('videos');
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const all = await getSortedDateCollection('videos');
+  const tags = Array.from(new Set(all.flatMap((item) => getStringTags(item.data.tags))));
+  return tags.map((tag) => ({ params: { tag } }));
+};
+
+const selectedTag = normalizeTag(String(Astro.params.tag || ''));
+const resourceType = RESOURCE_TYPES.videos;
+---
+
+<ResourcesLayout
+  title={resourceType.indexTitle}
+  description={resourceType.indexDescription}
+  descriptionClass="desc-black"
+  currentPath={resourceType.indexCurrentPath}
+>
+  <ResourceIndex
+    items={videos}
+    dateField="date"
+    metaField="length"
+    titleField="title"
+    showBody={false}
+    selectedTagOverride={selectedTag}
+    tagBasePath={resourceType.tagBasePath}
+    tagAllPath={resourceType.tagAllPath}
+  />
+</ResourcesLayout>

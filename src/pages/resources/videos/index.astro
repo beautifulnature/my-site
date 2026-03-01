@@ -1,13 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
-import type { VideoEntry } from '../../../types/collections';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
+import { getSortedDateCollection } from '../../../utils/content';
 
-const videos: VideoEntry[] = (await getCollection('videos')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
+const videos = await getSortedDateCollection('videos');
 const resourceType = RESOURCE_TYPES.videos;
 ---
 
@@ -23,5 +20,7 @@ const resourceType = RESOURCE_TYPES.videos;
     metaField="length"
     titleField="title"
     showBody={false}
+    tagBasePath={resourceType.tagBasePath}
+    tagAllPath={resourceType.tagAllPath}
   />
 </ResourcesLayout>

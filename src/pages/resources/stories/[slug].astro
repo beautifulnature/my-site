@@ -6,36 +6,27 @@ import ResourceDetailArticle from '../../../components/ResourceDetailArticle.ast
 import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
 import MoreItemCard from '../../../components/MoreItemCard.astro';
 import {
-  buildPageUrl,
-  getRelatedItems,
-  getRequestOrigin,
-  getStringTags,
+  buildDetailPageMeta,
+  buildStaticPathsForCollection,
 } from '../../../utils/content';
 import type { StoryEntry } from '../../../types/collections';
-import {
-  COLOR_BORDER_CARD,
-  COLOR_PRIMARY,
-  COLOR_TEXT,
-  COLOR_TEXT_LIGHT,
-} from '../../../utils/colors';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const stories = await getCollection('stories');
-  return stories.map((story) => ({
-    params: { slug: story.slug },
-    props: { story },
-  }));
+  return buildStaticPathsForCollection(stories, 'story');
 };
 
 const { story } = Astro.props as { story: StoryEntry };
 const { Content } = await story.render();
 const resourceType = RESOURCE_TYPES.stories;
 
-const origin = getRequestOrigin(Astro.request?.url);
-const pageUrl = buildPageUrl(origin, `${resourceType.detailBasePath}/${story.slug}/`);
-const moreStories = getRelatedItems(await getCollection('stories'), story.slug, 3);
-const storyTags = getStringTags(story.data.tags);
+const allStories = await getCollection('stories');
+const {
+  pageUrl,
+  moreItems: moreStories,
+  tags: storyTags,
+} = buildDetailPageMeta(allStories, story, resourceType.detailBasePath, Astro.request?.url, 3);
 ---
 
 <DocsLayout>
@@ -46,8 +37,7 @@ const storyTags = getStringTags(story.data.tags);
     pageUrl={pageUrl}
     shareTitle={story.data.title}
     articleClass="prose blog-prose text-slate-900"
-    metaRowClass="text-xs"
-    metaRowStyle={`color: ${COLOR_TEXT};`}
+    metaRowClass="text-xs text-slate-900"
   >
     <Fragment slot="meta">
       <div class="flex flex-col gap-1">
@@ -75,21 +65,16 @@ const storyTags = getStringTags(story.data.tags);
 
   {/* More stories – OUTSIDE article */}
   {moreStories.length > 0 && (
-    <MoreItemsGrid title={resourceType.moreTitle} accentColor={COLOR_PRIMARY} gridId="more-stories-grid">
+    <MoreItemsGrid title={resourceType.moreTitle} gridId="more-stories-grid">
         {moreStories.map((s) => (
           <MoreItemCard
             href={`${resourceType.detailBasePath}/${s.slug}/`}
             title={s.data.title}
             dateText={s.data.date.toLocaleDateString()}
-            borderColor={COLOR_BORDER_CARD}
-            hoverBorderColor={COLOR_PRIMARY}
-            dateClass="meta-label text-[11px]"
-            dateStyle={`color: ${COLOR_TEXT_LIGHT};`}
-            titleClass="text-sm font-semibold"
-            titleStyle={`color: ${COLOR_TEXT};`}
+            dateClass="meta-label text-[11px] text-slate-600"
+            titleClass="text-sm font-semibold text-slate-900"
             secondaryText={s.data.customer}
-            secondaryClass="text-xs"
-            secondaryStyle={`color: ${COLOR_TEXT_LIGHT};`}
+            secondaryClass="text-xs text-slate-600"
           />
         ))}
     </MoreItemsGrid>

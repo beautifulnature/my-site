@@ -6,36 +6,27 @@ import ResourceDetailArticle from '../../../components/ResourceDetailArticle.ast
 import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
 import MoreItemCard from '../../../components/MoreItemCard.astro';
 import {
-  buildPageUrl,
-  getRelatedItems,
-  getRequestOrigin,
-  getStringTags,
+  buildDetailPageMeta,
+  buildStaticPathsForCollection,
 } from '../../../utils/content';
 import type { NewsletterEntry } from '../../../types/collections';
-import {
-  COLOR_BORDER_CARD,
-  COLOR_PRIMARY,
-  COLOR_TEXT,
-  COLOR_TEXT_LIGHT,
-} from '../../../utils/colors';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const issues = await getCollection('newsletter');
-  return issues.map((issue) => ({
-    params: { slug: issue.slug },
-    props: { issue },
-  }));
+  return buildStaticPathsForCollection(issues, 'issue');
 };
 
 const { issue } = Astro.props as { issue: NewsletterEntry };
 const { Content } = await issue.render();
 const resourceType = RESOURCE_TYPES.newsletter;
 
-const origin = getRequestOrigin(Astro.request?.url);
-const pageUrl = buildPageUrl(origin, `${resourceType.detailBasePath}/${issue.slug}/`);
-const moreNewsletters = getRelatedItems(await getCollection('newsletter'), issue.slug, 3);
-const issueTags = getStringTags(issue.data.tags);
+const allIssues = await getCollection('newsletter');
+const {
+  pageUrl,
+  moreItems: moreNewsletters,
+  tags: issueTags,
+} = buildDetailPageMeta(allIssues, issue, resourceType.detailBasePath, Astro.request?.url, 3);
 ---
 
 <DocsLayout enableToc={true}>
@@ -69,18 +60,16 @@ const issueTags = getStringTags(issue.data.tags);
 
   {/* More newsletters – OUTSIDE article */}
   {moreNewsletters.length > 0 && (
-    <MoreItemsGrid title={resourceType.moreTitle} accentColor={COLOR_PRIMARY} gridId="more-newsletters-grid">
+    <MoreItemsGrid title={resourceType.moreTitle} gridId="more-newsletters-grid">
         {moreNewsletters.map((n) => (
           <MoreItemCard
             href={`${resourceType.detailBasePath}/${n.slug}/`}
             title={n.data.title}
             dateText={n.data.date.toLocaleDateString()}
-            borderColor={COLOR_BORDER_CARD}
-            hoverBorderColor={COLOR_PRIMARY}
-            dateStyle={`color: ${COLOR_TEXT_LIGHT};`}
-            titleStyle={`color: ${COLOR_TEXT};`}
+            dateClass="meta-label text-slate-600"
+            titleClass="font-semibold text-slate-900"
             secondaryText={n.data.issue}
-            secondaryStyle={`color: ${COLOR_TEXT_LIGHT};`}
+            secondaryClass="text-slate-600"
           />
         ))}
     </MoreItemsGrid>

@@ -1,6 +1,8 @@
 ---
 import type { ResourceItem } from '../types/content';
-import { getStringTags } from '../utils/content';
+import { getStringTags, normalizeTag } from '../utils/content';
+import { getYouTubeThumbnailUrl } from '../utils/media';
+import TagChipList from './TagChipList.astro';
 
 const {
   items = [],
@@ -30,11 +32,9 @@ const {
   tagAllPath?: string;
 };
 
-const normalizeTag = (tag: string) => tag.trim().toLowerCase();
-
-const selectedTag = (selectedTagOverride ?? decodeURIComponent(Astro.url.searchParams.get('tag') || ''))
-  .trim()
-  .toLowerCase();
+const selectedTag = normalizeTag(
+  selectedTagOverride ?? decodeURIComponent(Astro.url.searchParams.get('tag') || ''),
+);
 
 const buildTagHref = (tag?: string) => {
   if (tagBasePath) {
@@ -52,6 +52,17 @@ const getTags = (item: ResourceItem): string[] => getStringTags(item.data.tags);
 
 const allTags = Array.from(new Set(items.flatMap(getTags)));
 
+const mobileTagItems = [
+  { label: 'All', href: buildTagHref(), active: !selectedTag },
+  ...allTags.map((tag) => ({
+    label: tag,
+    href: buildTagHref(tag),
+    active: selectedTag === normalizeTag(tag),
+  })),
+];
+
+const desktopTagItems = mobileTagItems;
+
 const filteredItems = selectedTag
   ? items.filter(item =>
       getTags(item).some((tag) => normalizeTag(tag) === selectedTag)
@@ -64,7 +75,8 @@ if (!items.length) {
   throw new Error('ResourceIndex: items is empty');
 }
 
-import ResourceIcons from './ResourceIcons.astro';
+import VideoLinkCard from './VideoLinkCard.astro';
+import ResourceImageLinkCard from './ResourceImageLinkCard.astro';
 
 const getIconName = () => {
   const path = Astro.url.pathname;
@@ -79,40 +91,10 @@ const getIconName = () => {
 
 const iconName = getIconName();
 const isVideosPath = Astro.url.pathname.startsWith('/resources/videos');
-
-const extractYouTubeId = (item: ResourceItem) => {
-  const directId = item.data.youtubeId;
-  if (typeof directId === 'string' && directId.trim()) return directId.trim();
-
-  const rawUrl = item.data.url;
-  if (typeof rawUrl !== 'string' || !rawUrl.trim()) return '';
-
-  try {
-    const parsed = new URL(rawUrl);
-    if (parsed.hostname.includes('youtu.be')) {
-      return parsed.pathname.replace(/^\//, '').trim();
-    }
-    if (parsed.hostname.includes('youtube.com')) {
-      const fromQuery = parsed.searchParams.get('v');
-      if (fromQuery) return fromQuery.trim();
-      const pathParts = parsed.pathname.split('/').filter(Boolean);
-      const markerIndex = pathParts.findIndex((part) => part === 'embed' || part === 'shorts');
-      if (markerIndex >= 0 && pathParts[markerIndex + 1]) return pathParts[markerIndex + 1].trim();
-    }
-  } catch {
-    return '';
-  }
-
-  return '';
-};
-
-const getYouTubeThumbnail = (item: ResourceItem) => {
-  const youtubeId = extractYouTubeId(item);
-  return youtubeId ? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg` : '';
-};
+const resourceLabel = iconName.charAt(0).toUpperCase() + iconName.slice(1);
 
 const latestThumbnailUrl = latestFiltered && isVideosPath
-  ? getYouTubeThumbnail(latestFiltered)
+  ? getYouTubeThumbnailUrl(latestFiltered.data)
   : '';
 
 const formatMeta = (item: ResourceItem) => {
@@ -122,6 +104,8 @@ const formatMeta = (item: ResourceItem) => {
   if (metaLabel) return ` · ${metaLabel}: ${v}`;
   return ` · ${v}`;
 };
+
+const formatDateMeta = (item: ResourceItem) => `${formatDate(item)}${formatMeta(item)}`;
 
 const getItemHref = (item: ResourceItem) => {
   if (isHeroLinkExternal && heroExternalUrlField && item.data[heroExternalUrlField]) {
@@ -142,134 +126,158 @@ const formatDate = (item: ResourceItem) => {
     ? String(v)
     : d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 };
+
+const loadMoreInitial = 6;
+const loadMoreStep = 6;
+const hasMoreItems = restFiltered.length > loadMoreInitial;
 ---
 
 {allTags.length > 0 && (
-  <div class="flex flex-wrap gap-2 mb-6">
-    <a
-      class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${!selectedTag ? 'bg-[var(--scheme-accent)] text-white border-[var(--scheme-accent)]' : 'border-[var(--scheme-accent)] text-[var(--scheme-accent)] bg-white hover:bg-[var(--scheme-accent)] hover:text-white'}`}
-      href={buildTagHref()}
-    >
-      All
-    </a>
-
-    {allTags.map(tag => (
-      <a
-        class={`rounded-full border px-3 py-1 text-xs uppercase tracking-wide transition-colors ${selectedTag === normalizeTag(tag) ? 'bg-[var(--scheme-accent)] text-white border-[var(--scheme-accent)]' : 'border-[var(--scheme-accent)] text-[var(--scheme-accent)] bg-white hover:bg-[var(--scheme-accent)] hover:text-white'}`}
-        href={buildTagHref(tag)}
-      >
-        {tag}
-      </a>
-    ))}
-  </div>
+  <TagChipList items={mobileTagItems} size="mobile" className="mb-6 flex flex-wrap gap-2 lg:hidden" />
 )}
 
-{latestFiltered ? (
-  <article class={isVideosPath ? 'c-link-card c-link-card--horizontal c-link-card--media mb-10 border border-[var(--scheme-border)]' : 'mb-10 rounded-2xl border p-6'}>
-    {latestThumbnailUrl && (
-      <a
-        href={getItemHref(latestFiltered)}
-        target={isHeroLinkExternal ? '_blank' : undefined}
-        rel={isHeroLinkExternal ? 'noreferrer' : undefined}
-        class={isVideosPath ? 'c-link-card__header mb-4' : 'resource-video-thumb mb-4'}
-      >
-        {isVideosPath ? (
-          <span class="c-link-card__media">
-            <img
-              src={latestThumbnailUrl}
-              alt={`YouTube thumbnail for ${latestFiltered.data[titleField]}`}
-              class="c-picture__image h-full w-full object-cover"
-              loading="lazy"
-            />
-          </span>
-        ) : (
-          <img
-            src={latestThumbnailUrl}
-            alt={`YouTube thumbnail for ${latestFiltered.data[titleField]}`}
-            class="resource-video-thumb-img"
-            loading="lazy"
-          />
-        )}
-      </a>
-    )}
+<div class={allTags.length > 0 ? 'lg:grid lg:grid-cols-[11.5rem_minmax(0,1fr)] lg:gap-5' : ''}>
+  {allTags.length > 0 && (
+    <aside class="hidden self-start lg:sticky lg:top-24 lg:block">
+      <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Tags</p>
+      <TagChipList items={desktopTagItems} size="desktop" className="flex flex-wrap gap-1.5" />
+    </aside>
+  )}
 
-    <div class={isVideosPath ? 'px-4 pt-4 text-sm text-slate-600' : 'mb-3 flex items-center gap-2 text-sm text-slate-600'}>
-      {(!isVideosPath || !latestThumbnailUrl) && <ResourceIcons name={iconName} />}
-      <span>{formatDate(latestFiltered)}{formatMeta(latestFiltered)}</span>
-    </div>
-
-    <h2 class={isVideosPath ? 'px-4 pb-4 text-2xl font-semibold' : 'text-2xl font-semibold'}>
-      <a
-        href={getItemHref(latestFiltered)}
-        target={isHeroLinkExternal ? '_blank' : undefined}
-        rel={isHeroLinkExternal ? 'noreferrer' : undefined}
-        class="hover:underline"
-      >
-        {latestFiltered.data[titleField]}
-      </a>
-    </h2>
-
-    {subtitleField && latestFiltered.data[subtitleField] && (
-      <p class={isVideosPath ? 'px-4 pb-4 text-slate-600' : 'text-slate-600'}>{latestFiltered.data[subtitleField]}</p>
-    )}
-
-    {showBody && latestFiltered.body && (
-      <div class="prose max-w-none" set:html={latestFiltered.body} />
-    )}
-  </article>
-) : (
-  <p class="text-sm text-slate-600">No items match this tag.</p>
-)}
-
-<section aria-label="More items">
-  <div class="grid gap-6 md:grid-cols-2">
-    {restFiltered.map((item) => {
-      const itemThumbnailUrl = isVideosPath ? getYouTubeThumbnail(item) : '';
-
-      return (
-      <article class={isVideosPath ? 'c-link-card c-link-card--vertical c-link-card--media border border-[var(--scheme-border)]' : 'rounded-2xl border p-5'}>
-        {itemThumbnailUrl && (
-          <a
-            href={getItemHref(item)}
-            class={isVideosPath ? 'c-link-card__header mb-3' : 'resource-video-thumb mb-3'}
-          >
-            {isVideosPath ? (
-              <span class="c-link-card__media">
-                <img
-                  src={itemThumbnailUrl}
-                  alt={`YouTube thumbnail for ${item.data[titleField]}`}
-                  class="c-picture__image h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </span>
-            ) : (
-              <img
-                src={itemThumbnailUrl}
-                alt={`YouTube thumbnail for ${item.data[titleField]}`}
-                class="resource-video-thumb-img"
-                loading="lazy"
+  <div>
+    {latestFiltered ? (
+      isVideosPath ? (
+        <div data-load-more-root data-step={String(loadMoreStep)}>
+          <section aria-label="Video items" class="mb-10">
+            <div class="grid gap-6 md:grid-cols-2">
+              <VideoLinkCard
+                href={getItemHref(latestFiltered)}
+                title={String(latestFiltered.data[titleField])}
+                thumbnailUrl={latestThumbnailUrl}
+                dateText={formatDateMeta(latestFiltered)}
+                subtitle={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
+                headingLevel="h2"
+                spanTwoCols={true}
+                target={isHeroLinkExternal ? '_blank' : undefined}
+                rel={isHeroLinkExternal ? 'noreferrer' : undefined}
               />
-            )}
-          </a>
-        )}
 
-        <div class={isVideosPath ? 'px-4 pt-3 text-xs uppercase tracking-wide text-slate-500' : 'mb-2 text-xs uppercase tracking-wide text-slate-500'}>
-          {formatDate(item)}{formatMeta(item)}
+              {restFiltered.map((item, index) => {
+                const itemThumbnailUrl = getYouTubeThumbnailUrl(item.data);
+
+                return (
+                  <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
+                    <VideoLinkCard
+                      href={getItemHref(item)}
+                      title={String(item.data[titleField])}
+                      thumbnailUrl={itemThumbnailUrl}
+                      dateText={formatDateMeta(item)}
+                      subtitle={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {hasMoreItems && (
+            <div class="mb-10 mt-4 flex justify-center">
+              <button
+                type="button"
+                class="js-load-more-btn rounded-full border border-slate-300 bg-white px-6 py-3 text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+              >
+                Load more
+              </button>
+            </div>
+          )}
         </div>
+      ) : (
+        <>
+          <div class="mb-10">
+            <ResourceImageLinkCard
+              href={getItemHref(latestFiltered)}
+              title={String(latestFiltered.data[titleField])}
+              label={resourceLabel}
+              dateText={formatDateMeta(latestFiltered)}
+              detailText={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
+              headingLevel="h2"
+              target={isHeroLinkExternal ? '_blank' : undefined}
+              rel={isHeroLinkExternal ? 'noreferrer' : undefined}
+            />
 
-        <h3 class={isVideosPath ? 'px-4 pb-4 text-lg font-semibold' : 'text-lg font-semibold'}>
-          <a
-            href={getItemHref(item)}
-            class="hover:underline"
-          >
-            {item.data[titleField]}
-          </a>
-        </h3>
+            {showBody && latestFiltered.body && (
+              <div class="prose max-w-none" set:html={latestFiltered.body} />
+            )}
+          </div>
 
-        {subtitleField && item.data[subtitleField] && (
-          <p class={isVideosPath ? 'px-4 pb-4 text-slate-600' : 'text-slate-600'}>{item.data[subtitleField]}</p>
-        )}
-      </article>
-    )})}
+          <div data-load-more-root data-step={String(loadMoreStep)}>
+            <section aria-label="More items">
+              <div class="grid gap-6 md:grid-cols-2">
+                {restFiltered.map((item, index) => {
+                  return (
+                    <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
+                      <ResourceImageLinkCard
+                        href={getItemHref(item)}
+                        title={String(item.data[titleField])}
+                        label={resourceLabel}
+                        dateText={formatDateMeta(item)}
+                        detailText={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
+            {hasMoreItems && (
+              <div class="mt-8 flex justify-center">
+                <button
+                  type="button"
+                  class="js-load-more-btn rounded-full border border-slate-300 bg-white px-6 py-3 text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+                >
+                  Load more
+                </button>
+              </div>
+            )}
+          </div>
+        </>
+      )
+    ) : (
+      <p class="text-sm text-slate-600">No items match this tag.</p>
+    )}
   </div>
-</section>
+</div>
+
+<script is:inline>
+  (() => {
+    if (typeof window === 'undefined') return;
+
+    const roots = document.querySelectorAll('[data-load-more-root]');
+    if (!roots.length) return;
+
+    roots.forEach((root) => {
+      const items = Array.from(root.querySelectorAll('.js-load-more-item'));
+      const button = root.querySelector('.js-load-more-btn');
+
+      if (!(button instanceof HTMLButtonElement) || !items.length) return;
+
+      const step = Number(root.getAttribute('data-step') || '6');
+      let visibleCount = items.filter((item) => !item.hasAttribute('hidden')).length;
+
+      const updateButton = () => {
+        button.hidden = visibleCount >= items.length;
+      };
+
+      button.addEventListener('click', () => {
+        const nextVisibleCount = Math.min(visibleCount + step, items.length);
+        for (let i = visibleCount; i < nextVisibleCount; i += 1) {
+          items[i].removeAttribute('hidden');
+        }
+        visibleCount = nextVisibleCount;
+        updateButton();
+      });
+
+      updateButton();
+    });
+  })();
+</script>

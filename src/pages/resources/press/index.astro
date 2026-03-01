@@ -1,13 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
-import type { PressEntry } from '../../../types/collections';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
+import { getSortedDateCollection } from '../../../utils/content';
 
-const press: PressEntry[] = (await getCollection('press')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
+const press = await getSortedDateCollection('press');
 const resourceType = RESOURCE_TYPES.press;
 ---
 
@@ -22,5 +19,7 @@ const resourceType = RESOURCE_TYPES.press;
     dateField="date"
     metaField="outlet"
     titleField="title"
+    tagBasePath={resourceType.tagBasePath}
+    tagAllPath={resourceType.tagAllPath}
   />
 </ResourcesLayout>

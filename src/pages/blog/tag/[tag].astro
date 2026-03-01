@@ -1,24 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
-import type { BlogEntry } from '../../../types/collections';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
+import { getSortedDateCollection, getStringTags, normalizeTag } from '../../../utils/content';
 
-const posts: BlogEntry[] = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
+const posts = await getSortedDateCollection('blog');
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const all: BlogEntry[] = await getCollection('blog');
-  const tags = Array.from(new Set(all.flatMap(p => p.data.tags || [])))
-    .map(t => String(t).trim().toLowerCase())
-    .filter(Boolean);
+  const all = await getSortedDateCollection('blog');
+  const tags = Array.from(new Set(all.flatMap((post) => getStringTags(post.data.tags))));
   return tags.map(tag => ({ params: { tag } }));
 };
 
-const selectedTag = String(Astro.params.tag || '').trim().toLowerCase();
+const selectedTag = normalizeTag(String(Astro.params.tag || ''));
 const resourceType = RESOURCE_TYPES.blog;
 ---
 

@@ -1,6 +1,48 @@
 ---
+import { getCollection } from 'astro:content';
 import ResourcesLayout from '../../layouts/ResourcesLayout.astro';
 import ResourceIcons from '../../components/ResourceIcons.astro';
+import TagChipList from '../../components/TagChipList.astro';
+import { getStringTags, normalizeTag } from '../../utils/content';
+import { RESOURCE_COLLECTIONS } from '../../utils/resourceTypes';
+
+const resourceCategoryTags = [
+  { label: 'All', href: '/resources', active: true },
+  ...RESOURCE_COLLECTIONS
+    .filter((collection) => collection.key !== 'blog')
+    .map((collection) => ({ label: collection.label, href: collection.indexHref, active: false })),
+  ...RESOURCE_COLLECTIONS
+    .filter((collection) => collection.key === 'blog')
+    .map((collection) => ({ label: collection.label, href: collection.indexHref, active: false })),
+];
+
+const tagSources = await Promise.all(
+  RESOURCE_COLLECTIONS.map(async (collection) => ({
+    items: await getCollection(collection.key),
+    toHref: collection.toTagHref,
+  })),
+);
+
+const tagMap = new Map<string, { label: string; href: string }>();
+
+for (const source of tagSources) {
+  for (const item of source.items) {
+    for (const rawTag of getStringTags(item.data.tags)) {
+      const normalizedTag = normalizeTag(rawTag);
+      if (!normalizedTag || tagMap.has(normalizedTag)) continue;
+      tagMap.set(normalizedTag, {
+        label: normalizedTag,
+        href: source.toHref(normalizedTag),
+      });
+    }
+  }
+}
+
+const resourceTags = [
+  ...Array.from(tagMap.values())
+    .sort((a, b) => a.label.localeCompare(b.label))
+    .map((tag) => ({ ...tag, active: false })),
+];
 ---
 
 <ResourcesLayout
@@ -10,60 +52,77 @@ import ResourceIcons from '../../components/ResourceIcons.astro';
   currentPath="/resources"
 >
 
-  <div class="grid gap-6 md:grid-cols-2">
-    <a href="/blog" class="resource-link-card">
-      <span class="resource-link-icon">
-        <ResourceIcons name="blog" size={24} color="var(--scheme-accent)" />
-      </span>
-      <span>
-        <h2 class="font-semibold text-slate-900">Blog</h2>
-        <p class="text-slate-700">Deep dives into optimization patterns and implementation details.</p>
-      </span>
-    </a>
-    <a href="/resources/videos" class="resource-link-card">
-      <span class="resource-link-icon">
-        <ResourceIcons name="videos" size={24} color="var(--scheme-accent)" />
-      </span>
-      <span>
-        <h2 class="font-semibold text-slate-900">Videos</h2>
-        <p class="text-slate-700">Short explainers and demos of solver features.</p>
-      </span>
-    </a>
-    <a href="/resources/stories" class="resource-link-card">
-      <span class="resource-link-icon">
-        <ResourceIcons name="stories" size={24} color="var(--scheme-accent)" />
-      </span>
-      <span>
-        <h2 class="font-semibold text-slate-900">Customer stories</h2>
-        <p class="text-slate-700">Real-world results from scheduling and routing projects.</p>
-      </span>
-    </a>
-    <a href="/resources/events" class="resource-link-card">
-      <span class="resource-link-icon">
-        <ResourceIcons name="events" size={24} color="var(--scheme-accent)" />
-      </span>
-      <span>
-        <h2 class="font-semibold text-slate-900">Events</h2>
-        <p class="text-slate-700">Upcoming talks, webinars, and workshops.</p>
-      </span>
-    </a>
-    <a href="/resources/press" class="resource-link-card">
-      <span class="resource-link-icon">
-        <ResourceIcons name="press" size={24} color="var(--scheme-accent)" />
-      </span>
-      <span>
-        <h2 class="font-semibold text-slate-900">Press</h2>
-        <p class="text-slate-700">Mentions and articles from around the web.</p>
-      </span>
-    </a>
-    <a href="/resources/newsletter" class="resource-link-card">
-      <span class="resource-link-icon">
-        <ResourceIcons name="newsletter" size={24} color="var(--scheme-accent)" />
-      </span>
-      <span>
-        <h2 class="font-semibold text-slate-900">Newsletter</h2>
-        <p class="text-slate-700">Periodic updates on new features and case studies.</p>
-      </span>
-    </a>
+  <TagChipList items={resourceCategoryTags} size="mobile" className="mb-2 flex flex-wrap gap-2 lg:hidden" />
+
+  <TagChipList items={resourceTags} size="mobile" className="mb-6 flex flex-wrap gap-2 lg:hidden" />
+
+  <div class="lg:grid lg:grid-cols-[11.5rem_minmax(0,1fr)] lg:gap-5">
+    <aside class="hidden self-start lg:sticky lg:top-24 lg:block">
+      <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Categories</p>
+      <TagChipList items={resourceCategoryTags} size="desktop" className="mb-4 flex flex-wrap gap-1.5" />
+
+      <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Tags</p>
+      <TagChipList items={resourceTags} size="desktop" className="flex flex-wrap gap-1.5" />
+    </aside>
+
+    <div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <a href="/blog" class="resource-link-card">
+          <span class="resource-link-icon">
+            <ResourceIcons name="blog" size={24} color="var(--scheme-accent)" />
+          </span>
+          <span>
+            <h2 class="font-semibold text-slate-900">Blog</h2>
+            <p class="text-slate-700">Deep dives into optimization patterns and implementation details.</p>
+          </span>
+        </a>
+        <a href="/resources/videos" class="resource-link-card">
+          <span class="resource-link-icon">
+            <ResourceIcons name="videos" size={24} color="var(--scheme-accent)" />
+          </span>
+          <span>
+            <h2 class="font-semibold text-slate-900">Videos</h2>
+            <p class="text-slate-700">Short explainers and demos of solver features.</p>
+          </span>
+        </a>
+        <a href="/resources/stories" class="resource-link-card">
+          <span class="resource-link-icon">
+            <ResourceIcons name="stories" size={24} color="var(--scheme-accent)" />
+          </span>
+          <span>
+            <h2 class="font-semibold text-slate-900">Customer stories</h2>
+            <p class="text-slate-700">Real-world results from scheduling and routing projects.</p>
+          </span>
+        </a>
+        <a href="/resources/events" class="resource-link-card">
+          <span class="resource-link-icon">
+            <ResourceIcons name="events" size={24} color="var(--scheme-accent)" />
+          </span>
+          <span>
+            <h2 class="font-semibold text-slate-900">Events</h2>
+            <p class="text-slate-700">Upcoming talks, webinars, and workshops.</p>
+          </span>
+        </a>
+        <a href="/resources/press" class="resource-link-card">
+          <span class="resource-link-icon">
+            <ResourceIcons name="press" size={24} color="var(--scheme-accent)" />
+          </span>
+          <span>
+            <h2 class="font-semibold text-slate-900">Press</h2>
+            <p class="text-slate-700">Mentions and articles from around the web.</p>
+          </span>
+        </a>
+        <a href="/resources/newsletter" class="resource-link-card">
+          <span class="resource-link-icon">
+            <ResourceIcons name="newsletter" size={24} color="var(--scheme-accent)" />
+          </span>
+          <span>
+            <h2 class="font-semibold text-slate-900">Newsletter</h2>
+            <p class="text-slate-700">Periodic updates on new features and case studies.</p>
+          </span>
+        </a>
+      </div>
+    </div>
   </div>
 </ResourcesLayout>

@@ -1,13 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
-import type { EventEntry } from '../../../types/collections';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
+import { getSortedDateCollection } from '../../../utils/content';
 
-const events: EventEntry[] = (await getCollection('events')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
+const events = await getSortedDateCollection('events');
 const resourceType = RESOURCE_TYPES.events;
 ---
 
@@ -22,6 +19,8 @@ const resourceType = RESOURCE_TYPES.events;
     dateField="date"
     metaField="location"
     titleField="title"
+    tagBasePath={resourceType.tagBasePath}
+    tagAllPath={resourceType.tagAllPath}
   />
 </ResourcesLayout>
 

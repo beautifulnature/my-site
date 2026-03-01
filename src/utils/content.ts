@@ -1,3 +1,4 @@
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ResourceItem } from '../types/content';
 
 type SlugEntry = Pick<ResourceItem, 'slug'>;
@@ -7,6 +8,14 @@ type DatedEntry = SlugEntry & {
     date: Date;
   };
 };
+
+type TaggedEntry = SlugEntry & {
+  data: {
+    tags?: unknown;
+  };
+};
+
+export type DateCollectionKey = 'blog' | 'videos' | 'events' | 'press' | 'newsletter' | 'stories';
 
 export function getRequestOrigin(requestUrl?: string): string {
   return requestUrl ? new URL(requestUrl).origin : '';
@@ -29,6 +38,37 @@ export function getRelatedItems<T extends DatedEntry>(allItems: T[], currentSlug
   return currentIndex === -1 ? [] : sorted.slice(currentIndex + 1, currentIndex + 1 + count);
 }
 
+export function sortByDateDesc<T extends DatedEntry>(items: T[]): T[] {
+  return [...items].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+}
+
+export async function getSortedDateCollection<K extends DateCollectionKey>(key: K): Promise<CollectionEntry<K>[]> {
+  const entries = await getCollection(key);
+  return sortByDateDesc(entries as unknown as Array<CollectionEntry<K> & DatedEntry>) as CollectionEntry<K>[];
+}
+
+export function buildStaticPathsForCollection<T extends SlugEntry>(entries: T[], propName: string) {
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { [propName]: entry } as Record<string, T>,
+  }));
+}
+
+export function buildDetailPageMeta<T extends DatedEntry & TaggedEntry>(
+  allItems: T[],
+  currentItem: T,
+  detailBasePath: string,
+  requestUrl?: string,
+  relatedCount: number = 3,
+) {
+  const origin = getRequestOrigin(requestUrl);
+  return {
+    pageUrl: buildPageUrl(origin, `${detailBasePath}/${currentItem.slug}/`),
+    moreItems: getRelatedItems(allItems, currentItem.slug, relatedCount),
+    tags: getStringTags(currentItem.data.tags),
+  };
+}
+
 /**
  * Build page URL for sharing
  * @param origin - The request URL origin
@@ -39,6 +79,18 @@ export function buildPageUrl(origin: string, path: string): string {
   return origin ? `${origin}${path}` : path;
 }
 
+export const TAG_CANONICAL_MAP: Record<string, string> = {
+  documentation: 'docs',
+  'q-and-a': 'qa',
+  'case-study': 'customer-story',
+};
+
+export function normalizeTag(tag: string): string {
+  const normalized = tag.trim().toLowerCase();
+  if (!normalized) return '';
+  return TAG_CANONICAL_MAP[normalized] ?? normalized;
+}
+
 /**
  * Normalize unknown tag input into a clean string array
  * @param tags - Potential tags value from content frontmatter
@@ -46,5 +98,12 @@ export function buildPageUrl(origin: string, path: string): string {
  */
 export function getStringTags(tags: unknown): string[] {
   if (!Array.isArray(tags)) return [];
-  return tags.filter((tag: unknown): tag is string => typeof tag === 'string' && tag.trim().length > 0);
+  return Array.from(
+    new Set(
+      tags
+        .filter((tag: unknown): tag is string => typeof tag === 'string')
+        .map((tag) => normalizeTag(tag))
+        .filter(Boolean),
+    ),
+  );
 }
