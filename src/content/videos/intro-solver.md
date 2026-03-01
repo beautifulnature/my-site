@@ -1,9 +1,11 @@
 ---
 title: Introduction to the Planning Solver
+slug: video-intro-solver
 url: https://www.youtube.com/watch?v=wHFXnrnMcFM
 youtubeId: wHFXnrnMcFM
 date: 2026-02-10
 length: 8 min
+tags: [solver, getting-started, overview]
 ---
 
 # Introduction to the Planning Solver

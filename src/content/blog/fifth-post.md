@@ -1,8 +1,9 @@
 ---
 title: fifth-post
+slug: blog-fifth-post
 description: How matrices and constraints fit into the docs–math–notes flow.
 date: 2025-02-22
-tags: [math]
+tags: [matrix, optimization, docs]
 type: blog
 author: Hemanya
 authorUrl: https://github.com/your-handle

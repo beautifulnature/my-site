@@ -1,8 +1,10 @@
 ---
 title: Product Launch Webinar – Orbit Planning API
+slug: event-product-launch-orbit-2025
 date: 2025-09-22
 location: Online
 url: https://example.com/events/orbit-launch-2025
+tags: [webinar, product-launch, api]
 ---
 
 # Product Launch Webinar – Orbit Planning API

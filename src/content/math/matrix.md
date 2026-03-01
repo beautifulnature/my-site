@@ -1,5 +1,7 @@
 ---
 title: Matrix Optimization Basics
+slug: math-matrix-basics
+tags: [math, matrix, optimization]
 ---
 
 # Matrix Optimization Basics

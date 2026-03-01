@@ -1,5 +1,6 @@
 ---
 title: first post
+slug: blog-first-post
 description: How matrices and constraints fit into the docs–math–notes flow.
 date: 2025-02-22
 tags: [matrix, optimization]

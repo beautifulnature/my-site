@@ -1,7 +1,9 @@
 ---
 title: Newsletter 3 – Better Diagnostics and Scenario Management
+slug: issue-newsletter-003
 date: 2026-04-01
 issue: "#3"
+tags: [newsletter, diagnostics, scenario-planning]
 ---
 
 # Newsletter 3 – Better Diagnostics and Scenario Management

@@ -1,8 +1,10 @@
 ---
 title: ShopFast Speeds Up Fulfillment with Slotting Optimization
+slug: story-ecommerce-fulfillment
 customer: ShopFast
 date: 2025-09-15
 industry: E‑commerce
+tags: [customer-story, e-commerce, fulfillment]
 ---
 
 # ShopFast Speeds Up Fulfillment with Slotting Optimization

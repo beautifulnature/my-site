@@ -1,8 +1,10 @@
 ---
 title: HealthCarePlus Improves Rosters and Staff Satisfaction
+slug: story-workforce-rostering
 customer: HealthCarePlus
 date: 2025-10-02
 industry: Healthcare
+tags: [customer-story, workforce, rostering]
 ---
 
 # HealthCarePlus Improves Rosters and Staff Satisfaction

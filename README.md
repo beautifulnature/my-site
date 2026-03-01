@@ -84,3 +84,28 @@ Workflow file: `.github/workflows/ci.yml`
 
 - `src/content/docs/index.md` is an intentional anchor file.
 - It keeps the `docs` collection non-empty so `astro check` stays clean while AsciiDoc files (such as `src/content/docs/patterns.adoc`) remain in place.
+
+## Tag taxonomy
+
+Tags are normalized in `src/utils/content.ts` via `normalizeTag()` and `getStringTags()`.
+
+Use canonical tags in frontmatter when possible:
+
+- `docs` (preferred over `documentation`)
+- `qa` (preferred over `q-and-a`)
+- `customer-story` (preferred over `case-study`)
+
+Alias mapping currently applied automatically at read-time:
+
+- `documentation` -> `docs`
+- `q-and-a` -> `qa`
+- `case-study` -> `customer-story`
+
+When adding new content, keep tags lowercase and hyphenated (for example, `product-updates`, `getting-started`).
+
+### Contributor checklist (content)
+
+- Add `tags` in frontmatter for every new content entry.
+- Prefer canonical tags listed above; avoid introducing near-duplicates.
+- Keep tags lowercase and hyphenated.
+- Run `npm run check` before opening a PR.

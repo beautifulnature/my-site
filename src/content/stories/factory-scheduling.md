@@ -1,8 +1,10 @@
 ---
 title: FactoryOne Stabilizes Production with Automated Scheduling
+slug: story-factory-scheduling
 customer: FactoryOne Manufacturing
 date: 2025-11-10
 industry: Manufacturing
+tags: [customer-story, manufacturing, scheduling]
 ---
 
 # FactoryOne Stabilizes Production with Automated Scheduling

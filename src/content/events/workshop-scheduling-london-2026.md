@@ -1,8 +1,10 @@
 ---
 title: Hands-on Workshop – Scheduling in Practice
+slug: event-workshop-scheduling-london-2026
 date: 2026-05-05
 location: London, UK
 url: https://example.com/events/scheduling-workshop-london-2026
+tags: [workshop, scheduling, hands-on]
 ---
 
 # Hands-on Workshop – Scheduling in Practice

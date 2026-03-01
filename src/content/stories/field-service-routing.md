@@ -1,8 +1,10 @@
 ---
 title: FieldCare Boosts First-Visit Resolution with Smart Routing
+slug: story-field-service-routing
 customer: FieldCare Services
 date: 2025-12-05
 industry: Field service
+tags: [customer-story, field-service, routing]
 ---
 
 # FieldCare Boosts First-Visit Resolution with Smart Routing

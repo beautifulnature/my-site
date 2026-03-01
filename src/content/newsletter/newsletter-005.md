@@ -1,7 +1,9 @@
 ---
 title: Newsletter 5 – Community, Docs, and Roadmap
+slug: issue-newsletter-005-v1
 date: 2026-06-01
 issue: "#5"
+tags: [newsletter, roadmap, docs]
 ---
 
 # Newsletter 5 – Community, Docs, and Roadmap

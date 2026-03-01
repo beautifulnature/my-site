@@ -1,7 +1,9 @@
 ---
 title: Newsletter 4 – From Prototype to Production
+slug: issue-newsletter-004
 date: 2026-05-10
 issue: "#4"
+tags: [newsletter, production, best-practices]
 ---
 
 # Newsletter 4 – From Prototype to Production

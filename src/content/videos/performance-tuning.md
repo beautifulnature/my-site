@@ -1,9 +1,11 @@
 ---
 title: Performance Tuning for Large-Scale Planning
+slug: video-performance-tuning
 url: https://www.youtube.com/watch?v=wHFXnrnMcFM
 youtubeId: wHFXnrnMcFM
 date: 2025-12-20
 length: 18 min
+tags: [performance, scalability, tuning]
 ---
 
 # Performance Tuning for Large-Scale Planning

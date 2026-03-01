@@ -1,8 +1,10 @@
 ---
 title: AutoFleet Cuts Empty Miles by 25%
+slug: story-auto-fleet-optimization
 customer: AutoFleet Logistics
 date: 2026-01-20
 industry: Automotive logistics
+tags: [customer-story, routing, logistics]
 ---
 
 # AutoFleet Cuts Empty Miles by 25%

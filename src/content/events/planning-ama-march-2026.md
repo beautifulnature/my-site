@@ -1,8 +1,10 @@
 ---
 title: Planning AMA – Ask Us Anything About Models and Constraints
+slug: event-planning-ama-march-2026
 date: 2026-03-19
 location: Online
 url: https://example.com/events/planning-ama-march-2026
+tags: [ama, community, modeling]
 ---
 
 # Planning AMA – Ask Us Anything About Models and Constraints

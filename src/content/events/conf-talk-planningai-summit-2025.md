@@ -1,8 +1,10 @@
 ---
 title: Conference Talk – Planning AI in Production
+slug: event-conf-talk-planningai-summit-2025
 date: 2025-11-12
 location: PlanningAI Summit 2025
 url: https://example.com/events/planningai-summit-2025
+tags: [conference, planning-ai, production]
 ---
 
 # Conference Talk – Planning AI in Production

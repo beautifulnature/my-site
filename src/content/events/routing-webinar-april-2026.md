@@ -1,8 +1,10 @@
 ---
 title: Deep Dive Webinar – Vehicle Routing with Time Windows
+slug: event-routing-webinar-april-2026
 date: 2026-04-10
 location: Online
 url: https://example.com/events/routing-webinar-april-2026
+tags: [webinar, routing, optimization]
 ---
 
 # Deep Dive Webinar – Vehicle Routing with Time Windows

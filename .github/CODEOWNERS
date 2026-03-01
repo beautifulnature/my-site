@@ -1,0 +1,33 @@
+# Content ownership
+/src/content/** @hemanya
+
+# UI ownership
+/src/components/** @hemanya
+/src/pages/** @hemanya
+/src/layouts/** @hemanya
+/src/styles/** @hemanya
+
+# Documentation ownership
+/README.md @hemanya
+/src/content/docs/** @hemanya
+
+# Shared logic and types
+/src/utils/** @hemanya
+/src/types/** @hemanya
+/shared/** @hemanya
+
+# Build and configuration
+/package.json @hemanya
+/astro.config.mjs @hemanya
+/tailwind.config.cjs @hemanya
+/tsconfig.json @hemanya
+
+# Nested app (timefold) build and configuration
+/timefold/package.json @hemanya
+/timefold/astro.config.mjs @hemanya
+/timefold/tailwind.config.mjs @hemanya
+
+# Dependency lockfiles and CI workflows
+/package-lock.json @hemanya
+/timefold/package-lock.json @hemanya
+/.github/workflows/** @hemanya

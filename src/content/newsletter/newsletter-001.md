@@ -1,7 +1,9 @@
 ---
 title: Newsletter 1 – Faster Solves and a First Case Study
+slug: issue-newsletter-001
 date: 2026-02-22
 issue: "#1"
+tags: [newsletter, product-updates, customer-story]
 ---
 
 # Newsletter 1 – Faster Solves and a First Case Study

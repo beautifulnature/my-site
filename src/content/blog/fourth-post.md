@@ -1,5 +1,6 @@
 ---
 title: Fourth Post
+slug: blog-fourth-post
 description: How matrices and constraints fit into the docs–math–notes flow.
 date: 2023-02-22
 tags: [matrix, optimization]

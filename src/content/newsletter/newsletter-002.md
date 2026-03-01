@@ -1,7 +1,9 @@
 ---
 title: Newsletter 2 – New Tutorials and Example Models
+slug: issue-newsletter-002
 date: 2026-03-05
 issue: "#2"
+tags: [newsletter, tutorials, example-models]
 ---
 
 # Newsletter 2 – New Tutorials and Example Models
