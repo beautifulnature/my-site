@@ -3,6 +3,7 @@ import '../styles/global.css';
 import DocsTocScript from '../components/DocsTocScript.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GoToTopButton from '../components/GoToTopButton.astro';
 import ResourceIcons from '../components/ResourceIcons.astro';
 import { RESOURCE_NAV_ITEMS, SIDEBAR_SECTIONS } from '../utils/navigation';
 import { SITE_CONTENT } from '../utils/siteContent';
@@ -56,7 +57,7 @@ const linkActive =
         <div class="layout-container py-8">
           {title && (
             <header class="mb-8">
-              <h1 class="h1-page-title mb-2">{title}</h1>
+              <h1 class="h1-page-title mb-2" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo">{title}</h1>
 
               <div>
                 {description && (
@@ -82,6 +83,48 @@ const linkActive =
     </div>
 
     <DocsTocScript enableToc={false} />
+    <script is:inline>
+      (() => {
+        if (typeof window === "undefined") return;
+
+        const animatedElements = document.querySelectorAll("[data-aos]");
+        if (!animatedElements.length) return;
+
+        const applyTimingFromData = (element) => {
+          const duration = element.getAttribute("data-aos-duration");
+          const delay = element.getAttribute("data-aos-delay");
+          const easing = element.getAttribute("data-aos-easing");
+
+          if (duration) element.style.transitionDuration = `${duration}ms`;
+          if (delay) element.style.transitionDelay = `${delay}ms`;
+          if (easing === "ease-out-expo") {
+            element.style.transitionTimingFunction = "cubic-bezier(0.19, 1, 0.22, 1)";
+          }
+        };
+
+        animatedElements.forEach((element) => {
+          element.classList.add("aos-init");
+          applyTimingFromData(element);
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("aos-animate");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            threshold: 0.15,
+            rootMargin: "0px 0px -8% 0px",
+          },
+        );
+
+        animatedElements.forEach((element) => observer.observe(element));
+      })();
+    </script>
+    <GoToTopButton />
     <Footer />
   </body>
 </html>

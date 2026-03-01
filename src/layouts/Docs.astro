@@ -3,6 +3,7 @@ import "../styles/global.css";
 import DocsTocScript from "../components/DocsTocScript.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import GoToTopButton from "../components/GoToTopButton.astro";
 import { SIDEBAR_SECTIONS } from "../utils/navigation";
 import { SITE_CONTENT } from "../utils/siteContent";
 
@@ -32,6 +33,8 @@ const { title, enableToc = false } = Astro.props;
       >
     </div>
     <Header />
+
+    <div class="flex flex-1">
       <!-- LEFT NAV -->
       <aside
         id="sidebar"
@@ -67,7 +70,7 @@ const { title, enableToc = false } = Astro.props;
         class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] lg:hidden"
         data-mobile-backdrop></button>
 
-      <main id="main-content">
+      <main id="main-content" class="flex-1 min-w-0">
         <!-- <div class="layout-container"> -->
           <slot />
         <!-- </div> -->
@@ -95,8 +98,146 @@ const { title, enableToc = false } = Astro.props;
         )
       }
     </div>
+    </div>
 
     <DocsTocScript enableToc={enableToc} />
+    <script is:inline>
+      (() => {
+        if (typeof window === "undefined") return;
+
+        const animatedElements = document.querySelectorAll("[data-aos]");
+        if (!animatedElements.length) return;
+
+        const applyTimingFromData = (element) => {
+          const duration = element.getAttribute("data-aos-duration");
+          const delay = element.getAttribute("data-aos-delay");
+          const easing = element.getAttribute("data-aos-easing");
+
+          if (duration) element.style.transitionDuration = `${duration}ms`;
+          if (delay) element.style.transitionDelay = `${delay}ms`;
+          if (easing === "ease-out-expo") {
+            element.style.transitionTimingFunction = "cubic-bezier(0.19, 1, 0.22, 1)";
+          }
+        };
+
+        animatedElements.forEach((element) => {
+          element.classList.add("aos-init");
+          applyTimingFromData(element);
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("aos-animate");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            threshold: 0.15,
+            rootMargin: "0px 0px -8% 0px",
+          },
+        );
+
+        animatedElements.forEach((element) => observer.observe(element));
+      })();
+
+      (() => {
+        if (typeof window === "undefined") return;
+
+        const carousels = document.querySelectorAll(".js-toggle-carousel");
+        if (!carousels.length) return;
+
+        carousels.forEach((carousel) => {
+          const slides = Array.from(carousel.querySelectorAll(".c-toggle-carousel__slide"));
+          const bullets = Array.from(carousel.querySelectorAll(".swiper-pagination-bullet"));
+          const prevButton = carousel.querySelector(".c-toggle-carousel__button--prev");
+          const nextButton = carousel.querySelector(".c-toggle-carousel__button--next");
+          const wrapper = carousel.querySelector(".c-toggle-carousel__wrapper");
+
+          if (!slides.length || !(wrapper instanceof HTMLElement)) return;
+
+          let activeIndex = 0;
+          let touchStartX = 0;
+          let touchCurrentX = 0;
+          let isTouchDragging = false;
+          const swipeThresholdPx = 48;
+
+          const setActiveSlide = (index) => {
+            activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+
+            slides.forEach((slide, slideIndex) => {
+              const isActive = slideIndex === activeIndex;
+              slide.classList.toggle("is-active", isActive);
+              slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+            });
+
+            wrapper.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+
+            bullets.forEach((bullet, bulletIndex) => {
+              const isActive = bulletIndex === activeIndex;
+              bullet.setAttribute("aria-selected", isActive ? "true" : "false");
+              bullet.setAttribute("tabindex", isActive ? "0" : "-1");
+            });
+
+            if (prevButton instanceof HTMLButtonElement) {
+              prevButton.disabled = activeIndex === 0;
+            }
+
+            if (nextButton instanceof HTMLButtonElement) {
+              nextButton.disabled = activeIndex === slides.length - 1;
+            }
+          };
+
+          bullets.forEach((bullet, bulletIndex) => {
+            bullet.addEventListener("click", () => setActiveSlide(bulletIndex));
+          });
+
+          if (prevButton instanceof HTMLButtonElement) {
+            prevButton.addEventListener("click", () => setActiveSlide(activeIndex - 1));
+          }
+
+          if (nextButton instanceof HTMLButtonElement) {
+            nextButton.addEventListener("click", () => setActiveSlide(activeIndex + 1));
+          }
+
+          const onTouchStart = (event) => {
+            if (event.touches.length !== 1) return;
+            touchStartX = event.touches[0].clientX;
+            touchCurrentX = touchStartX;
+            isTouchDragging = true;
+          };
+
+          const onTouchMove = (event) => {
+            if (!isTouchDragging || event.touches.length !== 1) return;
+            touchCurrentX = event.touches[0].clientX;
+          };
+
+          const onTouchEnd = () => {
+            if (!isTouchDragging) return;
+
+            const deltaX = touchCurrentX - touchStartX;
+            if (Math.abs(deltaX) >= swipeThresholdPx) {
+              if (deltaX < 0) {
+                setActiveSlide(activeIndex + 1);
+              } else {
+                setActiveSlide(activeIndex - 1);
+              }
+            }
+
+            isTouchDragging = false;
+          };
+
+          wrapper.addEventListener("touchstart", onTouchStart, { passive: true });
+          wrapper.addEventListener("touchmove", onTouchMove, { passive: true });
+          wrapper.addEventListener("touchend", onTouchEnd);
+          wrapper.addEventListener("touchcancel", onTouchEnd);
+
+          setActiveSlide(activeIndex);
+        });
+      })();
+    </script>
+    <GoToTopButton />
     <Footer />
   </body>
 </html>

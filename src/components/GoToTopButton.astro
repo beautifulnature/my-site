@@ -1,0 +1,32 @@
+<button
+  type="button"
+  class="c-go-top"
+  data-go-top
+  aria-label="Go to top"
+  title="Go to top"
+>
+  <span aria-hidden="true">↑</span>
+</button>
+
+<script is:inline>
+  (() => {
+    if (typeof window === 'undefined') return;
+
+    const button = document.querySelector('[data-go-top]');
+    if (!(button instanceof HTMLButtonElement)) return;
+
+    const toggleVisibility = () => {
+      const shouldShow = window.scrollY > 320;
+      button.classList.toggle('is-visible', shouldShow);
+      button.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+    };
+
+    button.addEventListener('click', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
+  })();
+</script>
