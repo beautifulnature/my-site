@@ -91,6 +91,7 @@ const getIconName = () => {
 
 const iconName = getIconName();
 const isVideosPath = Astro.url.pathname.startsWith('/resources/videos');
+const isBlogPath = Astro.url.pathname.startsWith('/blog');
 const resourceLabel = iconName.charAt(0).toUpperCase() + iconName.slice(1);
 
 const latestThumbnailUrl = latestFiltered && isVideosPath
@@ -132,87 +133,89 @@ const loadMoreStep = 6;
 const hasMoreItems = restFiltered.length > loadMoreInitial;
 ---
 
-{allTags.length > 0 && (
-  <TagChipList items={mobileTagItems} size="mobile" className="mb-6 flex flex-wrap gap-2 lg:hidden" />
-)}
-
-<div class={allTags.length > 0 ? 'lg:grid lg:grid-cols-[11.5rem_minmax(0,1fr)] lg:gap-5' : ''}>
+<div class="col-span-12">
   {allTags.length > 0 && (
-    <aside class="hidden self-start lg:sticky lg:top-24 lg:block">
-      <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Tags</p>
-      <TagChipList items={desktopTagItems} size="desktop" className="flex flex-wrap gap-1.5" />
-    </aside>
+    <TagChipList items={mobileTagItems} size="mobile" className="mb-6 flex flex-wrap gap-2 vp9:hidden" />
   )}
 
-  <div>
-    {latestFiltered ? (
-      isVideosPath ? (
-        <div data-load-more-root data-step={String(loadMoreStep)}>
-          <section aria-label="Video items" class="mb-10">
-            <div class="grid gap-6 md:grid-cols-2">
-              <VideoLinkCard
-                href={getItemHref(latestFiltered)}
-                title={String(latestFiltered.data[titleField])}
-                thumbnailUrl={latestThumbnailUrl}
-                dateText={formatDateMeta(latestFiltered)}
-                subtitle={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
-                headingLevel="h2"
-                spanTwoCols={true}
-                target={isHeroLinkExternal ? '_blank' : undefined}
-                rel={isHeroLinkExternal ? 'noreferrer' : undefined}
-              />
+  <div class={allTags.length > 0 ? 'vp9:grid vp9:grid-cols-[11.5rem_minmax(0,1fr)] vp9:gap-4' : ''}>
+    {allTags.length > 0 && (
+      <div class="max-vp9:order-2 max-vp9:border-b vp9:border-r border-solid prop-border pt-8 pb-8 vp9:pr-8">
+        <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Tags</p>
+        <TagChipList items={desktopTagItems} size="desktop" className="flex flex-wrap gap-1.5" />
+      </div>
+    )}
 
-              {restFiltered.map((item, index) => {
-                const itemThumbnailUrl = getYouTubeThumbnailUrl(item.data);
+    <div class="vp9:p-14">
+      {latestFiltered ? (
+        isVideosPath ? (
+          <div data-load-more-root data-step={String(loadMoreStep)}>
+            <section aria-label="Video items" class="mb-10">
+              <div class="grid grid-cols-2 gap-8 vp9:gap-20">
+                <VideoLinkCard
+                  href={getItemHref(latestFiltered)}
+                  title={String(latestFiltered.data[titleField])}
+                  thumbnailUrl={latestThumbnailUrl}
+                  dateText={formatDateMeta(latestFiltered)}
+                  subtitle={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
+                  headingLevel="h2"
+                  spanTwoCols={true}
+                  target={isHeroLinkExternal ? '_blank' : undefined}
+                  rel={isHeroLinkExternal ? 'noreferrer' : undefined}
+                />
 
-                return (
-                  <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
-                    <VideoLinkCard
-                      href={getItemHref(item)}
-                      title={String(item.data[titleField])}
-                      thumbnailUrl={itemThumbnailUrl}
-                      dateText={formatDateMeta(item)}
-                      subtitle={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </section>
+                {restFiltered.map((item, index) => {
+                  const itemThumbnailUrl = getYouTubeThumbnailUrl(item.data);
 
-          {hasMoreItems && (
-            <div class="mb-10 mt-4 flex justify-center">
-              <button
-                type="button"
-                class="js-load-more-btn rounded-full border border-slate-300 bg-white px-6 py-3 text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
-              >
-                Load more
-              </button>
-            </div>
-          )}
-        </div>
-      ) : (
-        <>
-          <div class="mb-10">
-            <ResourceImageLinkCard
-              href={getItemHref(latestFiltered)}
-              title={String(latestFiltered.data[titleField])}
-              label={resourceLabel}
-              dateText={formatDateMeta(latestFiltered)}
-              detailText={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
-              headingLevel="h2"
-              target={isHeroLinkExternal ? '_blank' : undefined}
-              rel={isHeroLinkExternal ? 'noreferrer' : undefined}
-            />
+                  return (
+                    <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
+                      <VideoLinkCard
+                        href={getItemHref(item)}
+                        title={String(item.data[titleField])}
+                        thumbnailUrl={itemThumbnailUrl}
+                        dateText={formatDateMeta(item)}
+                        subtitle={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
 
-            {showBody && latestFiltered.body && (
-              <div class="prose max-w-none" set:html={latestFiltered.body} />
+            {hasMoreItems && (
+              <div class="mb-10 mt-4 flex justify-center">
+                <button
+                  type="button"
+                  class="js-load-more-btn rounded-full border border-slate-300 bg-white px-6 py-3 text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+                >
+                  Load more
+                </button>
+              </div>
             )}
           </div>
-
+        ) : (
           <div data-load-more-root data-step={String(loadMoreStep)}>
-            <section aria-label="More items">
-              <div class="grid gap-6 md:grid-cols-2">
+            <section
+              aria-label={`${resourceLabel} items`}
+              class={`mb-10 ${isBlogPath ? 'resource-index-section--blog' : ''}`}
+            >
+              <div class="grid grid-cols-2 gap-8 vp9:gap-20">
+                <ResourceImageLinkCard
+                  href={getItemHref(latestFiltered)}
+                  title={String(latestFiltered.data[titleField])}
+                  label={resourceLabel}
+                  dateText={formatDateMeta(latestFiltered)}
+                  detailText={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
+                  headingLevel="h2"
+                  spanTwoCols={true}
+                  target={isHeroLinkExternal ? '_blank' : undefined}
+                  rel={isHeroLinkExternal ? 'noreferrer' : undefined}
+                />
+
+                {showBody && latestFiltered.body && (
+                  <div class="vp7:col-span-2 prose max-w-none" set:html={latestFiltered.body} />
+                )}
+
                 {restFiltered.map((item, index) => {
                   return (
                     <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
@@ -230,7 +233,7 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
             </section>
 
             {hasMoreItems && (
-              <div class="mt-8 flex justify-center">
+              <div class="mb-10 mt-4 flex justify-center">
                 <button
                   type="button"
                   class="js-load-more-btn rounded-full border border-slate-300 bg-white px-6 py-3 text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
@@ -240,11 +243,11 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
               </div>
             )}
           </div>
-        </>
-      )
-    ) : (
-      <p class="text-sm text-slate-600">No items match this tag.</p>
-    )}
+        )
+      ) : (
+        <p class="text-sm text-slate-600">No items match this tag.</p>
+      )}
+    </div>
   </div>
 </div>
 

@@ -15,10 +15,8 @@ const {
   currentPath = '',
 } = Astro.props;
 
-const linkBase =
-  'px-3 py-1 rounded-full border border-slate-700 bg-white hover:border-[var(--scheme-accent)]';
-const linkActive =
-  'px-3 py-1 rounded-full border border-sky-500 bg-[var(--scheme-accent)] text-white';
+const linkBase = 'resource-tag-link';
+const linkActive = 'resource-tag-link resource-tag-link--active';
 ---
 
 <html lang="en">
@@ -28,11 +26,11 @@ const linkActive =
   </head>
   <body class="scheme-default">
     <Header />
-    <div class="flex pt-16">
+    <div class="flex">
       <!-- LEFT NAV -->
       <aside
         id="sidebar"
-        class="w-64 border-r border-slate-800 p-6 md:block sidebar-hidden"
+        class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden"
       >
         <h2>{SITE_CONTENT.sidebarHeading}</h2>
 
@@ -54,31 +52,45 @@ const linkActive =
 
       <!-- MAIN CONTENT -->
       <main class="flex-1">
-        <div class="layout-container py-8">
-          {title && (
-            <header class="mb-8">
-              <h1 class="h1-page-title mb-2" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo">{title}</h1>
-
-              <div>
-                {description && (
-                  <p class={`${descriptionClass}`} set:html={description}></p>
-                )}
+        {title && (
+          <section class="layout bound-x py-3 md:py-4 border-b border-solid prop-border scheme-default">
+            <div class="c-hero scheme-default">
+              <div class="c-hero__content">
+                <h1 class="c-title c-hero__title aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo">{title}</h1>
               </div>
+            </div>
+          </section>
+        )}
 
-              <nav class="mt-4 flex gap-3">
-                {RESOURCE_NAV_ITEMS.map((item) => (
-                  <a href={item.href} class={currentPath === item.href ? linkActive : linkBase} aria-label={item.label}>
-                    <span class={`resource-nav-icon ${currentPath === item.href ? 'resource-nav-icon-active' : 'resource-nav-icon-inactive'}`}>
-                      <ResourceIcons name={item.iconName} size={20} color={currentPath === item.href ? 'white' : 'black'} />
-                    </span>
-                  </a>
-                ))}
-              </nav>
-            </header>
-          )}
+        {title && (
+          <section class="layout bound-x py-3 md:py-4 border-b border-solid prop-border scheme-default">
+            <div class="layout-container layout-container--flush">
+              <header>
+                <div>
+                  {description && (
+                    <p class={`${descriptionClass}`} set:html={description}></p>
+                  )}
+                </div>
 
-          <slot />
-        </div>
+                <nav class="mt-3 flex gap-3 pt-2 pr-3 pb-2">
+                  {RESOURCE_NAV_ITEMS.map((item) => (
+                    <a href={item.href} class={currentPath === item.href ? linkActive : linkBase} aria-label={item.label}>
+                      <span class={`resource-nav-icon ${currentPath === item.href ? 'resource-nav-icon-active' : 'resource-nav-icon-inactive'}`}>
+                        <ResourceIcons name={item.iconName} size={20} color={currentPath === item.href ? 'hsl(var(--color-neutral-100)/1)' : 'var(--scheme-title)'} />
+                      </span>
+                    </a>
+                  ))}
+                </nav>
+              </header>
+            </div>
+          </section>
+        )}
+
+        <section class="layout bound-x">
+          <div class="grid grid-cols-12">
+            <slot />
+          </div>
+        </section>
       </main>
     </div>
 

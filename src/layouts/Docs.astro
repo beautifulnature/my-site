@@ -15,7 +15,7 @@ const { title, enableToc = false } = Astro.props;
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body class="scheme-default">
+  <body class="scheme-default" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900 focus:shadow-lg"
@@ -38,11 +38,11 @@ const { title, enableToc = false } = Astro.props;
       <!-- LEFT NAV -->
       <aside
         id="sidebar"
-        class="w-64 border-r border-slate-800 p-6 md:block sidebar-hidden text-black"
+        class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden text-black"
       >
         <button
           id="sidebar-toggle-btn"
-          class="mb-4 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 focus:outline-none md:hidden"
+          class="mb-4 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 focus:outline-none vp7:hidden"
         >
           Toggle Navigation
         </button>
@@ -67,7 +67,7 @@ const { title, enableToc = false } = Astro.props;
       <button
         type="button"
         aria-label="Close menu"
-        class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] lg:hidden"
+        class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] vp9:hidden"
         data-mobile-backdrop></button>
 
       <main id="main-content" class="flex-1 min-w-0">
@@ -78,7 +78,7 @@ const { title, enableToc = false } = Astro.props;
 
       <!-- MAIN + RIGHT TOC -->
       <!-- <main class="flex flex-1">
-        <div class="mx-auto flex-1 max-w-3xl p-6 md:p-10">
+        <div class="mx-auto flex-1 max-w-3xl p-6 vp7:p-10">
           <slot />
         </div> -->
 
@@ -86,7 +86,7 @@ const { title, enableToc = false } = Astro.props;
         enableToc && (
           <aside
             id="article-toc"
-            class="hidden xl:block w-64 border-l border-slate-800 p-4 text-sm text-black sticky top-16 self-start"
+            class="hidden vp12:block w-64 border-l border-slate-800 p-4 text-sm text-black sticky top-16 self-start"
           >
             <h2 class="h2-section-label text-xs font-semibold">
               {SITE_CONTENT.tocHeading}

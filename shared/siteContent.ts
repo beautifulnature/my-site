@@ -5,6 +5,6 @@ export const BASE_SITE_CONTENT = {
   announcementLinkLabel: 'Read more',
   talkToUsLabel: 'Talk to us',
   footerDescription:
-    'The intelligent scheduling optimization platform for routing, shift scheduling and task assignment.',
+    'Timefold is the world’s leading expert in PlanningAI, specializing in complex scheduling and routing optimization for enterprise companies.',
   companyName: 'Timefold BV',
 } as const;

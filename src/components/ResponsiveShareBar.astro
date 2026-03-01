@@ -25,7 +25,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
 ---
 
 <!-- Desktop: Show all share links inline -->
-<div class="hidden lg:flex flex-wrap items-center gap-2">
+<div class="hidden vp9:flex flex-wrap items-center gap-2">
   <span class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black">
     <ResourceIcons name="share" size={16} color="black" />
   </span>
@@ -62,7 +62,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
 </div>
 
 <!-- Mobile: Show only share button that opens modal -->
-<div class="lg:hidden">
+<div class="vp9:hidden">
   <button
     id="mobile-share-btn"
     class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black hover:bg-[var(--scheme-accent)] hover:text-white hover:border-[var(--scheme-accent)] transition-colors"
@@ -90,9 +90,9 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
 <!-- Share modal (mobile only, shown at top of page) -->
 <div
   id="share-modal"
-  class="fixed left-0 right-0 top-0 z-50 hidden p-4 pt-16 lg:hidden"
+  class="fixed left-0 right-0 top-0 z-50 hidden p-4 pt-16 vp9:hidden"
 >
-  <div class="mx-auto max-w-2xl">
+  <div class="layout-content-2xl">
     <div class="mb-4 flex items-center justify-end">
           <button
             id="close-share-modal"

@@ -3,11 +3,12 @@ import {
   FOOTER_LEGAL_LINKS,
   FOOTER_SECTIONS,
   TALK_TO_US_URL,
+  FOOTER_SOCIAL_LINKS,
   type HeaderNavItem,
   type NavLink,
 } from '../../shared/navigation';
 
-export { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS, TALK_TO_US_URL };
+export { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS, FOOTER_SOCIAL_LINKS, TALK_TO_US_URL };
 
 export type MainNavItem = HeaderNavItem;
 

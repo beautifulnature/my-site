@@ -51,23 +51,23 @@ const resourceTags = [
   descriptionClass="text-slate-900"
   currentPath="/resources"
 >
+  <div class="col-span-12">
 
-  <TagChipList items={resourceCategoryTags} size="mobile" className="mb-2 flex flex-wrap gap-2 lg:hidden" />
+  <!-- <TagChipList items={resourceCategoryTags} size="mobile" className="mb-2 flex flex-wrap gap-2 vp9:hidden" /> -->
 
-  <TagChipList items={resourceTags} size="mobile" className="mb-6 flex flex-wrap gap-2 lg:hidden" />
+  <TagChipList items={resourceTags} size="mobile" className="mb-6 flex flex-wrap gap-2 vp9:hidden" />
 
-  <div class="lg:grid lg:grid-cols-[11.5rem_minmax(0,1fr)] lg:gap-5">
-    <aside class="hidden self-start lg:sticky lg:top-24 lg:block">
-      <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Categories</p>
-      <TagChipList items={resourceCategoryTags} size="desktop" className="mb-4 flex flex-wrap gap-1.5" />
+  <div class="vp9:grid vp9:grid-cols-[11.5rem_minmax(0,1fr)] vp9:gap-5">
+    <aside class="hidden self-start vp9:sticky vp9:top-24 vp9:block">
+      <!-- <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Categories</p>
+      <TagChipList items={resourceCategoryTags} size="desktop" className="mb-4 flex flex-wrap gap-1.5" /> -->
 
       <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Tags</p>
       <TagChipList items={resourceTags} size="desktop" className="flex flex-wrap gap-1.5" />
     </aside>
 
     <div>
-
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid gap-6 vp7:grid-cols-2">
         <a href="/blog" class="resource-link-card">
           <span class="resource-link-icon">
             <ResourceIcons name="blog" size={24} color="var(--scheme-accent)" />
@@ -124,5 +124,6 @@ const resourceTags = [
         </a>
       </div>
     </div>
+  </div>
   </div>
 </ResourcesLayout>

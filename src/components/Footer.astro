@@ -1,71 +1,182 @@
 ---
-// Simple site footer used across layouts
 import { SITE_CONTENT } from "../utils/siteContent";
-import { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS } from "../utils/navigation";
+import { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS, FOOTER_SOCIAL_LINKS } from "../utils/navigation";
+import ResourceIcons from "./ResourceIcons.astro";
+
+const primaryFooterSections = FOOTER_SECTIONS.filter(
+  (section) => section.heading !== "Resources",
+);
+
+const resourcesFooterSections = FOOTER_SECTIONS.filter(
+  (section) => section.heading === "Resources",
+);
 ---
 
-<!-- <footer class="border-t border-slate-900 bg-slate-950">
-  <div class="mx-auto max-w-6xl p-6 text-sm text-slate-400">
-    <div class="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
-      <div>
-        <span>© {new Date().getFullYear()} My Site</span>
-        <span class="mx-2">·</span>
-        <a href="/privacy" class="underline hover:text-sky-300">Privacy</a>
-      </div>
+<footer id="resources" aria-label="Footer" class="c-footer layout bound-x scheme-dark">
+  <div class="c-footer__container">
+    <div class="c-footer__top">
+      <div class="c-footer__left">
+        <div class="c-footer__brand">
+          <a href="/" class="inline-flex items-center gap-2">
+            <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
+            <span class="font-semibold tracking-tight">{SITE_CONTENT.siteName}</span>
+          </a>
+          <p class="c-footer__brand-text max-w-md">{SITE_CONTENT.footerDescription}</p>
+        </div>
 
-      <div class="flex items-center gap-4">
-        <a href="https://youtube.com/channel/yourchannel" target="_blank" rel="noreferrer" class="flex items-center gap-1 text-slate-400 hover:text-red-500">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a2.993 2.993 0 0 0-2.112-2.112C19.13 3.5 12 3.5 12 3.5s-7.13 0-9.386.574A2.993 2.993 0 0 0 .502 6.186C0 8.443 0 12 0 12s0 3.557.502 5.814a2.993 2.993 0 0 0 2.112 2.112C4.87 20.5 12 20.5 12 20.5s7.13 0 9.386-.574a2.993 2.993 0 0 0 2.112-2.112C24 15.557 24 12 24 12s0-3.557-.502-5.814zM9.545 15.568V8.432l6.545 3.568-6.545 3.568z"/></svg>
-          <span>YouTube</span>
-        </a>
-        <a href="https://x.com/yourhandle" target="_blank" rel="noreferrer" class="flex items-center gap-1 text-slate-400 hover:text-sky-300">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.211 3.5h3.789l-7.211 8.221 8.5 9.779h-6.789l-5.211-6.221-5.789 6.221H1.5l7.789-8.779L1.5 3.5h6.789l4.711 5.779 5.211-5.779zm-2.211 16.5h2.789l-7.789-9.221-7.789 9.221h2.789l5-5.221 5 5.221z"/></svg>
-          <span>X</span>
-        </a>
-        <a href="https://wa.me/1234567890" target="_blank" rel="noreferrer" class="flex items-center gap-1 text-slate-400 hover:text-green-500">
-          <svg class="h-5 w-5" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C8.268 3 2 9.268 2 17c0 2.624.713 5.13 2.063 7.336L2 29l4.664-2.063A13.002 13.002 0 0 0 16 31c7.732 0 14-6.268 14-14S23.732 3 16 3zm0 26c-2.37 0-4.67-.65-6.67-1.87l-.47-.28-3.11.87.84-3.04-.3-.49A11.01 11.01 0 0 1 5 17c0-6.08 4.92-11 11-11s11 4.92 11 11-4.92 11-11 11zm6.16-8.13c-.34-.17-2.01-.99-2.32-1.1-.31-.11-.54-.17-.77.17-.23.34-.88 1.1-1.08 1.33-.2.23-.37.25-.7.09-.33-.16-1.29-.51-2.46-1.62-.91-.81-1.52-1.8-1.7-2.13-.18-.33-.02-.51.13-.67.13-.13.29-.34.43-.51.14-.17.18-.29.27-.48.09-.19.05-.36-.02-.51-.07-.14-.77-1.86-1.06-2.54-.28-.68-.57-.59-.78-.6-.2-.01-.43-.01-.66-.01-.23 0-.53.08-.81.38-.28.3-1.08 1.06-1.08 2.58 0 1.52 1.09 2.99 1.25 3.2.16.21 2.13 3.29 5.18 4.47.72.29 1.28.46 1.72.59.72.23 1.38.2 1.9.12.58-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.18-1.44-.07-.12-.25-.19-.39-.26z"/></svg>
-        </a>
-          <span>WhatsApp</span>
-        </a>
-        <span class="flex items-center gap-1 text-slate-400">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59c.7.29 1.5.21 2.07-.36l2.2-2.2a1.5 1.5 0 0 0-.36-2.07l-1.1-.55a1.5 1.5 0 0 0-1.7.13l-.7.7a11.05 11.05 0 0 1-4.24-4.24l.7-.7a1.5 1.5 0 0 0 .13-1.7l-.55-1.1a1.5 1.5 0 0 0-2.07-.36l-2.2 2.2c-.57.57-.65 1.37-.36 2.07z"/></svg>
-          <span>+1 234 567 890</span>
-        </span>
-      </div>
-    </div>
-  </div>
-</footer> -->
+        <div class="c-footer__newsletter">
+          <div>
+            <h3 class="c-title typo-p variant-p-sm !font-bold mb-5">Sign up for our newsletter</h3>
 
-<footer id="resources" aria-label="Footer" class="border-t border-slate-200">
-      <div class="mx-auto max-w-[1575px] px-4 py-12 sm:py-14">
-        <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-5">
-          <div class="md:col-span-2 lg:col-span-2">
-            <a href="/" class="mb-3 inline-flex items-center gap-2">
-              <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
-              <span class="font-semibold tracking-tight text-slate-900">{SITE_CONTENT.siteName}</span>
-            </a>
-            <p class="max-w-md text-slate-600">
-              {SITE_CONTENT.footerDescription}
-            </p>
+            <div class="c-form c-form--newsletter js-form vp7:w-[50%]">
+              <div class="c-form__form flex flex-col gap-8">
+                <div class="fui-i c-form__wrapper">
+                  <form
+                    id="fui-newsletter-trangx"
+                    class="fui-form fui-labels-above-input"
+                    method="post"
+                    enctype="multipart/form-data"
+                    accept-charset="utf-8"
+                    action="https://timefold.ai/index.php?p=actions/formie/submissions/submit"
+                    data-form-handle="newsletter"
+                    data-form-submit-method="ajax"
+                    data-form-submit-action="message"
+                    novalidate="true"
+                  >
+                    <input type="hidden" name="action" value="formie/submissions/submit" />
+                    <input type="hidden" name="submitAction" value="submit" />
+                    <input type="hidden" name="handle" value="newsletter" />
+                    <input type="hidden" name="siteId" value="1" />
+
+                    <div class="fui-form-container c-form__container">
+                      <div id="fui-newsletter-trangx-p-2" class="fui-page c-form__page" data-index="0" data-id="2" data-fui-page>
+                        <div class="fui-page-container c-form__page-container">
+                          <div class="fui-row fui-page-row c-form__row" data-fui-field-count="1">
+                            <div class="fui-field fui-type-email fui-label-hidden fui-subfield-label-hidden fui-instructions-above-input fui-field-required fui-page-field c-form__field" data-field-handle="email" data-field-type="email" data-validation="required|email">
+                              <div class="fui-field-container c-form__field-container">
+                                <label class="fui-label c-form__field-label sr-only" for="fui-newsletter-trangx-fields-email" data-field-label data-fui-sr-only>
+                                  Email <span class="fui-required c-form__field-required" aria-hidden="true">*</span>
+                                </label>
+                                <div class="fui-input-wrapper">
+                                  <input
+                                    type="email"
+                                    id="fui-newsletter-trangx-fields-email"
+                                    class="c-form__field-input"
+                                    name="fields[email]"
+                                    value=""
+                                    placeholder="Enter your email"
+                                    autocomplete="email"
+                                    required
+                                    data-fui-id="newsletter-email"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="fui-row fui-page-row c-form__row" data-fui-field-count="1">
+                            <div class="fui-field fui-type-agree fui-label-hidden fui-subfield-label-hidden fui-instructions-above-input fui-field-required fui-page-field c-form__field c-form__field-agree-button" data-field-handle="agreeCheckbox" data-field-type="agree" data-validation="required">
+                              <fieldset class="fui-fieldset c-form__field-container">
+                                <legend class="fui-legend c-form__field-label sr-only" data-field-label data-fui-sr-only>
+                                  Agree checkbox <span class="fui-required c-form__field-required" aria-hidden="true">*</span>
+                                </legend>
+                                <div class="fui-input-wrapper">
+                                  <input type="hidden" name="fields[agreeCheckbox]" value="" data-fui-input-type="agree" />
+                                  <div class="fui-checkbox c-form__field-agree-option">
+                                    <input
+                                      type="checkbox"
+                                      id="fui-newsletter-trangx-fields-agreeCheckbox"
+                                      class="c-form__field-input"
+                                      name="fields[agreeCheckbox]"
+                                      value="1"
+                                      required
+                                      data-fui-id="newsletter-agreeCheckbox"
+                                      data-fui-input-type="agree"
+                                      data-required-message="You have to accept our terms and conditions to complete the submission."
+                                    />
+                                    <label class="fui-checkbox-label c-form__field-agree-option-label" for="fui-newsletter-trangx-fields-agreeCheckbox">
+                                      By submitting this form you agree to our terms and conditions and our privacy policy.
+                                    </label>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="c-form__button-wrapper">
+                      <button type="submit" class="c-form__submit-button c-button c-button--primary" data-submit-action="submit">Subscribe</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-          {FOOTER_SECTIONS.map((section) => (
-            <div>
-              <h3 class="font-semibold text-slate-900">{section.heading}</h3>
-              <ul class="space-y-2 text-slate-600">
+        </div>
+      </div>
+
+      <div class="c-footer__column-nav">
+        <nav class="c-footer__column-col">
+          {primaryFooterSections.map((section) => (
+            <div class="c-footer__column-batch">
+              {section.heading && <h3 class="c-footer__column-title typo-footer-column-title">{section.heading}</h3>}
+              <ul class="c-footer__column-list">
                 {section.links.map((link) => (
-                  <li><a href={link.href} class="hover:text-slate-900">{link.label}</a></li>
+                  <li>
+                    <a href={link.href} class="c-footer__column-item">{link.label}</a>
+                  </li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
-        <div class="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-6 text-slate-500">
-          <span>© {new Date().getFullYear()} {SITE_CONTENT.companyName}</span>
-          <div class="flex items-center gap-4">
-            {FOOTER_LEGAL_LINKS.map((link) => (
-              <a href={link.href} class="hover:text-slate-700">{link.label}</a>
-            ))}
-          </div>
-        </div>
+        </nav>
+
+        <nav class="c-footer__column-col">
+          {resourcesFooterSections.map((section) => (
+            <div class="c-footer__column-batch">
+              {section.heading && <h3 class="c-footer__column-title typo-footer-column-title">{section.heading}</h3>}
+              <ul class="c-footer__column-list">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="c-footer__column-item">{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
       </div>
-    </footer>
+
+      <div class="c-footer__column-social">
+        <nav class="c-footer__column-col">
+          <div class="c-footer__column-batch">
+            <h4 class="c-footer__column-title typo-footer-column-title">Find us on</h4>
+            <ul class="c-footer__column-list">
+              {FOOTER_SOCIAL_LINKS.map((social) => (
+                <li>
+                  <a class="c-link c-footer__column-item" href={`${social.url}${social.id}`} target="_blank" rel="noopener noreferrer">
+                    <span class="c-icon c-icon--before">
+                      <ResourceIcons name={social.icon} size={16} color="currentColor" />
+                    </span>
+                    <span class="c-link__text">{social.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="c-footer__bottom">
+      <span class="c-footer__bottom-legal-text">© {new Date().getFullYear()} {SITE_CONTENT.companyName}</span>
+      <div class="c-footer__bottom-legal">
+        {FOOTER_LEGAL_LINKS.map((link) => (
+          <a href={link.href} class="c-footer__bottom-legal-link c-footer__column-item">{link.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

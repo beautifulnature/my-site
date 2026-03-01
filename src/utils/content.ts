@@ -70,7 +70,7 @@ export async function buildTagStaticPathsFromCollection<K extends DateCollection
   return tags.map((tag) => ({ params: { tag } }));
 }
 
-export function getNormalizedTagParam(tagParam: string | undefined): string {
+export function getNormalizedTagParam(tagParam: string | number | undefined): string {
   return normalizeTag(String(tagParam || ''));
 }
 

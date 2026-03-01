@@ -32,12 +32,12 @@ const { title = SITE_CONTENT.defaultTitle } = Astro.props;
     </div>
 
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div class="mx-auto flex max-w-[1180px] items-center justify-between px-4 py-3.5 sm:py-4 lg:py-4">
+      <div class="layout-content-1180 flex items-center justify-between py-3.5 sm:py-4 vp9:py-4">
         <a href="/" class="flex items-center gap-2">
           <div class="h-7 w-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
           <span class="text-[15px] font-semibold tracking-tight text-slate-900 sm:text-base">{SITE_CONTENT.siteName}</span>
         </a>
-        <nav aria-label="Main" class="hidden items-center gap-6 text-[13px] font-medium text-slate-600 lg:flex" data-main-nav>
+        <nav aria-label="Main" class="hidden items-center gap-6 text-[13px] font-medium text-slate-600 vp9:flex" data-main-nav>
           {HEADER_NAV_ITEMS.map((item) => (
             <a href={item.href} class="hover:text-slate-900" data-section-link={item.sectionLink ? true : undefined}>
               {item.label}
@@ -57,13 +57,13 @@ const { title = SITE_CONTENT.defaultTitle } = Astro.props;
           aria-controls="mobile-nav"
           aria-expanded="false"
           data-mobile-menu-button
-          class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 lg:hidden"
+          class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 vp9:hidden"
         >
           <span aria-hidden="true">☰</span>
         </button>
       </div>
 
-      <div id="mobile-nav" class="hidden border-t border-slate-200 bg-white px-4 py-3 lg:hidden" data-mobile-nav>
+      <div id="mobile-nav" class="hidden border-t border-slate-200 bg-white px-4 py-3 vp9:hidden" data-mobile-nav>
         <nav aria-label="Mobile" class="grid gap-1.5 text-sm font-medium text-slate-700" data-main-nav>
           {HEADER_NAV_ITEMS.map((item) => (
             <a
@@ -84,7 +84,7 @@ const { title = SITE_CONTENT.defaultTitle } = Astro.props;
     <button
       type="button"
       aria-label="Close menu"
-      class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] lg:hidden"
+      class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] vp9:hidden"
       data-mobile-backdrop
     />
 
@@ -92,34 +92,40 @@ const { title = SITE_CONTENT.defaultTitle } = Astro.props;
       <slot />
     </main>
 
-    <footer id="resources" aria-label="Footer" class="border-t border-slate-200 bg-slate-50">
-      <div class="mx-auto max-w-[1180px] px-4 py-12 sm:py-14">
-        <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-5">
-          <div class="md:col-span-2 lg:col-span-2">
-            <a href="/" class="mb-3 inline-flex items-center gap-2">
-              <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
-              <span class="text-base font-semibold tracking-tight text-slate-900">{SITE_CONTENT.siteName}</span>
-            </a>
-            <p class="max-w-md text-sm text-slate-600">
-              {SITE_CONTENT.footerDescription}
-            </p>
-          </div>
-          {FOOTER_SECTIONS.map((section) => (
-            <div>
-              <h3 class="text-sm font-semibold text-slate-900">{section.heading}</h3>
-              <ul class="space-y-2 text-sm text-slate-600">
-                {section.links.map((link) => (
-                  <li><a href={link.href} class="hover:text-slate-900">{link.label}</a></li>
-                ))}
-              </ul>
+    <footer id="resources" aria-label="Footer" class="c-footer">
+      <div class="c-footer__container">
+        <div class="c-footer__top">
+          <div class="c-footer__left">
+            <div class="c-footer__brand">
+              <a href="/" class="inline-flex items-center gap-2">
+                <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500" />
+                <span class="text-base font-semibold tracking-tight">{SITE_CONTENT.siteName}</span>
+              </a>
+              <p class="c-footer__brand-text max-w-md text-sm">{SITE_CONTENT.footerDescription}</p>
             </div>
-          ))}
+          </div>
+
+          <div class="c-footer__column-nav">
+            {FOOTER_SECTIONS.map((section) => (
+              <div class="c-footer__column-col">
+                <div class="c-footer__column-batch">
+                  <h3 class="c-footer__column-title text-sm">{section.heading}</h3>
+                  <ul class="c-footer__column-list">
+                    {section.links.map((link) => (
+                      <li><a href={link.href} class="c-footer__column-item">{link.label}</a></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div class="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-6 text-xs text-slate-500">
-          <span>© {new Date().getFullYear()} {SITE_CONTENT.companyName}</span>
-          <div class="flex items-center gap-4">
+
+        <div class="c-footer__bottom">
+          <span class="c-footer__bottom-legal-text">© {new Date().getFullYear()} {SITE_CONTENT.companyName}</span>
+          <div class="c-footer__bottom-legal">
             {FOOTER_LEGAL_LINKS.map((link) => (
-              <a href={link.href} class="hover:text-slate-700">{link.label}</a>
+              <a href={link.href} class="c-footer__bottom-legal-link c-footer__column-item">{link.label}</a>
             ))}
           </div>
         </div>
