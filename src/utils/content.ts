@@ -54,6 +54,96 @@ export function buildStaticPathsForCollection<T extends SlugEntry>(entries: T[],
   }));
 }
 
+export async function buildStaticPathsFromCollection<K extends DateCollectionKey>(
+  key: K,
+  propName: string,
+) {
+  const entries = await getCollection(key);
+  return buildStaticPathsForCollection(entries as unknown as SlugEntry[], propName);
+}
+
+export async function buildTagStaticPathsFromCollection<K extends DateCollectionKey>(
+  key: K,
+) {
+  const all = await getSortedDateCollection(key);
+  const tags = Array.from(new Set(all.flatMap((item) => getStringTags(item.data.tags))));
+  return tags.map((tag) => ({ params: { tag } }));
+}
+
+export function getNormalizedTagParam(tagParam: string | undefined): string {
+  return normalizeTag(String(tagParam || ''));
+}
+
+export async function buildDetailPageMetaFromCollection<K extends DateCollectionKey>(
+  key: K,
+  currentItem: CollectionEntry<K>,
+  detailBasePath: string,
+  requestUrl?: string,
+  relatedCount: number = 3,
+) {
+  const allItems = await getCollection(key);
+  return buildDetailPageMeta(
+    allItems as unknown as Array<CollectionEntry<K> & DatedEntry & TaggedEntry>,
+    currentItem as unknown as CollectionEntry<K> & DatedEntry & TaggedEntry,
+    detailBasePath,
+    requestUrl,
+    relatedCount,
+  );
+}
+
+export function formatDateValue(value: unknown): string {
+  if (!value) return '';
+  if (!(value instanceof Date) && typeof value !== 'string' && typeof value !== 'number') {
+    return String(value);
+  }
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime())
+    ? String(value)
+    : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+type MoreItemCardConfig = {
+  dateClass: string;
+  titleClass: string;
+  secondaryField?: string;
+  secondaryClass?: string;
+  descriptionField?: string;
+  descriptionClass?: string;
+};
+
+type MoreItemCardSource = SlugEntry & {
+  data: Record<string, unknown> & {
+    title: string;
+    date: Date | string | number;
+  };
+};
+
+const getOptionalFieldText = (data: Record<string, unknown>, field?: string): string | undefined => {
+  if (!field) return undefined;
+  const value = data[field];
+  if (value == null) return undefined;
+  const text = String(value);
+  return text.length > 0 ? text : undefined;
+};
+
+export function buildMoreItemCardProps(
+  item: MoreItemCardSource,
+  detailBasePath: string,
+  config: MoreItemCardConfig,
+) {
+  return {
+    href: `${detailBasePath}/${item.slug}/`,
+    title: item.data.title,
+    dateText: formatDateValue(item.data.date),
+    dateClass: config.dateClass,
+    titleClass: config.titleClass,
+    secondaryText: getOptionalFieldText(item.data, config.secondaryField),
+    secondaryClass: config.secondaryClass,
+    description: getOptionalFieldText(item.data, config.descriptionField),
+    descriptionClass: config.descriptionClass,
+  };
+}
+
 export function buildDetailPageMeta<T extends DatedEntry & TaggedEntry>(
   allItems: T[],
   currentItem: T,

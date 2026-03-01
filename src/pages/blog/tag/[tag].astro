@@ -3,17 +3,19 @@ import type { GetStaticPaths } from 'astro';
 import ResourcesLayout from '../../../layouts/ResourcesLayout.astro';
 import ResourceIndex from '../../../components/ResourceIndex.astro';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
-import { getSortedDateCollection, getStringTags, normalizeTag } from '../../../utils/content';
+import {
+  buildTagStaticPathsFromCollection,
+  getNormalizedTagParam,
+  getSortedDateCollection,
+} from '../../../utils/content';
 
 const posts = await getSortedDateCollection('blog');
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const all = await getSortedDateCollection('blog');
-  const tags = Array.from(new Set(all.flatMap((post) => getStringTags(post.data.tags))));
-  return tags.map(tag => ({ params: { tag } }));
+  return buildTagStaticPathsFromCollection('blog');
 };
 
-const selectedTag = normalizeTag(String(Astro.params.tag || ''));
+const selectedTag = getNormalizedTagParam(Astro.params.tag);
 const resourceType = RESOURCE_TYPES.blog;
 ---
 
@@ -25,8 +27,7 @@ const resourceType = RESOURCE_TYPES.blog;
 >
   <ResourceIndex
     items={posts}
-    dateField="date"
-    titleField="title"
+    {...resourceType.indexProps}
     selectedTagOverride={selectedTag}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}

@@ -16,10 +16,7 @@ const resourceType = RESOURCE_TYPES.stories;
 >
   <ResourceIndex
     items={stories}
-    dateField="date"
-    metaField="industry"
-    titleField="title"
-    subtitleField="customer"
+    {...resourceType.indexProps}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}
   />

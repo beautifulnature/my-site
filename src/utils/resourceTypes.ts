@@ -18,6 +18,21 @@ type ResourceTypeConfig = {
   indexCurrentPath: string;
   tagBasePath?: string;
   tagAllPath?: string;
+  indexProps: {
+    dateField: string;
+    titleField: string;
+    metaField?: string;
+    subtitleField?: string;
+    showBody?: boolean;
+  };
+  moreCard: {
+    dateClass: string;
+    titleClass: string;
+    secondaryField?: string;
+    secondaryClass?: string;
+    descriptionField?: string;
+    descriptionClass?: string;
+  };
 };
 
 export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
@@ -32,6 +47,16 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     indexCurrentPath: '/blog',
     tagBasePath: '/blog/tag',
     tagAllPath: '/blog',
+    indexProps: {
+      dateField: 'date',
+      titleField: 'title',
+    },
+    moreCard: {
+      dateClass: 'meta-label text-slate-600',
+      titleClass: 'font-semibold text-slate-900',
+      descriptionField: 'description',
+      descriptionClass: 'line-clamp-3 text-slate-700',
+    },
   },
   videos: {
     backHref: '/resources/videos',
@@ -44,6 +69,18 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     indexCurrentPath: '/resources/videos',
     tagBasePath: '/resources/videos/tag',
     tagAllPath: '/resources/videos',
+    indexProps: {
+      dateField: 'date',
+      titleField: 'title',
+      metaField: 'length',
+      showBody: false,
+    },
+    moreCard: {
+      dateClass: 'meta-label text-[11px] text-slate-900',
+      titleClass: 'text-sm font-semibold text-slate-900',
+      secondaryField: 'length',
+      secondaryClass: 'text-xs text-slate-900',
+    },
   },
   events: {
     backHref: '/resources/events',
@@ -56,6 +93,17 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     indexCurrentPath: '/resources/events',
     tagBasePath: '/resources/events/tag',
     tagAllPath: '/resources/events',
+    indexProps: {
+      dateField: 'date',
+      titleField: 'title',
+      metaField: 'location',
+    },
+    moreCard: {
+      dateClass: 'meta-label text-slate-600',
+      titleClass: 'font-semibold text-slate-900',
+      secondaryField: 'location',
+      secondaryClass: 'text-slate-600',
+    },
   },
   press: {
     backHref: '/resources/press',
@@ -68,6 +116,17 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     indexCurrentPath: '/resources/press',
     tagBasePath: '/resources/press/tag',
     tagAllPath: '/resources/press',
+    indexProps: {
+      dateField: 'date',
+      titleField: 'title',
+      metaField: 'outlet',
+    },
+    moreCard: {
+      dateClass: 'meta-label text-slate-600',
+      titleClass: 'font-semibold text-slate-900',
+      secondaryField: 'outlet',
+      secondaryClass: 'text-slate-600',
+    },
   },
   newsletter: {
     backHref: '/resources/newsletter',
@@ -80,6 +139,17 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     indexCurrentPath: '/resources/newsletter',
     tagBasePath: '/resources/newsletter/tag',
     tagAllPath: '/resources/newsletter',
+    indexProps: {
+      dateField: 'date',
+      titleField: 'title',
+      metaField: 'issue',
+    },
+    moreCard: {
+      dateClass: 'meta-label text-slate-600',
+      titleClass: 'font-semibold text-slate-900',
+      secondaryField: 'issue',
+      secondaryClass: 'text-slate-600',
+    },
   },
   stories: {
     backHref: '/resources/stories',
@@ -92,6 +162,18 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     indexCurrentPath: '/resources/stories',
     tagBasePath: '/resources/stories/tag',
     tagAllPath: '/resources/stories',
+    indexProps: {
+      dateField: 'date',
+      titleField: 'title',
+      metaField: 'industry',
+      subtitleField: 'customer',
+    },
+    moreCard: {
+      dateClass: 'meta-label text-[11px] text-slate-600',
+      titleClass: 'text-sm font-semibold text-slate-900',
+      secondaryField: 'customer',
+      secondaryClass: 'text-xs text-slate-600',
+    },
   },
 };
 

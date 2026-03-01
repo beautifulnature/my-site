@@ -16,10 +16,7 @@ const resourceType = RESOURCE_TYPES.videos;
 >
   <ResourceIndex
     items={videos}
-    dateField="date"
-    metaField="length"
-    titleField="title"
-    showBody={false}
+    {...resourceType.indexProps}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}
   />

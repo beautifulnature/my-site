@@ -1,32 +1,30 @@
 ---
-import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import DocsLayout from '../../../layouts/Docs.astro';
 import ResourceDetailArticle from '../../../components/ResourceDetailArticle.astro';
 import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
 import MoreItemCard from '../../../components/MoreItemCard.astro';
 import {
-  buildDetailPageMeta,
-  buildStaticPathsForCollection,
+  buildMoreItemCardProps,
+  buildDetailPageMetaFromCollection,
+  buildStaticPathsFromCollection,
 } from '../../../utils/content';
 import type { NewsletterEntry } from '../../../types/collections';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const issues = await getCollection('newsletter');
-  return buildStaticPathsForCollection(issues, 'issue');
+  return buildStaticPathsFromCollection('newsletter', 'issue');
 };
 
 const { issue } = Astro.props as { issue: NewsletterEntry };
 const { Content } = await issue.render();
 const resourceType = RESOURCE_TYPES.newsletter;
 
-const allIssues = await getCollection('newsletter');
 const {
   pageUrl,
   moreItems: moreNewsletters,
   tags: issueTags,
-} = buildDetailPageMeta(allIssues, issue, resourceType.detailBasePath, Astro.request?.url, 3);
+} = await buildDetailPageMetaFromCollection('newsletter', issue, resourceType.detailBasePath, Astro.request?.url, 3);
 ---
 
 <DocsLayout enableToc={true}>
@@ -62,15 +60,7 @@ const {
   {moreNewsletters.length > 0 && (
     <MoreItemsGrid title={resourceType.moreTitle} gridId="more-newsletters-grid">
         {moreNewsletters.map((n) => (
-          <MoreItemCard
-            href={`${resourceType.detailBasePath}/${n.slug}/`}
-            title={n.data.title}
-            dateText={n.data.date.toLocaleDateString()}
-            dateClass="meta-label text-slate-600"
-            titleClass="font-semibold text-slate-900"
-            secondaryText={n.data.issue}
-            secondaryClass="text-slate-600"
-          />
+          <MoreItemCard {...buildMoreItemCardProps(n, resourceType.detailBasePath, resourceType.moreCard)} />
         ))}
     </MoreItemsGrid>
   )}

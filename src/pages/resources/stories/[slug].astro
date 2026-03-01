@@ -1,32 +1,30 @@
 ---
-import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import DocsLayout from '../../../layouts/Docs.astro';
 import ResourceDetailArticle from '../../../components/ResourceDetailArticle.astro';
 import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
 import MoreItemCard from '../../../components/MoreItemCard.astro';
 import {
-  buildDetailPageMeta,
-  buildStaticPathsForCollection,
+  buildMoreItemCardProps,
+  buildDetailPageMetaFromCollection,
+  buildStaticPathsFromCollection,
 } from '../../../utils/content';
 import type { StoryEntry } from '../../../types/collections';
 import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const stories = await getCollection('stories');
-  return buildStaticPathsForCollection(stories, 'story');
+  return buildStaticPathsFromCollection('stories', 'story');
 };
 
 const { story } = Astro.props as { story: StoryEntry };
 const { Content } = await story.render();
 const resourceType = RESOURCE_TYPES.stories;
 
-const allStories = await getCollection('stories');
 const {
   pageUrl,
   moreItems: moreStories,
   tags: storyTags,
-} = buildDetailPageMeta(allStories, story, resourceType.detailBasePath, Astro.request?.url, 3);
+} = await buildDetailPageMetaFromCollection('stories', story, resourceType.detailBasePath, Astro.request?.url, 3);
 ---
 
 <DocsLayout>
@@ -67,15 +65,7 @@ const {
   {moreStories.length > 0 && (
     <MoreItemsGrid title={resourceType.moreTitle} gridId="more-stories-grid">
         {moreStories.map((s) => (
-          <MoreItemCard
-            href={`${resourceType.detailBasePath}/${s.slug}/`}
-            title={s.data.title}
-            dateText={s.data.date.toLocaleDateString()}
-            dateClass="meta-label text-[11px] text-slate-600"
-            titleClass="text-sm font-semibold text-slate-900"
-            secondaryText={s.data.customer}
-            secondaryClass="text-xs text-slate-600"
-          />
+          <MoreItemCard {...buildMoreItemCardProps(s, resourceType.detailBasePath, resourceType.moreCard)} />
         ))}
     </MoreItemsGrid>
   )}

@@ -16,9 +16,7 @@ const resourceType = RESOURCE_TYPES.press;
 >
   <ResourceIndex
     items={press}
-    dateField="date"
-    metaField="outlet"
-    titleField="title"
+    {...resourceType.indexProps}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}
   />

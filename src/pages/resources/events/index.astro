@@ -16,12 +16,9 @@ const resourceType = RESOURCE_TYPES.events;
 >
   <ResourceIndex
     items={events}
-    dateField="date"
-    metaField="location"
-    titleField="title"
+    {...resourceType.indexProps}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}
   />
 </ResourcesLayout>
 
-// If instead you want the hero title to go straight to the external registration URL, set isHeroLinkExternal and heroExternalUrlField.

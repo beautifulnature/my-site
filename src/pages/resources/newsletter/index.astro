@@ -16,9 +16,7 @@ const resourceType = RESOURCE_TYPES.newsletter;
 >
   <ResourceIndex
     items={issues}
-    dateField="date"
-    metaField="issue"
-    titleField="title"
+    {...resourceType.indexProps}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}
   />

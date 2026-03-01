@@ -16,8 +16,7 @@ const resourceType = RESOURCE_TYPES.blog;
 >
   <ResourceIndex
     items={posts}
-    dateField="date"
-    titleField="title"
+    {...resourceType.indexProps}
     tagBasePath={resourceType.tagBasePath}
     tagAllPath={resourceType.tagAllPath}
   />
