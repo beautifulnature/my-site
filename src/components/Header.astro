@@ -5,28 +5,20 @@ import ResourceIcons from "./ResourceIcons.astro";
 import "../styles/global.css";
 ---
 
-<header
-    class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-default"
->
+<header class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-default">
     <nav class="c-header__content">
         <h2 class="sr-only">Navigation</h2>
         <div class="c-header__logo-wrapper">
-            <a
-                href="https://timefold.ai/"
-                aria-label="Timefold logo"
-                class="c-site-logo c-header__logo"
-            >
+            <a href="https://timefold.ai/" aria-label="Timefold logo" class="c-site-logo c-header__logo">
                 <ResourceIcons name="timefold-logo" />
-                {SITE_CONTENT.siteName}
+                <!-- {SITE_CONTENT.siteName} -->
             </a>
         </div>
         <div class="c-header__navigation" id="site-header-navigation">
             <div class="c-header__navigation-wrapper">
                 <ul class="c-header__navigation-list">
                     <li class="flex items-center">
-                        <div
-                            class="c-extended-flyout js-extended-flyout c-header__nav-item"
-                        >
+                        <div class="c-extended-flyout js-extended-flyout c-header__nav-item">
                             <button
                                 class="c-extended-flyout__button c-link c-header__dropdown"
                                 data-trigger="17644"
@@ -53,33 +45,21 @@ import "../styles/global.css";
                                 </span>
                             </button>
 
-                            <nav
-                                id="17644"
-                                class="c-extended-flyout__content"
-                                data-content="17644"
-                            >
+                            <nav id="17644" class="c-extended-flyout__content" data-content="17644" >
                                 <div class="c-extended-flyout__container">
                                     <div class="c-extended-flyout__header">
                                         <div class="c-extended-flyout__title">
-                                            <p>
-                                                Out-of-the-box Optimization APIs
-                                            </p>
+                                            <p>Out-of-the-box Optimization APIs</p>
                                         </div>
 
-                                        <div
-                                            class="c-extended-flyout__description"
-                                        >
+                                        <div class="c-extended-flyout__description">
                                             <p>Discover our use cases</p>
                                         </div>
                                     </div>
 
                                     <ul class="c-extended-flyout__cols">
                                         <li class="c-extended-flyout__col">
-                                            <a
-                                                class="c-extended-flyout__col-header"
-                                                href="https://timefold.ai/solutions/route-optimization"
-                                                tabindex="-1"
-                                            >
+                                            <a class="c-extended-flyout__col-header" href="https://timefold.ai/solutions/route-optimization" tabindex="-1">
                                                 <span
                                                     class="c-extended-flyout__col-header-title"
                                                     >Route Scheduling</span
