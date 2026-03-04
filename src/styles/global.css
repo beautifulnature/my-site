@@ -124,9 +124,51 @@
     scroll-behavior: smooth
 }
 
+.s-github {
+    margin-top: .375rem
+}
+
+#mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error {
+    background: transparent;
+    color: #ac0906;
+    color: hsl(var(--color-red-30)/1);
+    font-weight: 400;
+    padding: 8px 0;
+    padding: var(--space-2) 0
+}
+
+@media (max-width: 48em) {
+    #CybotCookiebotDialog {
+        max-height: 45%!important;
+        -webkit-transform: translate(-50%, 10%)!important;
+        transform: translate(-50%, 10%)!important
+    }
+}
+
 .bound,.bound-x {
     --layout-bound-l: var(--layout-bound);
     --layout-bound-r: var(--layout-bound)
+}
+
+.s-github {
+    margin-top: .375rem
+}
+
+#mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error {
+    background: transparent;
+    color: #ac0906;
+    color: hsl(var(--color-red-30)/1);
+    font-weight: 400;
+    padding: 8px 0;
+    padding: var(--space-2) 0
+}
+
+@media (max-width: 48em) {
+    #CybotCookiebotDialog {
+        max-height: 45%!important;
+        -webkit-transform: translate(-50%,10%)!important;
+        transform: translate(-50%,10%)!important
+    }
 }
 
 .layout {
