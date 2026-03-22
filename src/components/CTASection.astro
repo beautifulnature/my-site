@@ -1,0 +1,26 @@
+---
+import { HOME_PAGE_CONTENT, SITE_CONTENT } from "../utils/siteContent";
+---
+<section id="start" class="layout bound-x scheme-default py-[32px] m-0 border-0">
+  <div class="bg-gradient-to-br from-timefold-primary/30 to-timefold-dark border border-timefold-primary/40 rounded-3xl p-10 md:p-16 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10 shadow-glow-primary overflow-hidden relative" data-aos="fade-up" data-aos-duration="1000">
+    <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-timefold-accent/20 blur-3xl mix-blend-screen pointer-events-none"></div>
+    
+    <div class="max-w-xl z-10">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+        Get more out of your resources, fast
+      </h2>
+      <p class="text-slate-300 text-lg">
+        Ready to start optimizing? Talk with our team to evaluate your use case or explore the APIs yourself.
+      </p>
+    </div>
+    
+    <div class="flex flex-col sm:flex-row gap-4 shrink-0 z-10">
+      <a href={HOME_PAGE_CONTENT.contactUrl} class="px-8 py-4 rounded-full bg-timefold-accent text-timefold-dark font-bold hover:bg-emerald-400 hover:scale-105 transition shadow-glow-accent whitespace-nowrap text-lg">
+        {SITE_CONTENT.talkToUsLabel}
+      </a>
+      <a href="http://localhost:4321/" class="px-8 py-4 rounded-full border border-slate-600 bg-timefold-card text-white hover:border-timefold-primary transition whitespace-nowrap text-lg text-center font-semibold">
+        Explore APIs
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,234 @@
+
+> my-sample-site@0.0.1 build
+> astro build
+
+[2m12:08:49[22m [34m[content][39m Syncing content
+[2m12:08:49[22m [34m[content][39m Synced content
+[2m12:08:49[22m [34m[types][39m Generated [2m345ms[22m
+[2m12:08:49[22m [34m[build][39m output: [34m"static"[39m
+[2m12:08:49[22m [34m[build][39m mode: [34m"static"[39m
+[2m12:08:49[22m [34m[build][39m directory: [34mC:\Users\hemanya\Documents\projects\site\my-sample-site\dist\[39m
+[2m12:08:49[22m [34m[build][39m Collecting build info...
+[2m12:08:49[22m [34m[build][39m [32mΓ£ô Completed in 420ms.[39m
+[2m12:08:49[22m [34m[build][39m Building static entrypoints...
+Get HastElementContent.
+result {
+  children: [
+    {
+      children: [Array],
+      properties: {},
+      tagName: 'h2',
+      type: 'element'
+    },
+    {
+      children: [Array],
+      properties: {},
+      tagName: 'p',
+      type: 'element'
+    },
+    {
+      children: [Array],
+      properties: {},
+      tagName: 'p',
+      type: 'element'
+    },
+    {
+      children: [Array],
+      properties: {},
+      tagName: 'p',
+      type: 'element'
+    }
+  ],
+  properties: {},
+  tagName: 'body',
+  type: 'element',
+  data: { jsxImports: [] }
+}
+[2m12:08:51[22m [34m[vite][39m [32mΓ£ô built in 1.86s[39m
+[2m12:08:51[22m [34m[build][39m [32mΓ£ô Completed in 1.89s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m12:08:51[22m [34m[vite][39m transforming...
+[2m12:08:51[22m [34m[vite][39m [32mΓ£ô[39m 1 modules transformed.
+[2m12:08:51[22m [34m[vite][39m rendering chunks...
+[2m12:08:51[22m [34m[vite][39m [32mΓ£ô built in 31ms[39m
+
+[42m[30m generating static routes [39m[49m
+[2m12:08:51[22m [32mΓû╢[39m src/pages/blog/tag/[tag].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/validation/index.html[22m [2m(+11ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/operations/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/performance/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/tuning/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/scenario-planning/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/scheduling/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/modeling/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/optimization/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/constraints/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/tag/matrix/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/blog/tag/docs/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/blog/[slug].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/blog-first-post/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/blog-fifth-post/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/blog-second-post/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/blog-fourth-post/index.html[22m [2m(+8ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/blog-third-post/index.html[22m [2m(+9ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/eighth-post/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/ninth-post/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/sixth-post/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/blog/seventh-post/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/blog/tenth-post/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/blog/index.astro
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/blog/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/docs.astro
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/docs/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/math.astro
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/math/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/patterns.astro
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/patterns/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/events/tag/[tag].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/webinar/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/modeling/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/api/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/ama/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/routing/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/community/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/conference/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/scheduling/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/enterprise/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/workshop/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/optimization/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/hands-on/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/capacity/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/planning/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/planning-ai/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/tag/production/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/resources/events/tag/product-launch/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/events/[slug].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-conf-talk-planningai-summit-2025/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-planning-ama-march-2026/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-product-launch-orbit-2025/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-routing-webinar-april-2026/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-workshop-scheduling-london-2026/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-capacity-planning-roundtable-2026/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-dispatch-optimization-workshop-2026/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-fleet-planning-ama-2026/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/events/event-enterprise-scheduling-summit-2026/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/resources/events/event-year-end-modeling-clinic-2026/index.html[22m [2m(+8ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/events/index.astro
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/resources/events/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/newsletter/tag/[tag].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/newsletter/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/roadmap/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/docs/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/production/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/best-practices/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/product-updates/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/diagnostics/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/performance/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/scenario-planning/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/tutorials/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/routing/index.html[22m [2m(+8ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/example-models/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/tag/templates/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/resources/newsletter/tag/customer-story/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/newsletter/[slug].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-001/index.html[22m [2m(+20ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-003/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-004/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-002/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-005-v1/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-006/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-008/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-007/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/newsletter/issue-newsletter-010/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/resources/newsletter/issue-newsletter-009/index.html[22m [2m(+5ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/newsletter/index.astro
+[2m12:08:51[22m   [34mΓööΓöÇ[39m [2m/resources/newsletter/index.html[22m [2m(+7ms)[22m 
+[2m12:08:51[22m [32mΓû╢[39m src/pages/resources/press/tag/[tag].astro
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/press/index.html[22m [2m(+9ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/product-launch/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/platform/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/company-news/index.html[22m [2m(+3ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/podcast/index.html[22m [2m(+4ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/interview/index.html[22m [2m(+6ms)[22m 
+[2m12:08:51[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/customer-story/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/logistics/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/analyst-report/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/tag/trends/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/press/tag/funding/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/press/[slug].astro
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-customer-success-feature/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-funding-round-series-a/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-podcast-interview/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-platform-launch/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-industry-report-mention/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-analyst-brief-q2-2026/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-new-region-expansion-2026/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-platform-update-enterprise-security-2026/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/press/press-executive-interview-scheduling-2026/index.html[22m [2m(+8ms)[22m 
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/press/press-customer-win-transport-2026/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/press/index.astro
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/press/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/stories/tag/[tag].astro
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/customer-story/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/scheduling/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/fulfillment/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/routing/index.html[22m [2m(+35ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/field-service/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/workforce/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/rostering/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/operations/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/logistics/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/manufacturing/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/tag/e-commerce/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/stories/tag/retail/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/stories/[slug].astro
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-auto-fleet-optimization/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-field-service-routing/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-ecommerce-fulfillment/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-workforce-rostering/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-retail-scheduling/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-factory-scheduling/index.html[22m [2m(+20ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-airline-turnaround-optimization/index.html[22m [2m(+11ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-healthcare-roster-balance/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/stories/story-utilities-field-routing/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/stories/story-warehouse-shift-stability/index.html[22m [2m(+7ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/stories/index.astro
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/stories/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/videos/tag/[tag].astro
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/scheduling/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/demo/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/getting-started/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/performance/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/scalability/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/tuning/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/api/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/integration/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/routing/index.html[22m [2m(+7ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/solver/index.html[22m [2m(+7ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/modeling/index.html[22m [2m(+8ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/constraints/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/overview/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/tag/qa/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/videos/tag/office-hours/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/videos/[slug].astro
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-office-hours-qa/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-shift-scheduling-demo/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-intro-solver/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-performance-tuning/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-solver-api-intro/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-routing-model-basics-v1/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-advanced-score-explainer/index.html[22m [2m(+6ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-dispatch-dashboard-demo/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m   [34mΓö£ΓöÇ[39m [2m/resources/videos/video-large-instance-tuning/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/videos/video-shift-planning-patterns/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/videos/index.astro
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/videos/index.html[22m [2m(+5ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/resources/index.astro
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/resources/index.html[22m [2m(+4ms)[22m 
+[2m12:08:52[22m [32mΓû╢[39m src/pages/index.astro
+[2m12:08:52[22m   [34mΓööΓöÇ[39m [2m/index.html[22m [2m(+3ms)[22m 
+[2m12:08:52[22m [32mΓ£ô Completed in 943ms.
+[39m
+[2m12:08:52[22m [34m[build][39m 151 page(s) built in [1m3.34s[22m
+[2m12:08:52[22m [34m[build][39m [1mComplete![22m

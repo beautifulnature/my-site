@@ -2,30 +2,60 @@
 import { SITE_CONTENT } from "../utils/siteContent";
 import { MAIN_NAV_ITEMS, TALK_TO_US_URL } from "../utils/navigation";
 import ResourceIcons from "./ResourceIcons.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 import "../styles/global.css";
 ---
 
-<header class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-default">
-    <nav class="c-header__content">
+<header class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-dark bg-timefold-dark/90 backdrop-blur-md border-b border-timefold-border sticky top-0 z-50">
+    <nav class="flex flex-1 items-center justify-between h-[56px]">
         <h2 class="sr-only">Navigation</h2>
-        <div class="c-header__logo-wrapper">
-            <a href="https://timefold.ai/" aria-label="Timefold logo" class="c-site-logo c-header__logo">
+        <div class="flex items-center">
+            <a href="http://localhost:4321/" aria-label="Timefold logo" class="block h-8 w-auto">
                 <ResourceIcons name="timefold-logo" />
                 <!-- {SITE_CONTENT.siteName} -->
             </a>
         </div>
-        <div class="c-header__navigation" id="site-header-navigation">
-            <div class="c-header__navigation-wrapper">
-                <ul class="c-header__navigation-list">
-                    <li class="flex items-center">
-                        <div class="c-extended-flyout js-extended-flyout c-header__nav-item">
-                            <button
-                                class="c-extended-flyout__button c-link c-header__dropdown"
-                                data-trigger="17644"
-                                aria-controls="17644"
-                                aria-expanded="false"
-                            >
-                                <span class="c-button__text">Use cases</span>
+        <div id="site-header-navigation" class="flex-1 flex items-center justify-center">
+            <ul class="flex gap-4">
+                <li>
+                    <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-slate-100 focus:outline-none">
+                        <span>Use cases</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true"><path d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"/></svg>
+                    </button>
+                </li>
+                <li>
+                    <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-slate-100 focus:outline-none">
+                        <span>Resources</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true"><path d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"/></svg>
+                    </button>
+                </li>
+                <li>
+                    <a href="http://localhost:4321/pricing" class="px-3 py-2 rounded-md hover:bg-slate-100">Pricing</a>
+                </li>
+                <li>
+                    <a href="http://localhost:4321/" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-md hover:bg-slate-100 flex items-center gap-1">
+                        <span>Documentation</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512" aria-hidden="true"><path d="M304 24c0 13.3 10.7 24 24 24H430.1L207 271c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l223-223V184c0 13.3 10.7 24 24 24s24-10.7 24-24V24c0-13.3-10.7-24-24-24H328c-13.3 0-24 10.7-24 24zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V440c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"/></svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://localhost:4321/talk-to-us" class="ml-4 px-4 py-2 rounded-full bg-timefold-accent text-timefold-dark shadow-glow-accent transition hover:bg-emerald-400 hover:scale-105 font-semibold">Talk to us</a>
+                </li>
+            </ul>
+            <ul class="hidden vp9:flex gap-4 ml-8">
+                <li class="flex items-center gap-2">
+                    {MAIN_NAV_ITEMS.map((item) => (
+                        <a
+                            href={item.href}
+                            class="px-3 py-2 rounded-md hover:text-[var(--scheme-accent)]"
+                            data-section-link={item.sectionLink ? true : undefined}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </li>
+            </ul>
+        </div>
 
                                 <span class="c-icon c-button__icon c-icon--after">                              >
                                     <svg
@@ -57,7 +87,7 @@ import "../styles/global.css";
 
                                     <ul class="c-extended-flyout__cols">
                                         <li class="c-extended-flyout__col">
-                                            <a class="c-extended-flyout__col-header" href="https://timefold.ai/solutions/route-optimization" tabindex="-1">
+                                            <a class="c-extended-flyout__col-header" href="http://localhost:4321/solutions/route-optimization" tabindex="-1">
                                                 <span class="c-extended-flyout__col-header-title">Route Scheduling</span>
 
                                                 <span
@@ -84,7 +114,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/route-optimization-field-technicians"
+                                                        href="http://localhost:4321/use-case/route-optimization-field-technicians"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -121,7 +151,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/route-optimization-home-care"
+                                                        href="http://localhost:4321/use-case/route-optimization-home-care"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -158,7 +188,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/route-optimization-nemt"
+                                                        href="http://localhost:4321/use-case/route-optimization-nemt"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -195,7 +225,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/route-optimization-facility-maintenance"
+                                                        href="http://localhost:4321/use-case/route-optimization-facility-maintenance"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -235,7 +265,7 @@ import "../styles/global.css";
                                         <li class="c-extended-flyout__col">
                                             <a
                                                 class="c-extended-flyout__col-header"
-                                                href="https://timefold.ai/solutions/shift-scheduling-optimization"
+                                                href="http://localhost:4321/solutions/shift-scheduling-optimization"
                                                 tabindex="-1"
                                             >
                                                 <span
@@ -267,7 +297,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/shift-scheduling-optimization-nurse-rostering"
+                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-nurse-rostering"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -305,7 +335,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/shift-scheduling-optimization-retail-staff-scheduling"
+                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-retail-staff-scheduling"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -341,7 +371,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/shift-scheduling-optimization-security-guard-scheduling"
+                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-security-guard-scheduling"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -379,7 +409,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/shift-scheduling-optimization-hospitality-staff-scheduling"
+                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-hospitality-staff-scheduling"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -420,7 +450,7 @@ import "../styles/global.css";
                                         <li class="c-extended-flyout__col">
                                             <a
                                                 class="c-extended-flyout__col-header"
-                                                href="https://timefold.ai/solutions/task-assignment-optimization"
+                                                href="http://localhost:4321/solutions/task-assignment-optimization"
                                                 tabindex="-1"
                                             >
                                                 <span
@@ -452,7 +482,7 @@ import "../styles/global.css";
                                                 <li>
                                                     <a
                                                         class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/task-assignment-project-scheduling-optimization"
+                                                        href="http://localhost:4321/use-case/task-assignment-project-scheduling-optimization"
                                                         tabindex="-1"
                                                     >
                                                         <span
@@ -462,106 +492,7 @@ import "../styles/global.css";
                                                                 class="sr-only"
                                                                 >subtask</span
                                                             >
-                                                            <span
-                                                                class="ti ti-subtask"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Project
-                                                                Scheduling</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Sequence tasks,
-                                                                assign
-                                                                resources, ace
-                                                                projects</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/task-assignment-discrete-manufacturing-scheduling"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >building-factory-2</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-building-factory-2"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Discrete
-                                                                Manufacturing
-                                                                Scheduling</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Every
-                                                                workstation,
-                                                                machine, and
-                                                                operator in sync</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="https://timefold.ai/use-case/task-assignment-single-site-maintenance-scheduling"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >current-location</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-current-location"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Single-site
-                                                                Maintenance
-                                                                Scheduling</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Safely,
-                                                                in-time, right
-                                                                order</span
-                                                            >
-                                                        </div>
-                                                    </a>
+                                                            <!-- Removed invalid/stray markup -->
                                                 </li>
                                             </ul>
                                         </li>
@@ -592,7 +523,7 @@ import "../styles/global.css";
 
                                         <a
                                             class="c-extended-flyout__cta-link"
-                                            href="https://timefold.ai/talk-to-us"
+                                            href="http://localhost:4321/talk-to-us"
                                             target="_self"
                                             tabindex="-1"
                                         >
@@ -660,7 +591,7 @@ import "../styles/global.css";
                                     <li class="c-flyout__list-item">
                                         <a
                                             class="c-flyout__item"
-                                            href="https://timefold.ai/blog"
+                                            href="http://localhost:4321/blog"
                                             tabindex="-1"
                                         >
                                             <div class="c-flyout__item-header">
@@ -692,7 +623,7 @@ import "../styles/global.css";
                                     <li class="c-flyout__list-item">
                                         <a
                                             class="c-flyout__item"
-                                            href="https://timefold.ai/videos"
+                                            href="http://localhost:4321/videos"
                                             tabindex="-1"
                                         >
                                             <div class="c-flyout__item-header">
@@ -724,7 +655,7 @@ import "../styles/global.css";
                                     <li class="c-flyout__list-item">
                                         <a
                                             class="c-flyout__item"
-                                            href="https://timefold.ai/customer-stories"
+                                            href="http://localhost:4321/customer-stories"
                                             tabindex="-1"
                                         >
                                             <div class="c-flyout__item-header">
@@ -756,7 +687,7 @@ import "../styles/global.css";
                                     <li class="c-flyout__list-item">
                                         <a
                                             class="c-flyout__item"
-                                            href="https://timefold.ai/events"
+                                            href="http://localhost:4321/events"
                                             tabindex="-1"
                                         >
                                             <div class="c-flyout__item-header">
@@ -788,7 +719,7 @@ import "../styles/global.css";
                                     <li class="c-flyout__list-item">
                                         <a
                                             class="c-flyout__item"
-                                            href="https://timefold.ai/newsletter"
+                                            href="http://localhost:4321/newsletter"
                                             tabindex="-1"
                                         >
                                             <div class="c-flyout__item-header">
@@ -823,7 +754,7 @@ import "../styles/global.css";
                     <li class="flex items-center">
                         <a
                             class="c-link c-header__nav-item"
-                            href="https://timefold.ai/pricing"
+                            href="http://localhost:4321/pricing"
                             target="_self"
                         >
                             <span class="c-link__text">Pricing</span>
@@ -832,7 +763,7 @@ import "../styles/global.css";
                     <li class="flex items-center">
                         <a
                             class="c-link c-header__nav-item"
-                            href="https://docs.timefold.ai/"
+                            href="http://localhost:4321/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -855,10 +786,13 @@ import "../styles/global.css";
                             </span>
                         </a>
                     </li>
+                    <li class="flex items-center mr-4">
+                        <ThemeToggle />
+                    </li>
                     <li class="flex items-center">
                         <a
-                            class="c-header__nav-button c-button"
-                            href="https://timefold.ai/talk-to-us"
+                            class="ml-4 px-5 py-2 rounded-full bg-timefold-accent text-timefold-dark shadow-glow-accent transition hover:bg-emerald-400 hover:scale-105 font-bold whitespace-nowrap"
+                            href="http://localhost:4321/talk-to-us"
                             target="_self"
                         >
                             <span class="c-button__text">Talk to us</span>

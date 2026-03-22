@@ -1,0 +1,61 @@
+---
+import { SITE_CONTENT } from "../utils/siteContent";
+---
+<section id="intelligence" class="layout bound-x scheme-default py-[32px] m-0 border-0 relative">
+  <div class="layout-section-y relative z-10 grid gap-12 lg:grid-cols-2 items-center">
+    <div>
+      <span class="text-timefold-accent uppercase tracking-wider font-semibold text-sm" data-aos="fade-up">Timefold Intelligence</span>
+      <h2 class="tracking-tight text-white text-3xl md:text-5xl font-bold mt-3 mb-6" data-aos="fade-up" data-aos-delay="50">
+        Solve on a single, powerful platform
+      </h2>
+      <p class="text-slate-400 text-lg mb-8" data-aos="fade-up" data-aos-delay="100">
+        Operational planning is step one. Add governance and insight with run-level intelligence and decision support.
+      </p>
+      <ul class="space-y-4 text-slate-300" data-aos="fade-up" data-aos-delay="150">
+        <li class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-timefold-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+          <span>Run analytics for planner confidence and transparency</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-timefold-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+          <span>Visibility into model quality, trade-offs and SLA impact</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-timefold-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+          <span>Support faster decisions with actionable recommendations</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="bg-black/50 border border-timefold-border p-8 rounded-3xl shadow-glow-primary/20 backdrop-blur-sm" data-aos="fade-up" data-aos-delay="200">
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div class="bg-timefold-card border border-timefold-border/50 rounded-xl p-4 sm:p-6 transition hover:border-timefold-primary">
+          <div class="text-slate-400 text-xs sm:text-sm mb-2">Coverage</div>
+          <div class="text-white text-xl sm:text-3xl font-bold">99.2%</div>
+        </div>
+        <div class="bg-timefold-card border border-timefold-border/50 rounded-xl p-4 sm:p-6 transition hover:border-timefold-primary">
+          <div class="text-slate-400 text-xs sm:text-sm mb-2">Travel Time</div>
+          <div class="text-timefold-accent text-xl sm:text-3xl font-bold">-24%</div>
+        </div>
+        <div class="bg-timefold-card border border-timefold-border/50 rounded-xl p-4 sm:p-6 transition hover:border-timefold-primary">
+          <div class="text-slate-400 text-xs sm:text-sm mb-2">SLA Risk</div>
+          <div class="text-emerald-400 text-xl sm:text-3xl font-bold">Low</div>
+        </div>
+        <div class="col-span-3 bg-timefold-card border border-timefold-border/50 rounded-xl p-4 text-left text-slate-300 text-sm sm:text-base leading-relaxed">
+          <span class="inline-block w-2 h-2 rounded-full bg-timefold-accent mr-2 indicator-pulse"></span>
+          Model run quality and fairness signals available for every planning cycle.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.indicator-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.5); }
+}
+</style>

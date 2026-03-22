@@ -15,8 +15,8 @@ export const HOME_PAGE_CONTENT = {
   exploreModelsLabel: 'Explore models',
   talkToSalesLabel: 'Talk to sales',
   readDocumentationLabel: 'Read documentation',
-  docsUrl: 'https://docs.timefold.ai',
-  modelsUrl: 'https://timefold.ai/model',
+  docsUrl: 'http://localhost:4321',
+  modelsUrl: 'http://localhost:4321/model',
   contactUrl: 'mailto:hello@timefold.ai',
   whyTimefoldLabel: 'Why Timefold',
   testimonialLeadQuote:

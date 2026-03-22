@@ -1,0 +1,6 @@
+:root,
+
+.scheme-default {
+
+    --scheme-base: hsl(var(--color-neutral-100));
+

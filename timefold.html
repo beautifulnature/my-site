@@ -1,0 +1,2950 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	
+
+<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="minimum-scale=1.0, width=device-width">
+
+										<link rel="dns-prefetch" href="https://timefold.ai">
+		<link rel="preconnect" href="https://timefold.ai" crossorigin>
+		
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/assets/favicon/site.webmanifest">
+	<link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+
+		<noscript>
+		<style>
+			[data-aos] { opacity: 1 !important; transform: none!important; }
+		</style>
+	</noscript>
+
+					
+			
+		<link rel="stylesheet" href="https://timefold.ai/assets/main-8a126028.css">
+	
+
+		<title>Scheduling, routing and planning optimization | Timefold</title>
+<script>dataLayer = [];
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TBSQGHJ2');
+</script><meta name="description" content="Timefold&#039;s PlanningAI engine automates and optimizes large-scale scheduling, routing and planning problems.">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta name="robots" content="all">
+<meta content="en" property="og:locale">
+<meta content="Timefold" property="og:site_name">
+<meta content="website" property="og:type">
+<meta content="https://timefold.ai/" property="og:url">
+<meta content="Scheduling, routing and planning optimization" property="og:title">
+<meta content="Timefold&#039;s PlanningAI engine automates and optimizes large-scale scheduling, routing and planning problems." property="og:description">
+<meta content="https://timefold.ai/uploads/images/_1200x630_crop_center-center_82_none/og-wide.jpg?mtime=1738050609" property="og:image">
+<meta content="1200" property="og:image:width">
+<meta content="630" property="og:image:height">
+<meta content="Timefold" property="og:image:alt">
+<meta content="https://timefold.ai/feed.xml" property="og:see_also">
+<meta content="https://stackoverflow.com/questions/tagged/timefold" property="og:see_also">
+<meta content="https://github.com/TimefoldAI/timefold-solver" property="og:see_also">
+<meta content="https://x.com/timefoldai" property="og:see_also">
+<meta content="https://www.linkedin.com/company/timefoldai" property="og:see_also">
+<meta content="https://www.youtube.com/@timefold" property="og:see_also">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title" content="Scheduling, routing and planning optimization">
+<meta name="twitter:description" content="Timefold&#039;s PlanningAI engine automates and optimizes large-scale scheduling, routing and planning problems.">
+<meta name="twitter:image" content="https://timefold.ai/uploads/images/_1200x630_crop_center-center_82_none/og-wide.jpg?mtime=1738050609">
+<meta name="twitter:image:width" content="1200">
+<meta name="twitter:image:height" content="630">
+<meta name="twitter:image:alt" content="Timefold">
+<link href="https://timefold.ai/" rel="canonical">
+<link href="https://timefold.ai/" rel="home">
+<link type="text/plain" href="https://timefold.ai/humans.txt" rel="author">
+<link href="https://solver.timefold.ai/" rel="alternate" hreflang="en">
+<link href="https://timefold.ai/" rel="alternate" hreflang="x-default">
+<link href="https://timefold.ai/" rel="alternate" hreflang="en">
+<link href="https://timefold.ai/cpresources/7693493b/css/formie-theme.css?v=1771445336" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></head>
+
+	<body class=" scheme-default"><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBSQGHJ2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+		
+
+
+	
+
+
+
+<a
+	class="c-skip-link  c-button"
+			href="#main"
+		target="_self"
+		
+>
+				
+			<span class="c-button__text ">Skip to content</span>
+	
+				
+						
+		</a>
+
+
+		
+
+
+		
+
+<header class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-default ">
+	<nav class="c-header__content">
+		<h2 class="sr-only">Navigation</h2>
+
+		<div class="c-header__logo-wrapper">
+			
+
+
+<a
+	href="https://timefold.ai/"
+	aria-label="Timefold logo"
+	class="c-site-logo c-header__logo"
+>
+	<svg width="164" height="35" viewBox="0 0 164 35" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+<path d="M73.5466 23.042L72.8207 25.0242C72.605 25.609 72.047 25.9966 71.4204 25.9966H68.25C67.4283 25.9966 66.764 25.337 66.764 24.521V15.171H64.542V12.7332H66.764V8.99316H70.4309V12.7332H73.1186V15.171H70.4309V23.0386H73.5466V23.042Z" fill="currentColor"/>
+<path d="M126.766 10.2578H124.236V12.7398H126.766V15.1776H124.236V26.0032H120.569V15.1776H118.347V12.7398H120.569V8.7754C120.569 7.9594 121.233 7.2998 122.055 7.2998H127.852L126.77 10.2578H126.766Z" fill="currentColor"/>
+<path d="M74.9778 10.6998V7.2998H78.6447V10.6998H74.9778ZM78.6447 12.7398V25.9998H74.9778V12.7398H78.6447Z" fill="currentColor"/>
+<path d="M85.1018 12.7398V14.535H85.1532C85.636 13.8516 86.2146 13.3212 86.8959 12.9438C87.5773 12.5664 88.3545 12.3794 89.2344 12.3794C90.1143 12.3794 90.8504 12.5426 91.5454 12.8656C92.2439 13.192 92.7712 13.7632 93.1341 14.5826C93.5312 14.0012 94.0688 13.4878 94.7501 13.0424C95.4314 12.597 96.236 12.376 97.1639 12.376C97.8692 12.376 98.5231 12.461 99.1257 12.6344C99.7283 12.8044 100.245 13.0798 100.677 13.4538C101.108 13.8312 101.444 14.3208 101.683 14.9294C101.923 15.538 102.046 16.269 102.046 17.1224V25.9964H98.3793V18.4824C98.3793 18.037 98.3622 17.6188 98.328 17.2244C98.2937 16.83 98.1979 16.49 98.0438 16.1976C97.8897 15.9086 97.6603 15.6774 97.359 15.504C97.0577 15.334 96.6469 15.249 96.1333 15.249C95.6198 15.249 95.1986 15.3476 94.8802 15.5448C94.5618 15.742 94.3119 15.997 94.1304 16.3132C93.9489 16.6294 93.8291 16.9898 93.7675 17.391C93.7058 17.7922 93.6785 18.2002 93.6785 18.6082V25.9964H90.0116V18.5572C90.0116 18.1628 90.0013 17.7752 89.9842 17.391C89.9671 17.0068 89.8952 16.6532 89.7651 16.3268C89.635 16.0038 89.4193 15.742 89.118 15.5448C88.8167 15.3476 88.3716 15.249 87.7861 15.249C87.6149 15.249 87.3855 15.2864 87.1013 15.3646C86.8172 15.4428 86.5433 15.5856 86.2762 15.7998C86.0092 16.014 85.7798 16.32 85.5914 16.7212C85.4031 17.1224 85.3073 17.6494 85.3073 18.2988V25.993H81.6404V12.733H85.1018V12.7398Z" fill="currentColor"/>
+<path d="M108.866 22.8174C109.418 23.3478 110.209 23.613 111.243 23.613C111.982 23.613 112.619 23.4294 113.153 23.0622C113.687 22.695 114.012 22.3074 114.136 21.896H117.364C116.847 23.4872 116.056 24.6228 114.988 25.3062C113.92 25.9896 112.629 26.333 111.112 26.333C110.061 26.333 109.113 26.1664 108.271 25.8332C107.425 25.5 106.713 25.024 106.127 24.4086C105.542 23.7932 105.09 23.0588 104.772 22.202C104.453 21.3486 104.292 20.4068 104.292 19.38C104.292 18.3532 104.457 17.4658 104.782 16.609C105.107 15.7556 105.573 15.0144 106.175 14.3888C106.778 13.7666 107.497 13.2736 108.332 12.9132C109.168 12.5528 110.092 12.3726 111.109 12.3726C112.246 12.3726 113.235 12.5902 114.081 13.0254C114.923 13.4606 115.618 14.0488 116.159 14.7832C116.7 15.5176 117.094 16.3574 117.333 17.2958C117.573 18.2376 117.659 19.2202 117.59 20.247H107.956C108.007 21.4268 108.308 22.2836 108.86 22.8106L108.866 22.8174ZM113.013 15.8406C112.574 15.3612 111.907 15.1232 111.01 15.1232C110.424 15.1232 109.938 15.2218 109.551 15.419C109.164 15.6162 108.853 15.861 108.62 16.15C108.387 16.4424 108.223 16.7484 108.13 17.0748C108.034 17.4012 107.98 17.6902 107.963 17.9486H113.93C113.759 17.0238 113.451 16.3234 113.013 15.844V15.8406Z" fill="currentColor"/>
+<path d="M128.447 16.4968C128.773 15.6332 129.238 14.8988 129.841 14.2902C130.443 13.6816 131.166 13.2124 132.012 12.8792C132.854 12.546 133.802 12.3794 134.853 12.3794C135.904 12.3794 136.856 12.546 137.709 12.8792C138.561 13.2124 139.287 13.6816 139.89 14.2902C140.492 14.8988 140.958 15.6332 141.283 16.4968C141.608 17.3604 141.773 18.3226 141.773 19.3834C141.773 20.4442 141.608 21.403 141.283 22.2564C140.955 23.1098 140.492 23.8408 139.89 24.4494C139.287 25.058 138.558 25.5238 137.709 25.8468C136.856 26.1732 135.904 26.333 134.853 26.333C133.802 26.333 132.854 26.1698 132.012 25.8468C131.166 25.5238 130.443 25.0546 129.841 24.4494C129.238 23.8408 128.773 23.1098 128.447 22.2564C128.119 21.403 127.958 20.4442 127.958 19.3834C127.958 18.3226 128.122 17.3604 128.447 16.4968ZM131.779 20.9338C131.881 21.437 132.059 21.8926 132.309 22.2938C132.559 22.695 132.891 23.018 133.302 23.256C133.717 23.494 134.234 23.6164 134.853 23.6164C135.473 23.6164 135.993 23.4974 136.415 23.256C136.836 23.018 137.171 22.695 137.421 22.2938C137.671 21.8926 137.846 21.4404 137.952 20.9338C138.055 20.4306 138.106 19.9138 138.106 19.38C138.106 18.8462 138.055 18.3294 137.952 17.816C137.849 17.3026 137.671 16.8504 137.421 16.456C137.171 16.0616 136.836 15.742 136.415 15.4938C135.993 15.2456 135.473 15.1232 134.853 15.1232C134.234 15.1232 133.717 15.249 133.302 15.4938C132.888 15.742 132.556 16.0616 132.309 16.456C132.059 16.8504 131.881 17.3026 131.779 17.816C131.676 18.3294 131.625 18.8496 131.625 19.38C131.625 19.9104 131.676 20.4272 131.779 20.9338Z" fill="currentColor"/>
+<path d="M147.922 7.2998V25.9998H144.255V7.2998H147.922Z" fill="currentColor"/>
+<path d="M160.295 24.3066C159.864 25.024 159.303 25.5408 158.604 25.857C157.906 26.1732 157.118 26.333 156.242 26.333C155.242 26.333 154.365 26.1392 153.609 25.755C152.852 25.3708 152.226 24.8506 151.736 24.191C151.246 23.5314 150.873 22.7766 150.627 21.9198C150.377 21.0664 150.253 20.1756 150.253 19.2508C150.253 18.326 150.377 17.5032 150.627 16.6736C150.877 15.844 151.246 15.113 151.736 14.4806C152.226 13.8482 152.842 13.3382 153.581 12.954C154.321 12.5698 155.184 12.376 156.163 12.376C156.954 12.376 157.707 12.5426 158.423 12.8758C159.138 13.209 159.7 13.702 160.114 14.3514H160.165V7.29639H163.832V25.9964H160.347V24.3032H160.295V24.3066ZM160.141 17.7514C160.039 17.2482 159.861 16.8028 159.611 16.4186C159.361 16.0344 159.039 15.7216 158.642 15.4836C158.245 15.2456 157.745 15.1232 157.142 15.1232C156.54 15.1232 156.033 15.2422 155.619 15.4836C155.204 15.725 154.872 16.0378 154.626 16.4322C154.376 16.8266 154.194 17.2754 154.085 17.7786C153.972 18.2818 153.917 18.8088 153.917 19.3562C153.917 19.8696 153.979 20.383 154.098 20.8964C154.218 21.4098 154.413 21.8688 154.68 22.27C154.947 22.6712 155.283 22.9976 155.687 23.2458C156.091 23.494 156.577 23.6164 157.146 23.6164C157.748 23.6164 158.251 23.4974 158.655 23.256C159.059 23.018 159.381 22.695 159.624 22.2938C159.864 21.8926 160.039 21.4336 160.141 20.9202C160.244 20.4068 160.295 19.8764 160.295 19.329C160.295 18.7816 160.244 18.2546 160.141 17.7514Z" fill="currentColor"/>
+<path d="M17.8038 9V0.5H8.5595V9H3.11566L0 17.5H8.5595V34.5H18.266C20.0635 34.5 21.6727 33.3814 22.2889 31.7052L24.1583 26.6018C24.1583 26.6018 24.3775 26.0034 25.0211 26.0034H38.5862L41.7019 17.5034H30.4889C28.6914 17.5034 27.0823 18.622 26.466 20.2982L24.5966 25.4016C24.5966 25.4016 24.3775 26 23.7338 26H17.8003V17.5H24.4939C26.2914 17.5 27.9005 16.3814 28.5168 14.7052L30.3862 9.6018C30.3862 9.6018 30.6053 9.0034 31.249 9.0034H46.526L49.6451 0.5H36.7202C34.9228 0.5 33.3136 1.6186 32.6973 3.2948L30.8279 8.3982C30.8279 8.3982 30.6088 8.9966 29.9651 8.9966H17.8003L17.8038 9Z" fill="currentColor"/>
+</svg>
+
+</a>
+		</div>
+
+		
+
+<button
+	class="c-hamburger js-hamburger c-header__hamburger"
+	data-label="Menu"
+	data-label-open="Open"
+	data-label-close="Close"
+	aria-label="Open"
+	aria-controls="site-header-navigation"
+>
+	<span class="c-hamburger__inner" aria-hidden="true">
+		<span class="c-hamburger__top-bar"></span>
+
+		<span class="c-hamburger__middle-bar"></span>
+
+		<span class="c-hamburger__bottom-bar"></span>
+
+		<span class="c-hamburger__left-diagonal"></span>
+
+		<span class="c-hamburger__right-diagonal"></span>
+	</span>
+</button>
+
+		<div class="c-header__navigation" id="site-header-navigation">
+			<div class="c-header__navigation-wrapper">
+				<ul class="c-header__navigation-list">
+											<li class="flex items-center">
+							
+																																				
+
+									
+									
+
+									
+<div class="c-extended-flyout js-extended-flyout c-header__nav-item">
+	
+
+	
+
+
+
+<button
+	class="c-extended-flyout__button c-link c-header__dropdown"
+		 data-trigger="17644" aria-controls="17644" aria-expanded="false"
+>
+				
+			<span class="c-button__text ">Use cases</span>
+	
+				
+								
+
+
+	<span class="c-icon c-button__icon  c-icon--after" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"/></svg>
+
+	</span>
+			
+		</button>
+
+
+	<nav
+		id="17644"
+		class="c-extended-flyout__content"
+		data-content="17644"
+	>
+		<div class="c-extended-flyout__container">
+			<div class="c-extended-flyout__header">
+									<div class="c-extended-flyout__title">
+						<p>Out-of-the-box Optimization APIs</p>
+					</div>
+				
+									<div class="c-extended-flyout__description">
+						<p>Discover our use cases</p>
+					</div>
+							</div>
+
+			<ul class="c-extended-flyout__cols">
+														
+					
+																						
+					<li class="c-extended-flyout__col">
+						<a class="c-extended-flyout__col-header"  href="https://timefold.ai/solutions/route-optimization">
+							<span class="c-extended-flyout__col-header-title">Route Scheduling</span>
+
+							
+
+
+	<span class="c-icon c-extended-flyout__col-header-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+						</a>
+
+													<ul class="c-extended-flyout__items">
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/route-optimization-field-technicians">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">tools</span>
+									<span class="ti ti-tools"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Field Service</span>
+
+												<span class="c-extended-flyout__item-text">Right technician, right time, every time</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/route-optimization-home-care">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">map-pin-heart</span>
+									<span class="ti ti-map-pin-heart"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Home Care</span>
+
+												<span class="c-extended-flyout__item-text">Assign and route caregivers to patients optimally</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/route-optimization-nemt">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">report-medical</span>
+									<span class="ti ti-report-medical"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">NEMT</span>
+
+												<span class="c-extended-flyout__item-text">Reduce miles, cut costs, improve patient experience</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/route-optimization-facility-maintenance">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">map-pin-cog</span>
+									<span class="ti ti-map-pin-cog"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Facility Maintenance</span>
+
+												<span class="c-extended-flyout__item-text">Cut travel time, boost output, flawless facilities</span>
+											</div>
+										</a>
+									</li>
+															</ul>
+											</li>
+														
+					
+																						
+					<li class="c-extended-flyout__col">
+						<a class="c-extended-flyout__col-header"  href="https://timefold.ai/solutions/shift-scheduling-optimization">
+							<span class="c-extended-flyout__col-header-title">Shift Scheduling</span>
+
+							
+
+
+	<span class="c-icon c-extended-flyout__col-header-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+						</a>
+
+													<ul class="c-extended-flyout__items">
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/shift-scheduling-optimization-nurse-rostering">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">building-hospital</span>
+									<span class="ti ti-building-hospital"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Healthcare Professionals</span>
+
+												<span class="c-extended-flyout__item-text">Balance workload fairly, care effortlessly</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/shift-scheduling-optimization-retail-staff-scheduling">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">shopping-cart</span>
+									<span class="ti ti-shopping-cart"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Retail Staff</span>
+
+												<span class="c-extended-flyout__item-text">Smarter schedules for peak efficiency</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/shift-scheduling-optimization-security-guard-scheduling">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">lock-check</span>
+									<span class="ti ti-lock-check"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Security &amp; Guards</span>
+
+												<span class="c-extended-flyout__item-text">Complete coverage and adaptive rotations</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/shift-scheduling-optimization-hospitality-staff-scheduling">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">soup</span>
+									<span class="ti ti-soup"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Hospitality Staff</span>
+
+												<span class="c-extended-flyout__item-text">Deliver excellent service with effortless scheduling</span>
+											</div>
+										</a>
+									</li>
+															</ul>
+											</li>
+														
+					
+																						
+					<li class="c-extended-flyout__col">
+						<a class="c-extended-flyout__col-header"  href="https://timefold.ai/solutions/task-assignment-optimization">
+							<span class="c-extended-flyout__col-header-title">Task Scheduling</span>
+
+							
+
+
+	<span class="c-icon c-extended-flyout__col-header-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+						</a>
+
+													<ul class="c-extended-flyout__items">
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/task-assignment-project-scheduling-optimization">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">subtask</span>
+									<span class="ti ti-subtask"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Project Scheduling</span>
+
+												<span class="c-extended-flyout__item-text">Sequence tasks, assign resources, ace projects</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/task-assignment-discrete-manufacturing-scheduling">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">building-factory-2</span>
+									<span class="ti ti-building-factory-2"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Discrete Manufacturing Scheduling</span>
+
+												<span class="c-extended-flyout__item-text">Every workstation, machine, and operator in sync</span>
+											</div>
+										</a>
+									</li>
+																																												
+									
+																																						
+									<li>
+										<a class="c-extended-flyout__item"  href="https://timefold.ai/use-case/task-assignment-single-site-maintenance-scheduling">
+																							
+
+
+	<span class="c-icon c-extended-flyout__item-icon" >
+					<span class="sr-only">current-location</span>
+									<span class="ti ti-current-location"></span>
+		</span>
+											
+											<div class="c-extended-flyout__item-header">
+												<span class="c-extended-flyout__item-title">Single-site Maintenance Scheduling</span>
+
+												<span class="c-extended-flyout__item-text">Safely, in-time, right order</span>
+											</div>
+										</a>
+									</li>
+															</ul>
+											</li>
+							</ul>
+
+							<div class="c-extended-flyout__cta">
+					<div class="c-extended-flyout__cta-header">
+													<div class="c-extended-flyout__cta-title"><p>Can't find your use case? </p></div>
+						
+													<div class="c-extended-flyout__cta-description"><p>Let's see if we can solve your problem. </p></div>
+											</div>
+
+											<a class="c-extended-flyout__cta-link" href="https://timefold.ai/talk-to-us" target="_self">
+							<span class="c-extended-flyout__cta-text">Talk to us</span>
+
+							
+
+
+	<span class="c-icon c-extended-flyout__cta-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+						</a>
+									</div>
+
+
+					</div>
+
+			</nav>
+</div>
+
+														</li>
+											<li class="flex items-center">
+																									
+									
+<div class="c-flyout js-flyout c-header__nav-item">
+	
+
+	
+
+
+
+<button
+	class="c-flyout__button c-link c-header__dropdown"
+		 data-trigger="36" aria-controls="36" aria-expanded="false"
+>
+				
+			<span class="c-button__text ">Resources</span>
+	
+				
+								
+
+
+	<span class="c-icon c-button__icon  c-icon--after" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"/></svg>
+
+	</span>
+			
+		</button>
+
+
+	<nav
+		id="36"
+		class="c-flyout__content"
+		data-content="36"
+	>
+		<ul class="c-flyout__list flex flex-col">
+																							
+				
+																		
+				<li class="c-flyout__list-item">
+					<a class="c-flyout__item "  href="https://timefold.ai/blog">
+						<div class="c-flyout__item-header">
+															
+
+
+							
+							<span class="c-flyout__item-text">Blog</span>
+						</div>
+
+													
+
+
+	<span class="c-icon c-flyout__item-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+											</a>
+				</li>
+																							
+				
+																		
+				<li class="c-flyout__list-item">
+					<a class="c-flyout__item "  href="https://timefold.ai/videos">
+						<div class="c-flyout__item-header">
+															
+
+
+							
+							<span class="c-flyout__item-text">Videos</span>
+						</div>
+
+													
+
+
+	<span class="c-icon c-flyout__item-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+											</a>
+				</li>
+																							
+				
+																		
+				<li class="c-flyout__list-item">
+					<a class="c-flyout__item "  href="https://timefold.ai/customer-stories">
+						<div class="c-flyout__item-header">
+															
+
+
+							
+							<span class="c-flyout__item-text">Customer Stories</span>
+						</div>
+
+													
+
+
+	<span class="c-icon c-flyout__item-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+											</a>
+				</li>
+																							
+				
+																		
+				<li class="c-flyout__list-item">
+					<a class="c-flyout__item "  href="https://timefold.ai/events">
+						<div class="c-flyout__item-header">
+															
+
+
+							
+							<span class="c-flyout__item-text">Events</span>
+						</div>
+
+													
+
+
+	<span class="c-icon c-flyout__item-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+											</a>
+				</li>
+																							
+				
+																		
+				<li class="c-flyout__list-item">
+					<a class="c-flyout__item "  href="https://timefold.ai/newsletter">
+						<div class="c-flyout__item-header">
+															
+
+
+							
+							<span class="c-flyout__item-text">Newsletter</span>
+						</div>
+
+													
+
+
+	<span class="c-icon c-flyout__item-icon" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"/></svg>
+
+	</span>
+											</a>
+				</li>
+					</ul>
+	</nav>
+</div>
+
+														</li>
+											<li class="flex items-center">
+																
+																			
+										
+
+
+
+
+
+<a
+	class="c-link c-header__nav-item"
+			href="https://timefold.ai/pricing"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Pricing</span>
+	
+				</a>
+
+									
+														</li>
+											<li class="flex items-center">
+																
+																			
+										
+
+
+	
+
+
+<a
+	class="c-link c-header__nav-item"
+			href="https://docs.timefold.ai/"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+				
+			<span class="c-link__text ">Documentation</span>
+	
+						
+
+
+	<span class="c-icon  c-icon--after" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
+	<path fill="currentcolor" d="M304 24c0 13.3 10.7 24 24 24H430.1L207 271c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l223-223V184c0 13.3 10.7 24 24 24s24-10.7 24-24V24c0-13.3-10.7-24-24-24H328c-13.3 0-24 10.7-24 24zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V440c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"/>
+</svg>
+
+	</span>
+			</a>
+
+									
+														</li>
+											<li class="flex items-center">
+																
+																			
+										
+
+	
+
+
+
+<a
+	class="c-header__nav-button c-button"
+			href="https://timefold.ai/talk-to-us"
+		target="_self"
+		
+>
+				
+			<span class="c-button__text ">Talk to us</span>
+	
+				
+						
+		</a>
+
+																							</li>
+									</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+
+			
+
+
+
+
+	<section class="layout bound-x section-sm  scheme-default">
+		
+
+
+<div class="c-hero scheme-default py-[5vh]">
+	
+	
+	
+	<div class="c-hero__content">
+					
+
+	<h1
+		class="c-title c-hero__title"
+		 data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+	>
+												Optimize complex 
+																				
+				<span class="c-rotate js-rotating-title">
+				<span class="c-rotate__track">
+															<span class="c-rotate__item"><mark class="mark--purple">route</mark></span>
+															<span class="c-rotate__item"><mark class="mark--purple">shift</mark></span>
+															<span class="c-rotate__item"><mark class="mark--purple">task</mark></span>
+														<span class="c-rotate__item" aria-hidden="true"><mark class="mark--purple">route</mark></span>
+						</span>
+				</span> <mark class="mark--purple">scheduling</mark><br>–one <span class="caps">API</span><mark class="mark--purple"> </mark>call away
+							</h1>
+		
+		
+					
+	<div class="c-text s-wysiwyg c-hero__text s-wysiwyg s-wysiwyg--big max-vp7:hidden"  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-out-expo"><p></p><p>The intelligent scheduling optimization platform for workforce management. Route vehicles, schedule jobs, or assign employees optimally in real-time, every&nbsp;time.&nbsp;</p></div>
+		
+					<div class="c-hero__links-container">
+									
+
+	<div class="c-link-group c-hero__links">
+					
+														
+			
+			
+
+	
+
+
+
+<a
+	class="c-link-group__link c-hero__link c-button--primary  c-button"
+			href="https://timefold.ai/request-a-trial"
+		target="_self"
+		 data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-out-expo" data-aos-anchor-placement="bottom-bottom"
+>
+				
+			<span class="c-button__text ">Request free trial</span>
+	
+				
+								
+
+
+	<span class="c-icon c-button__icon  c-icon--after" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
+	<path fill="currentcolor" d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"/>
+</svg>
+
+	</span>
+			
+		</a>
+
+					
+														
+			
+			
+
+	
+
+
+
+<a
+	class="c-link-group__link c-hero__link c-button--tertiary  c-button"
+			href="https://app.timefold.ai/"
+		target="_self"
+		 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-out-expo" data-aos-anchor-placement="bottom-bottom"
+>
+				
+			<span class="c-button__text ">Explore our APIs</span>
+	
+				
+								
+
+
+	<span class="c-icon c-button__icon  c-icon--after" >
+						<svg class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
+	<path fill="currentcolor" d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"/>
+</svg>
+
+	</span>
+			
+		</a>
+
+			</div>
+				
+							</div>
+			</div>
+
+		
+	</div>
+	</section>
+
+		<main id="main" class="">
+			<div
+class=""><section
+class="section-sm    prop-bg scheme-default"  data-type="logos"><div
+class="c-logo-slider js-logo-slider " ><div
+class="c-logo-slider__group c-logo-slider__swiper w-full" data-speed="5000"><ul
+class="c-logo-slider__wrapper flex items-center"><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Lufthansa_Logo_2018.svg"
+sizes="300px"
+width="3326"
+height="586"
+alt="Lufthansa Logo 2018"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ibm-logo.png"
+sizes="300px"
+width="299"
+height="120"
+alt="IBM"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/db-logo.svg"
+sizes="300px"
+width="100"
+height="70"
+alt="DB"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/advantage-solution.svg"
+sizes="300px"
+width="981"
+height="216"
+alt="Advantage solution"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/adp.svg"
+sizes="300px"
+width="1200"
+height="549"
+alt="ADP"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/nec.svg"
+sizes="300px"
+width="75"
+height="20"
+alt="NEC"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ecoprogram-flotte.png"
+sizes="300px"
+width="940"
+height="199"
+alt="Ecoprogram flotte"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/subaru-svg.png"
+sizes="300px"
+width="2280"
+height="310"
+alt="Subaru svg"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Thales_Logo.svg"
+sizes="300px"
+width="484"
+height="57"
+alt="Thales Logo"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Large-long-transparent-logo_673x133.png"
+sizes="300px"
+width="673"
+height="133"
+alt="Large long transparent logo 673x133"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Factorial-HR_idjDH5zqSi_0.svg"
+sizes="300px"
+width="200"
+height="42"
+alt="Factorial HR idj DH5zq Si 0"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/CBRE_Group-Logo.wine.svg"
+sizes="300px"
+width="1200"
+height="800"
+alt="CBRE Group Logo wine"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Lufthansa_Logo_2018.svg"
+sizes="300px"
+width="3326"
+height="586"
+alt="Lufthansa Logo 2018"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ibm-logo.png"
+sizes="300px"
+width="299"
+height="120"
+alt="IBM"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/db-logo.svg"
+sizes="300px"
+width="100"
+height="70"
+alt="DB"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/advantage-solution.svg"
+sizes="300px"
+width="981"
+height="216"
+alt="Advantage solution"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/adp.svg"
+sizes="300px"
+width="1200"
+height="549"
+alt="ADP"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/nec.svg"
+sizes="300px"
+width="75"
+height="20"
+alt="NEC"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ecoprogram-flotte.png"
+sizes="300px"
+width="940"
+height="199"
+alt="Ecoprogram flotte"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/subaru-svg.png"
+sizes="300px"
+width="2280"
+height="310"
+alt="Subaru svg"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Thales_Logo.svg"
+sizes="300px"
+width="484"
+height="57"
+alt="Thales Logo"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Large-long-transparent-logo_673x133.png"
+sizes="300px"
+width="673"
+height="133"
+alt="Large long transparent logo 673x133"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Factorial-HR_idjDH5zqSi_0.svg"
+sizes="300px"
+width="200"
+height="42"
+alt="Factorial HR idj DH5zq Si 0"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/CBRE_Group-Logo.wine.svg"
+sizes="300px"
+width="1200"
+height="800"
+alt="CBRE Group Logo wine"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Lufthansa_Logo_2018.svg"
+sizes="300px"
+width="3326"
+height="586"
+alt="Lufthansa Logo 2018"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ibm-logo.png"
+sizes="300px"
+width="299"
+height="120"
+alt="IBM"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/db-logo.svg"
+sizes="300px"
+width="100"
+height="70"
+alt="DB"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/advantage-solution.svg"
+sizes="300px"
+width="981"
+height="216"
+alt="Advantage solution"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/adp.svg"
+sizes="300px"
+width="1200"
+height="549"
+alt="ADP"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/nec.svg"
+sizes="300px"
+width="75"
+height="20"
+alt="NEC"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ecoprogram-flotte.png"
+sizes="300px"
+width="940"
+height="199"
+alt="Ecoprogram flotte"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/subaru-svg.png"
+sizes="300px"
+width="2280"
+height="310"
+alt="Subaru svg"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Thales_Logo.svg"
+sizes="300px"
+width="484"
+height="57"
+alt="Thales Logo"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Large-long-transparent-logo_673x133.png"
+sizes="300px"
+width="673"
+height="133"
+alt="Large long transparent logo 673x133"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Factorial-HR_idjDH5zqSi_0.svg"
+sizes="300px"
+width="200"
+height="42"
+alt="Factorial HR idj DH5zq Si 0"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/CBRE_Group-Logo.wine.svg"
+sizes="300px"
+width="1200"
+height="800"
+alt="CBRE Group Logo wine"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Lufthansa_Logo_2018.svg"
+sizes="300px"
+width="3326"
+height="586"
+alt="Lufthansa Logo 2018"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ibm-logo.png"
+sizes="300px"
+width="299"
+height="120"
+alt="IBM"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/db-logo.svg"
+sizes="300px"
+width="100"
+height="70"
+alt="DB"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/advantage-solution.svg"
+sizes="300px"
+width="981"
+height="216"
+alt="Advantage solution"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/adp.svg"
+sizes="300px"
+width="1200"
+height="549"
+alt="ADP"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/nec.svg"
+sizes="300px"
+width="75"
+height="20"
+alt="NEC"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ecoprogram-flotte.png"
+sizes="300px"
+width="940"
+height="199"
+alt="Ecoprogram flotte"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/subaru-svg.png"
+sizes="300px"
+width="2280"
+height="310"
+alt="Subaru svg"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Thales_Logo.svg"
+sizes="300px"
+width="484"
+height="57"
+alt="Thales Logo"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Large-long-transparent-logo_673x133.png"
+sizes="300px"
+width="673"
+height="133"
+alt="Large long transparent logo 673x133"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Factorial-HR_idjDH5zqSi_0.svg"
+sizes="300px"
+width="200"
+height="42"
+alt="Factorial HR idj DH5zq Si 0"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/CBRE_Group-Logo.wine.svg"
+sizes="300px"
+width="1200"
+height="800"
+alt="CBRE Group Logo wine"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Lufthansa_Logo_2018.svg"
+sizes="300px"
+width="3326"
+height="586"
+alt="Lufthansa Logo 2018"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ibm-logo.png"
+sizes="300px"
+width="299"
+height="120"
+alt="IBM"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/db-logo.svg"
+sizes="300px"
+width="100"
+height="70"
+alt="DB"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/advantage-solution.svg"
+sizes="300px"
+width="981"
+height="216"
+alt="Advantage solution"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/adp.svg"
+sizes="300px"
+width="1200"
+height="549"
+alt="ADP"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/nec.svg"
+sizes="300px"
+width="75"
+height="20"
+alt="NEC"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/ecoprogram-flotte.png"
+sizes="300px"
+width="940"
+height="199"
+alt="Ecoprogram flotte"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/subaru-svg.png"
+sizes="300px"
+width="2280"
+height="310"
+alt="Subaru svg"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Thales_Logo.svg"
+sizes="300px"
+width="484"
+height="57"
+alt="Thales Logo"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Large-long-transparent-logo_673x133.png"
+sizes="300px"
+width="673"
+height="133"
+alt="Large long transparent logo 673x133"
+loading="lazy"/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/Factorial-HR_idjDH5zqSi_0.svg"
+sizes="300px"
+width="200"
+height="42"
+alt="Factorial HR idj DH5zq Si 0"
+/>
+</picture></li><li
+class="c-logo c-logo-slider__logo c-logo-slider__slide" >
+<picture
+class="c-picture c-logo__image c-logo-slider__logo-picture" >
+<img
+class="c-picture__image c-picture__image--default   c-logo-slider__logo-img"
+src="https://timefold.ai/uploads/logos/CBRE_Group-Logo.wine.svg"
+sizes="300px"
+width="1200"
+height="800"
+alt="CBRE Group Logo wine"
+/>
+</picture></li></ul></div></div></section><section
+class="layout bound-x prop-bg section-sm  mb-4 vp9:mb-8 "
+data-type="toggle"
+><div
+class="c-toggle-carousel js-toggle-carousel"><div
+class="swiper c-toggle-carousel__swiper"><div
+class="swiper-pagination c-toggle-carousel__pagination"></div><div
+class="swiper-navigation c-toggle-carousel__navigation"><span
+class="c-icon c-toggle-carousel__button--prev" >
+<svg
+class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
+<path
+fill="currentcolor" d="M7.4 273.4C2.7 268.8 0 262.6 0 256s2.7-12.8 7.4-17.4l176-168c9.6-9.2 24.8-8.8 33.9 .8s8.8 24.8-.8 33.9L83.9 232 424 232c13.3 0 24 10.7 24 24s-10.7 24-24 24L83.9 280 216.6 406.6c9.6 9.2 9.9 24.3 .8 33.9s-24.3 9.9-33.9 .8l-176-168z"/>
+</svg></span><span
+class="c-icon c-toggle-carousel__button--next" >
+<svg
+class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
+<path
+fill="currentcolor" d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"/>
+</svg></span></div><div
+class="swiper-wrapper c-toggle-carousel__wrapper"><div
+class="swiper-slide c-toggle-carousel__slide" data-tab-title="Route Scheduling Optimization"><p
+class="c-toggle-carousel__tab">Route Scheduling Optimization</p><article
+class="c-toggle-item prop-bg  c-toggle-item--left c-picture--scale"><div
+class="c-toggle-item__content"><div
+class="c-toggle-item__header"><div
+class="c-toggle-item__head"><div
+class="c-toggle-item__header"><h3
+class="c-title c-toggle-item__title prop-shade typo-h2"
+>
+Maximize productivity, minimize travel time</h3></div></div><div
+class="c-text s-wysiwyg c-toggle-item__text" ><ul><li>Reduce travel time by&nbsp;<span
+class="numbers">25</span>%</li><li>Auto-generate optimal schedules and routes</li><li>Instantly react to real-world chaos</li><li>Respect SLAs and improve your customer experience</li></ul></div></div><div
+class="c-toggle-item__footer"><a
+class="c-toggle-item__button c-button"
+href="https://timefold.ai/solutions/route-optimization"
+target="_self"
+>
+<span
+class="c-button__text ">Discover more</span>
+</a></div></div><div
+class="c-toggle-item__media"><div
+class="c-toggle-item__tags"><p
+class="c-toggle-item__tag">Field Service</p><p
+class="c-toggle-item__tag">NEMT</p><p
+class="c-toggle-item__tag">Home care</p><p
+class="c-toggle-item__tag">Facility Maintenance</p><p
+class="c-toggle-item__tag">FSM Software</p><p
+class="c-toggle-item__tag">Pick-up &amp; Delivery</p><p
+class="c-toggle-item__tag">Last-mile Delivery</p></div>
+<picture
+class="c-picture c-toggle-item__image c-picture--cover" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-toggle-item__image"
+src="https://timefold.ai/uploads/images/route-scheduling-optimization.webp"
+sizes="100vw"
+width="1920"
+height="1080"
+alt="Route scheduling optimization"
+loading="lazy"/>
+</picture></div></article></div><div
+class="swiper-slide c-toggle-carousel__slide" data-tab-title="Shift Scheduling Optimization"><p
+class="c-toggle-carousel__tab">Shift Scheduling Optimization</p><article
+class="c-toggle-item prop-bg  c-toggle-item--left c-picture--scale"><div
+class="c-toggle-item__content"><div
+class="c-toggle-item__header"><div
+class="c-toggle-item__head"><div
+class="c-toggle-item__header"><h3
+class="c-title c-toggle-item__title prop-shade typo-h2"
+>
+Balanced schedules, happier teams, automated scheduling</h3></div></div><div
+class="c-text s-wysiwyg c-toggle-item__text" ><ul><li><span
+class="numbers">99</span>% shift coverage</li><li>Auto-generate optimal schedules</li><li>Fair and balanced workdays</li><li>Schedule thousands of shifts in seconds</li></ul></div></div><div
+class="c-toggle-item__footer"><a
+class="c-toggle-item__button c-button"
+href="https://timefold.ai/solutions/shift-scheduling-optimization"
+target="_self"
+>
+<span
+class="c-button__text ">Discover more</span>
+</a></div></div><div
+class="c-toggle-item__media"><div
+class="c-toggle-item__tags"><p
+class="c-toggle-item__tag">Retail Staff</p><p
+class="c-toggle-item__tag">Hospitality Staff</p><p
+class="c-toggle-item__tag">Healthcare Professionals</p><p
+class="c-toggle-item__tag">Security &amp; Guards</p><p
+class="c-toggle-item__tag">WFM Software</p><p
+class="c-toggle-item__tag">HR &amp; Business Software</p></div>
+<picture
+class="c-picture c-toggle-item__image c-picture--cover" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-toggle-item__image"
+src="https://timefold.ai/uploads/images/blog/2025/shift-scheduling-optimization.webp"
+sizes="100vw"
+width="1920"
+height="1280"
+alt="Shift scheduling optimization"
+loading="lazy"/>
+</picture></div></article></div><div
+class="swiper-slide c-toggle-carousel__slide" data-tab-title="Task Scheduling Optimization"><p
+class="c-toggle-carousel__tab">Task Scheduling Optimization</p><article
+class="c-toggle-item prop-bg  c-toggle-item--left c-picture--scale"><div
+class="c-toggle-item__content"><div
+class="c-toggle-item__header"><div
+class="c-toggle-item__head"><div
+class="c-toggle-item__header"><h3
+class="c-title c-toggle-item__title prop-shade typo-h2"
+>
+Efficient sequences, optimal resource allocation</h3></div></div><div
+class="c-text s-wysiwyg c-toggle-item__text" ><ul><li>Efficient, profitable, and predictable projects</li><li>Complete work faster with the same resources</li><li>Sequence fairly, keep your workforce happy&nbsp;</li></ul></div></div><div
+class="c-toggle-item__footer"><a
+class="c-toggle-item__button c-button"
+href="https://timefold.ai/solutions/task-assignment-optimization"
+target="_self"
+>
+<span
+class="c-button__text ">Discover more</span>
+</a></div></div><div
+class="c-toggle-item__media"><div
+class="c-toggle-item__tags"><p
+class="c-toggle-item__tag">Single-site Maintenance</p><p
+class="c-toggle-item__tag">Project Management</p><p
+class="c-toggle-item__tag">Discrete Manufacturing</p></div>
+<picture
+class="c-picture c-toggle-item__image c-picture--cover" >
+<img
+class="c-picture__image c-picture__image--default  lazyload c-toggle-item__image"
+src="https://timefold.ai/uploads/images/blog/2025/task-assignment-optimization.webp"
+sizes="100vw"
+width="909"
+height="564"
+alt="Task assignment optimization"
+loading="lazy"/>
+</picture></div></article></div></div></div></div></section><section
+class="layout bound-x overflow-hidden relative  scheme-default  mb-4 vp9:mb-8 "
+data-type="icon-cards"
+><div
+class="prop-bg section-sm
+s-container"><div
+class="max-w-screen-vp10 mx-auto relative mb-16"><div
+class="c-intro c-intro--center"><div
+class="c-intro__titles"><h2
+class="c-title c-intro__title typo-h1"
+data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Your shortcut to complex scheduling optimization</h2><p
+class="c-title c-intro__subtitle "
+data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Optimization deep tech, under the hood of your systems</p></div></div></div><div
+class="relative grid vp9:grid-cols-2 gap-10 justify-center"><article
+class="c-cta-card scheme-default "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><span
+class="c-icon c-cta-card__icon" >
+<span
+class="sr-only">tournament</span>
+<span
+class="ti ti-tournament"></span>
+</span><div
+class="c-cta-card__content"><h3
+class="c-title c-cta-card__title "
+>
+We handled the complexity</h3><div
+class="c-text s-wysiwyg c-cta-card__text s-wysiwyg" ><p>Scheduling at scale is notoriously complex. With <span
+class="numbers">20</span>+ years of domain experience, we standardized out-of-the-box solutions for the the world’s most complex scheduling problems.&nbsp;</p></div></div></article><article
+class="c-cta-card scheme-default "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" data-aos-easing="ease-out-expo"><span
+class="c-icon c-cta-card__icon" >
+<span
+class="sr-only">api</span>
+<span
+class="ti ti-api"></span>
+</span><div
+class="c-cta-card__content"><h3
+class="c-title c-cta-card__title "
+>
+Start where others finish</h3><div
+class="c-text s-wysiwyg c-cta-card__text s-wysiwyg" ><p>By embedding Timefold, you skip years of costly and risky in-house development. Our optimization APIs take you from <span
+class="caps">POC</span> to production in less than <span
+class="numbers">3</span>&nbsp;months.</p></div></div></article><article
+class="c-cta-card scheme-default "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-easing="ease-out-expo"><span
+class="c-icon c-cta-card__icon" >
+<span
+class="sr-only">arrows-maximize</span>
+<span
+class="ti ti-arrows-maximize"></span>
+</span><div
+class="c-cta-card__content"><h3
+class="c-title c-cta-card__title "
+>
+Built for your reality</h3><div
+class="c-text s-wysiwyg c-cta-card__text s-wysiwyg" ><p>While every business is unique, planning problems often aren’t. On average, our APIs cover <span
+class="numbers">95</span>% of the required complexity and are easily extensible whenever new business rules need to be&nbsp;added.</p></div></div></article><article
+class="c-cta-card scheme-default "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400" data-aos-easing="ease-out-expo"><span
+class="c-icon c-cta-card__icon" >
+<span
+class="sr-only">status-change</span>
+<span
+class="ti ti-status-change"></span>
+</span><div
+class="c-cta-card__content"><h3
+class="c-title c-cta-card__title "
+>
+Unlock one-click optimization</h3><div
+class="c-text s-wysiwyg c-cta-card__text s-wysiwyg" ><p>Your <span
+class="caps">UX</span>, Our&nbsp;<span
+class="caps">AI</span>. As we are a&nbsp;back-end system, you keep your interface and workflows. Go live with minimal change management, you just gain a <span
+class="push-single"></span>​<span
+class="pull-single">‘</span>Schedule with <span
+class="caps">AI</span>’ button.</p></div></div></article></div></div></section><section
+class="layout bound-x  scheme-dark  "
+data-type="models"
+><div
+class="c-models "><div
+class="max-w-screen-vp10 mx-auto"><div
+class="c-intro c-intro--center"><div
+class="c-intro__titles"><h2
+class="c-title c-intro__title c-models__title"
+data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Real-world and ready-to-use <mark
+class="mark--purple">APIs</mark></h2></div><div
+class="c-text s-wysiwyg s-wysiwyg c-models__text"  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-out-expo"><p>Get optimization out of the box. We took care of the complexity.&nbsp;</p></div></div></div><div
+class="c-models__list"><div
+class="flex flex-wrap justify-center "><div
+class="c-model w-full vp7:w-1/3"
+data-aos="fade-up" data-aos-delay="50"
+>
+<picture
+class="c-picture c-model__image" >
+<img
+class="c-picture__image c-picture__image--default   "
+src="https://timefold.ai/uploads/images/Model-Icons/model-1-field-service-routing.png"
+sizes="300px"
+width="420"
+height="420"
+alt="Field service routing"
+/>
+</picture><div
+class="c-model__titles"><h3
+class="c-title c-model__title"
+>
+Field Service Routing</h3></div><div
+class="c-text s-wysiwyg c-model__text s-wysiwyg text-center grow" ><p>Maximize productivity. Minimize travel time.&nbsp;</p></div><div
+class="c-link-group c-model__link-group"></div></div><div
+class="c-model w-full vp7:w-1/3"
+data-aos="fade-up" data-aos-delay="100"
+>
+<picture
+class="c-picture c-model__image" >
+<img
+class="c-picture__image c-picture__image--default   "
+src="https://timefold.ai/uploads/images/Model-Icons/model-2-employee-scheduling.png"
+sizes="300px"
+width="420"
+height="420"
+alt="Employee shift scheduling"
+/>
+</picture><div
+class="c-model__titles"><h3
+class="c-title c-model__title"
+>
+Employee Shift Scheduling</h3></div><div
+class="c-text s-wysiwyg c-model__text s-wysiwyg text-center grow" ><p>Balanced schedules. Happier teams. Lower&nbsp;costs.</p></div><div
+class="c-link-group c-model__link-group"></div></div><div
+class="c-model w-full vp7:w-1/3"
+data-aos="fade-up" data-aos-delay="150"
+>
+<picture
+class="c-picture c-model__image" >
+<img
+class="c-picture__image c-picture__image--default   "
+src="https://timefold.ai/uploads/images/Model-Icons/last-mile-routing.png"
+sizes="300px"
+width="420"
+height="420"
+alt="Last mile routing"
+/>
+</picture><div
+class="c-model__titles"><h3
+class="c-title c-model__title"
+>
+Last-Mile Delivery Routing</h3></div><div
+class="c-text s-wysiwyg c-model__text s-wysiwyg text-center grow" ><p>Optimize depot-to-customer deliveries with capacity-aware vehicle routing</p></div><div
+class="c-link-group c-model__link-group"></div></div></div></div><div
+class="c-link-group c-models__links c-link-group--center"><a
+class="c-link-group__link c-models__link c-button--primary  c-button"
+href="https://timefold.ai/model"
+target="_self"
+>
+<span
+class="c-button__text ">Explore models</span>
+</a></div></div></section><section
+class="
+scheme-default prop-bg
+"
+data-type="split-grid"
+><div
+class="prop-bg px-0
+"><div
+class="c-split-grid "><div
+class="layout bound-x"><div
+class="c-split-grid__container"><article
+class="c-text-card c-split-grid__text" ><div
+class="c-text-card__content"><h3
+class="c-title c-text-card__title"
+data-aos="fade-right" data-aos-duration="1000" data-aos-delay="50" data-aos-easing="ease-out-expo"
+>
+<mark
+class="mark--purple">Auto-generate</mark> large-scale schedules</h3><div
+class="c-text s-wysiwyg c-text-card__text"  data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><p>Drag-and-drop doesn’t scale. Timefold replaces stressful, error-prone and time-consuming manual scheduling with a&nbsp;simple <span
+class="push-double"></span>​<span
+class="pull-double">“</span>schedule with <span
+class="caps">AI</span>” button. You keep the same <span
+class="caps">UI</span> and workflows, without the scrambling.&nbsp;</p></div></div></article><div
+class="c-split-grid__media"  data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-out-expo"><div
+class="c-video js-video c-split-grid__video"><video
+class="c-video--native c-video__content "
+preload=metadata loading=lazy autoplay loop muted playsinline disablepictureinpicture=true
+width=""
+height=""
+>
+<source
+class="c-video__source"
+src="https://timefold.ai/uploads/videos/Visual-03-_-True-automation-4_3-White-BG.webm"
+type="video/mp4"
+></video></div></div></div></div><div
+class="layout bound-x"><div
+class="c-split-grid__container"><div
+class="c-split-grid__media"  data-aos="fade-right" data-aos-duration="1000" data-aos-easing="ease-out-expo"><div
+class="c-video js-video c-split-grid__video"><video
+class="c-video--native c-video__content "
+preload=metadata loading=lazy autoplay loop muted playsinline disablepictureinpicture=true
+width=""
+height=""
+>
+<source
+class="c-video__source"
+src="https://timefold.ai/uploads/videos/Visual-01-_-Always-on-planning-4_3-White-BG.mp4"
+type="video/mp4"
+></video></div></div><article
+class="c-text-card c-split-grid__text" ><span
+class="c-icon c-text-card__icon"  data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-out-expo">
+<span
+class="sr-only">calendar-clock</span>
+<span
+class="ti ti-calendar-clock"></span>
+</span><div
+class="c-text-card__content"><h3
+class="c-title c-text-card__title"
+data-aos="fade-left" data-aos-duration="1000" data-aos-delay="50" data-aos-easing="ease-out-expo"
+>
+<mark
+class="mark--purple">Always-on</mark> operations</h3><div
+class="c-text s-wysiwyg c-text-card__text"  data-aos="fade-left" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><p>Scheduling spans many horizons. Whether you’re planning months ahead or reacting to changes in real time, you stay fully in control. The result: efficient, resilient and dynamic operations, regardless of how quickly things evolve.</p></div></div></article></div></div><div
+class="layout bound-x"><div
+class="c-split-grid__container"><article
+class="c-text-card c-split-grid__text" ><span
+class="c-icon c-text-card__icon"  data-aos="fade-right" data-aos-duration="1000" data-aos-easing="ease-out-expo">
+<span
+class="sr-only">reload</span>
+<span
+class="ti ti-reload"></span>
+</span><div
+class="c-text-card__content"><h3
+class="c-title c-text-card__title"
+data-aos="fade-right" data-aos-duration="1000" data-aos-delay="50" data-aos-easing="ease-out-expo"
+>
+Beat day-to-day <mark
+class="mark--purple">chaos</mark></h3><div
+class="c-text s-wysiwyg c-text-card__text"  data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><p>Even during execution, Timefold schedules withstand real-world chaos. When disruptions occur, planners get recommended the best alternatives at the click of a&nbsp;button. Sick calls, delays, or emergencies will no longer derail your&nbsp;plans.</p></div></div></article><div
+class="c-split-grid__media"  data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-out-expo"><div
+class="c-video js-video c-split-grid__video"><video
+class="c-video--native c-video__content "
+preload=metadata loading=lazy autoplay loop muted playsinline disablepictureinpicture=true
+width=""
+height=""
+>
+<source
+class="c-video__source"
+src="https://timefold.ai/uploads/videos/Visual-02-_-Day-to-day-chaos-4_3-White-BG.mp4"
+type="video/mp4"
+></video></div></div></div></div><div
+class="layout bound-x"><div
+class="c-split-grid__container"><div
+class="c-split-grid__media"  data-aos="fade-right" data-aos-duration="1000" data-aos-easing="ease-out-expo"><div
+class="c-video js-video c-split-grid__video"><video
+class="c-video--native c-video__content "
+preload=metadata loading=lazy autoplay loop muted playsinline disablepictureinpicture=true
+width=""
+height=""
+>
+<source
+class="c-video__source"
+src="https://timefold.ai/uploads/videos/Visual-04-_-Happy-workforce-4_3-White-BG.mp4"
+type="video/mp4"
+></video></div></div><article
+class="c-text-card c-split-grid__text" ><span
+class="c-icon c-text-card__icon"  data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-out-expo">
+<span
+class="sr-only">mood-happy</span>
+<span
+class="ti ti-mood-happy"></span>
+</span><div
+class="c-text-card__content"><h3
+class="c-title c-text-card__title"
+data-aos="fade-left" data-aos-duration="1000" data-aos-delay="50" data-aos-easing="ease-out-expo"
+>
+Balanced workdays, <mark
+class="mark--purple">happy</mark> <mark
+class="mark--purple">workforces</mark></h3><div
+class="c-text s-wysiwyg c-text-card__text"  data-aos="fade-left" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><p>Create an environment where people want to work and stay. Timefold considers preferences, skills, breaks, availability, time-off requests, commutes, rotations and more, so every schedule is objectively fair.</p></div></div></article></div></div></div></div></section><section
+class="layout bound-x  mb-4 vp9:mb-8  scheme-purple "
+data-type="image-block"
+><div
+class="prop-bg
+s-container"><div
+class="prop-bg c-image-block "  data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo"><div
+class="c-image-block__content"><div
+class="c-image-block__intro mx-auto"><div
+class="c-intro c-intro--center"><div
+class="c-intro__titles"><h2
+class="c-title c-intro__title c-image-block__title typo-h1"
+data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Timefold Intelligence</h2><p
+class="c-title c-intro__subtitle c-image-block__subtitle"
+data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Operational planning is just step&nbsp;one</p></div><div
+class="c-text s-wysiwyg s-wysiwyg "  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-out-expo"><p>Opaque workforce scheduling leaves you flying blind. Timefold gives you governance by pairing powerful optimization with actionable intelligence.</p></div></div></div><div
+class="c-image-block__image">
+<picture
+class="c-picture relative w-full h-full"  data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo">
+<img
+class="c-picture__image c-picture__image--default  lazyload "
+src="https://timefold.ai/uploads/images/Optimization-platform-planningai-intelligence-timefold.png"
+sizes="(min-width: 768px) 33vw, 100vw"
+width="1921"
+height="1001"
+alt="Optimization platform planningai intelligence timefold"
+loading="lazy"/>
+</picture></div></div></div></div></section><section
+class="layout bound-x prop-bg mt-10 vp9:mt-30 mb-10 vp9:mb-30  scheme-default"
+data-type="testimonials"
+><div
+class="max-w-screen-vp10 mx-auto mb-16"><div
+class="c-intro c-intro--center"><div
+class="c-intro__titles"><h2
+class="c-title c-intro__title typo-h1"
+data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Proof in practice</h2><p
+class="c-title c-intro__subtitle "
+data-aos="fade-up" data-aos-delay="50" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Their words, not&nbsp;ours</p></div><div
+class="c-text s-wysiwyg s-wysiwyg "  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-out-expo"><p>Our customers about their Timefold experience.&nbsp;</p></div></div></div><div
+class="grid vp7:grid-cols-2 vp9:grid-cols-3 gap-4"><article
+class="c-testimonial "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><span
+class="c-icon c-testimonial__icon" >
+<svg
+class="c-icon__asset" width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path
+d="M14.4453 0.632812L11.6328 22.2344H0.851562L6.55469 0.632812H14.4453ZM29.25 0.632812L26.4375 22.2344H15.6562L21.3594 0.632812H29.25Z" fill="#5306F7"/>
+</svg></span><div
+class="c-text s-wysiwyg c-testimonial__text s-wysiwyg" ><p>We needed a&nbsp;solution that would integrate seamlessly into our technology stack. Timefold’s engineering-first mindset immediately stood out. Their capabilities are advanced and comprehensive, their APIs are exceptionally clean, and their economic model is both uncomplicated and well aligned with organizations that rely on a&nbsp;platform provider.</p></div><div
+class="c-testimonial__author-info"><p
+class="c-title c-testimonial__author typo-h4"
+>
+Brooks Adcock</p><div
+class="c-text s-wysiwyg c-testimonial__subtitle s-wysiwyg" >Technical Business Lead</div></div><div
+class="c-logo c-testimonial__logo" >
+<picture
+class="c-picture c-logo__image c-picture--contain" >
+<img
+class="c-picture__image c-picture__image--default  lazyload "
+src="https://timefold.ai/uploads/logos/servicetrade.png"
+sizes="300px"
+width="1939"
+height="765"
+alt="Servicetrade"
+loading="lazy"/>
+</picture></div></article><article
+class="c-testimonial "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" data-aos-easing="ease-out-expo"><span
+class="c-icon c-testimonial__icon" >
+<svg
+class="c-icon__asset" width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path
+d="M14.4453 0.632812L11.6328 22.2344H0.851562L6.55469 0.632812H14.4453ZM29.25 0.632812L26.4375 22.2344H15.6562L21.3594 0.632812H29.25Z" fill="#5306F7"/>
+</svg></span><div
+class="c-text s-wysiwyg c-testimonial__text s-wysiwyg" ><p>Timefold worked in partnership with <span
+class="caps">NEC</span> to provide the optimisation required and extended their platform to accommodate specific requirements for the Social Housing sector. The time to market was shortened through agile partnerships working.</p></div><div
+class="c-testimonial__author-info"><p
+class="c-title c-testimonial__author typo-h4"
+>
+Trevor Hampton</p><div
+class="c-text s-wysiwyg c-testimonial__subtitle s-wysiwyg" >Product Director, <span
+class="caps">NEC</span></div></div><div
+class="c-logo c-testimonial__logo" >
+<picture
+class="c-picture c-logo__image c-picture--contain" >
+<img
+class="c-picture__image c-picture__image--default   "
+src="https://timefold.ai/uploads/logos/nec.svg"
+sizes="300px"
+width="75"
+height="20"
+alt="NEC"
+/>
+</picture></div></article><article
+class="c-testimonial "  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-easing="ease-out-expo"><span
+class="c-icon c-testimonial__icon" >
+<svg
+class="c-icon__asset" width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path
+d="M14.4453 0.632812L11.6328 22.2344H0.851562L6.55469 0.632812H14.4453ZM29.25 0.632812L26.4375 22.2344H15.6562L21.3594 0.632812H29.25Z" fill="#5306F7"/>
+</svg></span><div
+class="c-text s-wysiwyg c-testimonial__text s-wysiwyg" ><p>Tasked with a&nbsp;complex scheduling problem for a&nbsp;prospect, we were operational in real-time, with real data in <span
+class="numbers">4</span>&nbsp;days. Thanks in large part to the solid foundation of Timefold, the client selected us on the strength of our demonstration.</p></div><div
+class="c-testimonial__author-info"><p
+class="c-title c-testimonial__author typo-h4"
+>
+Michael Galkovsky</p><div
+class="c-text s-wysiwyg c-testimonial__subtitle s-wysiwyg" ><span
+class="caps">NATO</span>, Intelligence, and Defense Chief Architect, <span
+class="caps">IBM</span> services</div></div><div
+class="c-logo c-testimonial__logo" >
+<picture
+class="c-picture c-logo__image c-picture--contain" >
+<img
+class="c-picture__image c-picture__image--default  lazyload "
+src="https://timefold.ai/uploads/logos/ibm-logo.png"
+sizes="300px"
+width="299"
+height="120"
+alt="IBM"
+loading="lazy"/>
+</picture></div></article></div></section><section
+class="layout bound-x mt-10 vp9:mt-30 mb-10 vp9:mb-30  scheme-default prop-bg"
+data-type="article-cards"
+><div
+class="prop-bg "><div
+class="max-w-screen-vp10 mx-auto mb-16"><div
+class="c-intro c-intro--center"><div
+class="c-intro__titles"><h2
+class="c-title c-intro__title typo-h1"
+data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-out-expo"
+>
+Solve on a&nbsp;single, powerful <mark
+class="mark--purple">platform</mark></h2></div><div
+class="c-text s-wysiwyg s-wysiwyg "  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-easing="ease-out-expo"><p>Leave the admin, orchestration, scaling, and upgrades to&nbsp;us.</p></div></div></div><div
+class="grid vp7:grid-cols-2 vp9:grid-cols-3 gap-4 js-cards"><article
+class="c-article-card c-article-card--image"  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="ease-out-expo"><div
+class="c-article-card__container"><div
+class="c-article-card__content">
+<picture
+class="c-picture c-article-card__media" style="--image-focal-x: center; --image-focal-y: center;">
+<img
+class="c-picture__image  eager" sizes="(min-width: 720px) 33vw, 100vw" style="background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAZCAIAAAAOir+2AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFgUlEQVRYhY2YaXbcOBCDP1Bq2znj3P8KSWyRwPzgInZ7kjd6erJa4gJUoRZZ/yjMI/O63wQgme/7KyGQ+v07ekcP9EAnOlAZZx83V08MJoZKqnLhT/KL+N4rzwAWEGEweN6MgUVse8zj+5M/vZVuuCpI4wkdvWDeM5/fD8sc+T82+tOAc91lXv9w3OZfUwR0879t5u+nnj0QCAlqRNsTowYN8rr4dPVf0Ac4paGPfc4Ljd2hutFHH9KPoZ/yQCfluCU0PLATMDlQwxpuKeD+6tcT1m/WzAsZzT8nHwgwaajeQF+O7w/1jn6gD8ob5YEelBMdlOOW022PkIxdckAhNZHcXdSvv1531OuD3ExKuglOfQBgaOSCr+fY2UJq/RXSEf2QPijvlDfKG+WkPHtAWwQP9MYmFRVccKGHoLsrCvwC/81wAhSOGULKqfeJsY14yufLzHzXlD6kDv2d443yoDwGgVcPjAUSE0eNFNygCMVS0TCgelR9wvUnJ8ABBzqycsOpxwyvQjSZ1G9uG74LSKVHbcob5aHymBwmgfKcQzMCIDZquPa900cYFARFIzZywIXawhAUjlCi4zY/6kF8DglFCGJUyR0MSTfgTB4QHvBAD+mkPDI4PG4VlZlPewAk6R5Qwx1s986oLkpmbggBFThJRWbsW/YzlAzS5OSEbAsecLxIsHMYiU7AKZ3RgU7KqYH75NgJ3B5Ipn5G6tVYLJESGVkyMXqMmEZwEKNkeKBsV3WvdQ903a/cfJCDlF4dM88+ZEbCAWXm+zIyTzl0S+iYHhjyJ0pWyQ/p04MsvHHIFsQGhyCSDlfP6DsBCoRx7dTLip0hnllkJoLnQvtUiQ/pQCU7gVkDJ4ytbK/yPE+pTCF0w2domJ0DOwE960PL2g7J3XUMOd7DNDk8/5SQojL8mr6YOny+nTPTzCcpjLgeRW4CUFAn45sGOXfbPndvTycL/dLEU4JaLpsdR5Du4LkbhYy6n5fiQo/kUYIzk096/nqqSb2mDA7nHLvJJYnNNP8iMDlowpzSjsasKMaiaLNJZhIycdwbCieR+5Q5l7X7slPGZOTRyt6t6OBwxkBfdC5tJwu9N96zJzCxYtmUDsuSpZauIoNK12YGEncCoxrYspMmO3Op2Borp8OYBDArFw0tTQ7itHuVIW2ib0lGAKzr8nYgVWnYKZab3KQ2AheJoBIVpNyGXNArbrjFDTelyS220pSGG2lxI420IQa6NWVkMHI6gSGhSggmLa5JTerCvZs/q0PMlVSlyjU61I7VdipJem5V7jTqgWTixhVXuaZVucoV17gpFVelphPIFHSH3tPtZDIJuDo9WTdS7Su5bvS5IwEtDlW+oks6Nb9I0tHfvZC6B24JjU6uxRU3ucZVvvpVvuSajCupXfP9K27qp4tHnjcJOX2NOp+WXMlnbGeDvnUTQ0Ym/JYecISiSERJijWrWE+jvTeYceykjW7ULd0DrvKFL3LFl3Ill3yFunJXh9Grmu8YGE7g9Kd7EFOTr+TyZvWdxh0DoPyO38Sh4Zckllu6+csoc7cHpo1wp1GVFl9yXdDlL/JJaqZqF/qVBuc3dW5tn/7di0OX3bL9wv2ahVby9s8VE4lHR+T7i75XvNFKrHZ60KhJlSup8aV8kU/8mbs+je28e2CXw/p55nfPu1uWfK5fK4L3WmYoFf8cFag08oiryvwgpkRLQvTEn/FF1rNNJRe5GIZvL7Uqq54+J5KXipbTqyS+gmbT/f1zdX2GcuGfyEpLadI5U1CBnoUWgY5++Jk0pSZf5Ev5zLSn7rbpadMl4P/gcG4tQPb5PE3b5UPGtwMh8+tJTmTNFjUzBlZNHSqiE6jJpXwlXyMdzi12Cd0NyPYvi92+AP8CqM8AZFbK6mEAAAAASUVORK5CYII=) center center / cover;" src="https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp" srcset="
+https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 3072w,
+https://timefold.ai/uploads/images/_2048xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 2048w,
+https://timefold.ai/uploads/images/_1920xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1920w,
+https://timefold.ai/uploads/images/_1536xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1536w,
+https://timefold.ai/uploads/images/_1424xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1424w,
+https://timefold.ai/uploads/images/_1280xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1280w,
+https://timefold.ai/uploads/images/_1024xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1024w,
+https://timefold.ai/uploads/images/_960xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 960w,
+https://timefold.ai/uploads/images/_768xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 768w,
+https://timefold.ai/uploads/images/_640xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 640w,
+https://timefold.ai/uploads/images/_568xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 568w,
+https://timefold.ai/uploads/images/_375xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 375w,
+" height="144" width="373" alt>
+</picture><h3
+class="c-title c-article-card__title"
+>
+Experience hassle-free managed services</h3></div></div></article><article
+class="c-article-card c-article-card--image"  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" data-aos-easing="ease-out-expo"><div
+class="c-article-card__container"><div
+class="c-article-card__content">
+<picture
+class="c-picture c-article-card__media" style="--image-focal-x: center; --image-focal-y: center;">
+<img
+class="c-picture__image  eager" sizes="(min-width: 720px) 33vw, 100vw" style="background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAZCAIAAAAOir+2AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEFUlEQVRYhY1XS7LbMAwD/Hz/I3bdUxBvwR9kJ9NmMoliSxZAgKTCv38kIV8SJEA18HfePV4EAdAGc/F8+cLnQ/Lia9ybSpIU8zFfakw3AHKfy/NxBYyQbBr3+jF4Y8dez7U1fm/RFynoXFKg+FwiAcRN7pwdhIWEoGydscpRjhf9g4av1THlTUP9wGG7LggIENguqbs3r+bNvgnggk+vWye2YU4ePz+8ZHC11465zWksBLiHKWrH5XMBvK+rn5gQX+7nOwcMMc8c+Oiif+bAm8CJfnAPh54p3NePrVTROOZpd81MqB358s/HDLavb+C/cX7hPjmAkpbAksazFnVgNqcSMnnSwGcLyWzzJvEWrUIJoBBTQkOfMQVBuH9+bM3TeS6WanOrPCTHSG8RPsReB36eo2OhO+IMf6iJAQBbASzWN3oVes02JEASKg5fRHjHXi6ja/CqXS8CCEHC1TbJOf9BQOoMF3tzVtRJKql8VcBp1Mg5ENTZTnbGwwvXI60xSdwqT82xZBAVQpauCtckLqkyEclPOWDO8UK2PmrdslVtOmzdEwSEoJj0VahtAd3XVVRoR4lyezdtwq4W2jQPLY/5bgXNWhP7HLiSmIpspHZZZ7GYFtJGOZM4I6fpjfYWREa1wUUPtPX9ncQODAJTuNwTyisbfq8HiYLdrqspaapihK4+DFVSQxJuTCd+6h8pHRHa/t3FpzhcXkmfChCpnohsnln6YH5ngbYaMCEQ3BW8KpHHDoII3c8FrV6rEEAgDxV1vfwKAoyCjwtUj+0hRIWKglCDBUnr37IUWESDhGj3QAkpfXXvwWrPpJk2BV2HsaDhkLhrs0BR1KCYppLf/RwPwxwUa/BiMFEL2ecooFKgS1LznQqUxTfO1E6QbJuVh6QSJe9078tUknyP+pzaI4nI86KzkLWBNH9VoIhuy4LuLVhFKjpVQoj5eRbvPBPl+0o2LYqpuOgBHxzhV5Uvnef2KZP2dyYWfVQuS3dsl6mgx/zrKaaHAhKq9mewGN0OSFGkVXkNiDGURsJSjUKnj6wKtX6agCsiIgrd/i+7x2aC3dgJpdZRhSTrAVdGNMWffmdR7EragwZJtvGZC4vN4JmASgU9dtwuujdG0zfijX84+DkizR9VT6uV0hBY+hYJAeuTeoJKQpQOJp9ZOkINf0xeFtLEf+eb9TAi9PZihTwRiCCjEWia4uZwk1cnQCtpXVyCV6JGtAEdEfJHHS1wywnY6ynCgNjUw5G+/q+/k1Wr71YhNfoJRPUzSacCgCbclb/jI7PQCi08aZiDvIpvqpaHhbZ/3doyemZwKSCIItiD6Y5eAbyCTvVpZzSD2yv2+d0dYTw88CGtEaDquHkaWA2MAz4pUM2Z3ZxbglnuMbXWZcQE/AJ+p/6Aubw9oQAAAABJRU5ErkJggg==) center center / cover;" src="https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp" srcset="
+https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 3072w,
+https://timefold.ai/uploads/images/_2048xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 2048w,
+https://timefold.ai/uploads/images/_1920xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1920w,
+https://timefold.ai/uploads/images/_1536xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1536w,
+https://timefold.ai/uploads/images/_1424xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1424w,
+https://timefold.ai/uploads/images/_1280xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1280w,
+https://timefold.ai/uploads/images/_1024xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1024w,
+https://timefold.ai/uploads/images/_960xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 960w,
+https://timefold.ai/uploads/images/_768xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 768w,
+https://timefold.ai/uploads/images/_640xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 640w,
+https://timefold.ai/uploads/images/_568xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 568w,
+https://timefold.ai/uploads/images/_375xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 375w,
+" height="144" width="373" alt>
+</picture><h3
+class="c-title c-article-card__title"
+>
+Get insights from your model&nbsp;runs</h3></div></div></article><article
+class="c-article-card c-article-card--image"  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-easing="ease-out-expo"><div
+class="c-article-card__container"><div
+class="c-article-card__content">
+<picture
+class="c-picture c-article-card__media" style="--image-focal-x: center; --image-focal-y: center;">
+<img
+class="c-picture__image  eager" sizes="(min-width: 720px) 33vw, 100vw" style="background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAZCAIAAAAOir+2AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAGqUlEQVRYhVVYW7LjOg4DQDm9jdnHXe7d5MyxCMwHZed0SuVK4kcIEgSh8J///EuCglZqpZbrSi3XcpVVkUyGDBIAMWLGcNNNm2nETIiAJAUVaqUWtLJWtFCVqqhARQQIAAgT2JxH9UZv7o2+2Tf6Rt/pDe+4k3aSJEAAgwEAZmFeDAEQ/L1EMSQlzFkA7wMYzAIZgkGI95XBGyQ8yN9feuKfj/j7Pd9veOIBQSEhk++VPDEvKnMFK6poTSmwFmtFRQkSOA9PpgI2LDZB0iCAgG+ME/3fiwgSMAHxC+tbjskZgFNGMhRZERCDBYR5En3ggYtlECxwQStaWRfOWqyCCiLJcNJvxHCjNyX0ZhMg3EAzQRIYIe3Q5HvU0JDIm2e+WSefdJMkyEhEZcCcEp7TpyYAyBwAWtBCXVkfrA+uD66Laz0YFB7WIoEb3TiUvUGBxAacpJEwSYg0wWDSadCHD/Ow54nf9xO6iAgRUQFBR3guJKhQoA5oEovLJLhQC3Wd6D9/cF24Lq0LVSid8gY86W/sO/t+2HWohRh2EGL6bcosHBjCFCEcAn8x8K2DoCQFAif3T8qpIRUo6GDAYm2SWtCFurguXn9w/eHnw8/FdXEVq07phkJu7I0qqEImQRw77NMA7gD0SMaJbgAMPZhwoL1N/E0/Q7IU8yjN26IsqqAaMAfDYjUFFWuxLq4P16XPB58//Fy8Lq3FKmqEKbDhRu2UMKROYlt7eBkb3UxC08Epg0hRAkmJycv5AyTDEUYkdPIefHOvdaJXgXOcCqCaAhe1WEu1tD5ZF68Lnz+8Lq6lKmlSFNjonq6Yjo3be0nloeZUwA0QMgBAZFHFNhXaowkEOCqMDJZp2Qg42ktAoXCin9lyYJAKyUX1Ka6kwgjounBdWFOBS+sBkNCG9nRdYruzF6qsIpjgIOwbABSEnIR1UUWbkhI+SvoOmAk/fGjFEz1Z0UItaLEWdDBEIohFNQSKqgwyVarOKDirKIk4AMgAidGtCX0YQk07w42+EUABhL2pxTbKdJhZr+zniR/IC4gBDtdZ02+oA+N8HPVbYD/aOxOEkqTM/FKhRBVrDEBOL3vOKiz8mnTBCFKn9ygTuaOGZ/YFMRxoht0073ei5VuOVznn4ZqUR8qT6AfAaN5jHuZ9QIz/IUOFp9++D52b33VMxZm2cGIjDTIe4+QkPEHnWadPfx2eUQ7MM/ErmGmJ0+vvcQHGkHfkEKO9rwlATq+Gj1c4JgfH6+QE8Lif5+MxDXnvOmbsveerNcHXOp07fq0ngvd8zq0BsN7wnHgUPbFty543ND3VTiad8LkoTmLHTt7fNhiM/9NvSgQwoElTcqxN3pP5vgBjJI+J5mdimwmdyfnQYdkA6ONw0k73LPd2a0wH5JBEaKM3urM73Xa77QeLEQMho5UYXFBR0+I8hA+edg1PWZ9E5wvCGPba8Yj3636fy2aQpenQYn8dTvbOviM1iSTLOSoExOiNuWDv7O3e7o7bsYGAHlcLjEPJgyGEwNGBt2mIX9SIhwVOAubdZwQuJIiQJHLknCZ2i4HF3hxzdldK1pR+ylKWRvX4yHzuOz8/ue/s7b3jtp3EZFQoBIAW1oValCgOhsf4HPLw9YgJnDwdn8Bg6DBD2MhRu1c0/lIhsXpLQgMtbuEWShFHS+D2WhorMb7Rhj0VwP2Tn5/cP+md7sleBgAZ6CveVVS9LHrXs4sIHSRDlgfDlIZGZ/YqbKuiHSqqo0vLW7Of2oRICU/0dKcXa3WJ0l9mrhv7xr5z/+A+GMbDhYQqqJy95YVVY2mPFxoH9GyARnqZYKhuxz7ucJQn0wwyK1RYedIfEMu3SHR+ifpoUadv7Bl+goi3B+LTLXtj39g/2Td6w0YSCjXirZz0z/Cfh/DX7BoiHfKc2o5ZtOOein6VjQpk/oqezOqb5FGtGfHwGaV7pRaqIkLKl6wzVje62Tf2Rm94w43vSNTMy9Skv6Jn/L3Rn3H1VOAopNGnyHHnlOKVKo5G52zJgZUfRQMgT+7RO31nrahSynjPV83j+SsBNr1x/psYCZ25fKJHzT57TIfeCfoOhpnNI41jkw6RuuGN3nHD/XTxr2o8eLC8ydnRekZN4qThyl4u+SUcj9UBjITx/Kcy042PswmPTTpmSQ/+d/i/W8hnQj/27i2FR+sycuedvuNO9gzNd6QHyMpmCFX86MKpQ0Wd1vd/IeLLIoRHo+d4dqxncw48yVa+norHxv42PI/beHxPcrbU4XBhou//xT/xf+Of+G+78X/VqHWIjyu5RgAAAABJRU5ErkJggg==) center center / cover;" src="https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp" srcset="
+https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 3072w,
+https://timefold.ai/uploads/images/_2048xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 2048w,
+https://timefold.ai/uploads/images/_1920xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1920w,
+https://timefold.ai/uploads/images/_1536xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1536w,
+https://timefold.ai/uploads/images/_1424xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1424w,
+https://timefold.ai/uploads/images/_1280xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1280w,
+https://timefold.ai/uploads/images/_1024xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1024w,
+https://timefold.ai/uploads/images/_960xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 960w,
+https://timefold.ai/uploads/images/_768xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 768w,
+https://timefold.ai/uploads/images/_640xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 640w,
+https://timefold.ai/uploads/images/_568xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 568w,
+https://timefold.ai/uploads/images/_375xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 375w,
+" height="144" width="373" alt>
+</picture><h3
+class="c-title c-article-card__title"
+>
+Run multiple models simultaneously</h3></div></div></article></div></div></section><section
+class="layout bound-x scheme-purple mb-4 vp9:mb-8 relative"
+data-type="cta"
+><div
+class="c-cta
+s-container scheme-purple prop-bg" ><div
+class="c-cta__content"><div
+class="c-intro "><div
+class="c-intro__titles"><h2
+class="c-title c-intro__title "
+>
+Get more out of your resources, fast.</h2><p
+class="c-title c-intro__subtitle typo-h3"
+>
+Ready to start optimizing?</p></div></div></div><div
+class="c-link-group c-cta__links"><a
+class="c-link-group__link c-cta__link c-button--primary  c-button"
+href="https://timefold.ai/talk-to-us"
+target="_self"
+>
+<span
+class="c-button__text ">Talk to us</span><span
+class="c-icon c-button__icon  c-icon--after" >
+<svg
+class="c-icon__asset" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true">
+<path
+fill="currentcolor" d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"/>
+</svg></span>
+</a></div><div
+class="c-cta__graphic">
+<svg
+class="c-cta__graphic-asset" width="418" height="238" viewBox="0 0 418 238" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g
+clip-path="url(#clip0_1406_10763)">
+<path
+opacity="0.2" fill-rule="evenodd" clip-rule="evenodd" d="M-1273.55 273.704H144.053C201.604 273.704 253.109 237.638 272.919 183.643L333.199 17.9605V17.9592L333.201 17.9548L333.206 17.9407L333.224 17.8918C333.24 17.8502 333.263 17.7907 333.294 17.7145C333.354 17.5621 333.444 17.3427 333.566 17.066C333.809 16.5127 334.176 15.729 334.683 14.7917C335.696 12.919 337.268 10.422 339.512 7.92224C344.008 2.91269 351.218 -2.12204 361.969 -2.12204H798.78L898.555 -276.158H538.297C480.746 -276.158 429.241 -240.092 409.431 -186.096L349.151 -20.4145V-20.4132L349.149 -20.4087L349.144 -20.3947L349.125 -20.3458C349.11 -20.3042 349.087 -20.2447 349.056 -20.1685C348.996 -20.0161 348.905 -19.7967 348.784 -19.52C348.541 -18.9667 348.173 -18.183 347.667 -17.2457C346.654 -15.373 345.082 -12.8761 342.838 -10.3762C338.342 -5.36674 331.132 -0.332001 320.381 -0.332001H-1273.55V273.704ZM144.053 274.704C202.024 274.704 253.904 238.376 273.857 183.987L334.138 18.3024C334.138 18.3024 341.175 -1.12204 361.969 -1.12204H799.48L899.984 -277.158H538.297C480.326 -277.158 428.446 -240.829 408.492 -186.441L348.211 -20.7564C348.211 -20.7564 341.175 -1.332 320.381 -1.332H-1274.55V274.704H144.053Z" fill="white"/>
+<path
+opacity="0.2" fill-rule="evenodd" clip-rule="evenodd" d="M-1381.6 273.704H36.004C93.5543 273.704 145.059 237.638 164.869 183.643L225.149 17.9605L225.15 17.9592L225.151 17.9548L225.157 17.9407L225.175 17.8918C225.191 17.8502 225.214 17.7907 225.244 17.7145C225.305 17.5621 225.395 17.3427 225.516 17.066C225.759 16.5127 226.127 15.729 226.634 14.7917C227.646 12.919 229.219 10.422 231.462 7.92224C235.958 2.91269 243.169 -2.12204 253.919 -2.12204H690.73L790.506 -276.158H430.247C372.697 -276.158 321.191 -240.092 301.382 -186.096L241.101 -20.4145V-20.4132L241.099 -20.4087L241.094 -20.3947L241.076 -20.3458C241.06 -20.3042 241.037 -20.2447 241.007 -20.1685C240.946 -20.0161 240.856 -19.7967 240.735 -19.52C240.492 -18.9667 240.124 -18.183 239.617 -17.2457C238.605 -15.373 237.032 -12.8761 234.789 -10.3762C230.293 -5.36674 223.082 -0.332001 212.332 -0.332001H-1381.6V273.704ZM36.004 274.704C93.9748 274.704 145.854 238.376 165.808 183.987L226.089 18.3024C226.089 18.3024 233.125 -1.12204 253.919 -1.12204H691.43L791.934 -277.158H430.247C372.276 -277.158 320.397 -240.829 300.443 -186.441L240.162 -20.7564C240.162 -20.7564 233.125 -1.332 212.332 -1.332H-1382.6V274.704H36.004Z" fill="white"/>
+<path
+opacity="0.2" fill-rule="evenodd" clip-rule="evenodd" d="M-1489.65 273.704H-72.0453C-14.495 273.704 37.0105 237.638 56.8201 183.643L117.101 17.9605V17.9592L117.103 17.9548L117.108 17.9407L117.126 17.8918C117.142 17.8502 117.165 17.7907 117.195 17.7145C117.256 17.5621 117.346 17.3427 117.468 17.066C117.71 16.5127 118.078 15.729 118.585 14.7917C119.598 12.919 121.17 10.422 123.413 7.92224C127.91 2.91269 135.12 -2.12204 145.871 -2.12204H582.682L682.457 -276.158H322.198C264.648 -276.158 213.143 -240.092 193.333 -186.096L133.053 -20.4145L133.052 -20.4132L133.051 -20.4087L133.046 -20.3947L133.027 -20.3458C133.012 -20.3042 132.989 -20.2447 132.958 -20.1685C132.898 -20.0161 132.807 -19.7967 132.686 -19.52C132.443 -18.9667 132.075 -18.183 131.569 -17.2457C130.556 -15.373 128.984 -12.8761 126.74 -10.3762C122.244 -5.36674 115.033 -0.332001 104.283 -0.332001H-1489.65V273.704ZM-72.0453 274.704C-14.0744 274.704 37.8052 238.376 57.7589 183.987L118.04 18.3024C118.04 18.3024 125.077 -1.12204 145.871 -1.12204H583.382L683.885 -277.158H322.198C264.228 -277.158 212.348 -240.829 192.394 -186.441L132.113 -20.7564C132.113 -20.7564 125.077 -1.332 104.283 -1.332H-1490.65V274.704H-72.0453Z" fill="white"/>
+<path
+opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M-1213.55 273.704H204.049C261.6 273.704 313.105 237.638 332.915 183.643L393.195 17.9605V17.9592L393.197 17.9548L393.202 17.9407L393.22 17.8918C393.236 17.8502 393.259 17.7907 393.29 17.7145C393.35 17.5621 393.44 17.3427 393.562 17.066C393.805 16.5127 394.172 15.729 394.679 14.7917C395.692 12.919 397.264 10.422 399.508 7.92224C404.004 2.91269 411.214 -2.12204 421.965 -2.12204H858.776L958.551 -276.158H598.293C540.742 -276.158 489.237 -240.092 469.427 -186.096L409.147 -20.4145V-20.4132L409.145 -20.4087L409.14 -20.3947L409.121 -20.3458C409.106 -20.3042 409.083 -20.2447 409.052 -20.1685C408.992 -20.0161 408.901 -19.7967 408.78 -19.52C408.537 -18.9667 408.169 -18.183 407.663 -17.2457C406.65 -15.373 405.078 -12.8761 402.834 -10.3762C398.338 -5.36674 391.128 -0.332001 380.377 -0.332001H-1213.55V273.704ZM204.049 274.704C262.02 274.704 313.9 238.376 333.853 183.987L394.134 18.3024C394.134 18.3024 401.171 -1.12204 421.965 -1.12204H859.476L959.98 -277.158H598.293C540.322 -277.158 488.442 -240.829 468.488 -186.441L408.207 -20.7564C408.207 -20.7564 401.171 -1.332 380.377 -1.332H-1214.55V274.704H204.049Z" fill="white"/>
+<path
+opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M-1321.6 273.704H96.0001C153.55 273.704 205.055 237.638 224.865 183.643L285.145 17.9605L285.146 17.9592L285.147 17.9548L285.153 17.9407L285.171 17.8918C285.187 17.8502 285.21 17.7907 285.24 17.7145C285.301 17.5621 285.391 17.3427 285.512 17.066C285.755 16.5127 286.123 15.729 286.63 14.7917C287.642 12.919 289.215 10.422 291.458 7.92224C295.954 2.91269 303.165 -2.12204 313.915 -2.12204H750.727L850.502 -276.158H490.243C432.693 -276.158 381.187 -240.092 361.378 -186.096L301.097 -20.4145V-20.4132L301.095 -20.4087L301.09 -20.3947L301.072 -20.3458C301.056 -20.3042 301.033 -20.2447 301.003 -20.1685C300.942 -20.0161 300.852 -19.7967 300.731 -19.52C300.488 -18.9667 300.12 -18.183 299.613 -17.2457C298.601 -15.373 297.028 -12.8761 294.785 -10.3762C290.289 -5.36674 283.078 -0.332001 272.328 -0.332001H-1321.6V273.704ZM96.0001 274.704C153.971 274.704 205.85 238.376 225.804 183.987L286.085 18.3024C286.085 18.3024 293.121 -1.12204 313.915 -1.12204H751.426L851.93 -277.158H490.243C432.272 -277.158 380.393 -240.829 360.439 -186.441L300.158 -20.7564C300.158 -20.7564 293.121 -1.332 272.328 -1.332H-1322.6V274.704H96.0001Z" fill="white"/>
+<path
+opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M-1429.65 273.704H-12.0453C45.505 273.704 97.0105 237.638 116.82 183.643L177.101 17.9605V17.9592L177.103 17.9548L177.108 17.9407L177.126 17.8918C177.142 17.8502 177.165 17.7907 177.195 17.7145C177.256 17.5621 177.346 17.3427 177.468 17.066C177.71 16.5127 178.078 15.729 178.585 14.7917C179.598 12.919 181.17 10.422 183.413 7.92224C187.91 2.91269 195.12 -2.12204 205.871 -2.12204H642.682L742.457 -276.158H382.198C324.648 -276.158 273.143 -240.092 253.333 -186.096L193.053 -20.4145L193.052 -20.4132L193.051 -20.4087L193.046 -20.3947L193.027 -20.3458C193.012 -20.3042 192.989 -20.2447 192.958 -20.1685C192.898 -20.0161 192.807 -19.7967 192.686 -19.52C192.443 -18.9667 192.075 -18.183 191.569 -17.2457C190.556 -15.373 188.984 -12.8761 186.74 -10.3762C182.244 -5.36674 175.033 -0.332001 164.283 -0.332001H-1429.65V273.704ZM-12.0453 274.704C45.9256 274.704 97.8051 238.376 117.759 183.987L178.04 18.3024C178.04 18.3024 185.077 -1.12204 205.871 -1.12204H643.382L743.885 -277.158H382.198C324.228 -277.158 272.348 -240.829 252.394 -186.441L192.113 -20.7564C192.113 -20.7564 185.077 -1.332 164.283 -1.332H-1430.65V274.704H-12.0453Z" fill="white"/>
+</g>
+<defs>
+<clipPath
+id="clip0_1406_10763">
+<rect
+width="418" height="238" fill="white"/>
+</clipPath>
+</defs>
+</svg></div></div></section></div>		</main>
+
+					
+
+
+
+
+
+
+<footer class="c-footer  layout bound-x scheme-dark">
+	<div class="c-footer__container">
+		<div class="c-footer__top">
+			<div class="c-footer__left">
+				<div class="c-footer__brand">
+					
+
+		
+<a
+	href="https://timefold.ai/"
+	aria-label="Timefold logo"
+	class="c-site-logo w-15 h-auto c-site-logo--wordmark"
+>
+	<svg width="300" height="207" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 400" focusable="false">
+  <path d="m208 100v-100h-108v100h-63.6l-36.4 100h100v200h113.4c21.02 0 39.8-13.15 46.98-32.9l21.86-60.06s2.58-7.04 10.06-7.04h158.5l36.4-100h-130.99c-21.02 0-39.8 13.15-46.98 32.9l-21.86 60.05s-2.57 7.05-10.06 7.05h-69.31v-100h78.2c21.02 0 39.8-13.15 46.98-32.9l21.86-60.06s2.58-7.04 10.06-7.04h178.5l36.4-100h-150.99c-21.02 0-39.8 13.15-46.98 32.9l-21.86 60.05s-2.57 7.05-10.06 7.05h-142.1z" fill="currentColor"></path>
+</svg>
+
+</a>
+
+											
+	<div class="c-text s-wysiwyg c-footer__brand-text" ><p>Timefold is the world’s leading expert in PlanningAI, specializing in complex scheduling and routing optimization for enterprise companies.</p></div>
+									</div>
+
+									<div class="c-footer__newsletter">
+						
+<div class="">
+			
+
+	<h3
+		class="c-title typo-p variant-p-sm !font-bold mb-5"
+		
+	>
+	Sign up for our newsletter	</h3>
+	
+			
+
+
+
+
+	
+	
+<div
+		class="c-form c-form--newsletter js-form vp7:w-[50%]"
+	
+>
+	
+			<div class="c-form__form flex flex-col gap-8" >
+			
+							<div class="fui-i c-form__wrapper"><form id="fui-newsletter-jnhfxw" class="fui-form fui-labels-above-input" method="post" enctype="multipart/form-data" accept-charset="utf-8" data-fui-form="{&quot;formHashId&quot;:&quot;fui-newsletter-jnhfxw&quot;,&quot;formId&quot;:622,&quot;formHandle&quot;:&quot;newsletter&quot;,&quot;registeredJs&quot;:[],&quot;settings&quot;:{&quot;submitMethod&quot;:&quot;ajax&quot;,&quot;submitActionMessage&quot;:&quot;&lt;p&gt;Submission saved.&lt;\/p&gt;&quot;,&quot;submitActionMessageTimeout&quot;:null,&quot;submitActionMessagePosition&quot;:&quot;top-form&quot;,&quot;submitActionFormHide&quot;:false,&quot;submitAction&quot;:&quot;message&quot;,&quot;submitActionTab&quot;:null,&quot;errorMessage&quot;:&quot;&lt;p&gt;Couldn’t save submission due to errors.&lt;\/p&gt;&quot;,&quot;errorMessagePosition&quot;:&quot;top-form&quot;,&quot;loadingIndicator&quot;:null,&quot;loadingIndicatorText&quot;:null,&quot;validationOnSubmit&quot;:true,&quot;validationOnFocus&quot;:false,&quot;scrollToTop&quot;:true,&quot;hasMultiplePages&quot;:false,&quot;pages&quot;:[{&quot;id&quot;:2,&quot;label&quot;:&quot;Page 1&quot;,&quot;settings&quot;:{&quot;submitButtonLabel&quot;:&quot;Subscribe&quot;,&quot;backButtonLabel&quot;:&quot;Back&quot;,&quot;showBackButton&quot;:false,&quot;saveButtonLabel&quot;:&quot;Save&quot;,&quot;showSaveButton&quot;:false,&quot;saveButtonStyle&quot;:&quot;link&quot;,&quot;buttonsPosition&quot;:&quot;left&quot;,&quot;cssClasses&quot;:null,&quot;containerAttributes&quot;:[],&quot;inputAttributes&quot;:[],&quot;enableNextButtonConditions&quot;:false,&quot;nextButtonConditions&quot;:[],&quot;enablePageConditions&quot;:false,&quot;pageConditions&quot;:[],&quot;enableJsEvents&quot;:false,&quot;jsGtmEventOptions&quot;:[]}}],&quot;themeConfig&quot;:{&quot;loading&quot;:{&quot;class&quot;:&quot;fui-loading&quot;},&quot;errorMessage&quot;:{&quot;class&quot;:&quot;fui-error-message&quot;},&quot;disabled&quot;:{&quot;class&quot;:&quot;fui-disabled&quot;},&quot;tabError&quot;:{&quot;class&quot;:&quot;fui-tab-error&quot;},&quot;tabActive&quot;:{&quot;class&quot;:&quot;fui-tab-active&quot;},&quot;tabComplete&quot;:{&quot;class&quot;:&quot;fui-tab-complete&quot;},&quot;successMessage&quot;:{&quot;class&quot;:&quot;fui-success-message&quot;},&quot;alert&quot;:{&quot;class&quot;:&quot;fui-alert&quot;},&quot;alertError&quot;:{&quot;class&quot;:&quot;fui-alert fui-alert-error fui-alert-top-form c-form__alert--error&quot;,&quot;role&quot;:&quot;alert&quot;,&quot;data-fui-alert&quot;:true,&quot;data-fui-alert-error&quot;:true},&quot;alertSuccess&quot;:{&quot;class&quot;:&quot;fui-alert fui-alert-success fui-alert-top-form c-form__alert--success&quot;,&quot;role&quot;:&quot;alert&quot;,&quot;data-fui-alert&quot;:true,&quot;data-fui-alert-success&quot;:true},&quot;page&quot;:{&quot;id&quot;:&quot;fui-newsletter-jnhfxw-p-2&quot;,&quot;class&quot;:&quot;fui-page c-form__page&quot;,&quot;data-index&quot;:&quot;0&quot;,&quot;data-id&quot;:&quot;2&quot;,&quot;data-fui-page&quot;:true},&quot;progress&quot;:{&quot;class&quot;:&quot;fui-progress c-form__progress&quot;,&quot;data-fui-progress&quot;:true},&quot;tab&quot;:{&quot;class&quot;:&quot;fui-tab&quot;},&quot;success&quot;:{&quot;class&quot;:&quot;fui-success&quot;},&quot;error&quot;:{&quot;class&quot;:&quot;fui-error-message c-form__error&quot;},&quot;fieldContainerError&quot;:{&quot;class&quot;:&quot;fui-error&quot;},&quot;fieldInputError&quot;:{&quot;class&quot;:&quot;fui-error&quot;},&quot;fieldErrors&quot;:{&quot;class&quot;:&quot;fui-errors c-form__field-errors&quot;,&quot;data-field-error-messages&quot;:true},&quot;fieldError&quot;:{&quot;class&quot;:&quot;fui-error-message c-form__field-error&quot;,&quot;data-field-error-message&quot;:true}},&quot;redirectUrl&quot;:&quot;&quot;,&quot;currentPageId&quot;:2,&quot;outputJsTheme&quot;:true,&quot;enableUnloadWarning&quot;:true,&quot;enableBackSubmission&quot;:true,&quot;ajaxTimeout&quot;:10,&quot;outputConsoleMessages&quot;:true,&quot;baseActionUrl&quot;:&quot;https:\/\/timefold.ai\/index.php?p=actions&quot;,&quot;refreshTokenUrl&quot;:&quot;https:\/\/timefold.ai\/index.php?p=actions\/formie\/forms\/refresh-tokens&amp;form=FORM_PLACEHOLDER&quot;,&quot;scriptAttributes&quot;:[]}}" data-form-handle="newsletter" data-form-submit-method="ajax" data-form-submit-action="message"><input type="hidden" name="CRAFT_CSRF_TOKEN" value="qK-Nlw4yjngZ2yvSG6UISw9dczgySqvnSsmToHoimJ7Q3yL4ZPBSPpvgueRrQckZdK5ChizUXjJ4KUV_fTvx1nylwMJXW_fVkY9BtF2DPXM=" autocomplete="off"><input type="hidden" name="action" value="formie/submissions/submit"><input type="hidden" name="submitAction" value="submit"><input type="hidden" name="handle" value="newsletter"><input type="hidden" name="siteId" value="1"><div class="fui-form-container c-form__container"><div id="fui-newsletter-jnhfxw-p-2" class="fui-page c-form__page" data-index="0" data-id="2" data-fui-page><div class="fui-page-container c-form__page-container"><div class="fui-row fui-page-row c-form__row" data-fui-field-count="1"><div class="fui-field fui-type-email fui-label-hidden fui-subfield-label-hidden fui-instructions-above-input fui-field-required fui-page-field c-form__field" data-field-handle="email" data-field-type="email" data-validation="required|email"><div class="fui-field-container c-form__field-container"><label class="fui-label c-form__field-label" for="fui-newsletter-jnhfxw-fields-email" data-field-label data-fui-sr-only>Email&nbsp;<span class="fui-required c-form__field-required" aria-hidden="true">*</span></label><div class="fui-input-wrapper"><input type="email" id="fui-newsletter-jnhfxw-fields-email" class="c-form__field-input" name="fields[email]" value="" placeholder="Enter your email" autocomplete="email" required data-fui-id="newsletter-email"></div></div></div></div><div class="fui-row fui-page-row c-form__row" data-fui-field-count="1"><div class="fui-field fui-type-agree fui-label-hidden fui-subfield-label-hidden fui-instructions-above-input fui-field-required fui-page-field c-form__field c-form__field-agree-button" data-field-handle="agreeCheckbox" data-field-type="agree" data-validation="required"><fieldset class="fui-fieldset c-form__field-container"><legend class="fui-legend c-form__field-label" data-field-label data-fui-sr-only>Agree checkbox&nbsp;<span class="fui-required c-form__field-required" aria-hidden="true">*</span></legend><div class="fui-input-wrapper"><input type="hidden" name="fields[agreeCheckbox]" value="" data-fui-input-type="agree"><div class="fui-checkbox c-form__field-agree-option"><input type="checkbox" id="fui-newsletter-jnhfxw-fields-agreeCheckbox" class="c-form__field-input" name="fields[agreeCheckbox]" value="1" required data-fui-id="newsletter-agreeCheckbox" data-fui-input-type="agree" data-required-message="You have to accept our terms and conditions to complete the submission. "><label class="fui-checkbox-label c-form__field-agree-option-label" for="fui-newsletter-jnhfxw-fields-agreeCheckbox">By submitting this form you agree to our terms and conditions and our privacy policy.</label></div></div></fieldset></div></div></div><div class="c-form__button-wrapper"><button type="submit" class="c-form__submit-button c-button c-button--primary" data-submit-action="submit">Subscribe</button></div></div></div></form></div>
+			
+								</div>
+	
+	
+	</div>
+	</div>
+					</div>
+							</div>
+
+							<div class="c-footer__column-nav">
+											<nav class="c-footer__column-col">
+																								<div class="c-footer__column-batch">
+										
+										<ul class="c-footer__column-list">
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/model"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Planning Models</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://docs.timefold.ai/"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+				
+			<span class="c-link__text ">Documentation</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://www.timefold.ai/"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+				
+			<span class="c-link__text ">Professional Services</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://solver.timefold.ai/"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Open Source</span>
+	
+				</a>
+
+												</li>
+																					</ul>
+									</div>
+																																<div class="c-footer__column-batch">
+																					
+
+	<h4
+		class="c-title c-footer__column-title typo-footer-column-title"
+		
+	>
+	Company	</h4>
+										
+										<ul class="c-footer__column-list">
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/about-us"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">About Us</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://jobs.timefold.ai"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+				
+			<span class="c-link__text ">Jobs</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/partners"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Partners</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<div
+	class="c-link c-footer__column-item"
+		
+>
+				
+	
+				</div>
+
+												</li>
+																					</ul>
+									</div>
+																					</nav>
+											<nav class="c-footer__column-col">
+																								<div class="c-footer__column-batch">
+																					
+
+	<h4
+		class="c-title c-footer__column-title typo-footer-column-title"
+		
+	>
+	Resources	</h4>
+										
+										<ul class="c-footer__column-list">
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/blog"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Blog</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/videos"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Videos</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/customer-stories"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Customer Stories</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/events"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Events</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/press"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Press</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/support"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Support</span>
+	
+				</a>
+
+												</li>
+																					</ul>
+									</div>
+																					</nav>
+									</div>
+							<div class="c-footer__column-social">
+											<nav class="c-footer__column-col">
+																								<div class="c-footer__column-batch">
+																					
+
+	<h4
+		class="c-title c-footer__column-title typo-footer-column-title"
+		
+	>
+	Find us&nbsp;on	</h4>
+										
+										<ul class="c-footer__column-list">
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://www.youtube.com/@timefold"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+						
+
+
+	<span class="c-icon  c-icon--before" >
+						<svg class="c-icon__asset" width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M19.0155 0.509338H4.98449C2.23163 0.509338 0 2.74097 0 5.49383V12.5079C0 15.2607 2.23163 17.4923 4.98449 17.4923H19.0155C21.7684 17.4923 24 15.2607 24 12.5079V5.49383C24 2.74097 21.7684 0.509338 19.0155 0.509338ZM15.6445 9.3421L9.08177 12.4721C8.9069 12.5555 8.7049 12.428 8.7049 12.2343V5.7786C8.7049 5.58213 8.91221 5.45479 9.08744 5.5436L15.6502 8.86929C15.8453 8.96815 15.8419 9.24797 15.6445 9.3421Z" fill="currentColor"/>
+</svg>
+
+	</span>
+			
+			<span class="c-link__text ">YouTube</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://www.linkedin.com/company/timefoldai"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+						
+
+
+	<span class="c-icon  c-icon--before" >
+						<svg class="c-icon__asset" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+	<path id="Exclude" fill-rule="evenodd" clip-rule="evenodd" d="M4.22222 22H19.7778C21.0051 22 22 21.0051 22 19.7778V4.22222C22 2.99492 21.0051 2 19.7778 2H4.22222C2.99492 2 2 2.99492 2 4.22222V19.7778C2 21.0051 2.99492 22 4.22222 22ZM19.2218 19.2222H16.2539V14.1672C16.2539 12.7813 15.7273 12.0068 14.6303 12.0068C13.437 12.0068 12.8135 12.8128 12.8135 14.1672V19.2222H9.95327V9.59259H12.8135V10.8897C12.8135 10.8897 13.6735 9.29839 15.7169 9.29839C17.7595 9.29839 19.2218 10.5457 19.2218 13.1253V19.2222ZM6.54105 8.33166C5.5668 8.33166 4.77734 7.53601 4.77734 6.55472C4.77734 5.57343 5.5668 4.77777 6.54105 4.77777C7.5153 4.77777 8.30429 5.57343 8.30429 6.55472C8.30429 7.53601 7.5153 8.33166 6.54105 8.33166ZM5.06416 19.2222H8.04662V9.59259H5.06416V19.2222Z" fill="currentcolor" />
+</svg>
+
+	</span>
+			
+			<span class="c-link__text ">LinkedIn</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://x.com/timefoldai"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+						
+
+
+	<span class="c-icon  c-icon--before" >
+						<svg class="c-icon__asset" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+	<path id="path1009" d="M0.746924 0.70694L7.15059 9.85504L0.707031 17.2931H2.15764L7.79953 10.7813L12.3576 17.2931H17.2932L10.5295 7.63038L16.5275 0.70694H15.0769L9.88154 6.70414L5.68345 0.70694H0.747886H0.746924ZM2.87953 1.84837H5.14641L15.1586 16.1516H12.8917L2.87953 1.84837Z" fill="currentColor" />
+</svg>
+
+	</span>
+			
+			<span class="c-link__text ">X</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://github.com/TimefoldAI/timefold-solver"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+						
+
+
+	<span class="c-icon  c-icon--before" >
+						<svg class="c-icon__asset" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g id="github-mark 1" clip-path="url(#clip0_504_6437)">
+<path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M10.2199 0C4.59178 0 0.0419922 4.58333 0.0419922 10.2535C0.0419922 14.786 2.9572 18.6227 7.00137 19.9806C7.50699 20.0827 7.6922 19.76 7.6922 19.4885C7.6922 19.2508 7.67553 18.436 7.67553 17.5871C4.84428 18.1983 4.2547 16.3648 4.2547 16.3648C3.7997 15.1765 3.12553 14.871 3.12553 14.871C2.19887 14.2429 3.19303 14.2429 3.19303 14.2429C4.22095 14.3108 4.76033 15.2954 4.76033 15.2954C5.67012 16.8571 7.13616 16.4158 7.72595 16.1442C7.81012 15.4821 8.07991 15.0237 8.36637 14.7692C6.10824 14.5315 3.73241 13.6488 3.73241 9.71021C3.73241 8.58979 4.13658 7.67312 4.77699 6.96021C4.67595 6.70563 4.32199 5.65292 4.87824 4.24396C4.87824 4.24396 5.73762 3.97229 7.67533 5.29646C8.50493 5.07201 9.36048 4.95784 10.2199 4.95687C11.0793 4.95687 11.9553 5.07583 12.7643 5.29646C14.7022 3.97229 15.5616 4.24396 15.5616 4.24396C16.1178 5.65292 15.7637 6.70563 15.6626 6.96021C16.3199 7.67312 16.7074 8.58979 16.7074 9.71021C16.7074 13.6488 14.3316 14.5144 12.0566 14.7692C12.4274 15.0917 12.7474 15.7027 12.7474 16.6704C12.7474 18.0454 12.7307 19.149 12.7307 19.4883C12.7307 19.76 12.9162 20.0827 13.4216 19.9808C17.4657 18.6225 20.381 14.786 20.381 10.2535C20.3976 4.58333 15.8312 0 10.2199 0Z" fill="currentcolor"/>
+</g>
+<defs>
+<clipPath id="clip0_504_6437">
+<rect width="20.4167" height="20" fill="white" transform="translate(0.0419922)"/>
+</clipPath>
+</defs>
+</svg>
+
+	</span>
+			
+			<span class="c-link__text ">GitHub</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://stackoverflow.com/questions/tagged/timefold"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+						
+
+
+	<span class="c-icon  c-icon--before" >
+						<svg class="c-icon__asset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333333 333333" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M322831 117669l-25376 33059-2-2-17596 37756-4-2-9020 40667-203391-45092-2 2 9020-40681 203308 45065-188724-88000v-2l17606-37772 188714 87992L132160 23894 150493 0h18967l153372 117669zM62501 229173h208330v41665l-208330-4v-41661z" fill="currentColor"/><path fill="currentColor" d="M333333 208338v124995H0V208338h41665v83330h250003v-83330z"/></svg>
+
+	</span>
+			
+			<span class="c-link__text ">Stack Overflow</span>
+	
+				</a>
+
+												</li>
+																							<li>
+													
+
+
+	
+
+
+<a
+	class="c-link c-footer__column-item"
+			href="https://timefold.ai/feed.xml"
+		target="_blank"
+		 rel="noopener noreferrer"
+>
+						
+
+
+	<span class="c-icon  c-icon--before" >
+						<svg id="Capa_1" class="c-icon__asset" width="800px" height="800px" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24.912 24.912" xml:space="preserve" aria-hidden="true">
+<g>
+	<path d="M3.692,17.517C1.656,17.517,0,19.173,0,21.211C0,23.244,1.656,24.9,3.692,24.9s3.694-1.657,3.694-3.689
+		C7.387,19.173,5.729,17.517,3.692,17.517z"/>
+	<path d="M0.384,8.142C0.173,8.142,0,8.315,0,8.527v4.688c0,0.211,0.173,0.383,0.384,0.383c6.02,0,10.919,4.898,10.919,10.92
+		c0,0.209,0.171,0.383,0.384,0.383h4.689h0.016c0.215,0,0.387-0.173,0.387-0.383l-0.018-0.121C16.692,15.423,9.37,8.142,0.384,8.142
+		z"/>
+	<path d="M24.89,24.397C24.825,10.936,13.854,0.011,0.384,0.011C0.173,0.011,0,0.183,0,0.397v4.824c0,0.212,0.173,0.383,0.384,0.383
+		c10.429,0,18.913,8.486,18.913,18.914c0,0.209,0.172,0.383,0.382,0.383h4.825h0.02c0.21,0,0.388-0.173,0.388-0.383L24.89,24.397z"
+		/>
+</g>
+</svg>
+
+	</span>
+			
+			<span class="c-link__text ">RSS Feed</span>
+	
+				</a>
+
+												</li>
+																					</ul>
+									</div>
+																					</nav>
+									</div>
+					</div>
+
+		<div class="c-footer__bottom">
+			
+	<div class="c-text s-wysiwyg c-footer__bottom-legal-text max-vp9:w-full max-vp9:text-center" ><span class="numbers">2026</span> Timefold <span class="caps">BV</span></div>
+
+			<div class="c-footer__bottom-legal ">
+															
+
+
+
+
+
+<a
+	class="c-link c-footer__bottom-legal-link"
+			href="https://timefold.ai/terms"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Legal</span>
+	
+				</a>
+
+											
+
+
+
+
+
+<a
+	class="c-link c-footer__bottom-legal-link"
+			href="https://timefold.ai/privacy"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Privacy</span>
+	
+				</a>
+
+											
+
+
+
+
+
+<a
+	class="c-link c-footer__bottom-legal-link"
+			href="https://timefold.ai/trademarks"
+		target="_self"
+		
+>
+				
+			<span class="c-link__text ">Brand Assets</span>
+	
+				</a>
+
+												</div>
+		</div>
+	</div>
+</footer>
+		
+		
+
+
+<script type="module">!function(){const e=document.createElement("link").relList;if(!(e&&e.supports&&e.supports("modulepreload"))){for(const e of document.querySelectorAll('link[rel="modulepreload"]'))r(e);new MutationObserver((e=>{for(const o of e)if("childList"===o.type)for(const e of o.addedNodes)if("LINK"===e.tagName&&"modulepreload"===e.rel)r(e);else if(e.querySelectorAll)for(const o of e.querySelectorAll("link[rel=modulepreload]"))r(o)})).observe(document,{childList:!0,subtree:!0})}function r(e){if(e.ep)return;e.ep=!0;const r=function(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerpolicy&&(r.referrerPolicy=e.referrerpolicy),"use-credentials"===e.crossorigin?r.credentials="include":"anonymous"===e.crossorigin?r.credentials="omit":r.credentials="same-origin",r}(e);fetch(e.href,r)}}();</script>
+<script type="module" src="https://timefold.ai/assets/main-35d17649.js" crossorigin onload="e=new CustomEvent(&#039;vite-script-loaded&#039;, {detail:{path: &#039;src/scripts/main.js&#039;}});document.dispatchEvent(e);" data-cookieconsent="ignore"></script>
+<link href="https://timefold.ai/assets/main-05700f3f.css" rel="stylesheet" media="print" onload="this.media=&#039;all&#039;">
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+	<script type="text/javascript">window.FormieTranslations={"{attribute} cannot be blank.":"{attribute} cannot be blank.","{attribute} is not a valid email address.":"{attribute} is not a valid email address.","{attribute} is not a valid URL.":"{attribute} is not a valid URL.","{attribute} is not a valid number.":"{attribute} is not a valid number.","{attribute} is not a valid format.":"{attribute} is not a valid format.","{name} must match {value}.":"{name} must match {value}.","{attribute} must be between {min} and {max}.":"{attribute} must be between {min} and {max}.","{attribute} must be no less than {min}.":"{attribute} must be no less than {min}.","{attribute} must be no greater than {max}.":"{attribute} must be no greater than {max}.","{attribute} has an invalid value.":"{attribute} has an invalid value.","File {filename} must be smaller than {filesize} MB.":"File {filename} must be smaller than {filesize} MB.","File must be smaller than {filesize} MB.":"File must be smaller than {filesize} MB.","File must be larger than {filesize} MB.":"File must be larger than {filesize} MB.","Choose up to {files} files.":"Choose up to {files} files.","{startTag}{num}{endTag} character left":"{startTag}{num}{endTag} character left","{startTag}{num}{endTag} characters left":"{startTag}{num}{endTag} characters left","{startTag}{num}{endTag} word left":"{startTag}{num}{endTag} word left","{startTag}{num}{endTag} words left":"{startTag}{num}{endTag} words left","{attribute} must be no less than {min} characters.":"{attribute} must be no less than {min} characters.","{attribute} must be no greater than {max} characters.":"{attribute} must be no greater than {max} characters.","{attribute} must be no less than {min} words.":"{attribute} must be no less than {min} words.","{attribute} must be no greater than {max} words.":"{attribute} must be no greater than {max} words.","Unable to parse response `{e}`.":"Unable to parse response `{e}`.","Are you sure you want to leave?":"Are you sure you want to leave?","The request timed out.":"The request timed out.","The request encountered a network error. Please try again.":"The request encountered a network error. Please try again.","Invalid number":"Invalid number","Invalid country code":"Invalid country code","Too short":"Too short","Too long":"Too long","Missing Authorization ID for approval.":"Missing Authorization ID for approval.","Payment authorized. Finalize the form to complete payment.":"Payment authorized. Finalize the form to complete payment.","Unable to authorize payment. Please try again.":"Unable to authorize payment. Please try again.","Invalid amount.":"Invalid amount.","Invalid currency.":"Invalid currency.","Provide a value for “{label}” to proceed.":"Provide a value for “{label}” to proceed."};</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","author":{"@id":"#identity"},"copyrightHolder":{"@id":"#identity"},"copyrightYear":"2024","creator":{"@id":"#creator"},"dateCreated":"2024-10-08T11:52:33+02:00","dateModified":"2026-03-03T14:06:50+01:00","datePublished":"2024-10-08T11:52:00+02:00","description":"Timefold's PlanningAI engine automates and optimizes large-scale scheduling, routing and planning problems.","headline":"Scheduling, routing and planning optimization","image":{"@type":"ImageObject","url":"https://timefold.ai/uploads/images/_1200x630_crop_center-center_82_none/og-wide.jpg?mtime=1738050609"},"inLanguage":"en","mainEntityOfPage":"https://timefold.ai/","name":"Timefold","publisher":{"@id":"#creator"},"url":"https://timefold.ai/"},{"@id":"#identity","@type":"LocalBusiness","address":{"@type":"PostalAddress","addressCountry":"Belgium","addressLocality":"Ghent","addressRegion":"East-Flanders","postalCode":"9000","streetAddress":"Sint-Pietersnieuwstraat 11"},"name":"Timefold","priceRange":"$","sameAs":["https://www.youtube.com/@timefold","https://www.linkedin.com/company/timefoldai","https://x.com/timefoldai","https://github.com/TimefoldAI/timefold-solver","https://stackoverflow.com/questions/tagged/timefold","https://timefold.ai/feed.xml"]},{"@id":"#creator","@type":"Organization"},{"@type":"BreadcrumbList","description":"Breadcrumbs list","itemListElement":[{"@type":"ListItem","item":"https://timefold.ai/","name":"Home","position":1}],"name":"Breadcrumbs"}]}</script>
+				<script>
+					// Wait until the DOM is ready
+					document.addEventListener('DOMContentLoaded', (event) => {
+						// Fetch the form we want to deal with
+						let $form = document.querySelector('#fui-newsletter-jnhfxw');
+
+						// Find the CSRF token hidden input, so we can replace it
+						let $csrfInput = $form.querySelector('input[name="CRAFT_CSRF_TOKEN"]');
+
+						// Fetch the new token for the form and replace the CSRF input with our new one
+						fetch('https://timefold.ai//actions/formie/forms/refresh-tokens?form=newsletter')
+							.then(result => { return result.json(); })
+							.then(result => {
+								$csrfInput.outerHTML = result.csrf.input;
+
+								// Find the JavaScript captcha hidden input, so we can update it
+								if (result.captchas && result.captchas.javascript) {
+									// JavaScript captcha
+									let jsCaptcha = result.captchas.javascript;
+
+									$form.querySelector('input[name="' + jsCaptcha.sessionKey + '"]').value = jsCaptcha.value;
+								}
+
+								// Find the Duplicate captcha hidden input, so we can update it
+								if (result.captchas && result.captchas.duplicate) {
+									// Duplicate captcha
+									let duplicateCaptcha = result.captchas.duplicate;
+
+									$form.querySelector('input[name="' + duplicateCaptcha.sessionKey + '"]').value = duplicateCaptcha.value;
+								}
+
+								// Update the form's hash (if using Formie's themed JS)
+								if ($form.form && $form.form.formTheme) {
+									$form.form.formTheme.updateFormHash();
+								}
+							});
+					});
+				</script>
+			<script type="text/javascript" src="https://timefold.ai/cpresources/7693493b/js/formie.js?v=1771445336" defer></script>
+<script src="https://timefold.ai/cpresources/dc666775/htmx.min.js?v=1767951678"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://timefold.ai/cpresources/811dccc4/js/default-aos.js?v=1767951673"></script>
+<script>if (typeof(htmx) != "undefined") {
+		htmx.on("htmx:afterSwap", function(event) {
+			document.dispatchEvent(new Event("sprig-refresh"));
+		});
+	};</script></body>
+</html>
+<!-- Cached by Blitz on 2026-03-09T16:24:46+01:00 -->

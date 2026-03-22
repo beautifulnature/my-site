@@ -1,7 +1,7 @@
 ---
-import { SITE_CONTENT } from "../utils/siteContent";
-import { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS, FOOTER_SOCIAL_LINKS } from "../utils/navigation";
-import ResourceIcons from "./ResourceIcons.astro";
+import { SITE_CONTENT } from "../../utils/siteContent";
+import { FOOTER_LEGAL_LINKS, FOOTER_SECTIONS, FOOTER_SOCIAL_LINKS } from "../../utils/navigation";
+import ResourceIcons from "../ResourceIcons.astro";
 
 const primaryFooterSections = FOOTER_SECTIONS.filter(
   (section) => section.heading !== "Resources",
@@ -118,23 +118,37 @@ const resourcesFooterSections = FOOTER_SECTIONS.filter(
       </div>
 
       <div class="c-footer__column-nav">
-        {FOOTER_SECTIONS.map((section) => (
-          <nav class="c-footer__column-col">
+        <nav class="c-footer__column-col">
+          {primaryFooterSections.map((section) => (
             <div class="c-footer__column-batch">
               {section.heading && <h3 class="c-footer__column-title typo-footer-column-title">{section.heading}</h3>}
-              {!section.heading && <div class="c-footer__column-title typo-footer-column-title">&nbsp;</div>}
               <ul class="c-footer__column-list">
                 {section.links.map((link) => (
                   <li>
-                    <a href={link.href} class="c-link c-footer__column-item">
+                    <a class="c-link c-footer__column-item" href={link.href}>
                       <span class="c-link__text">{link.label}</span>
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
-          </nav>
-        ))}
+          ))}
+        </nav>
+
+        <nav class="c-footer__column-col">
+          {resourcesFooterSections.map((section) => (
+            <div class="c-footer__column-batch">
+              {section.heading && <h3 class="c-footer__column-title typo-footer-column-title">{section.heading}</h3>}
+              <ul class="c-footer__column-list">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="c-link c-footer__column-item">{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
       </div>
 
       <div class="c-footer__column-social">
@@ -159,12 +173,12 @@ const resourcesFooterSections = FOOTER_SECTIONS.filter(
     </div>
 
     <div class="c-footer__bottom">
-      <span class="c-footer__bottom-legal-text">© {new Date().getFullYear()} {SITE_CONTENT.companyName}</span>
+      <div class="c-text s-wysiwyg c-footer__bottom-legal-text max-vp9:w-full max-vp9:text-center">© {new Date().getFullYear()} {SITE_CONTENT.companyName}</div>
       <div class="c-footer__bottom-legal">
         {FOOTER_LEGAL_LINKS.map((link) => (
           <a 
             href={link.href} 
-            class="c-link c-footer__bottom-legal-link c-footer__column-item"
+            class="c-link c-footer__bottom-legal-link"
             style="--link-default-color: var(--scheme-contrast); --link-default-hover-color: var(--scheme-text);"
           >
             {link.label}

@@ -1,9 +1,30 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+  darkMode: 'class',
   content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,vue,svelte}'],
+
   theme: {
     extend: {
+      colors: {
+        'timefold': {
+          dark: '#0b0f19',
+          card: 'rgba(255, 255, 255, 0.03)',
+          border: 'rgba(255, 255, 255, 0.08)',
+          primary: '#4f46e5',
+          accent: '#10b981',
+          muted: '#94a3b8'
+        },
+        'tf-purple': '#5A32FA',
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+      },
+      boxShadow: {
+        'glow-accent': '0 0 20px rgba(16, 185, 129, 0.3)',
+        'glow-primary': '0 0 20px rgba(79, 70, 229, 0.3)',
+      },
       screens: {
         'vp5': '35.5em',    // 568px
         'vp7': '48em',      // 768px  
