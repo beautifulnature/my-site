@@ -4,27 +4,59 @@ import ResourceIcons from "../ResourceIcons.astro";
 import ThemeToggle from "../ThemeToggle.astro";
 import DevModeToggle from "../DevModeToggle.astro";
 ---
-<header class="sticky top-0 z-50 transition-colors duration-300 scheme-default vp12:layout vp12:bound-x px-4 vp12:px-14 bg-[var(--scheme-base)]/80 backdrop-blur-md border-b border-[var(--scheme-border)]">
-    <div class="flex justify-between items-center h-[56px] w-full">
-      <div class="flex items-center gap-2">
-        <a href="/" class="flex flex-row items-center gap-2">
-          <div class="h-8 w-8 bg-[#5A32FA] rounded flex items-center justify-center">
-            <svg class="text-white w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/></svg>
-          </div>
-          <span class="typo-h3 transition-colors duration-300">Timefold</span>
-        </a>
-      </div>
-      <nav class="hidden md:flex gap-8">
-        <a href="#" class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors">Use cases</a>
-        <a href="#" class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors">Resources</a>
-        <a href="#" class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors">Pricing</a>
-        <a href="#" class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors">Documentation</a>
-      </nav>
-      <div class="flex items-center gap-2 md:gap-4">
-        <DevModeToggle />
-        <ThemeToggle />
-        <button class="hidden lg:block text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-title)] transition-colors">Log in</button>
-        <a href="#" class="px-5 py-2.5 text-sm font-bold text-white bg-[var(--scheme-accent)] rounded hover:opacity-90 transition-all shadow-sm">Talk to us</a>
-      </div>
+
+<header
+  class="sticky top-0 z-50 transition-colors duration-300 scheme-default vp12:layout vp12:bound-x px-4 vp12:px-14 bg-[var(--scheme-base)]/80 backdrop-blur-md border-b border-[var(--scheme-border)]"
+>
+  <div class="flex justify-between items-center h-[56px] w-full">
+    <div class="flex items-center gap-2">
+      <a href="/" class="flex flex-row items-center gap-2">
+        <div
+          class="h-8 w-8 bg-[#5A32FA] rounded flex items-center justify-center"
+        >
+          <svg
+            class="text-white w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"></path></svg
+          >
+        </div>
+        <span class="typo-h3 transition-colors duration-300">Timefold</span>
+      </a>
     </div>
+    <nav class="md:flex gap-8">
+      <a
+        href="#"
+        class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors"
+        >Use cases</a
+      >
+      <a
+        href="#"
+        class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors"
+        >Resources</a
+      >
+      <a
+        href="#"
+        class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors"
+        >Pricing</a
+      >
+      <a
+        href="#"
+        class="text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-accent)] transition-colors"
+        >Documentation</a
+      >
+    </nav>
+    <div class="flex items-center gap-2 md:gap-4">
+      <DevModeToggle />
+      <ThemeToggle />
+      <button
+        class="hidden lg:block text-sm font-semibold text-[var(--scheme-text)] hover:text-[var(--scheme-title)] transition-colors"
+        >Log in</button
+      >
+      <a
+        href="#"
+        class="px-5 py-2.5 text-sm font-bold text-white bg-[var(--scheme-accent)] rounded hover:opacity-90 transition-all shadow-sm"
+        >Talk to us</a
+      >
+    </div>
+  </div>
 </header>

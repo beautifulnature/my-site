@@ -40,17 +40,21 @@ const cardClass = `c-link-card c-link-card--vertical scheme-default resource-ind
   imageSrcSet={RESOURCE_CARD_PLACEHOLDER_SRCSET}
   imageAlt=""
 >
-  <div slot="label" class="c-label c-link-card__label c-label--square">
-    <span class="c-label__text">{label}</span>
+
+  <div slot="badge" class="blog-badge">
+    {label}
   </div>
 
   <HeadingTag slot="title" class="c-title c-link-card__title">{title}</HeadingTag>
-
-  <a slot="button" class="c-button c-button--icon-only c-button-primary c-link-card__button" href={href} target={target ?? '_self'} rel={rel}>
-    <span class="c-icon c-button__icon c-icon--after">
-      <ResourceIcons name="arrow-right" size={16} />
-    </span>
-  </a>
+  
+  <div slot="button" class="z-20">
+    <div 
+      class="h-10 w-10 flex items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-110" 
+      style="background-color: #6112ff !important; display: flex !important; align-items: center !important; justify-content: center !important;"
+    >
+      <ResourceIcons name="arrow-right" size={20} />
+    </div>
+  </div>
 
   <div slot="body" class="c-text s-wysiwyg c-link-card__text">
     <p>

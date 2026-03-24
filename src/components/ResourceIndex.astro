@@ -133,20 +133,22 @@ const loadMoreStep = 6;
 const hasMoreItems = restFiltered.length > loadMoreInitial;
 ---
 
-<div class="col-span-12">
-  {allTags.length > 0 && (
-    <TagChipList items={mobileTagItems} size="mobile" className="mb-6 flex flex-wrap gap-2 vp9:hidden" />
-  )}
+<section class="w-full max-w-[1400px] mx-auto px-6 vp9:px-16">
+  <div class="blog-main-grid">
+    <aside class="blog-sidebar-sticky flex flex-col items-start">
+      {allTags.length > 0 && (
+        <>
+          <header class="w-full mb-8">
+            <h2 class="blog-sidebar-title uppercase font-bold text-lg text-slate-800 dark:text-slate-200 mb-6 text-left">Tags</h2>
+          </header>
+          <nav class="w-full">
+            <TagChipList items={desktopTagItems} className="blog-tag-list" />
+          </nav>
+        </>
+      )}
+    </aside>
 
-  <div class={allTags.length > 0 ? 'vp9:grid vp9:grid-cols-[11.5rem_minmax(0,1fr)] vp9:gap-4' : ''}>
-    {allTags.length > 0 && (
-      <div class="max-vp9:order-2 max-vp9:border-b vp9:border-r border-solid prop-border pt-8 pb-8 vp9:pr-8">
-        <p class="mb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Tags</p>
-        <TagChipList items={desktopTagItems} size="desktop" className="flex flex-wrap gap-1.5" />
-      </div>
-    )}
-
-    <div class="vp9:p-14">
+    <section class="blog-list-area flex flex-col gap-8">
       {latestFiltered ? (
         isVideosPath ? (
           <div data-load-more-root data-step={String(loadMoreStep)}>
@@ -194,12 +196,11 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
             )}
           </div>
         ) : (
+
           <div data-load-more-root data-step={String(loadMoreStep)}>
-            <section
-              aria-label={`${resourceLabel} items`}
-              class={`mb-10 ${isBlogPath ? 'resource-index-section--blog' : ''}`}
-            >
-              <div class="grid grid-cols-2 gap-8 vp9:gap-20">
+            <section aria-label={`${resourceLabel} items`} class="mb-10">
+              <!-- Featured post: full width -->
+              <div class="blog-featured blog-card">
                 <ResourceImageLinkCard
                   href={getItemHref(latestFiltered)}
                   title={String(latestFiltered.data[titleField])}
@@ -211,14 +212,13 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
                   target={isHeroLinkExternal ? '_blank' : undefined}
                   rel={isHeroLinkExternal ? 'noreferrer' : undefined}
                 />
+              </div>
 
-                {showBody && latestFiltered.body && (
-                  <div class="vp7:col-span-2 prose max-w-none" set:html={latestFiltered.body} />
-                )}
-
+              <!-- Rest: 3-column grid -->
+              <div class="blog-grid">
                 {restFiltered.map((item, index) => {
                   return (
-                    <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
+                    <div class="js-load-more-item blog-card" hidden={index >= loadMoreInitial}>
                       <ResourceImageLinkCard
                         href={getItemHref(item)}
                         title={String(item.data[titleField])}
@@ -246,8 +246,7 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
         )
       ) : (
         <p class="text-sm text-slate-600">No items match this tag.</p>
-      )}
-    </div>
+    )}
   </div>
 </div>
 

@@ -1,8 +1,7 @@
 ---
 import '../styles/global.css';
-import '../styles/main-6d775be0.css';
 import DocsTocScript from '../components/DocsTocScript.astro';
-import Header from '../components/Header.astro';
+import Header from '../components/landing/LandingHeader.astro';
 import Footer from '../components/Footer.astro';
 import GoToTopButton from '../components/GoToTopButton.astro';
 import ResourceIcons from '../components/ResourceIcons.astro';
@@ -14,6 +13,7 @@ const {
   description = '',
   descriptionClass = '',
   currentPath = '',
+  showSidebar = true,
 } = Astro.props;
 
 const linkBase = 'resource-tag-link';
@@ -27,29 +27,31 @@ const linkActive = 'resource-tag-link resource-tag-link--active';
   </head>
   <body class="scheme-default">
     <Header />
-    <div class="flex">
+    <div class="flex pt-20">
       <!-- LEFT NAV -->
-      <aside
-        id="sidebar"
-        class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden"
-      >
-        <h2>{SITE_CONTENT.sidebarHeading}</h2>
+      {showSidebar && (
+        <aside
+          id="sidebar"
+          class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden"
+        >
+          <h2>{SITE_CONTENT.sidebarHeading}</h2>
 
-        {SIDEBAR_SECTIONS.map((section) => (
-          <div class="mb-6">
-            {section.heading && (
-              <h3 class="h3-section-label">
-                {section.heading}
-              </h3>
-            )}
-            <ul class="space-y-1">
-              {section.links.map((link) => (
-                <li><a href={link.href} class="hover:text-white">{link.label}</a></li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </aside>
+          {SIDEBAR_SECTIONS.map((section) => (
+            <div class="mb-6">
+              {section.heading && (
+                <h3 class="h3-section-label">
+                  {section.heading}
+                </h3>
+              )}
+              <ul class="space-y-1">
+                {section.links.map((link) => (
+                  <li><a href={link.href} class="hover:text-white">{link.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </aside>
+      )}
 
       <!-- MAIN CONTENT -->
       <main class="flex-1">
@@ -87,10 +89,8 @@ const linkActive = 'resource-tag-link resource-tag-link--active';
           </section>
         )}
 
-        <section class="layout bound-x">
-          <div class="grid grid-cols-12">
-            <slot />
-          </div>
+        <section class="py-8">
+          <slot />
         </section>
       </main>
     </div>

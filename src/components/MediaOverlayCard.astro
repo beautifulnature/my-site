@@ -55,10 +55,19 @@ const {
           </picture>
         )}
 
-        <div class="c-link-card__content">
-          <slot name="label" />
-          <slot name="title" />
-          <slot name="button" />
+        <div class="c-link-card__content p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent relative">
+          <div class="absolute top-4 right-4 z-20">
+            <slot name="badge" />
+          </div>
+          <div class="mb-auto">
+            <slot name="label" />
+          </div>
+          <div class="pr-14">
+            <slot name="title" />
+          </div>
+          <div class="absolute bottom-6 right-6 z-20">
+            <slot name="button" />
+          </div>
         </div>
       </a>
     ) : (
@@ -78,10 +87,19 @@ const {
           </picture>
         )}
 
-        <div class="c-link-card__content">
-          <slot name="label" />
-          <slot name="title" />
-          <slot name="button" />
+        <div class="c-link-card__content p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent relative">
+          <div class="absolute top-4 right-4 z-20">
+            <slot name="badge" />
+          </div>
+          <div class="mb-auto">
+            <slot name="label" />
+          </div>
+          <div class="pr-14">
+            <slot name="title" />
+          </div>
+          <div class="absolute bottom-6 right-6 z-20">
+            <slot name="button" />
+          </div>
         </div>
       </div>
     )}

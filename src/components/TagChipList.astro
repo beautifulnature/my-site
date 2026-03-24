@@ -7,8 +7,12 @@ const {
   className?: string;
 };
 
-const getChipClass = (active?: boolean) =>
-  `c-label c-label--small c-label--light-grey c-label--lower c-label--filter${active ? ' is-active' : ''}`;
+const getChipClass = (active?: boolean) => {
+  const base = "inline-flex items-center rounded-full px-5 py-2 text-base uppercase font-bold tracking-wide transition-colors duration-200";
+  const inactive = "bg-[#e2e8f0] text-[#1a202c] hover:bg-[#cbd5e0]";
+  const activeClass = "bg-[#6112ff] text-white shadow-md hover:bg-[#4a0ecc]";
+  return `${base} ${active ? activeClass : inactive}`;
+};
 ---
 
 <div class={className}>

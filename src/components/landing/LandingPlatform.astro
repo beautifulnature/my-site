@@ -1,47 +1,139 @@
 ---
+
 ---
-<section class="bg-gray-50 dark:bg-[#0f1523] layout bound-x py-[32px] m-0 border-0 transition-colors duration-300 scheme-default">
-  <div class="w-full h-full">
-    <div class="max-w-screen-vp10 mx-auto text-center mb-16">
-      <h2 class="typo-h2 transition-colors duration-300">Solve on a single, powerful <span class="text-[var(--scheme-accent)]">platform</span></h2>
-      <p class="typo-p mt-4 max-w-2xl mx-auto transition-colors duration-300">Combine routing, assigning, and scheduling into one API motion, built directly for developers.</p>
-    </div>
-    
-    <div class="grid vp7:grid-cols-2 vp9:grid-cols-3 gap-4">
-       <!-- Card 1 (Purple) -->
-       <div class="bg-[var(--scheme-shade)] rounded-[2rem] p-10 shadow-xl dark:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7)] flex flex-col items-center justify-center text-center relative overflow-hidden group transition-colors duration-300 scheme-purple">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none transition-colors duration-300"></div>
-          <svg class="w-24 h-24 text-[var(--scheme-contrast)] mb-8 transform group-hover:-translate-y-2 transition duration-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
-          <h3 class="typo-h3 relative z-10 transition-colors duration-300">Fully managed enterprise cloud</h3>
-       </div>
-       
-       <!-- Card 2 -->
-       <div class="bg-[var(--scheme-shade)] rounded-[2rem] p-10 border border-[var(--scheme-border)] shadow-sm dark:shadow-none flex flex-col items-center text-center group line-clamp-2 hover:shadow-md transition-all duration-300">
-          <div class="w-full h-40 mb-8 flex items-center justify-center relative justify-center overflow-hidden">
-             <!-- Connect nodes mock -->
-             <div class="absolute w-full h-[1px] bg-[var(--scheme-border)] rotate-[20deg] transition-colors duration-300"></div>
-             <div class="absolute w-full h-[1px] bg-[var(--scheme-border)] -rotate-[20deg] transition-colors duration-300"></div>
-             <div class="w-14 h-14 rounded-full bg-orange-50 dark:bg-orange-900/40 border border-orange-100 dark:border-orange-900 flex items-center justify-center z-10 absolute left-[15%] top-[15%] group-hover:scale-110 transition duration-500 shadow-sm"><span class="w-4 h-4 bg-orange-400 rounded-full"></span></div>
-             <div class="w-14 h-14 rounded-full bg-emerald-50 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-900 flex items-center justify-center z-10 absolute right-[15%] bottom-[15%] group-hover:scale-110 transition duration-500 shadow-sm"><span class="w-4 h-4 bg-emerald-400 rounded-full"></span></div>
-             <div class="w-20 h-20 rounded-full bg-[var(--scheme-accent)]/5 flex items-center justify-center z-10 absolute group-hover:scale-110 transition border border-[var(--scheme-accent)]/20 duration-500 shadow-sm"><span class="w-8 h-8 bg-[var(--scheme-accent)] rounded-full shadow-glow-primary dark:shadow-[0_0_15px_rgba(167,139,250,0.5)]"></span></div>
-          </div>
-          <h3 class="typo-h3 transition-colors duration-300">Pre-trained on your specific problem class</h3>
-       </div>
-       
-       <!-- Card 3 -->
-       <div class="bg-[var(--scheme-shade)] rounded-[2rem] p-10 border border-[var(--scheme-border)] shadow-xl flex flex-col items-center text-center group overflow-hidden relative transition-colors duration-300 scheme-dark">
-          <!-- decorative abstract grids -->
-          <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
-          <div class="w-full h-40 mb-8 flex items-center justify-center overflow-hidden gap-1.5 relative z-10">
-             <!-- Tech grid mock -->
-             <div class="w-8 h-12 bg-white/10 dark:bg-white/20 rounded-sm transform group-hover:-translate-y-2 transition duration-500"></div>
-             <div class="w-8 h-20 bg-[var(--scheme-accent)] rounded-sm transform group-hover:translate-y-2 transition duration-500 shadow-[0_0_20px_rgba(90,50,250,0.6)] dark:shadow-[0_0_20px_rgba(167,139,250,0.4)]"></div>
-             <div class="w-8 h-28 bg-white/10 dark:bg-white/20 rounded-sm transform group-hover:-translate-y-2 transition duration-500"></div>
-             <div class="w-8 h-16 bg-emerald-500 rounded-sm transform group-hover:translate-y-2 transition duration-500 shadow-[0_0_20px_rgba(16,185,129,0.6)]"></div>
-             <div class="w-8 h-10 bg-white/10 dark:bg-white/20 rounded-sm transform group-hover:-translate-y-2 transition duration-500"></div>
-          </div>
-          <h3 class="typo-h3 relative z-10">Unrivaled speed & performance at scale</h3>
-       </div>
-    </div>
-  </div>
+
+<section
+   class="layout bound-x mt-10 vp9:mt-30 mb-10 vp9:mb-30 scheme-default prop-bg"
+>
+   <div class="prop-bg">
+      <div class="max-w-screen-vp10 mx-auto mb-16">
+         <div class="c-intro c-intro--center">
+            <div class="c-intro__titles">
+               <h2 class="c-title c-intro__title typo-h1 aos-init aos-animate">
+                  Solve on a&nbsp;single, powerful
+                  <mark class="mark--purple">platform</mark>
+               </h2>
+            </div>
+            <div class="c-text s-wysiwyg aos-init aos-animate">
+               <p>
+                  Leave the admin, orchestration, scaling, and upgrades
+                  to&nbsp;us.
+               </p>
+            </div>
+         </div>
+      </div><div class="grid vp7:grid-cols-2 vp9:grid-cols-3 gap-4 js-cards">
+         <article
+            class="c-article-card c-article-card--image aos-init aos-animate"
+         >
+            <div class="c-article-card__container">
+               <div class="c-article-card__content">
+                  <picture
+                     class="c-picture c-article-card__media"
+                     style="--image-focal-x: center; --image-focal-y: center;"
+                  >
+                     <img
+                        class="c-picture__image eager"
+                        sizes="(min-width: 720px) 33vw, 100vw"
+                        style="background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAZCAIAAAAOir+2AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFgUlEQVRYhY2YaXbcOBCDP1Bq2znj3P8KSWyRwPzgInZ7kjd6erJa4gJUoRZZ/yjMI/O63wQgme/7KyGQ+v07ekcP9EAnOlAZZx83V08MJoZKqnLhT/KL+N4rzwAWEGEweN6MgUVse8zj+5M/vZVuuCpI4wkdvWDeM5/fD8sc+T82+tOAc91lXv9w3OZfUwR0879t5u+nnj0QCAlqRNsTowYN8rr4dPVf0Ac4paGPfc4Ljd2hutFHH9KPoZ/yQCfluCU0PLATMDlQwxpuKeD+6tcT1m/WzAsZzT8nHwgwaajeQF+O7w/1jn6gD8ob5YEelBMdlOOW022PkIxdckAhNZHcXdSvv1531OuD3ExKuglOfQBgaOSCr+fY2UJq/RXSEf2QPijvlDfKG+WkPHtAWwQP9MYmFRVccKGHoLsrCvwC/81wAhSOGULKqfeJsY14yufLzHzXlD6kDv2d443yoDwGgVcPjAUSE0eNFNygCMVS0TCgelR9wvUnJ8ABBzqycsOpxwyvQjSZ1G9uG74LSKVHbcob5aHymBwmgfKcQzMCIDZquPa900cYFARFIzZywIXawhAUjlCi4zY/6kF8DglFCGJUyR0MSTfgTB4QHvBAD+mkPDI4PG4VlZlPewAk6R5Qwx1s986oLkpmbggBFThJRWbsW/YzlAzS5OSEbAsecLxIsHMYiU7AKZ3RgU7KqYH75NgJ3B5Ipn5G6tVYLJESGVkyMXqMmEZwEKNkeKBsV3WvdQ903a/cfJCDlF4dM88+ZEbCAWXm+zIyTzl0S+iYHhjyJ0pWyQ/p04MsvHHIFsQGhyCSDlfP6DsBCoRx7dTLip0hnllkJoLnQvtUiQ/pQCU7gVkDJ4ytbK/yPE+pTCF0w2domJ0DOwE960PL2g7J3XUMOd7DNDk8/5SQojL8mr6YOny+nTPTzCcpjLgeRW4CUFAn45sGOXfbPndvTycL/dLEU4JaLpsdR5Du4LkbhYy6n5fiQo/kUYIzk096/nqqSb2mDA7nHLvJJYnNNP8iMDlowpzSjsasKMaiaLNJZhIycdwbCieR+5Q5l7X7slPGZOTRyt6t6OBwxkBfdC5tJwu9N96zJzCxYtmUDsuSpZauIoNK12YGEncCoxrYspMmO3Op2Borp8OYBDArFw0tTQ7itHuVIW2ib0lGAKzr8nYgVWnYKZab3KQ2AheJoBIVpNyGXNArbrjFDTelyS220pSGG2lxI420IQa6NWVkMHI6gSGhSggmLa5JTerCvZs/q0PMlVSlyjU61I7VdipJem5V7jTqgWTixhVXuaZVucoV17gpFVelphPIFHSH3tPtZDIJuDo9WTdS7Su5bvS5IwEtDlW+oks6Nb9I0tHfvZC6B24JjU6uxRU3ucZVvvpVvuSajCupXfP9K27qp4tHnjcJOX2NOp+WXMlnbGeDvnUTQ0Ym/JYecISiSERJijWrWE+jvTeYceykjW7ULd0DrvKFL3LFl3Ill3yFunJXh9Grmu8YGE7g9Kd7EFOTr+TyZvWdxh0DoPyO38Sh4Zckllu6+csoc7cHpo1wp1GVFl9yXdDlL/JJaqZqF/qVBuc3dW5tn/7di0OX3bL9wv2ahVby9s8VE4lHR+T7i75XvNFKrHZ60KhJlSup8aV8kU/8mbs+je28e2CXw/p55nfPu1uWfK5fK4L3WmYoFf8cFag08oiryvwgpkRLQvTEn/FF1rNNJRe5GIZvL7Uqq54+J5KXipbTqyS+gmbT/f1zdX2GcuGfyEpLadI5U1CBnoUWgY5++Jk0pSZf5Ev5zLSn7rbpadMl4P/gcG4tQPb5PE3b5UPGtwMh8+tJTmTNFjUzBlZNHSqiE6jJpXwlXyMdzi12Cd0NyPYvi92+AP8CqM8AZFbK6mEAAAAASUVORK5CYII=) center center / cover;"
+                        src="https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp"
+                        srcset="
+https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 3072w,
+https://timefold.ai/uploads/images/_2048xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 2048w,
+https://timefold.ai/uploads/images/_1920xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1920w,
+https://timefold.ai/uploads/images/_1536xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1536w,
+https://timefold.ai/uploads/images/_1424xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1424w,
+https://timefold.ai/uploads/images/_1280xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1280w,
+https://timefold.ai/uploads/images/_1024xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 1024w,
+https://timefold.ai/uploads/images/_960xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 960w,
+https://timefold.ai/uploads/images/_768xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 768w,
+https://timefold.ai/uploads/images/_640xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 640w,
+https://timefold.ai/uploads/images/_568xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 568w,
+https://timefold.ai/uploads/images/_375xAUTO_fit_center-center_90_none/459/PLATFORM-1-MANAGED-SERVICES.webp 375w,
+"
+                        height="144"
+                        width="373"
+                        alt=""
+                     />
+                  </picture><h3 class="c-title c-article-card__title">
+                     Experience hassle-free managed services
+                  </h3>
+               </div>
+            </div>
+         </article><article
+            class="c-article-card c-article-card--image aos-init aos-animate"
+         >
+            <div class="c-article-card__container">
+               <div class="c-article-card__content">
+                  <picture
+                     class="c-picture c-article-card__media"
+                     style="--image-focal-x: center; --image-focal-y: center;"
+                  >
+                     <img
+                        class="c-picture__image eager"
+                        sizes="(min-width: 720px) 33vw, 100vw"
+                        style="background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAZCAIAAAAOir+2AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEFUlEQVRYhY1XS7LbMAwD/Hz/I3bdUxBvwR9kJ9NmMoliSxZAgKTCv38kIV8SJEA18HfePV4EAdAGc/F8+cLnQ/Lia9ybSpIU8zFfakw3AHKfy/NxBYyQbBr3+jF4Y8dez7U1fm/RFynoXFKg+FwiAcRN7pwdhIWEoGydscpRjhf9g4av1THlTUP9wGG7LggIENguqbs3r+bNvgnggk+vWye2YU4ePz+8ZHC11465zWksBLiHKWrH5XMBvK+rn5gQX+7nOwcMMc8c+Oiif+bAm8CJfnAPh54p3NePrVTROOZpd81MqB358s/HDLavb+C/cX7hPjmAkpbAksazFnVgNqcSMnnSwGcLyWzzJvEWrUIJoBBTQkOfMQVBuH9+bM3TeS6WanOrPCTHSG8RPsReB36eo2OhO+IMf6iJAQBbASzWN3oVes02JEASKg5fRHjHXi6ja/CqXS8CCEHC1TbJOf9BQOoMF3tzVtRJKql8VcBp1Mg5ENTZTnbGwwvXI60xSdwqT82xZBAVQpauCtckLqkyEclPOWDO8UK2PmrdslVtOmzdEwSEoJj0VahtAd3XVVRoR4lyezdtwq4W2jQPLY/5bgXNWhP7HLiSmIpspHZZZ7GYFtJGOZM4I6fpjfYWREa1wUUPtPX9ncQODAJTuNwTyisbfq8HiYLdrqspaapihK4+DFVSQxJuTCd+6h8pHRHa/t3FpzhcXkmfChCpnohsnln6YH5ngbYaMCEQ3BW8KpHHDoII3c8FrV6rEEAgDxV1vfwKAoyCjwtUj+0hRIWKglCDBUnr37IUWESDhGj3QAkpfXXvwWrPpJk2BV2HsaDhkLhrs0BR1KCYppLf/RwPwxwUa/BiMFEL2ecooFKgS1LznQqUxTfO1E6QbJuVh6QSJe9078tUknyP+pzaI4nI86KzkLWBNH9VoIhuy4LuLVhFKjpVQoj5eRbvPBPl+0o2LYqpuOgBHxzhV5Uvnef2KZP2dyYWfVQuS3dsl6mgx/zrKaaHAhKq9mewGN0OSFGkVXkNiDGURsJSjUKnj6wKtX6agCsiIgrd/i+7x2aC3dgJpdZRhSTrAVdGNMWffmdR7EragwZJtvGZC4vN4JmASgU9dtwuujdG0zfijX84+DkizR9VT6uV0hBY+hYJAeuTeoJKQpQOJp9ZOkINf0xeFtLEf+eb9TAi9PZihTwRiCCjEWia4uZwk1cnQCtpXVyCV6JGtAEdEfJHHS1wywnY6ynCgNjUw5G+/q+/k1Wr71YhNfoJRPUzSacCgCbclb/jI7PQCi08aZiDvIpvqpaHhbZ/3doyemZwKSCIItiD6Y5eAbyCTvVpZzSD2yv2+d0dYTw88CGtEaDquHkaWA2MAz4pUM2Z3ZxbglnuMbXWZcQE/AJ+p/6Aubw9oQAAAABJRU5ErkJggg==) center center / cover;"
+                        src="https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp"
+                        srcset="
+https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 3072w,
+https://timefold.ai/uploads/images/_2048xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 2048w,
+https://timefold.ai/uploads/images/_1920xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1920w,
+https://timefold.ai/uploads/images/_1536xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1536w,
+https://timefold.ai/uploads/images/_1424xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1424w,
+https://timefold.ai/uploads/images/_1280xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1280w,
+https://timefold.ai/uploads/images/_1024xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 1024w,
+https://timefold.ai/uploads/images/_960xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 960w,
+https://timefold.ai/uploads/images/_768xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 768w,
+https://timefold.ai/uploads/images/_640xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 640w,
+https://timefold.ai/uploads/images/_568xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 568w,
+https://timefold.ai/uploads/images/_375xAUTO_fit_center-center_90_none/461/PLATFORM-2-INSIGHTS.webp 375w,
+"
+                        height="144"
+                        width="373"
+                        alt=""
+                     />
+                  </picture><h3 class="c-title c-article-card__title">
+                     Get insights from your model&nbsp;runs
+                  </h3>
+               </div>
+            </div>
+         </article><article
+            class="c-article-card c-article-card--image aos-init aos-animate"
+         >
+            <div class="c-article-card__container">
+               <div class="c-article-card__content">
+                  <picture
+                     class="c-picture c-article-card__media"
+                     style="--image-focal-x: center; --image-focal-y: center;"
+                  >
+                     <img
+                        class="c-picture__image eager"
+                        sizes="(min-width: 720px) 33vw, 100vw"
+                        style="background: url(data:image/png;base64,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) center center / cover;"
+                        src="https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp"
+                        srcset="
+https://timefold.ai/uploads/images/_3072xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 3072w,
+https://timefold.ai/uploads/images/_2048xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 2048w,
+https://timefold.ai/uploads/images/_1920xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1920w,
+https://timefold.ai/uploads/images/_1536xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1536w,
+https://timefold.ai/uploads/images/_1424xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1424w,
+https://timefold.ai/uploads/images/_1280xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1280w,
+https://timefold.ai/uploads/images/_1024xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 1024w,
+https://timefold.ai/uploads/images/_960xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 960w,
+https://timefold.ai/uploads/images/_768xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 768w,
+https://timefold.ai/uploads/images/_640xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 640w,
+https://timefold.ai/uploads/images/_568xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 568w,
+https://timefold.ai/uploads/images/_375xAUTO_fit_center-center_90_none/460/PLATFORM-3-MULTIPLE.webp 375w,
+"
+                        height="144"
+                        width="373"
+                        alt=""
+                     />
+                  </picture><h3 class="c-title c-article-card__title">
+                     Run multiple models simultaneously
+                  </h3>
+               </div>
+            </div>
+         </article>
+      </div>
+   </div>
 </section>
