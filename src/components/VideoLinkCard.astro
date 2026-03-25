@@ -40,11 +40,13 @@ const cardClass = `c-link-card c-link-card--media c-link-card--vertical c-link-c
   headerRel={rel}
   headerAriaLabel={title}
 >
-  <span slot="label" class="c-link-card__label">Videos</span>
-  <HeadingTag slot="title" class="c-link-card__title">{title}</HeadingTag>
-  <span slot="button" class="c-link-card__button" aria-hidden="true">
-    <ResourceIcons name="arrow-right" size={16} />
-  </span>
+  <span slot="badge" class="c-label__text">Videos</span>
+  <HeadingTag slot="title" class="c-title c-link-card__title">{title}</HeadingTag>
+  <a slot="button" class="c-button--icon-only c-button-primary c-link-card__button c-button">
+    <span class="c-icon c-button__icon  c-icon--after">
+      <ResourceIcons name="arrow-right" size={20}  class="c-icon__asset" width="16" height="16"/>
+    </span>
+  </a>
 
   <div slot="body" class="c-link-card__meta">{dateText}</div>
 

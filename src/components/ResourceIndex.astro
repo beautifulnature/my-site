@@ -147,8 +147,9 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
       {latestFiltered ? (
         isVideosPath ? (
           <div data-load-more-root data-step={String(loadMoreStep)}>
-            <section aria-label="Video items" class="mb-10">
               <div class="grid grid-cols-2 gap-8 vp9:gap-20">
+                <!-- Featured post: full width -->
+              <article class="c-link-card scheme-default col-span-2 c-link-card--horizontal">
                 <VideoLinkCard
                   href={getItemHref(latestFiltered)}
                   title={String(latestFiltered.data[titleField])}
@@ -156,28 +157,33 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
                   dateText={formatDateMeta(latestFiltered)}
                   subtitle={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
                   headingLevel="h2"
-                  spanTwoCols={true}
+                  spanTwoCols={false}
                   target={isHeroLinkExternal ? '_blank' : undefined}
                   rel={isHeroLinkExternal ? 'noreferrer' : undefined}
                 />
+              </article>
 
                 {restFiltered.map((item, index) => {
                   const itemThumbnailUrl = getYouTubeThumbnailUrl(item.data);
 
                   return (
-                    <div class="js-load-more-item" hidden={index >= loadMoreInitial}>
+                    <article class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical">
+                    <div class="c-link-card__container" hidden={index >= loadMoreInitial}>
                       <VideoLinkCard
-                        href={getItemHref(item)}
-                        title={String(item.data[titleField])}
-                        thumbnailUrl={itemThumbnailUrl}
-                        dateText={formatDateMeta(item)}
-                        subtitle={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
+                        href={getItemHref(latestFiltered)}
+                        title={String(latestFiltered.data[titleField])}
+                        thumbnailUrl={latestThumbnailUrl}
+                        dateText={formatDateMeta(latestFiltered)}
+                        subtitle={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
+                        spanTwoCols={true}
+                        target={isHeroLinkExternal ? '_blank' : undefined}
+                        rel={isHeroLinkExternal ? 'noreferrer' : undefined}
                       />
                     </div>
+                  </article>
                   );
                 })}
               </div>
-            </section>
 
             {hasMoreItems && (
               <div class="mb-10 mt-4 flex justify-center">

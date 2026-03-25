@@ -32,14 +32,8 @@ const {
 
   <div class="c-link-card__container">
     {headerHref ? (
-      <a
-        href={headerHref}
-        target={headerTarget}
-        rel={headerRel}
-        class="c-link-card__header"
-        aria-label={headerAriaLabel}
-      >
-        {imageSrc && (
+      <div class="c-link-card__header">
+       {imageSrc && (
           <picture class="c-picture c-link-card__media u-overlay u-overlay--strong" style="--image-focal-x: center; --image-focal-y: center;">
             <img
               class="c-picture__image eager"
@@ -58,21 +52,14 @@ const {
           <div class="c-label c-link-card__label c-label--square">
             <slot name="badge" />
           </div>
-          <div class="mb-auto">
-            <slot name="label" />
-          </div>
-          <div class="pr-14">
-            <slot name="title" />
-          </div>
-          <div class="absolute bottom-6 right-6 z-20">
-            <slot name="button" />
-          </div>
+          <slot name="title" />
+          <slot name="button" />
         </div>
-      </a>
+        </div>
     ) : (
       <div class="c-link-card__header">
         {imageSrc && (
-          <picture class="c-picture c-link-card__media c-picture--focal-center u-overlay u-overlay--strong">
+          <picture class="c-picture c-link-card__media u-overlay u-overlay--strong" style="--image-focal-x: center; --image-focal-y: center;">
             <img
               class="c-picture__image eager"
               sizes={imageSizes}
