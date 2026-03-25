@@ -6,6 +6,7 @@ import {
   RESOURCE_CARD_PLACEHOLDER_SRCSET,
 } from '../utils/cardMedia';
 
+
 interface Props {
   href: string;
   title: string;
@@ -16,7 +17,10 @@ interface Props {
   spanTwoCols?: boolean;
   target?: '_blank' | '_self';
   rel?: string;
+  imageSrc?: string;
+  imageSrcSet?: string | string[];
 }
+
 
 const {
   href,
@@ -28,6 +32,8 @@ const {
   spanTwoCols = false,
   target,
   rel,
+  imageSrc,
+  imageSrcSet,
 } = Astro.props as Props;
 
 const HeadingTag = headingLevel;
@@ -36,25 +42,22 @@ const cardClass = `c-link-card c-link-card--vertical scheme-default resource-ind
 
 <MediaOverlayCard
   articleClass={cardClass}
-  imageSrc={RESOURCE_CARD_PLACEHOLDER_SRC}
-  imageSrcSet={RESOURCE_CARD_PLACEHOLDER_SRCSET}
+  imageSrc={imageSrc || RESOURCE_CARD_PLACEHOLDER_SRC}
+  imageSrcSet={Array.isArray(imageSrcSet) ? imageSrcSet.join(', ') : (imageSrcSet || RESOURCE_CARD_PLACEHOLDER_SRCSET)}
   imageAlt=""
 >
 
-  <div slot="badge" class="blog-badge">
+  <span slot="badge" class="c-label__text">
     {label}
-  </div>
+  </span>
 
   <HeadingTag slot="title" class="c-title c-link-card__title">{title}</HeadingTag>
   
-  <div slot="button" class="z-20">
-    <div 
-      class="h-10 w-10 flex items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-110" 
-      style="background-color: #6112ff !important; display: flex !important; align-items: center !important; justify-content: center !important;"
-    >
-      <ResourceIcons name="arrow-right" size={20} />
-    </div>
-  </div>
+  <a slot="button" class="c-button--icon-only c-button-primary c-link-card__button c-button">
+    <span class="c-icon c-button__icon  c-icon--after">
+      <ResourceIcons name="arrow-right" size={20}  class="c-icon__asset" width="16" height="16"/>
+    </span>
+  </a>
 
   <div slot="body" class="c-text s-wysiwyg c-link-card__text">
     <p>

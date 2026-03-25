@@ -133,22 +133,17 @@ const loadMoreStep = 6;
 const hasMoreItems = restFiltered.length > loadMoreInitial;
 ---
 
-<section class="w-full max-w-[1400px] mx-auto px-6 vp9:px-16">
-  <div class="blog-main-grid">
-    <aside class="blog-sidebar-sticky flex flex-col items-start">
+  <div class="grid grid-cols-12">
+    <div class="max-vp9:order-2 col-span-12 vp9:col-span-3 max-vp9:border-b vp9:border-r border-solid prop-border pt-8 pb-8 vp9:pr-14">
       {allTags.length > 0 && (
-        <>
-          <header class="w-full mb-8">
-            <h2 class="blog-sidebar-title uppercase font-bold text-lg text-slate-800 dark:text-slate-200 mb-6 text-left">Tags</h2>
-          </header>
-          <nav class="w-full">
-            <TagChipList items={desktopTagItems} className="blog-tag-list" />
-          </nav>
-        </>
+        <h2 class="c-title typo-h3 mb-6">Tags</h2>
+          <div class="flex flex-wrap gap-3" >
+            <TagChipList items={desktopTagItems}  />
+          </div>
       )}
-    </aside>
+    </div>
 
-    <section class="blog-list-area flex flex-col gap-8">
+    <div class="col-span-12 vp9:col-span-9 vp9:p-14">
       {latestFiltered ? (
         isVideosPath ? (
           <div data-load-more-root data-step={String(loadMoreStep)}>
@@ -198,9 +193,10 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
         ) : (
 
           <div data-load-more-root data-step={String(loadMoreStep)}>
-            <section aria-label={`${resourceLabel} items`} class="mb-10">
+            <div aria-label={`${resourceLabel} items`} class="grid grid-cols-2 gap-8 vp9:gap-20">
+            
               <!-- Featured post: full width -->
-              <div class="blog-featured blog-card">
+              <article class="c-link-card scheme-default col-span-2 c-link-card--horizontal">
                 <ResourceImageLinkCard
                   href={getItemHref(latestFiltered)}
                   title={String(latestFiltered.data[titleField])}
@@ -211,26 +207,30 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
                   spanTwoCols={true}
                   target={isHeroLinkExternal ? '_blank' : undefined}
                   rel={isHeroLinkExternal ? 'noreferrer' : undefined}
+                  imageSrc={latestFiltered.data.imageSrc}
+                  imageSrcSet={latestFiltered.data.imageSrcSet}
                 />
-              </div>
+              </article>
 
-              <!-- Rest: 3-column grid -->
-              <div class="blog-grid">
-                {restFiltered.map((item, index) => {
-                  return (
-                    <div class="js-load-more-item blog-card" hidden={index >= loadMoreInitial}>
+              <!-- Rest: 2-column grid -->
+              {restFiltered.map((item, index) => {
+                return (
+                    <article class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical">
+                      <div class="c-link-card__container" hidden={index >= loadMoreInitial}>
                       <ResourceImageLinkCard
                         href={getItemHref(item)}
                         title={String(item.data[titleField])}
                         label={resourceLabel}
                         dateText={formatDateMeta(item)}
                         detailText={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
+                        imageSrc={item.data.imageSrc}
+                        imageSrcSet={item.data.imageSrcSet}
                       />
                     </div>
+              </article>
                   );
                 })}
-              </div>
-            </section>
+            </div>
 
             {hasMoreItems && (
               <div class="mb-10 mt-4 flex justify-center">

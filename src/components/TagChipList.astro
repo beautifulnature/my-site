@@ -1,24 +1,24 @@
 ---
-const {
-  items = [],
-  className = '',
-} = Astro.props as {
+const { items = [], className = "" } = Astro.props as {
   items: Array<{ label: string; href: string; active?: boolean }>;
   className?: string;
 };
 
 const getChipClass = (active?: boolean) => {
-  const base = "inline-flex items-center rounded-full px-5 py-2 text-base uppercase font-bold tracking-wide transition-colors duration-200";
-  const inactive = "bg-[#e2e8f0] text-[#1a202c] hover:bg-[#cbd5e0]";
-  const activeClass = "bg-[#6112ff] text-white shadow-md hover:bg-[#4a0ecc]";
+  const base =
+    "inline-flex items-center rounded-full px-5 py-2 text-base uppercase font-bold tracking-wide transition-colors duration-200";
+  const inactive = "";
+  const activeClass = "is-active";
   return `${base} ${active ? activeClass : inactive}`;
 };
 ---
 
-<div class={className}>
-  {items.map((item) => (
-    <a href={item.href} class={getChipClass(item.active)}>
-      {item.label}
-    </a>
-  ))}
-</div>
+{
+  items.map((item) => (
+    <button class="c-label c-label--small c-label--light-grey c-label--lower c-label--filter">
+      <a href={item.href} class={getChipClass(item.active)}>
+        <span class="c-label__text">{item.label}</span>
+      </a>
+    </button>
+  ))
+}

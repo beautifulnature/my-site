@@ -30,7 +30,6 @@ const {
 } = Astro.props as Props;
 ---
 
-<article class={articleClass}>
   <div class="c-link-card__container">
     {headerHref ? (
       <a
@@ -41,7 +40,7 @@ const {
         aria-label={headerAriaLabel}
       >
         {imageSrc && (
-          <picture class="c-picture c-link-card__media c-picture--focal-center u-overlay u-overlay--strong">
+          <picture class="c-picture c-link-card__media u-overlay u-overlay--strong" style="--image-focal-x: center; --image-focal-y: center;">
             <img
               class="c-picture__image eager"
               sizes={imageSizes}
@@ -55,8 +54,8 @@ const {
           </picture>
         )}
 
-        <div class="c-link-card__content p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent relative">
-          <div class="absolute top-4 right-4 z-20">
+        <div class="c-link-card__content">
+          <div class="c-label c-link-card__label c-label--square">
             <slot name="badge" />
           </div>
           <div class="mb-auto">
@@ -87,23 +86,15 @@ const {
           </picture>
         )}
 
-        <div class="c-link-card__content p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent relative">
-          <div class="absolute top-4 right-4 z-20">
+        <div class="c-link-card__content">
+          <div class="c-label c-link-card__label c-label--square">
             <slot name="badge" />
           </div>
-          <div class="mb-auto">
-            <slot name="label" />
-          </div>
-          <div class="pr-14">
-            <slot name="title" />
-          </div>
-          <div class="absolute bottom-6 right-6 z-20">
-            <slot name="button" />
-          </div>
+          <slot name="title" />
+          <slot name="button" />
         </div>
       </div>
     )}
 
     <slot name="body" />
   </div>
-</article>

@@ -1,23 +1,23 @@
 ---
-import '../styles/global.css';
-import DocsTocScript from '../components/DocsTocScript.astro';
-import Header from '../components/landing/LandingHeader.astro';
-import Footer from '../components/Footer.astro';
-import GoToTopButton from '../components/GoToTopButton.astro';
-import ResourceIcons from '../components/ResourceIcons.astro';
-import { RESOURCE_NAV_ITEMS, SIDEBAR_SECTIONS } from '../utils/navigation';
-import { SITE_CONTENT } from '../utils/siteContent';
+import "../styles/global.css";
+import DocsTocScript from "../components/DocsTocScript.astro";
+import Header from "../components/landing/LandingHeader.astro";
+import Footer from "../components/Footer.astro";
+import GoToTopButton from "../components/GoToTopButton.astro";
+import ResourceIcons from "../components/ResourceIcons.astro";
+import { RESOURCE_NAV_ITEMS, SIDEBAR_SECTIONS } from "../utils/navigation";
+import { SITE_CONTENT } from "../utils/siteContent";
 
 const {
-  title = 'Resources',
-  description = '',
-  descriptionClass = '',
-  currentPath = '',
+  title = "Resources",
+  description = "",
+  descriptionClass = "",
+  currentPath = "",
   showSidebar = true,
 } = Astro.props;
 
-const linkBase = 'resource-tag-link';
-const linkActive = 'resource-tag-link resource-tag-link--active';
+const linkBase = "resource-tag-link";
+const linkActive = "resource-tag-link resource-tag-link--active";
 ---
 
 <html lang="en">
@@ -27,73 +27,58 @@ const linkActive = 'resource-tag-link resource-tag-link--active';
   </head>
   <body class="scheme-default">
     <Header />
-    <div class="flex pt-20">
-      <!-- LEFT NAV -->
-      {showSidebar && (
-        <aside
-          id="sidebar"
-          class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden"
-        >
-          <h2>{SITE_CONTENT.sidebarHeading}</h2>
-
-          {SIDEBAR_SECTIONS.map((section) => (
-            <div class="mb-6">
-              {section.heading && (
-                <h3 class="h3-section-label">
-                  {section.heading}
-                </h3>
-              )}
-              <ul class="space-y-1">
-                {section.links.map((link) => (
-                  <li><a href={link.href} class="hover:text-white">{link.label}</a></li>
-                ))}
-              </ul>
+    {
+      title && (
+        <section class="layout bound-x section-sm section-sm border-b border-solid prop-border scheme-default">
+          <div class="c-hero scheme-default">
+            <div class="c-hero__content">
+              <h1
+                class="c-title c-hero__title aos-init aos-animate"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out-expo"
+              >
+                {title}
+              </h1>
             </div>
-          ))}
-        </aside>
-      )}
 
-      <!-- MAIN CONTENT -->
-      <main class="flex-1">
-        {title && (
-          <section class="layout bound-x py-3 md:py-4 border-b border-solid prop-border scheme-default">
-            <div class="c-hero scheme-default">
-              <div class="c-hero__content">
-                <h1 class="c-title c-hero__title aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out-expo">{title}</h1>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {title && (
-          <section class="layout bound-x py-3 md:py-4 border-b border-solid prop-border scheme-default">
-            <div class="layout-container layout-container--flush">
-              <header>
-                <div>
-                  {description && (
-                    <p class={`${descriptionClass}`} set:html={description}></p>
-                  )}
-                </div>
-
-                <nav class="mt-3 flex gap-3 pt-2 pr-3 pb-2">
-                  {RESOURCE_NAV_ITEMS.map((item) => (
-                    <a href={item.href} class={currentPath === item.href ? linkActive : linkBase} aria-label={item.label}>
-                      <span class={`resource-nav-icon ${currentPath === item.href ? 'resource-nav-icon-active' : 'resource-nav-icon-inactive'}`}>
-                        <ResourceIcons name={item.iconName} size={20} color={currentPath === item.href ? 'hsl(var(--color-neutral-100)/1)' : 'var(--scheme-title)'} />
-                      </span>
-                    </a>
-                  ))}
-                </nav>
-              </header>
-            </div>
-          </section>
-        )}
-
-        <section class="py-8">
-          <slot />
+            <nav class="mt-3 flex gap-3 pt-2 pr-3 pb-2">
+              {RESOURCE_NAV_ITEMS.map((item) => (
+                <a
+                  href={item.href}
+                  class={currentPath === item.href ? linkActive : linkBase}
+                  aria-label={item.label}
+                >
+                  <span
+                    class={`resource-nav-icon ${currentPath === item.href ? "resource-nav-icon-active" : "resource-nav-icon-inactive"}`}
+                  >
+                    <ResourceIcons
+                      name={item.iconName}
+                      size={20}
+                      color={
+                        currentPath === item.href
+                          ? "hsl(var(--color-neutral-100)/1)"
+                          : "var(--scheme-title)"
+                      }
+                    />
+                  </span>
+                </a>
+              ))}
+            </nav>
+          </div>
         </section>
-      </main>
-    </div>
+      )
+    }
+
+    <main id="main" class="">
+      <div id="component-ikdegh" class="sprig-component">
+        <div id="results-container" class="mb-14">
+          <section class="layout bound-x">
+            <slot />
+          </section>
+        </div>
+      </div>
+    </main>
 
     <DocsTocScript enableToc={false} />
     <script is:inline>
@@ -111,7 +96,8 @@ const linkActive = 'resource-tag-link resource-tag-link--active';
           if (duration) element.style.transitionDuration = `${duration}ms`;
           if (delay) element.style.transitionDelay = `${delay}ms`;
           if (easing === "ease-out-expo") {
-            element.style.transitionTimingFunction = "cubic-bezier(0.19, 1, 0.22, 1)";
+            element.style.transitionTimingFunction =
+              "cubic-bezier(0.19, 1, 0.22, 1)";
           }
         };
 

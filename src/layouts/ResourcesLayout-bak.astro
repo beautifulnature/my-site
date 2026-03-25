@@ -1,0 +1,955 @@
+---
+import "../styles/global.css";
+import DocsTocScript from "../components/DocsTocScript.astro";
+import Header from "../components/landing/LandingHeader.astro";
+import Footer from "../components/Footer.astro";
+import GoToTopButton from "../components/GoToTopButton.astro";
+import ResourceIcons from "../components/ResourceIcons.astro";
+import { RESOURCE_NAV_ITEMS, SIDEBAR_SECTIONS } from "../utils/navigation";
+import { SITE_CONTENT } from "../utils/siteContent";
+
+const {
+  title = "Resources",
+  description = "",
+  descriptionClass = "",
+  currentPath = "",
+  showSidebar = true,
+} = Astro.props;
+
+const linkBase = "resource-tag-link";
+const linkActive = "resource-tag-link resource-tag-link--active";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+  </head>
+  <body class="scheme-default">
+    <Header />
+    <!-- <div class="flex pt-20"> -->
+      <!-- LEFT NAV -->
+      <!-- {
+        showSidebar && (
+          <aside
+            id="sidebar"
+            class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden"
+          >
+            <h2>{SITE_CONTENT.sidebarHeading}</h2>
+
+            {SIDEBAR_SECTIONS.map((section) => (
+              <div class="mb-6">
+                {section.heading && (
+                  <h3 class="h3-section-label">{section.heading}</h3>
+                )}
+                <ul class="space-y-1">
+                  {section.links.map((link) => (
+                    <li>
+                      <a href={link.href} class="hover:text-white">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </aside>
+        )
+      } -->
+
+      <!-- <section
+        class="layout bound-x section-sm section-sm border-b border-solid prop-border scheme-default"
+      >
+        <div class="c-hero scheme-default">
+          <div class="c-hero__content">
+            <h1
+              class="c-title c-hero__title aos-init aos-animate"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-easing="ease-out-expo"
+            >
+              Blog
+            </h1>
+          </div>
+        </div>
+      </section> -->
+
+      <!-- MAIN CONTENT -->
+      <!-- <main class="flex-1">
+        {
+          title && (
+            <section class="layout bound-x py-3 md:py-4 border-b border-solid prop-border scheme-default">
+              <div class="c-hero scheme-default">
+                <div class="c-hero__content">
+                  <h1
+                    class="c-title c-hero__title aos-init aos-animate"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-easing="ease-out-expo"
+                  >
+                    {title}
+                  </h1>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+        {
+          title && (
+            <section class="layout bound-x py-3 md:py-4 border-b border-solid prop-border scheme-default">
+              <div class="layout-container layout-container--flush">
+                <header>
+                  <div>
+                    {description && (
+                      <p class={`${descriptionClass}`} set:html={description} />
+                    )}
+                  </div>
+
+                  <nav class="mt-3 flex gap-3 pt-2 pr-3 pb-2">
+                    {RESOURCE_NAV_ITEMS.map((item) => (
+                      <a
+                        href={item.href}
+                        class={
+                          currentPath === item.href ? linkActive : linkBase
+                        }
+                        aria-label={item.label}
+                      >
+                        <span
+                          class={`resource-nav-icon ${currentPath === item.href ? "resource-nav-icon-active" : "resource-nav-icon-inactive"}`}
+                        >
+                          <ResourceIcons
+                            name={item.iconName}
+                            size={20}
+                            color={
+                              currentPath === item.href
+                                ? "hsl(var(--color-neutral-100)/1)"
+                                : "var(--scheme-title)"
+                            }
+                          />
+                        </span>
+                      </a>
+                    ))}
+                  </nav>
+                </header>
+              </div>
+            </section>
+          )
+        }
+
+        <section class="py-8">
+          <slot />
+        </section>
+      </main>
+    </div> -->
+    {
+      title && (
+        <section class="layout bound-x section-sm section-sm border-b border-solid prop-border scheme-default">
+          <div class="c-hero scheme-default">
+            <div class="c-hero__content">
+              <h1
+                class="c-title c-hero__title aos-init aos-animate"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-easing="ease-out-expo"
+              >
+                {title}
+              </h1>
+            </div>
+
+            <nav class="mt-3 flex gap-3 pt-2 pr-3 pb-2">
+              {RESOURCE_NAV_ITEMS.map((item) => (
+                <a
+                  href={item.href}
+                  class={currentPath === item.href ? linkActive : linkBase}
+                  aria-label={item.label}
+                >
+                  <span
+                    class={`resource-nav-icon ${currentPath === item.href ? "resource-nav-icon-active" : "resource-nav-icon-inactive"}`}
+                  >
+                    <ResourceIcons
+                      name={item.iconName}
+                      size={20}
+                      color={
+                        currentPath === item.href
+                          ? "hsl(var(--color-neutral-100)/1)"
+                          : "var(--scheme-title)"
+                      }
+                    />
+                  </span>
+                </a>
+              ))}
+            </nav>
+          </div>
+        </section>
+      )
+    }
+
+    <main id="main" class="">
+      <div id="component-ikdegh" class="sprig-component">
+        <div id="results-container" class="mb-14">
+          <section class="layout bound-x">
+            <!-- <div class="grid grid-cols-12">
+
+              <div
+                class="max-vp9:order-2 col-span-12 vp9:col-span-3 max-vp9:border-b vp9:border-r border-solid prop-border pt-8 pb-8 vp9:pr-14"
+              >
+                <h2 class="c-title typo-h3 mb-6">Tags</h2><div
+                  class="flex flex-wrap gap-3"
+                >
+                  <button
+                    class="c-label c-label--small c-label--light-grey c-label--lower c-label--filter"
+                    sprig=""
+                    s-val:tag="solver"
+                    s-val:search=""
+                    s-val:page="1"
+                    s-replace="#results-container"
+                    data-hx-get="https://timefold.ai/index.php?p=actions/sprig-core/components/render"
+                    data-hx-vals='{"tag":"solver","search":"","page":"1"}'
+                    data-hx-select="#results-container"
+                    data-hx-target="#results-container"
+                    data-hx-swap="outerHTML"
+                    data-sprig-parsed=""
+                  >
+                    <span class="c-label__text">Solver</span></button
+                  >
+                </div>
+              </div><div class="col-span-12 vp9:col-span-9 vp9:p-14">
+                <div
+                  class="flex justify-between items-start gap-4 mb-14 max-vp9:pt-8"
+                >
+                  <div class="flex flex-wrap items-center gap-4">
+                    <a
+                      class="c-label c-label--light-grey c-label--big c-label--lower is-active"
+                      href="https://timefold.ai/blog"
+                      target="_self"
+                    >
+                      <span class="c-label__text">Blog</span></a
+                    ><a
+                      class="c-label c-label--light-grey c-label--big c-label--lower"
+                      href="https://timefold.ai/videos"
+                      target="_self"
+                    >
+                      <span class="c-label__text">Videos</span></a
+                    ><a
+                      class="c-label c-label--light-grey c-label--big c-label--lower"
+                      href="https://timefold.ai/customer-stories"
+                      target="_self"
+                    >
+                      <span class="c-label__text">Customer Stories</span></a
+                    ><a
+                      class="c-label c-label--light-grey c-label--big c-label--lower"
+                      href="https://timefold.ai/events"
+                      target="_self"
+                    >
+                      <span class="c-label__text">Events</span></a
+                    ><a
+                      class="c-label c-label--light-grey c-label--big c-label--lower"
+                      href="https://timefold.ai/press"
+                      target="_self"
+                    >
+                      <span class="c-label__text">Press</span></a
+                    ><a
+                      class="c-label c-label--light-grey c-label--big c-label--lower"
+                      href="https://timefold.ai/newsletters"
+                      target="_self"
+                    >
+                      <span class="c-label__text">Newsletters</span></a
+                    >
+                  </div>
+                  <a
+                    class="c-button--icon-only c-button--secondary flex-none c-button"
+                    href="feed.xml"
+                    target="_self"
+                    ><span class="c-icon c-button__icon c-icon--before">
+                      <svg
+                        id="Capa_1"
+                        class="c-icon__asset"
+                        width="800px"
+                        height="800px"
+                        fill="currentColor"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24.912 24.912"
+                        xml:space="preserve"
+                        aria-hidden="true"
+                      >
+                        <g>
+                          <path
+                            d="M3.692,17.517C1.656,17.517,0,19.173,0,21.211C0,23.244,1.656,24.9,3.692,24.9s3.694-1.657,3.694-3.689
+C7.387,19.173,5.729,17.517,3.692,17.517z"
+                          ></path>
+                          <path
+                            d="M0.384,8.142C0.173,8.142,0,8.315,0,8.527v4.688c0,0.211,0.173,0.383,0.384,0.383c6.02,0,10.919,4.898,10.919,10.92
+c0,0.209,0.171,0.383,0.384,0.383h4.689h0.016c0.215,0,0.387-0.173,0.387-0.383l-0.018-0.121C16.692,15.423,9.37,8.142,0.384,8.142
+z"
+                          ></path>
+                          <path
+                            d="M24.89,24.397C24.825,10.936,13.854,0.011,0.384,0.011C0.173,0.011,0,0.183,0,0.397v4.824c0,0.212,0.173,0.383,0.384,0.383
+c10.429,0,18.913,8.486,18.913,18.914c0,0.209,0.172,0.383,0.382,0.383h4.825h0.02c0.21,0,0.388-0.173,0.388-0.383L24.89,24.397z"
+                          ></path>
+                        </g>
+                      </svg></span
+                    >
+                    <span class="c-button__text sr-only">Rss Feed</span>
+                  </a>
+                </div><div
+                  id="results"
+                  class="grid grid-cols-2 gap-8 vp9:gap-20"
+                >
+                  <article
+                    class="c-link-card scheme-default col-span-2 c-link-card--horizontal"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h2 class="c-title c-link-card__title">
+                            They’re everywhere: Spotting optimization problems
+                            in the&nbsp;wild
+                          </h2>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/theyre-everywhere-spotting-optimization-problems-in-the-wild"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2026/_1200x960_crop_center-center_90_none/22724/pexels-andreea-ch-371539-11889329.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2026/_1200x960_crop_center-center_90_none/22724/pexels-andreea-ch-371539-11889329.webp 1200w,
+https://timefold.ai/uploads/images/blog/2026/_992x794_crop_center-center_90_none/22724/pexels-andreea-ch-371539-11889329.webp 992w,
+https://timefold.ai/uploads/images/blog/2026/_720x576_crop_center-center_90_none/22724/pexels-andreea-ch-371539-11889329.webp 720w,
+https://timefold.ai/uploads/images/blog/2026/_480x384_crop_center-center_90_none/22724/pexels-andreea-ch-371539-11889329.webp 480w,
+https://timefold.ai/uploads/images/blog/2026/_320x256_crop_center-center_90_none/22724/pexels-andreea-ch-371539-11889329.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            Solver <span class="numbers">2</span>.x: Java
+                            Platform Module System (<span class="caps"
+                              >JPMS</span
+                            >) support.
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/solver-2-x-java-platform-module-system-support"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            We are introducing <span class="caps">JPMS</span> support
+                            in Timefold Solver <span class="numbers">2</span>.x.
+                            In this blog post, we explain what that means to our
+                            current users and to the long term maintainability
+                            of the project.&nbsp;
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22519/Am-I-ready-for-optimization-The-data-foundations-of-efficient-field-service.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22519/Am-I-ready-for-optimization-The-data-foundations-of-efficient-field-service.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/22519/Am-I-ready-for-optimization-The-data-foundations-of-efficient-field-service.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/22519/Am-I-ready-for-optimization-The-data-foundations-of-efficient-field-service.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/22519/Am-I-ready-for-optimization-The-data-foundations-of-efficient-field-service.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/22519/Am-I-ready-for-optimization-The-data-foundations-of-efficient-field-service.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            Am I&nbsp;ready for optimization? The data
+                            foundations of efficient field service&nbsp;
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/am-i-ready-for-optimization-the-data-foundations-of-efficient-field-service"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p></p><p>
+                            Before you can optimize field service operations,
+                            you need to organize the data that feeds the engine.
+                            This post walks through the three data pillars
+                            behind scheduling optimization, and how to get them
+                            API-ready.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22463/self-scheduling-vs-optimization-field-service.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22463/self-scheduling-vs-optimization-field-service.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/22463/self-scheduling-vs-optimization-field-service.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/22463/self-scheduling-vs-optimization-field-service.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/22463/self-scheduling-vs-optimization-field-service.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/22463/self-scheduling-vs-optimization-field-service.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            Beyond self-scheduling: Balancing efficiency and
+                            autonomy in field service
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/beyond-self-scheduling-balancing-efficiency-and-autonomy-in-field-service"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            Self-scheduling feels like freedom for field
+                            technicians, but it masks inefficiencies that drain
+                            profitability. And forcing technological solutions
+                            that ignore frontline expertise is a&nbsp;recipe for
+                            resistance.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22245/From-complex-labor-laws-to-scalable-conditional-constraints.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22245/From-complex-labor-laws-to-scalable-conditional-constraints.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/22245/From-complex-labor-laws-to-scalable-conditional-constraints.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/22245/From-complex-labor-laws-to-scalable-conditional-constraints.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/22245/From-complex-labor-laws-to-scalable-conditional-constraints.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/22245/From-complex-labor-laws-to-scalable-conditional-constraints.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            From complex labor laws to scalable conditional
+                            constraints
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/complex-labor-laws-to-scalable-conditional-constraints"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            <br />Our engineer Lukas Downes shares his
+                            experience building constraints which don’t always
+                            apply.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22233/Humans-are-always-the-hardest-part.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/22233/Humans-are-always-the-hardest-part.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/22233/Humans-are-always-the-hardest-part.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/22233/Humans-are-always-the-hardest-part.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/22233/Humans-are-always-the-hardest-part.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/22233/Humans-are-always-the-hardest-part.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            Humans are always the hardest part: The one thing in
+                            optimization you can’t&nbsp;debug
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/humans-are-always-the-hardest-part-the-one-thing-in-optimization-you-cant-debug"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            Why the algorithm is the easy part, and the change
+                            management is the <span class="push-double"
+                            ></span>​<span class="pull-double">“</span
+                            >boss&nbsp;fight.”
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/The-definitive-guide-to-Field-Service-Routing-and-Scheduling-Optimization.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/The-definitive-guide-to-Field-Service-Routing-and-Scheduling-Optimization.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/The-definitive-guide-to-Field-Service-Routing-and-Scheduling-Optimization.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/The-definitive-guide-to-Field-Service-Routing-and-Scheduling-Optimization.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/The-definitive-guide-to-Field-Service-Routing-and-Scheduling-Optimization.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/The-definitive-guide-to-Field-Service-Routing-and-Scheduling-Optimization.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            The definitive Field Service Optimization guide
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/field-service-routing-optimization-guide"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            If you’re still routing and scheduling your
+                            technicians manually, you’re fighting a&nbsp;losing
+                            battle against math. With more possible route
+                            combinations than there are atoms in the observable
+                            universe (seriously), <span class="push-double"
+                            ></span>​<span class="pull-double">“</span>good
+                            enough” is leaving <span class="numbers">30</span>%
+                            of your efficiency on the&nbsp;table.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/timefold-solver-2.0.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/timefold-solver-2.0.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/timefold-solver-2.0.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/timefold-solver-2.0.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/timefold-solver-2.0.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/timefold-solver-2.0.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            Timefold Solver <span class="numbers">2</span>.<span
+                              class="numbers">0</span
+                            > is coming
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/introducing-timefold-solver-2-0"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            A major evolution of Timefold Solver arrives in
+                            March <span class="numbers">2026</span>. Version <span
+                              class="numbers">2</span
+                            >.<span class="numbers">0</span> removes legacy APIs,
+                            simplifies model development, introduces enterprise license
+                            keys, and provides a&nbsp;clear, automated upgrade path.
+                            This upgrade is designed for long-term maintainability
+                            and faster developer onboarding.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><article
+                    class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical"
+                  >
+                    <div class="c-link-card__container">
+                      <div class="c-link-card__header">
+                        <picture
+                          class="c-picture c-link-card__media u-overlay u-overlay--strong"
+                          style="--image-focal-x: center; --image-focal-y: center;"
+                        >
+                          <img
+                            class="c-picture__image eager"
+                            sizes="(min-width: 720px) 33vw, 100vw"
+                            style="background: url(data:image/png;base64,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) center center / cover;"
+                            src="https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/You-Cant-Opt-Out-of-Decisions.webp"
+                            srcset="
+https://timefold.ai/uploads/images/blog/2025/_1200x960_crop_center-center_90_none/You-Cant-Opt-Out-of-Decisions.webp 1200w,
+https://timefold.ai/uploads/images/blog/2025/_992x794_crop_center-center_90_none/You-Cant-Opt-Out-of-Decisions.webp 992w,
+https://timefold.ai/uploads/images/blog/2025/_720x576_crop_center-center_90_none/You-Cant-Opt-Out-of-Decisions.webp 720w,
+https://timefold.ai/uploads/images/blog/2025/_480x384_crop_center-center_90_none/You-Cant-Opt-Out-of-Decisions.webp 480w,
+https://timefold.ai/uploads/images/blog/2025/_320x256_crop_center-center_90_none/You-Cant-Opt-Out-of-Decisions.webp 320w,
+"
+                            height="144"
+                            width="180"
+                            alt=""
+                          />
+                        </picture><div class="c-link-card__content">
+                          <div
+                            class="c-label c-link-card__label c-label--square"
+                          >
+                            <span class="c-label__text">Blog</span>
+                          </div><h3 class="c-title c-link-card__title">
+                            You Can’t Opt Out of Decisions
+                          </h3>
+                          <a
+                            class="c-button--icon-only c-button-primary c-link-card__button c-button"
+                            href="https://timefold.ai/blog/you-cant-opt-out-of-decisions"
+                            target="_self"
+                            ><span class="c-icon c-button__icon c-icon--after">
+                              <svg
+                                class="c-icon__asset"
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fill="currentcolor"
+                                  d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"
+                                ></path>
+                              </svg></span
+                            >
+                          </a>
+                        </div><div class="c-text s-wysiwyg c-link-card__text">
+                          <p>
+                            Every system makes decisions, even when no one is
+                            paying attention. This article explores how everyday
+                            heuristics quietly shape outcomes, and why
+                            optimization is a&nbsp;way to make those decisions
+                            intentional, transparent, and defensible.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </article><div id="load-more-container" class="col-span-2">
+                    <button
+                      id="load-more-btn"
+                      class="c-button--secondary mx-auto my-20 c-button"
+                      sprig=""
+                      s-val:offset="9"
+                      s-select="#results .c-link-card, #load-more-container"
+                      s-target="#load-more-container"
+                      s-swap="outerHTML"
+                      data-hx-get="https://timefold.ai/index.php?p=actions/sprig-core/components/render"
+                      data-hx-vals='{"offset":"9"}'
+                      data-hx-select="#results .c-link-card, #load-more-container"
+                      data-hx-target="#load-more-container"
+                      data-hx-swap="outerHTML"
+                      data-sprig-parsed=""
+                    >
+                      <span class="c-button__text">Load more</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <slot />
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <DocsTocScript enableToc={false} />
+    <script is:inline>
+      (() => {
+        if (typeof window === "undefined") return;
+
+        const animatedElements = document.querySelectorAll("[data-aos]");
+        if (!animatedElements.length) return;
+
+        const applyTimingFromData = (element) => {
+          const duration = element.getAttribute("data-aos-duration");
+          const delay = element.getAttribute("data-aos-delay");
+          const easing = element.getAttribute("data-aos-easing");
+
+          if (duration) element.style.transitionDuration = `${duration}ms`;
+          if (delay) element.style.transitionDelay = `${delay}ms`;
+          if (easing === "ease-out-expo") {
+            element.style.transitionTimingFunction =
+              "cubic-bezier(0.19, 1, 0.22, 1)";
+          }
+        };
+
+        animatedElements.forEach((element) => {
+          element.classList.add("aos-init");
+          applyTimingFromData(element);
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("aos-animate");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            threshold: 0.15,
+            rootMargin: "0px 0px -8% 0px",
+          },
+        );
+
+        animatedElements.forEach((element) => observer.observe(element));
+      })();
+    </script>
+    <GoToTopButton />
+    <Footer />
+  </body>
+</html>
