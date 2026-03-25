@@ -8,6 +8,15 @@ const site = process.env.PUBLIC_SITE_URL ?? 'https://your-domain.com';
 
 export default defineConfig({
   site,
+  server: {
+    host: '0.0.0.0',
+    port: 5000,
+  },
+  vite: {
+    server: {
+      allowedHosts: true,
+    },
+  },
   integrations: [
     asciidoc({
       options: {
