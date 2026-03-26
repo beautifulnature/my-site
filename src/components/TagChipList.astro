@@ -6,7 +6,7 @@ const { items = [], className = "" } = Astro.props as {
 
 const getChipClass = (active?: boolean) => {
   const base =
-    "inline-flex items-center rounded-full px-5 py-2 text-base uppercase font-bold tracking-wide transition-colors duration-200";
+    "inline-flex items-center rounded-full text-base uppercase font-bold tracking-wide transition-colors duration-200";
   const inactive = "";
   const activeClass = "is-active";
   return `${base} ${active ? activeClass : inactive}`;

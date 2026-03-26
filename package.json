@@ -14,7 +14,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@tabler/icons": "^3.40.0",
     "@tailwindcss/typography": "^0.5.19",
+    "aos": "^2.3.4",
     "astro": "^5.17.1",
     "astro-asciidoc": "^0.1.0",
     "astro-typst": "^0.12.3",
