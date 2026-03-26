@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import DocsTocScript from "../components/DocsTocScript.astro";
-import Header from "../components/Header.astro";
+import Header from "../components/landing/LandingHeader.astro";
 import Footer from "../components/Footer.astro";
 import GoToTopButton from "../components/GoToTopButton.astro";
 import { SIDEBAR_SECTIONS } from "../utils/navigation";
@@ -15,7 +15,7 @@ const { title, enableToc = false } = Astro.props;
     <meta charset="utf-8" />
     <title>{title}</title>
   </head>
-  <body class="bg-timefold-dark text-slate-300 font-sans antialiased scheme-dark" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+  <body class="scheme-default" >
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900 focus:shadow-lg"
@@ -36,7 +36,7 @@ const { title, enableToc = false } = Astro.props;
 
     <div class="flex flex-1">
       <!-- LEFT NAV -->
-      <aside
+      <!-- <aside
         id="sidebar"
         class="w-64 border-r border-slate-800 p-6 vp7:block sidebar-hidden text-black"
       >
@@ -62,7 +62,7 @@ const { title, enableToc = false } = Astro.props;
             </ul>
           </div>
         ))}
-      </aside>
+      </aside> -->
 
       <button
         type="button"
@@ -70,11 +70,11 @@ const { title, enableToc = false } = Astro.props;
         class="fixed inset-0 z-30 hidden bg-slate-900/20 backdrop-blur-[1px] vp9:hidden"
         data-mobile-backdrop></button>
 
-      <main id="main-content" class="flex-1 min-w-0">
+      <div id="main-content">
         <!-- <div class="layout-container"> -->
           <slot />
         <!-- </div> -->
-      </main>
+      </div>
 
       <!-- MAIN + RIGHT TOC -->
       <!-- <main class="flex flex-1">

@@ -1,19 +1,19 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import DocsLayout from '../../layouts/Docs.astro';
-import ResourceDetailArticle from '../../components/ResourceDetailArticle.astro';
-import MoreItemsGrid from '../../components/MoreItemsGrid.astro';
-import MoreItemCard from '../../components/MoreItemCard.astro';
+import type { GetStaticPaths } from "astro";
+import DocsLayout from "../../layouts/Docs.astro";
+import ResourceDetailArticle from "../../components/ResourceDetailArticle.astro";
+import MoreItemsGrid from "../../components/MoreItemsGrid.astro";
+import MoreItemCard from "../../components/MoreItemCard.astro";
 import {
   buildMoreItemCardProps,
   buildDetailPageMetaFromCollection,
   buildStaticPathsFromCollection,
-} from '../../utils/content';
-import type { BlogEntry } from '../../types/collections';
-import { RESOURCE_TYPES } from '../../utils/resourceTypes';
+} from "../../utils/content";
+import type { BlogEntry } from "../../types/collections";
+import { RESOURCE_TYPES } from "../../utils/resourceTypes";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return buildStaticPathsFromCollection('blog', 'post');
+  return buildStaticPathsFromCollection("blog", "post");
 };
 
 const { post } = Astro.props as { post: BlogEntry };
@@ -24,7 +24,13 @@ const {
   pageUrl,
   moreItems: morePosts,
   tags: postTags,
-} = await buildDetailPageMetaFromCollection('blog', post, resourceType.detailBasePath, Astro.request?.url, 3);
+} = await buildDetailPageMetaFromCollection(
+  "blog",
+  post,
+  resourceType.detailBasePath,
+  Astro.request?.url,
+  3,
+);
 ---
 
 <DocsLayout enableToc={true}>
@@ -39,44 +45,51 @@ const {
     articleClass="prose blog-prose"
     articleId="article-root"
   >
-    {post.data.description && (
-      <div slot="preMeta" class="mb-4">
-        <p>
-          {post.data.description}
-        </p>
-      </div>
-    )}
-
     <Fragment slot="meta">
+      <section class="layout bound-x scheme-default">
+  <div class="container-1 grid grid-cols-10 vp9:gap-10">
+    <div
+      class="hidden vp9:block col-span-full vp9:col-span-3 vp9:col-start-8 vp9:row-start-1"
+    >
+    {
+      post.data.description && (
+        <div slot="preMeta" class="mb-4">
+          <p>{post.data.description}</p>
+        </div>
+      )
+    }
       <span>{post.data.date.toLocaleDateString()}</span>
-      <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
+      <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]"></span>
       <span>
-        By{' '}
-        {post.data.authorUrl ? (
-          <a
-            href={post.data.authorUrl}
-            class="underline hover:text-[var(--scheme-accent)]"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {post.data.author}
-          </a>
-        ) : (
-          post.data.author
-        )}
+        By{" "}
+        {
+          post.data.authorUrl ? (
+            <a
+              href={post.data.authorUrl}
+              class="underline hover:text-[var(--scheme-accent)]"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {post.data.author}
+            </a>
+          ) : (
+            post.data.author
+          )
+        }
       </span>
-      {postTags.length > 0 && (
-        <>
-          <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
-          <span class="flex flex-wrap gap-1">
-            {postTags.map((tag) => (
-              <span class="tag-chip">
-                {tag}
-              </span>
-            ))}
-          </span>
-        </>
-      )}
+      {
+        postTags.length > 0 && (
+          <>
+            <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
+            <span class="flex flex-wrap gap-1">
+              {postTags.map((tag) => (
+                <span class="tag-chip">{tag}</span>
+              ))}
+            </span>
+          </>
+        )
+      }
+    </div>
     </Fragment>
 
     {/* Main content – headings here are used for TOC */}
@@ -84,13 +97,450 @@ const {
   </ResourceDetailArticle>
 
   {/* More posts – OUTSIDE article-root, ignored by TOC */}
-  {morePosts.length > 0 && (
-    <MoreItemsGrid title={resourceType.moreTitle} gridId="more-blog-grid">
-          {morePosts.map((p) => (
-            <MoreItemCard {...buildMoreItemCardProps(p, resourceType.detailBasePath, resourceType.moreCard)} />
-          ))}
-    </MoreItemsGrid>
-  )}
+  {
+    morePosts.length > 0 && (
+      <MoreItemsGrid title={resourceType.moreTitle} gridId="more-blog-grid">
+        {morePosts.map((p) => (
+          <MoreItemCard
+            {...buildMoreItemCardProps(
+              p,
+              resourceType.detailBasePath,
+              resourceType.moreCard,
+            )}
+          />
+        ))}
+      </MoreItemsGrid>
+    )
+  }
 
-  {/* DocsTocScript is included by the layout; avoid duplicate inclusion here */}
+  {
+    /* DocsTocScript is included by the layout; avoid duplicate inclusion here */
+  }
 </DocsLayout>
+
+<section class="layout bound-x scheme-default">
+  <div class="container-1 grid grid-cols-10 vp9:gap-10">
+    <div
+      class="hidden vp9:block col-span-full vp9:col-span-3 vp9:col-start-8 vp9:row-start-1"
+    >
+      <div class="sticky top-4 flex flex-col gap-4">
+        <div class="c-summary js-summary">
+          <h2 class="c-title c-summary__title typo-h3">Summary</h2><ul
+            class="c-tabs"
+          >
+            <li class="c-tabs__item c-tabs__item--2">
+              <a
+                href="#airports-a-giant-optimization-puzzle"
+                class="c-tabs__item-link is-active"
+                >Airports: A giant optimization puzzle</a>
+            </li><li class="c-tabs__item c-tabs__item--2">
+              <a href="#irish-breakfast-but-optimized" class="c-tabs__item-link"
+                >Irish breakfast, but optimized</a>
+            </li><li class="c-tabs__item c-tabs__item--2">
+              <a href="#cern" class="c-tabs__item-link">CERN</a>
+            </li><li class="c-tabs__item c-tabs__item--2">
+              <a href="#seeing-the-pattern" class="c-tabs__item-link"
+                >Seeing the pattern</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><div
+      class="col-span-full vp9:row-start-1 vp9:col-start-1 vp9:col-span-7"
+    >
+      <div class="c-metadata">
+        <p class="c-metadata__inner">
+          <span class="c-metadata__info">
+            <span class="c-metadata__author">By Tom Cools</span>
+            <span class="c-metadata__dot"></span>
+            <span class="c-metadata__date"> March 19, 2026 </span>
+          </span>
+          <span class="c-metadata__socials">
+            <button
+              class="c-button--icon-only c-metadata__copy js-copy c-button--unstyled c-button"
+              ><span class="c-icon c-button__icon c-icon--before">
+                <svg
+                  class="c-icon__asset"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M9 15L15 9M11 6L11.463 5.464C12.4008 4.52633 13.6727 3.9996 14.9989 3.99969C16.325 3.99979 17.5968 4.52669 18.5345 5.4645C19.4722 6.40231 19.9989 7.67419 19.9988 9.00035C19.9987 10.3265 19.4718 11.5983 18.534 12.536L18 13M13.0001 18L12.6031 18.534C11.6544 19.4722 10.3739 19.9984 9.03964 19.9984C7.70535 19.9984 6.42489 19.4722 5.47614 18.534C5.0085 18.0716 4.63724 17.521 4.38385 16.9141C4.13047 16.3073 4 15.6561 4 14.9985C4 14.3408 4.13047 13.6897 4.38385 13.0829C4.63724 12.476 5.0085 11.9254 5.47614 11.463L6.00014 11"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg></span
+              >
+            </button>
+            <a
+              class="c-button--icon-only c-metadata__medium c-button--unstyled c-button"
+              href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftimefold.ai%2Fblog%2Ftheyre-everywhere-spotting-optimization-problems-in-the-wild&text=<p>They're everywhere: Spotting optimization problems in the wild</p>"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on X"
+              ><span class="c-icon c-button__icon c-icon--before">
+                <svg
+                  class="c-icon__asset"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    id="path1009"
+                    d="M0.746924 0.70694L7.15059 9.85504L0.707031 17.2931H2.15764L7.79953 10.7813L12.3576 17.2931H17.2932L10.5295 7.63038L16.5275 0.70694H15.0769L9.88154 6.70414L5.68345 0.70694H0.747886H0.746924ZM2.87953 1.84837H5.14641L15.1586 16.1516H12.8917L2.87953 1.84837Z"
+                    fill="currentColor"></path>
+                </svg></span
+              >
+            </a>
+            <a
+              class="c-button--icon-only c-metadata__medium c-button--unstyled c-button"
+              href="https://threads.net/intent/post?text=<p>They're everywhere: Spotting optimization problems in the wild</p>+https%3A%2F%2Ftimefold.ai%2Fblog%2Ftheyre-everywhere-spotting-optimization-problems-in-the-wild"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Threads"
+              ><span class="c-icon c-button__icon c-icon--before">
+                <svg
+                  class="c-icon__asset"
+                  width="17"
+                  height="20"
+                  viewBox="0 0 17 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12.9337 9.08644C15.3403 10.0993 16.5243 12.5238 15.7391 15.0329C15.204 16.7454 13.6795 18.1288 12.0459 18.7542C9.98637 19.5451 7.22052 19.4943 5.18916 18.6517C1.06908 16.9448 0.107956 12.2049 0.517049 8.26167C0.802003 5.50147 1.95122 2.81086 4.48854 1.42747C6.40046 0.380752 8.8475 0.232158 10.9409 0.670404C13.1143 1.12558 14.8786 2.41117 15.9478 4.35789C16.2779 4.95507 16.545 5.61525 16.7444 6.34974C16.75 6.37795 16.7387 6.40711 16.7105 6.41275L15.1974 6.8115C15.1692 6.81714 15.14 6.80021 15.1343 6.77764C14.9068 5.91244 14.5484 5.1441 14.0528 4.47356C12.5049 2.36791 9.66568 1.80459 7.21864 2.24283C4.33337 2.76102 2.74025 4.78673 2.27379 7.56856C1.89291 9.8275 2.01235 12.4448 3.05342 14.5278C3.92991 16.2808 5.51738 17.2645 7.4293 17.5382C8.45909 17.6802 9.46631 17.6633 10.451 17.4808C11.8626 17.2194 13.3757 16.2855 13.9898 14.9482C14.3886 14.083 14.4281 12.9855 13.9898 12.1259C13.7397 11.6369 13.3635 11.2438 12.8688 10.9485C12.8463 10.9316 12.8115 10.9429 12.8002 10.9654C12.7945 10.9711 12.7945 10.9767 12.7945 10.9824C12.7372 11.4037 12.6412 11.8184 12.4983 12.2228C12.2933 12.7974 11.998 13.293 11.6049 13.6965C10.2845 15.0564 7.98606 15.1758 6.43245 14.1968C5.192 13.4115 4.72553 11.8071 5.31707 10.4867C5.93118 9.12122 7.434 8.52969 8.86159 8.46104C9.66943 8.42154 10.4152 8.45539 11.1036 8.55226C11.1318 8.5579 11.1544 8.53533 11.161 8.50712V8.49019C11.098 8.17702 11.0246 7.92123 10.9334 7.72185C10.4556 6.6695 9.37979 6.39018 8.30486 6.52654C7.61646 6.61212 7.07569 6.93658 6.6713 7.49426C6.65437 7.51683 6.62616 7.52247 6.60265 7.50555L5.31707 6.62906C5.2945 6.61213 5.28887 6.58391 5.3058 6.55476C5.9942 5.58704 6.92711 5.02372 8.11112 4.87042C9.09012 4.7397 10.1876 4.89299 11.0416 5.41118C12.3215 6.19645 12.7767 7.60806 12.8905 9.03565C12.9017 9.06386 12.913 9.08079 12.9299 9.08644H12.9337ZM6.79356 11.3172C6.53776 12.1767 7.12931 12.8538 7.93151 13.0579C9.05816 13.3429 10.3099 13.0918 10.845 11.9369C11.0557 11.4817 11.1807 10.9466 11.2202 10.3382C11.2202 10.3099 11.2033 10.2874 11.1807 10.2874C10.3447 10.1228 9.48511 10.088 8.60862 10.1736C7.89765 10.2479 7.01551 10.5723 6.79356 11.3172Z"
+                    fill="currentColor"></path>
+                </svg></span
+              >
+            </a>
+            <a
+              class="c-button--icon-only c-metadata__medium c-button--unstyled c-button"
+              href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftimefold.ai%2Fblog%2Ftheyre-everywhere-spotting-optimization-problems-in-the-wild"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Linkedin"
+              ><span class="c-icon c-button__icon c-icon--before">
+                <svg
+                  class="c-icon__asset"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    id="Exclude"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M4.22222 22H19.7778C21.0051 22 22 21.0051 22 19.7778V4.22222C22 2.99492 21.0051 2 19.7778 2H4.22222C2.99492 2 2 2.99492 2 4.22222V19.7778C2 21.0051 2.99492 22 4.22222 22ZM19.2218 19.2222H16.2539V14.1672C16.2539 12.7813 15.7273 12.0068 14.6303 12.0068C13.437 12.0068 12.8135 12.8128 12.8135 14.1672V19.2222H9.95327V9.59259H12.8135V10.8897C12.8135 10.8897 13.6735 9.29839 15.7169 9.29839C17.7595 9.29839 19.2218 10.5457 19.2218 13.1253V19.2222ZM6.54105 8.33166C5.5668 8.33166 4.77734 7.53601 4.77734 6.55472C4.77734 5.57343 5.5668 4.77777 6.54105 4.77777C7.5153 4.77777 8.30429 5.57343 8.30429 6.55472C8.30429 7.53601 7.5153 8.33166 6.54105 8.33166ZM5.06416 19.2222H8.04662V9.59259H5.06416V19.2222Z"
+                    fill="currentcolor"></path>
+                </svg></span
+              >
+            </a>
+            <a
+              class="c-button--icon-only c-metadata__medium c-button--unstyled c-button"
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftimefold.ai%2Fblog%2Ftheyre-everywhere-spotting-optimization-problems-in-the-wild"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Facebook"
+              ><span class="c-icon c-button__icon c-icon--before">
+                <svg
+                  class="c-icon__asset"
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="m512 256c0-141.4-114.6-256-256-256s-256 114.6-256 256c0 120 82.7 220.8 194.2 248.5v-170.3h-52.8v-78.2h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4v70.8c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2v27.8h83.6l-14.4 78.2h-69.3v175.9c126.8-15.3 225-123.2 225-254.1z"
+                  ></path></svg
+                ></span
+              >
+            </a>
+            <a
+              class="c-button--icon-only c-metadata__medium c-button--unstyled c-button"
+              href="https://reddit.com/submit?title=<p>They're everywhere: Spotting optimization problems in the wild</p>&url=https%3A%2F%2Ftimefold.ai%2Fblog%2Ftheyre-everywhere-spotting-optimization-problems-in-the-wild"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Reddit"
+              ><span class="c-icon c-button__icon c-icon--before">
+                <svg
+                  class="c-icon__asset"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <g
+                    id="iconmonstr-reddit-4 1"
+                    clip-path="url(#clip0_504_6441)"
+                  >
+                    <path
+                      id="Vector"
+                      d="M11.865 12.79C11.9358 12.86 11.9358 12.9742 11.865 13.045C11.4775 13.43 10.87 13.6175 10.0058 13.6175L9.99917 13.6158L9.9925 13.6175C9.12917 13.6175 8.52083 13.43 8.13333 13.0442C8.0625 12.9742 8.0625 12.86 8.13333 12.79C8.20333 12.72 8.31833 12.72 8.38917 12.79C8.705 13.1042 9.22917 13.2575 9.9925 13.2575L9.99917 13.2592L10.0058 13.2575C10.7683 13.2575 11.2925 13.1042 11.6092 12.79C11.68 12.72 11.795 12.72 11.865 12.79ZM8.99833 10.775C8.99833 10.3525 8.65333 10.0092 8.23 10.0092C7.80583 10.0092 7.46083 10.3525 7.46083 10.775C7.46083 11.1967 7.80583 11.54 8.23 11.54C8.65333 11.5408 8.99833 11.1975 8.99833 10.775ZM20 10C20 15.5225 15.5225 20 10 20C4.4775 20 0 15.5225 0 10C0 4.4775 4.4775 0 10 0C15.5225 0 20 4.4775 20 10ZM15.8333 9.8925C15.8333 9.18333 15.2542 8.60667 14.5417 8.60667C14.1942 8.60667 13.8792 8.74583 13.6467 8.96917C12.7667 8.39 11.5758 8.02167 10.2583 7.97417L10.9792 5.70417L12.9317 6.16167L12.9292 6.19C12.9292 6.77 13.4033 7.24167 13.9858 7.24167C14.5683 7.24167 15.0417 6.77 15.0417 6.19C15.0417 5.61 14.5683 5.13833 13.9858 5.13833C13.5383 5.13833 13.1575 5.4175 13.0033 5.80833L10.8992 5.315C10.8075 5.2925 10.7133 5.34583 10.685 5.43583L9.88083 7.9675C8.50083 7.98417 7.25167 8.35583 6.3325 8.95167C6.10167 8.73917 5.79583 8.60583 5.4575 8.60583C4.74583 8.60667 4.16667 9.18333 4.16667 9.8925C4.16667 10.3642 4.42583 10.7725 4.80667 10.9967C4.78167 11.1333 4.765 11.2725 4.765 11.4133C4.765 13.3142 7.1025 14.8608 9.97583 14.8608C12.8492 14.8608 15.1867 13.3142 15.1867 11.4133C15.1867 11.28 15.1725 11.1492 15.15 11.02C15.555 10.8025 15.8333 10.3817 15.8333 9.8925ZM11.7733 10.01C11.3492 10.01 11.005 10.3533 11.005 10.7758C11.005 11.1975 11.35 11.5408 11.7733 11.5408C12.1967 11.5408 12.5417 11.1975 12.5417 10.7758C12.5417 10.3533 12.1975 10.01 11.7733 10.01Z"
+                      fill="currentColor"></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_504_6441">
+                      <rect width="20" height="20" fill="white"></rect>
+                    </clipPath>
+                  </defs>
+                </svg></span
+              >
+            </a></span>
+        </p>
+      </div><div class="my-10">
+        <div class="s-wysiwyg s-wysiwyg-- js-image-overlay">
+          <p>
+            I’ve been flying a bit more recently for speaking engagements.
+            Dublin. CERN. A few other places in between. As fun as that sounds,
+            it also means something else: A lot of time in airports.
+          </p><p>
+            Right now, as I’m writing this, I’m sitting at a gate waiting for my
+            flight. My flight is delayed. The gate next to mine just changed. A
+            crowd of people is collectively refreshing the airport app, hoping
+            their boarding time magically moves forward so they don’t miss their
+            connection.
+          </p><p>
+            I couldn’t help but smile and think: yep, this is a planning
+            problem!
+          </p><p>
+            Over the past year, I’ve noticed something interesting about how I
+            look at the world. I’ve written about it before, but the idea keeps
+            coming back: <strong>Planning problems are everywhere.</strong>
+          </p><figure class="image">
+            <div
+              class="c-overlay__trigger"
+              aria-label="ui.open-lightbox"
+              role="button"
+            >
+              <img
+                style="aspect-ratio:1098/618;"
+                src="https://timefold.ai/uploads/images/blog/2025/_hundredPercent/planning-problems-are-everywhere-timefold.jpeg"
+                alt=""
+                width="1098"
+                height="618"
+              />
+            </div>
+          </figure><p>
+            I’ve joked it is sort of a curse, once you start seeing them, you
+            can’t really unsee them. And yet people underestimate just how
+            common they are. When you start modelling these problems, you begin
+            to notice something interesting: they all share the same structure.
+          </p><h2 id="airports-a-giant-optimization-puzzle">
+            <a
+              class="anchor"
+              href="#airports-a-giant-optimization-puzzle"
+              title="Direct link to Airports: A giant optimization puzzle"
+              aria-label="Direct link to Airports: A giant optimization puzzle"
+              >#</a
+            > Airports: A giant optimization puzzle
+          </h2><p>Airports might be one of the best examples.</p><p>
+            When you think about everything that has to come together, it’s
+            really a lot! Airports are actually running several optimization
+            problems at the same time: gate assignment, crew scheduling,
+            aircraft turnaround planning, runway slot allocation**,** and
+            passenger connection protection. It’s almost a wonder airports work
+            at all.
+          </p><figure class="image">
+            <div
+              class="c-overlay__trigger"
+              aria-label="ui.open-lightbox"
+              role="button"
+            >
+              <img
+                style="aspect-ratio:1098/618;"
+                src="https://timefold.ai/uploads/images/blog/2025/_hundredPercent/planning-problems-are-everywhere.jpg?transformId=4150&site=default"
+                alt=""
+                width="1098"
+                height="618"
+              />
+            </div>
+          </figure><p>
+            Yet people often remember just the negative and chaotic parts: the
+            boarding delay, the last minute gate changes or the long lines at
+            security.
+          </p><p>
+            Working with planning problems on a daily basis, I see things a
+            little differently. Just understanding the immense complexity behind
+            creating an initial plan already makes me feel calmer about the
+            chaos.
+          </p><p>Think about the decisions involved:</p><ul>
+            <li>Which <strong>gate</strong> should each flight use?</li><li>
+              Which <strong>crew</strong> can legally operate a flight after delays?
+            </li><li>
+              How do we minimize <strong>missed connections</strong>?
+            </li><li>
+              Where should incoming aircraft be <strong>parked</strong>?
+            </li><li>
+              How do we <strong>re-route passengers</strong> when things go wrong?
+            </li>
+          </ul><p>
+            Every delay or mishap ripples through that system of decisions,
+            forcing the plan to be re-evaluated.
+          </p><p>
+            When the chaos hits, like it has around me writing this, I realize
+            that this is just the result of a complex system constantly trying
+            to adapt its plan as the situation changes.
+          </p><p>And honestly, I can’t help but admire the attempt 🙂.</p><h2
+            id="irish-breakfast-but-optimized"
+          >
+            <a
+              class="anchor"
+              href="#irish-breakfast-but-optimized"
+              title="Direct link to Irish breakfast, but optimized"
+              aria-label="Direct link to Irish breakfast, but optimized">#</a
+            > Irish breakfast, but optimized
+          </h2><p>
+            Apparently I don’t even need to be fully awake to get bitten by the
+            optimization bug.
+          </p><p>
+            After a busy evening speaking at a user group in Dublin and a
+            shorter night than I hoped for, I dragged myself to a nearby
+            breakfast restaurant to grab a proper Irish breakfast with a fellow
+            optimization enthusiast.
+          </p><p>
+            As we were talking about the different projects we’d worked on, I
+            became fascinated with the restaurant’s open kitchen layout. And
+            once again, my mind drifted toward optimization.
+          </p><p>
+            A restaurant kitchen is basically a <strong
+              >job scheduling system</strong
+            >. Orders arrive dynamically. Each dish requires different
+            preparation steps. The kitchen has limited resources: burners,
+            ovens, chefs, and time.
+          </p><p>The staff constantly make small scheduling decisions:</p><ul>
+            <li>Which order should be cooked first?</li><li>
+              Which dishes can run in parallel?
+            </li><li>How do we avoid one table waiting forever?</li>
+          </ul><p>
+            Experienced kitchens develop an intuition for it, but under the hood
+            it resembles a classic <strong>job-shop scheduling problem</strong>.
+          </p><p>
+            And I couldn’t help but think how I’d model this problem as an
+            optimization problem.
+          </p><p>
+            Sure, this kitchen is at a small scale. But structurally, it’s not
+            that different from much larger systems.
+          </p><h2 id="cern">
+            <a
+              class="anchor"
+              href="#cern"
+              title="Direct link to CERN"
+              aria-label="Direct link to CERN">#</a
+            > CERN
+          </h2><p>
+            I was lucky enough to be invited to speak at Voxxed Days CERN, which
+            came with some awesome perks, including a guided tour through the
+            facilities. You probably guessed it by now, but even here it made me
+            wonder about the planning challenges behind the scenes.
+          </p><ul>
+            <li>
+              Scheduling <strong
+                >maintenance for all different facilities</strong>
+            </li><li>
+              Allocating <strong>compute resources</strong> for analysis jobs
+            </li><li>
+              Coordinating <strong>experiments and detector usage</strong>
+            </li>
+          </ul><figure class="image">
+            <div
+              class="c-overlay__trigger"
+              aria-label="ui.open-lightbox"
+              role="button"
+            >
+              <img
+                style="aspect-ratio:1098/824;"
+                src="https://timefold.ai/uploads/images/blog/2025/_hundredPercent/CERN-timefold.jpg?transformId=4168&site=default"
+                alt=""
+                width="1098"
+                height="824"
+              />
+            </div>
+          </figure><p>
+            Even at one of the world’s most advanced research labs, the same
+            fundamental problem appears again and again: <strong
+              >“How do we allocate limited resources in the best possible way?”.</strong>
+          </p><p>
+            And of course, my brain was already buzzing with ways to optimize
+            it.
+          </p><h2 id="seeing-the-pattern">
+            <a
+              class="anchor"
+              href="#seeing-the-pattern"
+              title="Direct link to Seeing the pattern"
+              aria-label="Direct link to Seeing the pattern">#</a
+            > Seeing the pattern
+          </h2><p>
+            If you are involved with planning optimization solutions, a pattern
+            starts to emerge that you can’t unsee. Many everyday systems share
+            the same underlying structure:
+          </p><ul>
+            <li><strong>Resources</strong> (gates, buses, chefs, CPUs)</li><li>
+              <strong>Tasks</strong> (flights, routes, orders, jobs)
+            </li><li>
+              <strong>Constraints</strong> (time limits, capacity, regulations)
+            </li><li>
+              <strong>Objectives</strong> (speed, cost, fairness, efficiency)
+            </li>
+          </ul><p>
+            …and the challenge becomes finding the <strong
+              >best possible plan</strong
+            >.
+          </p><p>
+            Optimization problems are just amazing puzzles… and quite addictive
+            🙂 The only downside is that once you start thinking this way, it
+            becomes hard to stop.
+          </p><p>You start seeing optimization problems everywhere:</p><p>
+            In airports. In supermarkets. In conference schedules. In traffic
+            lights. In restaurant kitchens.
+          </p><p>
+            Sometimes you’re just standing in line somewhere and suddenly catch
+            yourself thinking:
+          </p><blockquote class="c-quote">
+            <span class="c-quote__quote"><p>This could be optimized!</p></span>
+          </blockquote><p>
+            Much to the dismay of my partner and friends, who occasionally see
+            me drift off mid-conversation.
+          </p><p>
+            But when things go sideways, like delays at an airport, it also
+            brings a strange kind of calm.
+          </p><p>
+            Because the chaos we see in the real world often isn’t chaos at all.
+          </p><p>It’s a plan being repaired in real time.</p><p>
+            And if you know how to look at it…
+          </p><p>You start seeing optimization problems everywhere.</p>
+        </div><div class="c-overlay">
+          <button class="c-button--icon-only c-overlay__close c-button"
+            ><span class="c-icon c-button__icon c-icon--before">
+              <svg
+                class="c-icon__asset"
+                width="16"
+                height="16"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                aria-hidden="true"
+                ><path
+                  fill="currentColor"
+                  d="M41 39C31.6 29.7 16.4 29.7 7 39S-2.3 63.6 7 73l183 183L7 439c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l183-183L407 473c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-183-183L441 73c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-183 183L41 39z"
+                ></path></svg
+              ></span
+            >
+            <span class="c-button__text sr-only">ui.close</span>
+          </button><div class="c-overlay__content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
