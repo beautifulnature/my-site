@@ -2431,6 +2431,8 @@ section[data-type="split-grid"] + section[data-type="cta"] {
 
 .c-link-card__content {
   display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
   z-index: 10;
 }
 
@@ -2510,9 +2512,9 @@ section[data-type="split-grid"] + section[data-type="cta"] {
   mask-size: contain;
 }
 
-.c-link-card--vertical .c-link-card__button {
-  margin-bottom: var(--space-4);
-  margin-right: var(--space-4);
+.c-link-card--vertical .c-link-card__content {
+  position: absolute;
+  inset: 0;
 }
 
 .c-link-card--vertical .c-link-card__label {
