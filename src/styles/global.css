@@ -10641,3 +10641,196 @@ legend.c-form__field-label {
     padding-right: 0;
   }
 }
+
+/* ============================================================
+   TIMEFOLD DARK MODE
+   Activated when <html> has class="dark" (Tailwind darkMode: 'class')
+   Philosophy: Dark navy base (#0b0f19), purple accent, muted slate text
+   ============================================================ */
+
+/* 1. Root level dark background so no white flash */
+html.dark {
+  color-scheme: dark;
+  background-color: hsl(var(--color-darkgrey-10));
+}
+
+html.dark body {
+  background-color: hsl(var(--color-darkgrey-10));
+  color: hsl(var(--color-neutral-80));
+}
+
+/* 2. Override scheme-default tokens for dark mode */
+html.dark .scheme-default {
+  --scheme-base:            hsl(var(--color-darkgrey-10));
+  --scheme-shade:           hsl(var(--color-darkgrey-20));
+  --scheme-accent:          hsl(var(--color-purple-50));
+  --scheme-contrast:        hsl(var(--color-neutral-100));
+  --scheme-hover:           hsl(var(--color-purple-60));
+  --scheme-text:            hsl(var(--color-neutral-80));
+  --scheme-title:           hsl(var(--color-neutral-100));
+  --scheme-border:          hsl(var(--color-neutral-100) / 0.08);
+  --scheme-icon-background: hsl(var(--color-purple-50));
+  --scheme-light:           hsl(var(--color-darkgrey-20));
+}
+
+/* 3. Override scheme-grey (secondary section style) */
+html.dark .scheme-grey {
+  --scheme-base:    hsl(var(--color-darkgrey-20));
+  --scheme-shade:   hsl(var(--color-darkgrey-10));
+  --scheme-accent:  hsl(var(--color-purple-50));
+  --scheme-contrast: hsl(var(--color-neutral-100));
+  --scheme-text:    hsl(var(--color-neutral-80));
+  --scheme-title:   hsl(var(--color-neutral-100));
+  --scheme-border:  hsl(var(--color-neutral-100) / 0.1);
+}
+
+/* 4. Tag pills */
+html.dark .c-tag {
+  --tag-default-bg-color:     hsl(var(--color-darkgrey-20));
+  --tag-default-color:        hsl(var(--color-neutral-80));
+  --tag-default-border-color: hsl(var(--color-neutral-100) / 0.15);
+}
+html.dark .c-tag.is-active,
+html.dark .c-tag:hover {
+  --tag-color:        hsl(var(--color-neutral-100));
+  --tag-border-color: hsl(var(--color-purple-50));
+  --tag-bg-color:     hsl(var(--color-purple-50));
+}
+
+/* 5. Flyout / dropdown menus */
+html.dark .c-flyout__content {
+  background-color: hsl(var(--color-darkgrey-20));
+  border-color: hsl(var(--color-neutral-100) / 0.08);
+}
+html.dark .c-flyout__item {
+  background-color: hsl(var(--color-darkgrey-20));
+}
+html.dark .c-flyout__list-item:not(:last-child) {
+  border-color: hsl(var(--color-neutral-100) / 0.08);
+}
+
+/* 6. Input / form fields */
+html.dark input[type="email"],
+html.dark input[type="text"],
+html.dark input[type="search"],
+html.dark select,
+html.dark textarea {
+  background-color: hsl(var(--color-darkgrey-20)) !important;
+  border-color: hsl(var(--color-neutral-100) / 0.15) !important;
+  color: hsl(var(--color-neutral-80)) !important;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: hsl(var(--color-neutral-60));
+}
+
+/* 7. Hard-coded bg-white / light Tailwind utilities */
+html.dark .bg-white {
+  background-color: hsl(var(--color-darkgrey-20)) !important;
+}
+html.dark .bg-gray-50,
+html.dark .bg-slate-50 {
+  background-color: hsl(var(--color-darkgrey-10)) !important;
+}
+html.dark .bg-gray-100,
+html.dark .bg-slate-100 {
+  background-color: hsl(var(--color-darkgrey-20)) !important;
+}
+
+/* 8. Tailwind text utilities that use hard-coded dark values */
+html.dark .text-gray-900,
+html.dark .text-slate-900 {
+  color: hsl(var(--color-neutral-100)) !important;
+}
+html.dark .text-gray-800,
+html.dark .text-slate-800,
+html.dark .text-gray-700,
+html.dark .text-slate-700 {
+  color: hsl(var(--color-neutral-80)) !important;
+}
+html.dark .text-gray-600,
+html.dark .text-slate-600,
+html.dark .text-gray-500,
+html.dark .text-slate-500 {
+  color: hsl(var(--color-neutral-60)) !important;
+}
+
+/* 9. Tailwind border utilities */
+html.dark .border-gray-200,
+html.dark .border-slate-200,
+html.dark .border-gray-300,
+html.dark .border-slate-300 {
+  border-color: hsl(var(--color-neutral-100) / 0.08) !important;
+}
+
+/* 10. prop-border in dark */
+html.dark .prop-border {
+  border-color: hsl(var(--color-neutral-100) / 0.08) !important;
+}
+
+/* 11. Generic border-b / border-t dividers */
+html.dark .border-b,
+html.dark .border-t {
+  border-color: hsl(var(--color-neutral-100) / 0.08);
+}
+
+/* 12. Prose / rich-text content */
+html.dark .prose,
+html.dark .s-wysiwyg {
+  color: hsl(var(--color-neutral-80));
+}
+html.dark .prose h1,
+html.dark .prose h2,
+html.dark .prose h3,
+html.dark .prose h4,
+html.dark .s-wysiwyg h1,
+html.dark .s-wysiwyg h2,
+html.dark .s-wysiwyg h3 {
+  color: hsl(var(--color-neutral-100));
+}
+html.dark .prose a,
+html.dark .s-wysiwyg a {
+  color: hsl(var(--color-purple-60));
+}
+html.dark .prose code,
+html.dark .s-wysiwyg code {
+  background-color: hsl(var(--color-darkgrey-20));
+  color: hsl(var(--color-neutral-80));
+}
+html.dark .prose blockquote,
+html.dark .s-wysiwyg blockquote {
+  border-left-color: hsl(var(--color-purple-50));
+  color: hsl(var(--color-neutral-60));
+}
+
+/* 13. LandingHeader nav link colors */
+html.dark .tf-nav-link {
+  color: hsl(var(--color-neutral-80));
+}
+html.dark .tf-nav-link:hover {
+  color: hsl(var(--color-neutral-100));
+  background-color: hsl(var(--color-purple-50) / 0.1);
+}
+
+/* 14. c-title headings (h1 in resource pages) */
+html.dark .c-title {
+  color: hsl(var(--color-neutral-100));
+}
+
+/* 15. Sidebar / aside borders */
+html.dark aside {
+  border-color: hsl(var(--color-neutral-100) / 0.08);
+}
+
+/* 16. Cards that use hard-coded Tailwind white backgrounds */
+html.dark .rounded-3xl.bg-white,
+html.dark .rounded-2xl.bg-white,
+html.dark .rounded-xl.bg-white {
+  background-color: hsl(var(--color-darkgrey-20)) !important;
+  border-color: hsl(var(--color-neutral-100) / 0.08) !important;
+}
+
+/* 17. ThemeToggle hover */
+html.dark .theme-toggle:hover {
+  background-color: hsl(var(--color-darkgrey-20));
+}

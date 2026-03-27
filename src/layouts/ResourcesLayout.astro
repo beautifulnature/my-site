@@ -22,8 +22,20 @@ const {
   <head>
     <meta charset="utf-8" />
     <title>{title}</title>
+    <script is:inline>
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body class="scheme-default">
+  <body class="scheme-default transition-colors duration-300">
     <Header />
     {
       title && (
