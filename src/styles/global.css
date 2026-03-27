@@ -1,5 +1,11 @@
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
-/* Make only the arrow icon bright white on hover for blog index post cards */
+/* Arrow icon always white (default + hover) inside card buttons */
+.c-link-card__button .c-icon--after,
+.c-link-card__button .c-icon {
+  color: hsl(var(--color-neutral-100)/1);
+  position: relative;
+  z-index: 1;
+}
 .c-link-card__button:hover .c-icon--after {
   color: hsl(var(--color-neutral-100)/1) !important;
 }
@@ -2519,6 +2525,10 @@ section[data-type="split-grid"] + section[data-type="cta"] {
 
 .c-link-card--vertical .c-link-card__label {
   margin: var(--space-4);
+}
+
+.c-link-card--vertical .c-link-card__button {
+  margin: 0 var(--space-4) var(--space-4) 0;
 }
 
 .c-link-card--vertical .c-link-card__title {
