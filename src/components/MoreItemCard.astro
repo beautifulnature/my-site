@@ -3,71 +3,78 @@ import {
   RESOURCE_CARD_PLACEHOLDER_SRC,
   RESOURCE_CARD_PLACEHOLDER_SRCSET,
 } from '../utils/cardMedia';
+import ResourceIcons from './ResourceIcons.astro';
 
 interface Props {
   href: string;
   title: string;
   dateText: string;
-  dateClass?: string;
-  titleClass?: string;
+  label?: string;
   secondaryText?: string;
-  secondaryClass?: string;
   description?: string;
-  descriptionClass?: string;
   imageSrc?: string;
   imageSrcSet?: string;
   imageAlt?: string;
+  dateClass?: string;
+  titleClass?: string;
+  secondaryClass?: string;
+  descriptionClass?: string;
 }
 
 const {
   href,
   title,
   dateText,
-  dateClass = 'meta-label',
-  titleClass = 'font-semibold',
+  label,
   secondaryText,
-  secondaryClass,
   description,
-  descriptionClass,
   imageSrc = RESOURCE_CARD_PLACEHOLDER_SRC,
   imageSrcSet = RESOURCE_CARD_PLACEHOLDER_SRCSET,
   imageAlt = '',
 } = Astro.props;
 ---
 
-<a
-  href={href}
-  class="resource-link-card more-item-resource-card more-item-resource-card--tone"
->
-  <picture class="c-picture c-link-card__media c-picture--focal-center u-overlay u-overlay--strong more-item-resource-picture">
-    <img
-      class="c-picture__image eager"
-      sizes="(min-width: 768px) 33vw, 100vw"
-      src={imageSrc}
-      srcset={imageSrcSet}
-      height="144"
-      width="180"
-      alt={imageAlt}
-      loading="lazy"
-    />
-  </picture>
+<article class="c-link-card scheme-default c-link-card--vertical">
+  <div class="c-link-card__container">
+    <div class="c-link-card__header">
+      <picture class="c-picture c-link-card__media u-overlay u-overlay--strong" style="--image-focal-x: center; --image-focal-y: center;">
+        <img
+          class="c-picture__image eager"
+          sizes="(min-width: 720px) 33vw, 100vw"
+          src={imageSrc}
+          srcset={imageSrcSet}
+          height="144"
+          width="180"
+          alt={imageAlt}
+          loading="lazy"
+        />
+      </picture>
 
-  <span class="more-item-resource-card-content">
-    <p class={dateClass}>
-      {dateText}
-    </p>
-    <h3 class={titleClass}>
-      {title}
-    </h3>
-    {secondaryText && (
-      <p class={secondaryClass}>
-        {secondaryText}
-      </p>
+      <div class="c-link-card__content">
+        {label && (
+          <div class="c-label c-link-card__label c-label--square">
+            <span class="c-label__text">{label}</span>
+          </div>
+        )}
+        <h3 class="c-title c-link-card__title">{title}</h3>
+        <a
+          class="c-button--icon-only c-button-primary c-link-card__button c-button"
+          href={href}
+          target="_self"
+        >
+          <span class="c-icon c-button__icon c-icon--after">
+            <ResourceIcons name="arrow-right" size={20} class="c-icon__asset" width="16" height="16" />
+          </span>
+        </a>
+      </div>
+    </div>
+
+    {(dateText || secondaryText || description) && (
+      <div class="c-link-card__text">
+        {dateText && <p class="meta-label">{dateText}</p>}
+        {secondaryText && <p class="text-sm text-slate-600 mt-1">{secondaryText}</p>}
+        {description && <p class="text-sm text-slate-700 mt-1 line-clamp-3">{description}</p>}
+      </div>
     )}
-    {description && (
-      <p class={descriptionClass}>
-        {description}
-      </p>
-    )}
-  </span>
-</a>
+  </div>
+</article>

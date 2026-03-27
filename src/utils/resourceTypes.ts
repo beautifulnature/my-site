@@ -28,6 +28,7 @@ type ResourceTypeConfig = {
   moreCard: {
     dateClass: string;
     titleClass: string;
+    label?: string;
     secondaryField?: string;
     secondaryClass?: string;
     descriptionField?: string;
@@ -54,6 +55,7 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     moreCard: {
       dateClass: 'meta-label text-slate-600',
       titleClass: 'font-semibold text-slate-900',
+      label: 'Blog',
       descriptionField: 'description',
       descriptionClass: 'line-clamp-3 text-slate-700',
     },
@@ -78,6 +80,7 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     moreCard: {
       dateClass: 'meta-label text-[11px] text-slate-900',
       titleClass: 'text-sm font-semibold text-slate-900',
+      label: 'Videos',
       secondaryField: 'length',
       secondaryClass: 'text-xs text-slate-900',
     },
@@ -101,6 +104,7 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     moreCard: {
       dateClass: 'meta-label text-slate-600',
       titleClass: 'font-semibold text-slate-900',
+      label: 'Events',
       secondaryField: 'location',
       secondaryClass: 'text-slate-600',
     },
@@ -124,6 +128,7 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     moreCard: {
       dateClass: 'meta-label text-slate-600',
       titleClass: 'font-semibold text-slate-900',
+      label: 'Press',
       secondaryField: 'outlet',
       secondaryClass: 'text-slate-600',
     },
@@ -147,6 +152,7 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     moreCard: {
       dateClass: 'meta-label text-slate-600',
       titleClass: 'font-semibold text-slate-900',
+      label: 'Newsletter',
       secondaryField: 'issue',
       secondaryClass: 'text-slate-600',
     },
@@ -171,6 +177,7 @@ export const RESOURCE_TYPES: Record<ResourceTypeKey, ResourceTypeConfig> = {
     moreCard: {
       dateClass: 'meta-label text-[11px] text-slate-600',
       titleClass: 'text-sm font-semibold text-slate-900',
+      label: 'Stories',
       secondaryField: 'customer',
       secondaryClass: 'text-xs text-slate-600',
     },

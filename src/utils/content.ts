@@ -105,6 +105,7 @@ export function formatDateValue(value: unknown): string {
 type MoreItemCardConfig = {
   dateClass: string;
   titleClass: string;
+  label?: string;
   secondaryField?: string;
   secondaryClass?: string;
   descriptionField?: string;
@@ -137,6 +138,7 @@ export function buildMoreItemCardProps(
     dateText: formatDateValue(item.data.date),
     dateClass: config.dateClass,
     titleClass: config.titleClass,
+    label: config.label,
     secondaryText: getOptionalFieldText(item.data, config.secondaryField),
     secondaryClass: config.secondaryClass,
     description: getOptionalFieldText(item.data, config.descriptionField),

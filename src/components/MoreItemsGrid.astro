@@ -7,11 +7,11 @@ interface Props {
 const { title, gridId } = Astro.props;
 ---
 
-<section class="more-section more-section--accent" data-toc-exclude>
-  <h2 class="h2-section-label more-section__title">
+<section class="layout bound-x section-t-sm section-b-md" data-toc-exclude>
+  <h2 class="c-title mb-8">
     {title}
   </h2>
-  <div class="more-grid" id={gridId}>
+  <div class="grid grid-cols-1 vp7:grid-cols-2 vp9:grid-cols-3 gap-4 vp9:gap-20" id={gridId}>
     <slot />
   </div>
 </section>
