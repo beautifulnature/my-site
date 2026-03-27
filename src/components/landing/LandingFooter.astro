@@ -188,3 +188,24 @@ const resourcesFooterSections = FOOTER_SECTIONS.filter(
     </div>
   </div>
 </footer>
+
+<style is:global>
+  .c-footer .c-form__field-agree-option-label {
+    align-items: flex-start;
+    font-size: 0.6875rem;
+    line-height: 1.45;
+    color: var(--scheme-contrast);
+  }
+
+  .c-footer .c-form__field-agree-option-label::before {
+    width: var(--space-4);
+    height: var(--space-4);
+    margin-top: 0.05rem;
+    flex-shrink: 0;
+  }
+
+  .c-footer .c-form__field-agree-option-label::after {
+    width: var(--space-4);
+    height: var(--space-4);
+  }
+</style>
