@@ -16,8 +16,6 @@ const {
   showSidebar = true,
 } = Astro.props;
 
-const linkBase = "resource-tag-link";
-const linkActive = "resource-tag-link resource-tag-link--active";
 ---
 
 <html lang="en">
@@ -31,35 +29,47 @@ const linkActive = "resource-tag-link resource-tag-link--active";
       title && (
         <section class="layout bound-x section-sm section-sm border-b border-solid prop-border scheme-default">
           <div class="flex items-center justify-between py-8">
-            <h1 class="c-title typo-hero">{title}</h1>
+            <h1 class="c-title">{title}</h1>
 
-            <nav class="flex gap-4">
-              {RESOURCE_NAV_ITEMS.map((item) => (
-                <a
-                  href={item.href}
-                  class={currentPath === item.href ? linkActive : linkBase}
-                  aria-label={item.label}
-                >
-                  <span
-                    class={`resource-nav-icon ${currentPath === item.href ? "resource-nav-icon-active" : "resource-nav-icon-inactive"}`}
+            <nav class="resource-type-nav flex gap-3">
+              {RESOURCE_NAV_ITEMS
+                .filter((item) => item.href !== currentPath)
+                .map((item) => (
+                  <a
+                    href={item.href}
+                    class="resource-nav-btn"
+                    aria-label={item.label}
+                    title={item.label}
                   >
-                    <ResourceIcons
-                      name={item.iconName}
-                      size={32}
-                      color={
-                        currentPath === item.href
-                          ? "hsl(var(--color-neutral-100)/1)"
-                          : "var(--scheme-title)"
-                      }
-                    />
-                  </span>
-                </a>
-              ))}
+                    <ResourceIcons name={item.iconName} size={28} color="currentColor" />
+                  </a>
+                ))}
             </nav>
           </div>
         </section>
       )
     }
+
+    <style>
+      .resource-nav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        border: 2px solid var(--scheme-title);
+        color: var(--scheme-title);
+        background-color: transparent;
+        transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        text-decoration: none;
+      }
+      .resource-nav-btn:hover {
+        background-color: var(--scheme-accent);
+        border-color: var(--scheme-accent);
+        color: #ffffff;
+      }
+    </style>
 
     <main id="main" class="">
       <div id="component-ikdegh" class="sprig-component">
