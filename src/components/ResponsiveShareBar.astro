@@ -4,7 +4,6 @@ import { COLOR_PRIMARY, COLOR_WHITE } from "../utils/colors";
 
 const { url, title } = Astro.props;
 
-// Color constants for easy reuse and updates
 const SHARE_BG_HOVER = COLOR_PRIMARY;
 const SHARE_BORDER_HOVER = COLOR_PRIMARY;
 const SHARE_TEXT_HOVER = COLOR_WHITE;
@@ -13,18 +12,11 @@ const SHARE_BORDER = "border-slate-700";
 const pageUrl = url;
 const tweetText = encodeURIComponent(title);
 
-const twitterShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-  pageUrl,
-)}&text=${tweetText}`;
-const linkedinShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-  pageUrl,
-)}`;
-const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(
-  pageUrl,
-)}&t=${tweetText}`;
+const twitterShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${tweetText}`;
+const linkedinShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
+const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(pageUrl)}&t=${tweetText}`;
 ---
 
-<!-- Desktop: Show all share links inline --><!-- <div class="hidden vp9:flex flex-wrap items-center gap-2"> -->
 <span
   class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black"
 >
@@ -60,88 +52,3 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
 >
   <ResourceIcons name="hackernews" size={16} color="currentColor" />
 </a>
-<!-- </div> -->
-
-<!-- Mobile: Show only share button that opens modal -->
-<!-- <div class="vp9:hidden">
-  <button
-    id="mobile-share-btn"
-    class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black hover:bg-[var(--scheme-accent)] hover:text-white hover:border-[var(--scheme-accent)] transition-colors"
-    aria-label="Share"
-  >
-    <ResourceIcons name="share" size={16} color="currentColor" />
-  </button>
-</div> -->
-
-<!-- Share modal (mobile only, shown at top of page) -->
-<!-- <div
-  id="share-modal"
-  class="fixed left-0 right-0 top-0 z-50 hidden p-4 pt-16 vp9:hidden"
->
-  <div class="layout-content-2xl">
-    <div class="mb-4 flex items-center justify-end">
-          <button
-            id="close-share-modal"
-            class="text-black transition-colors hover:text-[var(--scheme-accent)]"
-            aria-label="Close"
-          >
-            <ResourceIcons name="close" size={20} color="currentColor" />
-          </button>
-    </div>
-
-    <div class="flex flex-wrap gap-3">
-      <a
-        href={twitterShare}
-        target="_blank"
-        rel="noreferrer"
-        class={`inline-flex items-center gap-2 rounded-full border ${SHARE_BORDER} px-4 py-2 text-sm hover:border-[${SHARE_BORDER_HOVER}] hover:bg-[${SHARE_BG_HOVER}] hover:text-${SHARE_TEXT_HOVER} transition-colors`}
-        aria-label="Share on Twitter / X"
-      >
-        <ResourceIcons name="twitter" size={16} color="currentColor" />
-      </a>
-
-      <a
-        href={linkedinShare}
-        target="_blank"
-        rel="noreferrer"
-        class={`inline-flex items-center gap-2 rounded-full border ${SHARE_BORDER} px-4 py-2 text-sm hover:bg-[${SHARE_BG_HOVER}] hover:border-[${SHARE_BORDER_HOVER}] hover:text-${SHARE_TEXT_HOVER} transition-colors`}
-        aria-label="Share on LinkedIn"
-      >
-        <ResourceIcons name="linkedin" size={16} color="currentColor" />
-      </a>
-
-      <a
-        href={hackerNewsShare}
-        target="_blank"
-        rel="noreferrer"
-        class={`inline-flex items-center gap-2 rounded-full border ${SHARE_BORDER} px-4 py-2 text-sm hover:bg-[${SHARE_BG_HOVER}] hover:border-[${SHARE_BORDER_HOVER}] hover:text-${SHARE_TEXT_HOVER} transition-colors`}
-        aria-label="Share on Hacker News"
-      >
-        <ResourceIcons name="hackernews" size={16} color="currentColor" />
-      </a>
-    </div>
-  </div>
-</div> -->
-
-<script>
-  const shareBtn = document.getElementById("mobile-share-btn");
-  const shareModal = document.getElementById("share-modal");
-  const closeBtn = document.getElementById("close-share-modal");
-
-  if (shareBtn && shareModal && closeBtn) {
-    shareBtn.addEventListener("click", () => {
-      shareModal.classList.toggle("hidden");
-    });
-
-    closeBtn.addEventListener("click", () => {
-      shareModal.classList.add("hidden");
-    });
-
-    // Close modal when clicking outside
-    shareModal.addEventListener("click", (e) => {
-      if (e.target === shareModal) {
-        shareModal.classList.add("hidden");
-      }
-    });
-  }
-</script>

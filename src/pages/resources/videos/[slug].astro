@@ -32,58 +32,61 @@ const {
     backHref={resourceType.backHref}
     backLabel={resourceType.backLabel}
     iconName={resourceType.iconName}
-    iconSize={32}
     pageUrl={pageUrl}
     shareTitle={video.data.title}
-    articleClass="prose blog-prose text-slate-900"
-    metaRowClass="text-xs text-slate-900"
   >
-    <Fragment slot="meta">
-      <span>{video.data.date.toLocaleDateString()}</span>
+    <Fragment slot="header">
+      <div class="c-hero__content">
+        <h1 class="c-title c-hero__title">{video.data.title}</h1>
+      </div>
+    </Fragment>
+
+    <Fragment slot="author">
+      <span class="c-metadata__date">{video.data.date.toLocaleDateString()}</span>
       {video.data.length && (
         <>
-          <span class="h-1 w-1 rounded-full bg-slate-700" />
+          <span class="c-metadata__dot" />
           <span>{video.data.length}</span>
-        </>
-      )}
-      {videoTags.length > 0 && (
-        <>
-          <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
-          <span class="flex flex-wrap gap-1">
-            {videoTags.map((tag) => (
-              <span class="tag-chip text-[10px]">
-                {tag}
-              </span>
-            ))}
-          </span>
         </>
       )}
     </Fragment>
 
-    {/* responsive YouTube embed */}
-    {video.data.youtubeId && (
-      <div class="mb-6 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-        <div class="aspect-video">
-          <iframe
-            class="h-full w-full"
-            src={`https://www.youtube.com/embed/${video.data.youtubeId}`}
-            title={video.data.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          />
-        </div>
-      </div>
-    )}
+    <Fragment slot="tags">
+      {videoTags.length > 0 && (
+        <span class="flex flex-wrap gap-1 mt-1">
+          {videoTags.map((tag) => (
+            <a
+              href={`${resourceType.tagBasePath}/${encodeURIComponent(tag)}`}
+              class="c-label c-label--small c-label--light-grey c-label--lower c-label--filter"
+            >{tag}</a>
+          ))}
+        </span>
+      )}
+    </Fragment>
 
-    <Content />
+    <Fragment slot="content">
+      {video.data.youtubeId && (
+        <div class="mb-6 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+          <div class="aspect-video">
+            <iframe
+              class="h-full w-full"
+              src={`https://www.youtube.com/embed/${video.data.youtubeId}`}
+              title={video.data.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            />
+          </div>
+        </div>
+      )}
+      <Content />
+    </Fragment>
   </ResourceDetailArticle>
 
-  {/* More videos – OUTSIDE article, similar pattern to blog */}
   {moreVideos.length > 0 && (
     <MoreItemsGrid title={resourceType.moreTitle} gridId="more-videos-grid">
-        {moreVideos.map((v) => (
-          <MoreItemCard {...buildMoreItemCardProps(v, resourceType.detailBasePath, resourceType.moreCard)} />
-        ))}
+      {moreVideos.map((v) => (
+        <MoreItemCard {...buildMoreItemCardProps(v, resourceType.detailBasePath, resourceType.moreCard)} />
+      ))}
     </MoreItemsGrid>
   )}
 </DocsLayout>
