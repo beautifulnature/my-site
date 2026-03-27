@@ -2527,10 +2527,6 @@ section[data-type="split-grid"] + section[data-type="cta"] {
   margin: var(--space-4);
 }
 
-.c-link-card--vertical .c-link-card__button {
-  margin: 0 var(--space-4) var(--space-4) 0;
-}
-
 .c-link-card--vertical .c-link-card__title {
   padding: var(--space-6);
 }
