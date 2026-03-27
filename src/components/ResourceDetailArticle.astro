@@ -13,6 +13,7 @@ interface Props {
   iconSize?: number;
   heroImageSrc?: string;
   heroImageSrcSet?: string;
+  showSummary?: boolean;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
   articleId,
   heroImageSrc,
   heroImageSrcSet,
+  showSummary = false,
 } = Astro.props;
 ---
 
@@ -60,18 +62,20 @@ const {
 
 <section class="layout bound-x scheme-default">
   <div class="container-1 grid grid-cols-10 vp9:gap-10">
-    <div
-      class="hidden vp9:block col-span-full vp9:col-span-3 vp9:col-start-8 vp9:row-start-1"
-    >
-      <div class="sticky top-4 flex flex-col gap-4">
-        <div class="c-summary js-summary">
-          <h2 class="c-title c-summary__title typo-h3">Summary</h2>
-          <ul class="c-tabs"></ul>
+    {showSummary && (
+      <div
+        class="hidden vp9:block col-span-full vp9:col-span-3 vp9:col-start-8 vp9:row-start-1"
+      >
+        <div class="sticky top-4 flex flex-col gap-4">
+          <div class="c-summary js-summary">
+            <h2 class="c-title c-summary__title typo-h3">Summary</h2>
+            <ul class="c-tabs"></ul>
+          </div>
         </div>
       </div>
-    </div>
+    )}
     <div
-      class="col-span-full vp9:row-start-1 vp9:col-start-1 vp9:col-span-7"
+      class={`col-span-full vp9:row-start-1 vp9:col-start-1 ${showSummary ? "vp9:col-span-7" : "vp9:col-span-10"}`}
     >
       <div class="c-metadata">
         <p class="c-metadata__inner">
