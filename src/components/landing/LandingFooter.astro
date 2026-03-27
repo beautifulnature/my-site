@@ -76,13 +76,13 @@ const resourcesFooterSections = FOOTER_SECTIONS.filter(
 
                           <div class="fui-row fui-page-row c-form__row" data-fui-field-count="1">
                             <div class="fui-field fui-type-agree fui-label-hidden fui-subfield-label-hidden fui-instructions-above-input fui-field-required fui-page-field c-form__field c-form__field-agree-button" data-field-handle="agreeCheckbox" data-field-type="agree" data-validation="required">
-                              <fieldset class="fui-fieldset c-form__field-container">
+                              <fieldset class="fui-fieldset c-form__field-container" style="padding:0;border:none;margin:0;">
                                 <legend class="fui-legend c-form__field-label sr-only" data-field-label data-fui-sr-only>
                                   Agree checkbox <span class="fui-required c-form__field-required" aria-hidden="true">*</span>
                                 </legend>
                                 <div class="fui-input-wrapper">
                                   <input type="hidden" name="fields[agreeCheckbox]" value="" data-fui-input-type="agree" />
-                                  <div class="fui-checkbox c-form__field-agree-option">
+                                  <div class="fui-checkbox c-form__field-agree-option" style="display:flex;align-items:flex-start;gap:6px;">
                                     <input
                                       type="checkbox"
                                       id="fui-newsletter-trangx-fields-agreeCheckbox"
@@ -93,8 +93,9 @@ const resourcesFooterSections = FOOTER_SECTIONS.filter(
                                       data-fui-id="newsletter-agreeCheckbox"
                                       data-fui-input-type="agree"
                                       data-required-message="You have to accept our terms and conditions to complete the submission."
+                                      style="opacity:1;position:static;width:13px;height:13px;min-width:13px;margin-top:2px;cursor:pointer;accent-color:var(--scheme-accent);"
                                     />
-                                    <label class="fui-checkbox-label c-form__field-agree-option-label" for="fui-newsletter-trangx-fields-agreeCheckbox">
+                                    <label class="fui-checkbox-label" for="fui-newsletter-trangx-fields-agreeCheckbox" style="font-size:0.6875rem;line-height:1.4;color:hsl(0deg 0% 62% / 0.8);cursor:pointer;">
                                       By submitting this form you agree to our terms and conditions and our privacy policy.
                                     </label>
                                   </div>
@@ -189,23 +190,3 @@ const resourcesFooterSections = FOOTER_SECTIONS.filter(
   </div>
 </footer>
 
-<style is:global>
-  .c-footer .c-form__field-agree-option-label {
-    align-items: flex-start;
-    font-size: 0.6875rem;
-    line-height: 1.45;
-    color: var(--scheme-contrast);
-  }
-
-  .c-footer .c-form__field-agree-option-label::before {
-    width: var(--space-4);
-    height: var(--space-4);
-    margin-top: 0.05rem;
-    flex-shrink: 0;
-  }
-
-  .c-footer .c-form__field-agree-option-label::after {
-    width: var(--space-4);
-    height: var(--space-4);
-  }
-</style>
