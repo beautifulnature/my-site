@@ -4196,6 +4196,24 @@ section[data-type="split-grid"] + section[data-type="cta"] {
   color: hsl(var(--color-neutral-100) / 1);
 }
 
+.c-form--newsletter .c-form__field {
+  --c-form-field-default-option-background-color: transparent;
+  --c-form-field-default-option-border-color: hsl(var(--color-neutral-100) / 0.45);
+}
+
+.c-form--newsletter .c-form__field-agree-option-label {
+  align-items: flex-start;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.c-form--newsletter .c-form__field-agree-option-label:before {
+  width: var(--space-4);
+  height: var(--space-4);
+  min-width: var(--space-4);
+  margin-top: 0.125rem;
+}
+
 .c-form__container,
 .c-form__page,
 .c-form__page-container {
