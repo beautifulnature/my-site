@@ -15,10 +15,12 @@ const getChipClass = (active?: boolean) => {
 
 {
   items.map((item) => (
-    <button class="c-label c-label--small c-label--light-grey c-label--lower c-label--filter">
-      <a href={item.href} class={getChipClass(item.active)}>
-        <span class="c-label__text">{item.label}</span>
-      </a>
-    </button>
+    <a
+      href={item.href}
+      class={`c-label c-label--small c-label--light-grey c-label--lower c-label--filter ${item.active ? 'is-active' : ''}`}
+      aria-current={item.active ? 'page' : undefined}
+    >
+      <span class="c-label__text">{item.label}</span>
+    </a>
   ))
 }

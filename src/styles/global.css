@@ -1,4 +1,15 @@
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
+/* Make arrow icon white on hover for blog index post cards */
+/* Use a dark, bright color for the arrow icon on hover (e.g., purple-50) */
+/* Make arrow icon bright white on hover for blog index post cards */
+
+/* Make only the arrow icon (c-icon--after) bright white on hover for blog index post cards */
+.c-link-card__button:hover .c-icon--after {
+  color: hsl(var(--color-neutral-100)/1) !important;
+}
+.c-link-card__button:hover .c-icon {
+  color: hsl(var(--color-neutral-100)/1);
+}
 /* Add left border to the second text column for visual separation */
 .c-split-grid__container > .c-split-grid__text:nth-child(2) {
   border-left: var(--split-grid-border, var(--split-grid-default-border));

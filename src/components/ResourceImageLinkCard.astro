@@ -40,34 +40,32 @@ const HeadingTag = headingLevel;
 const cardClass = `c-link-card c-link-card--vertical scheme-default resource-index-item${spanTwoCols ? ' vp7:col-span-2' : ''}`;
 ---
 
-<MediaOverlayCard
-  articleClass={cardClass}
-  imageSrc={imageSrc || RESOURCE_CARD_PLACEHOLDER_SRC}
-  imageSrcSet={Array.isArray(imageSrcSet) ? imageSrcSet.join(', ') : (imageSrcSet || RESOURCE_CARD_PLACEHOLDER_SRCSET)}
-  imageAlt=""
->
-
-  <span slot="badge" class="c-label__text">
-    {label}
-  </span>
-
-  <HeadingTag slot="title" class="c-title c-link-card__title">{title}</HeadingTag>
-  
-  <a slot="button" class="c-button--icon-only c-button-primary c-link-card__button c-button">
-    <span class="c-icon c-button__icon  c-icon--after">
-      <ResourceIcons name="arrow-right" size={20}  class="c-icon__asset" width="16" height="16"/>
+<a href={href} class="block group" tabindex="0">
+  <MediaOverlayCard
+    articleClass={cardClass}
+    imageSrc={imageSrc || RESOURCE_CARD_PLACEHOLDER_SRC}
+    imageSrcSet={Array.isArray(imageSrcSet) ? imageSrcSet.join(', ') : (imageSrcSet || RESOURCE_CARD_PLACEHOLDER_SRCSET)}
+    imageAlt=""
+  >
+    <span slot="badge" class="c-label__text">
+      {label}
     </span>
-  </a>
-
-  <div slot="body" class="c-text s-wysiwyg c-link-card__text">
-    <p>
-      <strong>{dateText}</strong>
-      {detailText && (
-        <>
-          <br />
-          {detailText}
-        </>
-      )}
-    </p>
-  </div>
-</MediaOverlayCard>
+    <HeadingTag slot="title" class="c-title c-link-card__title">{title}</HeadingTag>
+    <span slot="button" class="c-button--icon-only c-button-primary c-link-card__button c-button">
+      <span class="c-icon c-button__icon  c-icon--after">
+        <ResourceIcons name="arrow-right" size={20}  class="c-icon__asset" width="16" height="16"/>
+      </span>
+    </span>
+    <div slot="body" class="c-text s-wysiwyg c-link-card__text">
+      <p>
+        <strong>{dateText}</strong>
+        {detailText && (
+          <>
+            <br />
+            {detailText}
+          </>
+        )}
+      </p>
+    </div>
+  </MediaOverlayCard>
+</a>
