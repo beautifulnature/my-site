@@ -2506,8 +2506,8 @@ section[data-type="split-grid"] + section[data-type="cta"] {
 
 .c-link-card--vertical .c-link-card__media {
   border-radius: 1.5rem;
-  -webkit-mask-image: url(../assets/card-mask.svg);
-  mask-image: url(../assets/card-mask.svg);
+  -webkit-mask-image: url(/assets/card-mask.svg);
+  mask-image: url(/assets/card-mask.svg);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;
