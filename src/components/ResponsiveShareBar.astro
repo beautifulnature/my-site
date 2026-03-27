@@ -7,7 +7,7 @@ const { url, title } = Astro.props;
 const SHARE_BG_HOVER = COLOR_PRIMARY;
 const SHARE_BORDER_HOVER = COLOR_PRIMARY;
 const SHARE_TEXT_HOVER = COLOR_WHITE;
-const SHARE_BORDER = "border-slate-700";
+const SHARE_BORDER = "border-slate-300 dark:border-white/15 text-slate-600 dark:text-slate-300";
 
 const pageUrl = url;
 const tweetText = encodeURIComponent(title);
@@ -18,9 +18,9 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
 ---
 
 <span
-  class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 text-black"
+  class="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-300"
 >
-  <ResourceIcons name="share" size={16} color="black" />
+  <ResourceIcons name="share" size={16} color="currentColor" />
 </span>
 
 <a

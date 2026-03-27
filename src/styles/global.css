@@ -10740,7 +10740,7 @@ html.dark .bg-slate-100 {
 /* 8. Tailwind text utilities that use hard-coded dark values */
 html.dark .text-gray-900,
 html.dark .text-slate-900 {
-  color: hsl(var(--color-neutral-100)) !important;
+  color: hsl(var(--color-neutral-80)) !important;
 }
 html.dark .text-gray-800,
 html.dark .text-slate-800,
@@ -10833,4 +10833,96 @@ html.dark .rounded-xl.bg-white {
 /* 17. ThemeToggle hover */
 html.dark .theme-toggle:hover {
   background-color: hsl(var(--color-darkgrey-20));
+}
+
+/* ============================================================
+   BLOG / RESOURCE DETAIL POST — DARK MODE
+   Extra overrides for individual article pages (DocsLayout)
+   ============================================================ */
+
+/* 18. Light-grey labels (tags on blog posts) — swap to dark surface */
+html.dark .c-label--light-grey {
+  --label-bg-color:       hsl(var(--color-darkgrey-20));
+  --label-color:          hsl(var(--color-neutral-80));
+  --label-hover-bg-color: hsl(var(--color-purple-50));
+  --label-hover-color:    hsl(var(--color-neutral-100));
+}
+
+/* 19. text-black hard-coded utility */
+html.dark .text-black {
+  color: hsl(var(--color-neutral-100)) !important;
+}
+
+/* 20. Metadata bar (author / date row) */
+html.dark .c-metadata,
+html.dark .c-metadata__inner,
+html.dark .c-metadata__info,
+html.dark .c-metadata__author,
+html.dark .c-metadata__date {
+  color: hsl(var(--color-neutral-80));
+}
+html.dark .c-metadata__dot {
+  background-color: hsl(var(--color-neutral-60));
+}
+
+/* 21. Summary sidebar on blog posts */
+html.dark .c-summary {
+  border-color: hsl(var(--color-neutral-100) / 0.08);
+}
+html.dark .c-summary__title {
+  color: hsl(var(--color-neutral-100));
+}
+html.dark .c-tabs {
+  color: hsl(var(--color-neutral-80));
+}
+
+/* 22. scheme-dark sections in dark mode — use deep navy rather than pure black */
+html.dark .scheme-dark {
+  --scheme-base:     hsl(var(--color-darkgrey-10));
+  --scheme-shade:    hsl(227deg 12% 9%);
+  --scheme-accent:   hsl(var(--color-purple-50));
+  --scheme-contrast: hsl(var(--color-neutral-100));
+  --scheme-text:     hsl(var(--color-neutral-80));
+  --scheme-title:    hsl(var(--color-neutral-100));
+  --scheme-border:   hsl(var(--color-neutral-100) / 0.08);
+}
+
+/* 23. Announcement banner — keep indigo but tone it down slightly */
+html.dark .bg-indigo-600 {
+  background-color: hsl(var(--color-purple-50)) !important;
+}
+
+/* 24. Hero circles SVG color in scheme-dark hero */
+html.dark .c-hero__graphic-asset {
+  color: hsl(var(--color-purple-70) / 0.25);
+}
+
+/* 25. Share bar border in dark */
+html.dark .border-slate-700 {
+  border-color: hsl(var(--color-neutral-100) / 0.15) !important;
+}
+
+/* 26. More-items section at bottom of blog posts */
+html.dark .more-section {
+  background-color: hsl(var(--color-darkgrey-10));
+}
+html.dark .h2-section-label {
+  color: hsl(var(--color-neutral-100));
+}
+html.dark .meta-label {
+  color: hsl(var(--color-neutral-60));
+}
+
+/* 27. Link cards in more-items grid */
+html.dark .resource-link-card {
+  background-color: hsl(var(--color-darkgrey-20));
+  border-color: hsl(var(--color-neutral-100) / 0.08);
+  color: hsl(var(--color-neutral-80));
+}
+html.dark .resource-link-card:hover {
+  border-color: hsl(var(--color-purple-50) / 0.5);
+}
+html.dark .resource-link-card h2,
+html.dark .resource-link-card h3 {
+  color: hsl(var(--color-neutral-100));
 }
