@@ -14,7 +14,7 @@ export default defineConfig({
   },
   vite: {
     server: {
-      allowedHosts: true,
+      allowedHosts: ['baee9319-b818-4106-aa86-944113b724df-00-uwwa0ykq3kef.kirk.replit.dev'],
     },
   },
   integrations: [
