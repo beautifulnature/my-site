@@ -1,0 +1,79 @@
+---
+import type { GetStaticPaths } from 'astro';
+import DocsLayout from '../../../layouts/Docs.astro';
+import ResourceDetailArticle from '../../../components/ResourceDetailArticle.astro';
+import MoreItemsGrid from '../../../components/MoreItemsGrid.astro';
+import MoreItemCard from '../../../components/MoreItemCard.astro';
+import {
+  buildMoreItemCardProps,
+  buildDetailPageMetaFromCollection,
+  buildStaticPathsFromCollection,
+} from '../../../utils/content';
+import { RESOURCE_TYPES } from '../../../utils/resourceTypes';
+import type { NewsletterEntry } from '../../../types/collections';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return buildStaticPathsFromCollection('newsletter', 'issue');
+};
+
+const { issue } = Astro.props as { issue: NewsletterEntry };
+const { Content } = await issue.render();
+const RT = RESOURCE_TYPES.newsletter;
+
+const { pageUrl, moreItems, tags } = await buildDetailPageMetaFromCollection(
+  'newsletter',
+  issue,
+  RT.detailBasePath,
+  Astro.request?.url,
+  3,
+);
+---
+
+<DocsLayout enableToc={true}>
+  <ResourceDetailArticle
+    backHref={RT.backHref}
+    backLabel={RT.backLabel}
+    iconName={RT.iconName}
+    pageUrl={pageUrl}
+    shareTitle={issue.data.title}
+    articleId="article-root"
+  >
+    <Fragment slot="header">
+      <div class="c-hero__content">
+        <h1 class="c-title c-hero__title">{issue.data.title}</h1>
+      </div>
+    </Fragment>
+
+    <Fragment slot="author">
+      <span class="c-metadata__date">
+        {issue.data.date.toLocaleDateString()}
+        {issue.data.issue ? ` · ${issue.data.issue}` : ''}
+      </span>
+    </Fragment>
+
+    <Fragment slot="tags">
+      {tags.length > 0 && (
+        <span class="flex flex-wrap gap-1 mt-1">
+          {tags.map((tag) => (
+            <a
+              href={`${RT.tagBasePath}/${encodeURIComponent(tag)}`}
+              class="c-label c-label--small c-label--light-grey c-label--lower c-label--filter"
+            >{tag}</a>
+          ))}
+        </span>
+      )}
+    </Fragment>
+
+    <Fragment slot="content">
+      <Content />
+    </Fragment>
+  </ResourceDetailArticle>
+
+  {moreItems.length > 0 && (
+    <MoreItemsGrid title={RT.moreTitle}>
+      {moreItems.map((item) => (
+        <MoreItemCard {...buildMoreItemCardProps(item, RT.detailBasePath, RT.moreCard)} />
+      ))}
+    </MoreItemsGrid>
+  )}
+</DocsLayout>
