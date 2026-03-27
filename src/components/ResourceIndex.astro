@@ -128,8 +128,9 @@ const formatDate = (item: ResourceItem) => {
     : d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 };
 
-const loadMoreInitial = 6;
-const loadMoreStep = 6;
+const DEFAULT_LOAD_MORE = 6;
+const loadMoreInitial = restFiltered.length < DEFAULT_LOAD_MORE ? restFiltered.length : DEFAULT_LOAD_MORE;
+const loadMoreStep = DEFAULT_LOAD_MORE;
 const hasMoreItems = restFiltered.length > loadMoreInitial;
 ---
 
@@ -168,19 +169,19 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
 
                   return (
                     <article class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical">
-                    <div class="c-link-card__container" hidden={index >= loadMoreInitial}>
-                      <VideoLinkCard
-                        href={getItemHref(latestFiltered)}
-                        title={String(latestFiltered.data[titleField])}
-                        thumbnailUrl={latestThumbnailUrl}
-                        dateText={formatDateMeta(latestFiltered)}
-                        subtitle={subtitleField ? String(latestFiltered.data[subtitleField] ?? '') : undefined}
-                        spanTwoCols={true}
-                        target={isHeroLinkExternal ? '_blank' : undefined}
-                        rel={isHeroLinkExternal ? 'noreferrer' : undefined}
-                      />
-                    </div>
-                  </article>
+                      <div class="c-link-card__container js-load-more-item" hidden={index >= loadMoreInitial}>
+                        <VideoLinkCard
+                          href={getItemHref(item)}
+                          title={String(item.data[titleField])}
+                          thumbnailUrl={itemThumbnailUrl}
+                          dateText={formatDateMeta(item)}
+                          subtitle={subtitleField ? String(item.data[subtitleField] ?? '') : undefined}
+                          spanTwoCols={true}
+                          target={isHeroLinkExternal ? '_blank' : undefined}
+                          rel={isHeroLinkExternal ? 'noreferrer' : undefined}
+                        />
+                      </div>
+                    </article>
                   );
                 })}
               </div>
@@ -222,7 +223,7 @@ const hasMoreItems = restFiltered.length > loadMoreInitial;
               {restFiltered.map((item, index) => {
                 return (
                     <article class="c-link-card scheme-default col-span-2 vp7:col-span-1 c-link-card--vertical">
-                      <div class="c-link-card__container" hidden={index >= loadMoreInitial}>
+                      <div class="c-link-card__container js-load-more-item" hidden={index >= loadMoreInitial}>
                       <ResourceImageLinkCard
                         href={getItemHref(item)}
                         title={String(item.data[titleField])}

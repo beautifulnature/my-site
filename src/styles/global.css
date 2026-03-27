@@ -1,3 +1,30 @@
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
+/* Make arrow icon white on hover for blog index post cards */
+/* Use a dark, bright color for the arrow icon on hover (e.g., purple-50) */
+/* Make arrow icon bright white on hover for blog index post cards */
+
+/* Make only the arrow icon (c-icon--after) bright white on hover for blog index post cards */
+.c-link-card__button:hover .c-icon--after {
+  color: hsl(var(--color-neutral-100)/1) !important;
+}
+.c-link-card__button:hover .c-icon {
+  color: hsl(var(--color-neutral-100)/1);
+}
+/* Add left border to the second text column for visual separation */
+.c-split-grid__container > .c-split-grid__text:nth-child(2) {
+  border-left: var(--split-grid-border, var(--split-grid-default-border));
+}
+/* Tabler Icons base class font assignment */
+.ti, [class^="ti-"] {
+  font-family: tabler-icons !important;
+  font-style: normal;
+  font-weight: 400;
+  speak: never;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  vertical-align: middle;
+}
 .blog-main-grid {
   align-items: start;
   display: grid;
@@ -1060,6 +1087,7 @@ section[data-type="split-grid"] + section[data-type="cta"] {
 
 .c-label--small {
   padding: var(--space-2) var(--space-3);
+  border-radius: 1.25rem;
 }
 
 .c-label--big {
@@ -3786,7 +3814,6 @@ section[data-type="split-grid"] + section[data-type="cta"] {
 .c-split-grid > :not(:first-child) {
   border-top: var(--split-grid-border, var(--split-grid-default-border));
 }
-
 .c-split-grid__container {
   display: grid;
   grid-template-columns: repeat(
@@ -3805,6 +3832,7 @@ section[data-type="split-grid"] + section[data-type="cta"] {
 
 .c-split-grid__media:first-child {
   padding: var(--split-grid-default-second-padding);
+  /* --text-card-padding: var(--split-grid-default-first-padding); */
 }
 
 .c-split-grid__media:nth-child(2) {
@@ -8596,17 +8624,6 @@ legend.c-form__field-label {
 
 }
 
-@font-face{
-
-  font-family: tabler-icons;
-  font-style: normal;
-  font-weight: 400;
-  src:
-    url(/assets/tabler-icons-23ef229d.woff2?v3.34.0) format("woff2"),
-    url(/assets/tabler-icons-9cf8d3a6.woff?) format("woff"),
-    url(/assets/tabler-icons-08c31d84.ttf?v3.34.0) format("truetype");
-
-}
 
 
 .blog-card {
@@ -9682,8 +9699,12 @@ legend.c-form__field-label {
     --split-grid-cols: 2;
   }
   
-  .c-split-grid__container > :first-child {
+  /* Only apply right border to text columns, not media columns */
+  .c-split-grid__container > .c-split-grid__text:first-child {
     border-right: var(--split-grid-border, var(--split-grid-default-border));
+  }
+  .c-split-grid__container > .c-split-grid__media:first-child {
+    border-right: none;
   }
 }
 

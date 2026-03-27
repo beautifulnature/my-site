@@ -1,19 +1,19 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import DocsLayout from '../../layouts/Docs.astro';
-import ResourceDetailArticle from '../../components/ResourceDetailArticle.astro';
-import MoreItemsGrid from '../../components/MoreItemsGrid.astro';
-import MoreItemCard from '../../components/MoreItemCard.astro';
+import type { GetStaticPaths } from "astro";
+import DocsLayout from "../../layouts/Docs.astro";
+import ResourceDetailArticle from "../../components/ResourceDetailArticle.astro";
+import MoreItemsGrid from "../../components/MoreItemsGrid.astro";
+import MoreItemCard from "../../components/MoreItemCard.astro";
 import {
   buildMoreItemCardProps,
   buildDetailPageMetaFromCollection,
   buildStaticPathsFromCollection,
-} from '../../utils/content';
-import type { BlogEntry } from '../../types/collections';
-import { RESOURCE_TYPES } from '../../utils/resourceTypes';
+} from "../../utils/content";
+import type { BlogEntry } from "../../types/collections";
+import { RESOURCE_TYPES } from "../../utils/resourceTypes";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return buildStaticPathsFromCollection('blog', 'post');
+  return buildStaticPathsFromCollection("blog", "post");
 };
 
 const { post } = Astro.props as { post: BlogEntry };
@@ -24,7 +24,13 @@ const {
   pageUrl,
   moreItems: morePosts,
   tags: postTags,
-} = await buildDetailPageMetaFromCollection('blog', post, resourceType.detailBasePath, Astro.request?.url, 3);
+} = await buildDetailPageMetaFromCollection(
+  "blog",
+  post,
+  resourceType.detailBasePath,
+  Astro.request?.url,
+  3,
+);
 ---
 
 <DocsLayout enableToc={true}>
@@ -39,58 +45,197 @@ const {
     articleClass="prose blog-prose"
     articleId="article-root"
   >
-    {post.data.description && (
-      <div slot="preMeta" class="mb-4">
+
+  <Fragment slot="header">
+    <div class="c-hero__content">
+      <h1
+        class="c-title c-hero__title"
+      >
+        {post.data.title}
+      </h1>
+      
+
+      <div
+        class="c-text s-wysiwyg c-hero__text s-wysiwyg--big"
+      >
         <p>
           {post.data.description}
         </p>
       </div>
-    )}
+    </div>
 
-    <Fragment slot="meta">
-      <span>{post.data.date.toLocaleDateString()}</span>
-      <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
-      <span>
-        By{' '}
-        {post.data.authorUrl ? (
-          <a
-            href={post.data.authorUrl}
-            class="underline hover:text-[var(--scheme-accent)]"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {post.data.author}
-          </a>
-        ) : (
-          post.data.author
-        )}
-      </span>
-      {postTags.length > 0 && (
-        <>
-          <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
-          <span class="flex flex-wrap gap-1">
-            {postTags.map((tag) => (
-              <span class="tag-chip">
-                {tag}
-              </span>
-            ))}
-          </span>
-        </>
-      )}
+    <div class="c-hero__graphic">
+      <svg
+        class="c-hero__graphic-asset"
+        width="1364"
+        height="750"
+        viewBox="0 0 1364 750"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <circle cx="674" cy="356" r="477.5" stroke="currentColor"></circle>
+        <circle opacity="0.6" cx="674" cy="356" r="551.5" stroke="currentColor"
+        ></circle>
+        <circle opacity="0.4" cx="674" cy="356" r="629.5" stroke="currentColor"
+        ></circle>
+        <circle opacity="0.2" cx="674" cy="356" r="701.5" stroke="currentColor"
+        ></circle>
+      </svg>
+    </div>
+  </div>
     </Fragment>
 
-    {/* Main content – headings here are used for TOC */}
-    <Content />
-  </ResourceDetailArticle>
+    <Fragment slot="author">
+      <span class="c-metadata__author">By{" "}
+            {
+              post.data.authorUrl ? (
+                <a
+                  href={post.data.authorUrl}
+                  class="underline hover:text-[var(--scheme-accent)]"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {post.data.author}
+                </a>
+              ) : (
+                post.data.author
+              )
+            }</span>
+      <span class="c-metadata__dot"></span>
+      <span class="c-metadata__date">{post.data.date.toLocaleDateString()}</span>
+    </Fragment>
 
-  {/* More posts – OUTSIDE article-root, ignored by TOC */}
-  {morePosts.length > 0 && (
-    <MoreItemsGrid title={resourceType.moreTitle} gridId="more-blog-grid">
+    <Fragment slot="tags">
+      <div>
+        {
+          postTags.length > 0 && (
+            <>
+              <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
+              <span class="flex flex-wrap gap-1">
+                {postTags.map((tag) => (
+                  <a
+                    href={`${resourceType.tagBasePath}/${encodeURIComponent(tag)}`}
+                    class="c-label c-label--small c-label--light-grey c-label--lower c-label--filter"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </span>
+            </>
+          )
+        }
+      </div>
+    </Fragment>
+
+    <Fragment slot="content">
+      <Content />
+    </Fragment>
+
+    <Fragment slot="meta">
+      <section class="layout bound-x section-sm my-8 space-y-8 scheme-dark">
+        <div class="c-hero c-hero--medium">
+          <picture
+            class="c-picture c-picture--cover c-hero__media u-overlay u-overlay--strong"
+            style="--image-focal-x: center; --image-focal-y: center;"
+          >
+            <img
+              class="c-picture__image eager"
+              sizes="100vw"
+              style="background: url(data:image/png;base64,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) center center / cover;"
+              src="https://timefold.ai/uploads/images/blog/2025/_1200x514_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp"
+              srcset="
+          https://timefold.ai/uploads/images/blog/2025/_1200x514_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 1200w,
+          https://timefold.ai/uploads/images/blog/2025/_992x425_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 992w,
+          https://timefold.ai/uploads/images/blog/2025/_720x309_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 720w,
+          https://timefold.ai/uploads/images/blog/2025/_480x206_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 480w,
+          https://timefold.ai/uploads/images/blog/2025/_320x137_crop_center-center_90_none/22855/planning-problems-are-everywhere.webp 320w,
+      "
+              height="144"
+              width="336"
+              alt=""
+            />
+          </picture>
+          <a
+            class="c-label c-hero__label c-label--square"
+            href="https://timefold.ai/blog"
+            target="_self"
+          >
+            <span class="c-label__text">Blog</span>
+          </a>
+          <div class="c-hero__content">
+            <h1
+              class="c-title c-hero__title"
+            >
+              {post.data.title}
+            </h1>
+
+            <div
+              class="c-text s-wysiwyg c-hero__text s-wysiwyg--big aos-init aos-animate"
+            >
+              <p>
+                {post.data.excerpt}
+              </p>
+            </div>
+          </div>
+
+          <span>{post.data.date.toLocaleDateString()}</span>
+          <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]"></span>
+          <span>
+            By{" "}
+            {
+              post.data.authorUrl ? (
+                <a
+                  href={post.data.authorUrl}
+                  class="underline hover:text-[var(--scheme-accent)]"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {post.data.author}
+                </a>
+              ) : (
+                post.data.author
+              )
+            }
+          </span>
+          {
+            postTags.length > 0 && (
+              <>
+                <span class="h-1 w-1 rounded-full bg-[var(--scheme-accent)]" />
+                <span class="flex flex-wrap gap-1">
+                  {postTags.map((tag) => (
+                    <span class="tag-chip">{tag}</span>
+                  ))}
+                </span>
+              </>
+            )
+          }
+        </div>
+      </section>
+
+      {/* Main content – headings here are used for TOC */}
+      <Content />
+    </Fragment>
+
+    {/* More posts – OUTSIDE article-root, ignored by TOC */}
+    {
+      /* morePosts.length > 0 && (
+        <MoreItemsGrid title={resourceType.moreTitle} gridId="more-blog-grid">
           {morePosts.map((p) => (
-            <MoreItemCard {...buildMoreItemCardProps(p, resourceType.detailBasePath, resourceType.moreCard)} />
+            <MoreItemCard
+              {...buildMoreItemCardProps(
+                p,
+                resourceType.detailBasePath,
+                resourceType.moreCard,
+              )}
+            />
           ))}
-    </MoreItemsGrid>
-  )}
+        </MoreItemsGrid>
+      ) */
+    }
 
-  {/* DocsTocScript is included by the layout; avoid duplicate inclusion here */}
+    {
+      /* DocsTocScript is included by the layout; avoid duplicate inclusion here */
+    }
+  </ResourceDetailArticle>
 </DocsLayout>
