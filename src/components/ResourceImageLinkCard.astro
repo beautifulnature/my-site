@@ -40,7 +40,7 @@ const HeadingTag = headingLevel;
 const cardClass = `c-link-card c-link-card--vertical scheme-default resource-index-item${spanTwoCols ? ' vp7:col-span-2' : ''}`;
 ---
 
-<a href={href} class="block group" tabindex="0">
+<a href={href} class="block group" tabindex="0" target={target} rel={rel}>
   <MediaOverlayCard
     articleClass={cardClass}
     imageSrc={imageSrc || RESOURCE_CARD_PLACEHOLDER_SRC}
