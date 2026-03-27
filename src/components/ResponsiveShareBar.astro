@@ -1,13 +1,7 @@
 ---
 import ResourceIcons from "./ResourceIcons.astro";
-import { COLOR_PRIMARY, COLOR_WHITE } from "../utils/colors";
 
 const { url, title } = Astro.props;
-
-const SHARE_BG_HOVER = COLOR_PRIMARY;
-const SHARE_BORDER_HOVER = COLOR_PRIMARY;
-const SHARE_TEXT_HOVER = COLOR_WHITE;
-const SHARE_BORDER = "border-slate-300 dark:border-white/15 text-slate-600 dark:text-slate-300";
 
 const pageUrl = url;
 const tweetText = encodeURIComponent(title);
@@ -27,7 +21,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
   href={twitterShare}
   target="_blank"
   rel="noreferrer"
-  class={`flex items-center justify-center rounded-full border ${SHARE_BORDER} p-2 hover:border-[${SHARE_BORDER_HOVER}] hover:bg-[${SHARE_BG_HOVER}] hover:text-white transition-colors`}
+  class="flex items-center justify-center rounded-full border border-slate-300 dark:border-white/15 text-slate-600 dark:text-slate-300 p-2 transition-colors hover:bg-tf-purple hover:border-tf-purple hover:text-white"
   aria-label="Share on Twitter / X"
 >
   <ResourceIcons name="twitter" size={16} color="currentColor" />
@@ -37,7 +31,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
   href={linkedinShare}
   target="_blank"
   rel="noreferrer"
-  class={`flex items-center justify-center rounded-full border ${SHARE_BORDER} p-2 hover:bg-[${SHARE_BG_HOVER}] hover:border-[${SHARE_BORDER_HOVER}] hover:text-white transition-colors`}
+  class="flex items-center justify-center rounded-full border border-slate-300 dark:border-white/15 text-slate-600 dark:text-slate-300 p-2 transition-colors hover:bg-tf-purple hover:border-tf-purple hover:text-white"
   aria-label="Share on LinkedIn"
 >
   <ResourceIcons name="linkedin" size={16} color="currentColor" />
@@ -47,7 +41,7 @@ const hackerNewsShare = `https://news.ycombinator.com/submitlink?u=${encodeURICo
   href={hackerNewsShare}
   target="_blank"
   rel="noreferrer"
-  class={`flex items-center justify-center rounded-full border ${SHARE_BORDER} p-2 hover:bg-[${SHARE_BG_HOVER}] hover:border-[${SHARE_BORDER_HOVER}] hover:text-white transition-colors`}
+  class="flex items-center justify-center rounded-full border border-slate-300 dark:border-white/15 text-slate-600 dark:text-slate-300 p-2 transition-colors hover:bg-tf-purple hover:border-tf-purple hover:text-white"
   aria-label="Share on Hacker News"
 >
   <ResourceIcons name="hackernews" size={16} color="currentColor" />
