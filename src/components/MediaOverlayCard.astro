@@ -32,7 +32,7 @@ const {
 
   <div class="c-link-card__container">
     {headerHref ? (
-      <div class="c-link-card__header">
+      <a href={headerHref} target={headerTarget} rel={headerRel} aria-label={headerAriaLabel} class="c-link-card__header">
        {imageSrc && (
           <picture class="c-picture c-link-card__media u-overlay u-overlay--strong" style="--image-focal-x: center; --image-focal-y: center;">
             <img
@@ -55,7 +55,7 @@ const {
           <slot name="title" />
           <slot name="button" />
         </div>
-        </div>
+        </a>
     ) : (
       <div class="c-link-card__header">
         {imageSrc && (
