@@ -3795,6 +3795,20 @@ section[data-type="split-grid"] + section[data-type="cta"] {
   width: auto;
 }
 
+@keyframes logoMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.c-logo-slider__wrapper {
+  animation: logoMarquee 40s linear infinite;
+  will-change: transform;
+}
+
+.c-logo-slider:hover .c-logo-slider__wrapper {
+  animation-play-state: paused;
+}
+
 .c-logo-slider--white {
   --logo-slider-filter: invert(1) brightness(100%) sepia(100%) saturate(0%);
 }
