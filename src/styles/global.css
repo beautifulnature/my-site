@@ -11009,3 +11009,53 @@ html.dark .resource-link-card h2,
 html.dark .resource-link-card h3 {
   color: hsl(var(--color-neutral-100));
 }
+
+/* ============================================================
+   DARK MODE – SHORTCUTS / TOGGLE CAROUSEL SECTION
+   ============================================================ */
+
+/* Card background – slightly elevated surface */
+html.dark .c-toggle-item.prop-bg {
+  background-color: hsl(var(--color-darkgrey-20));
+  border-radius: 0.75rem;
+}
+
+/* Title text */
+html.dark .c-toggle-item__title {
+  color: hsl(var(--color-neutral-100) / 1);
+}
+
+/* Body / description text */
+html.dark .c-toggle-item__text,
+html.dark .c-toggle-item__text * {
+  color: hsl(var(--color-neutral-80) / 1);
+}
+
+/* Mobile bullet dots – change from black to white */
+html.dark .c-toggle-carousel__pagination .swiper-pagination-bullet {
+  background-color: hsl(var(--color-neutral-100) / 1);
+  opacity: 0.35;
+}
+html.dark .c-toggle-carousel__pagination .swiper-pagination-bullet-active {
+  background-color: hsl(var(--color-purple-50) / 1);
+  opacity: 1;
+}
+
+/* Desktop tab border – override the smoke-90 (near-white) to a visible muted line */
+html.dark .c-toggle-carousel {
+  --toggle-carousel-border-color: hsl(var(--color-neutral-100) / 0.18);
+  border-color: hsl(var(--color-neutral-100) / 0.12);
+}
+
+/* Desktop tab label text */
+html.dark .c-toggle-carousel__pagination .swiper-pagination-bullet span {
+  color: hsl(var(--color-neutral-80) / 1);
+}
+html.dark .c-toggle-carousel__pagination .swiper-pagination-bullet-active span {
+  color: hsl(var(--color-neutral-100) / 1);
+}
+
+/* Mobile tab title above the card */
+html.dark .c-toggle-carousel__tab {
+  color: hsl(var(--color-neutral-100) / 1);
+}
