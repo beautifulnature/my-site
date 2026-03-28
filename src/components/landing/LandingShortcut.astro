@@ -1258,3 +1258,116 @@ s-container">
     </div>
   </div>
 </section>
+
+<script>
+  (() => {
+    if (typeof window === "undefined") return;
+    const carousels = document.querySelectorAll<HTMLElement>(".js-toggle-carousel");
+    if (!carousels.length) return;
+
+    carousels.forEach((carousel) => {
+      const wrapper = carousel.querySelector<HTMLElement>(".c-toggle-carousel__wrapper");
+      const slides = Array.from(carousel.querySelectorAll<HTMLElement>(".c-toggle-carousel__slide"));
+      const bullets = Array.from(carousel.querySelectorAll<HTMLElement>(".swiper-pagination-bullet"));
+      const prevBtn = carousel.querySelector<HTMLElement>(".c-toggle-carousel__button--prev");
+      const nextBtn = carousel.querySelector<HTMLElement>(".c-toggle-carousel__button--next");
+
+      if (!wrapper || !slides.length) return;
+
+      let activeIndex = 0;
+      let touchStartX = 0;
+      const swipeThreshold = 50;
+
+      // Ensure slides fill the swiper width (override Swiper.js inline pixel widths)
+      slides.forEach((slide) => {
+        slide.style.width = "100%";
+        slide.style.flexShrink = "0";
+        slide.style.marginRight = "0";
+      });
+
+      const setActive = (index: number) => {
+        activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+
+        // Update wrapper transform
+        wrapper.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+        wrapper.style.transition = "transform 0.3s ease";
+
+        // Update bullets
+        bullets.forEach((bullet, i) => {
+          bullet.classList.toggle("swiper-pagination-bullet-active", i === activeIndex);
+          bullet.setAttribute("aria-current", i === activeIndex ? "true" : "false");
+          bullet.setAttribute("tabindex", i === activeIndex ? "0" : "-1");
+        });
+
+        // Update slides
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("is-active", i === activeIndex);
+          slide.setAttribute("aria-hidden", i === activeIndex ? "false" : "true");
+        });
+
+        // Update prev/next button state
+        if (prevBtn) {
+          const isFirst = activeIndex === 0;
+          prevBtn.classList.toggle("is-disabled", isFirst);
+          prevBtn.setAttribute("aria-disabled", isFirst ? "true" : "false");
+          prevBtn.setAttribute("tabindex", isFirst ? "-1" : "0");
+        }
+        if (nextBtn) {
+          const isLast = activeIndex === slides.length - 1;
+          nextBtn.classList.toggle("is-disabled", isLast);
+          nextBtn.setAttribute("aria-disabled", isLast ? "true" : "false");
+          nextBtn.setAttribute("tabindex", isLast ? "-1" : "0");
+        }
+      };
+
+      // Bullet click/keyboard
+      bullets.forEach((bullet, i) => {
+        bullet.style.cursor = "pointer";
+        bullet.addEventListener("click", () => setActive(i));
+        bullet.addEventListener("keydown", (e) => {
+          if ((e as KeyboardEvent).key === "Enter" || (e as KeyboardEvent).key === " ") {
+            e.preventDefault();
+            setActive(i);
+          }
+        });
+      });
+
+      // Prev/Next click/keyboard
+      if (prevBtn) {
+        prevBtn.style.cursor = "pointer";
+        prevBtn.addEventListener("click", () => setActive(activeIndex - 1));
+        prevBtn.addEventListener("keydown", (e) => {
+          if ((e as KeyboardEvent).key === "Enter" || (e as KeyboardEvent).key === " ") {
+            e.preventDefault();
+            setActive(activeIndex - 1);
+          }
+        });
+      }
+      if (nextBtn) {
+        nextBtn.style.cursor = "pointer";
+        nextBtn.addEventListener("click", () => setActive(activeIndex + 1));
+        nextBtn.addEventListener("keydown", (e) => {
+          if ((e as KeyboardEvent).key === "Enter" || (e as KeyboardEvent).key === " ") {
+            e.preventDefault();
+            setActive(activeIndex + 1);
+          }
+        });
+      }
+
+      // Touch swipe support
+      wrapper.addEventListener("touchstart", (e) => {
+        touchStartX = (e as TouchEvent).touches[0].clientX;
+      }, { passive: true });
+
+      wrapper.addEventListener("touchend", (e) => {
+        const delta = touchStartX - (e as TouchEvent).changedTouches[0].clientX;
+        if (Math.abs(delta) > swipeThreshold) {
+          setActive(delta > 0 ? activeIndex + 1 : activeIndex - 1);
+        }
+      }, { passive: true });
+
+      // Initialize
+      setActive(0);
+    });
+  })();
+</script>
