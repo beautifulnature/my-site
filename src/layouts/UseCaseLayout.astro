@@ -1,0 +1,273 @@
+---
+import "../styles/global.css";
+import Header from "../components/landing/LandingHeader.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  eyebrow?: string;
+  heroImage?: string;
+  icon?: string;
+  tags?: string[];
+}
+
+const { title, description, eyebrow = "Use Case", heroImage, icon, tags = [] } = Astro.props;
+
+const iconSvgs: Record<string, string> = {
+  route: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M5 7v4a2 2 0 0 0 2 2h8a2 2 0 0 1 2 2v2"/><path d="M10 5h4"/></svg>`,
+  shift: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>`,
+  task: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+};
+
+const iconSvg = icon ? (iconSvgs[icon] ?? iconSvgs.task) : iconSvgs.task;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Timefold</title>
+    {description && <meta name="description" content={description} />}
+    <script is:inline>
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="scheme-default transition-colors duration-300 overflow-x-hidden">
+    <Header />
+
+    <article>
+      <header class="uc-hero scheme-default">
+        <div class="uc-hero-inner">
+          <a href="/use-cases" class="uc-back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            All use cases
+          </a>
+
+          <div class="uc-hero-eyebrow">
+            <span class="uc-icon" set:html={iconSvg} />
+            <span>{eyebrow}</span>
+          </div>
+
+          <h1 class="uc-hero-title">{title}</h1>
+
+          {description && <p class="uc-hero-description">{description}</p>}
+
+          {tags.length > 0 && (
+            <div class="uc-tags">
+              {tags.map((tag) => (
+                <span class="uc-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+
+          <div class="uc-cta-group">
+            <a href="https://timefold.ai/request-a-trial" class="uc-cta-primary" target="_blank" rel="noopener noreferrer">
+              Request free trial
+              <svg width="14" height="14" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+                <path d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"/>
+              </svg>
+            </a>
+            <a href="/docs" class="uc-cta-secondary">Read the docs</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="uc-body">
+        <div class="uc-prose">
+          <slot />
+        </div>
+      </div>
+    </article>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .uc-hero {
+    background-color: var(--scheme-base);
+    border-bottom: 1px solid var(--scheme-border, rgba(0,0,0,0.08));
+    padding: 3rem 1rem 3.5rem;
+  }
+  .uc-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .uc-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--scheme-text, #64748b);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition: color 0.14s;
+  }
+  .uc-back-link:hover {
+    color: var(--scheme-accent, #5A32FA);
+  }
+  .uc-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--scheme-accent, #5A32FA);
+    margin-bottom: 0.875rem;
+  }
+  .uc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .uc-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .uc-hero-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--scheme-title, #0f172a);
+    margin: 0 0 1rem;
+  }
+  .uc-hero-description {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--scheme-text, #475569);
+    margin: 0 0 1.5rem;
+    max-width: 640px;
+  }
+  .uc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .uc-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 999px;
+    background-color: rgba(90,50,250,0.08);
+    color: var(--scheme-accent, #5A32FA);
+  }
+  .uc-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .uc-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 22px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--scheme-accent, #5A32FA);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .uc-cta-primary:hover { opacity: 0.88; }
+  .uc-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--scheme-title, #0f172a);
+    border: 1.5px solid var(--scheme-border, rgba(0,0,0,0.12));
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.14s, background-color 0.14s;
+  }
+  .uc-cta-secondary:hover {
+    border-color: var(--scheme-accent, #5A32FA);
+    background-color: rgba(90,50,250,0.04);
+  }
+
+  .uc-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1rem 5rem;
+  }
+
+  .uc-prose :global(h2) {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--scheme-title, #0f172a);
+    margin: 2.5rem 0 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--scheme-border, rgba(0,0,0,0.07));
+  }
+  .uc-prose :global(h2:first-child) {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+  }
+  .uc-prose :global(p) {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--scheme-text, #475569);
+    margin: 0 0 1rem;
+  }
+  .uc-prose :global(ul), .uc-prose :global(ol) {
+    margin: 0 0 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .uc-prose :global(li) {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--scheme-text, #475569);
+  }
+  .uc-prose :global(li strong) {
+    color: var(--scheme-title, #0f172a);
+    font-weight: 700;
+  }
+  .uc-prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+  }
+  .uc-prose :global(th) {
+    text-align: left;
+    padding: 10px 14px;
+    background-color: rgba(90,50,250,0.06);
+    color: var(--scheme-title, #0f172a);
+    font-weight: 700;
+    border-bottom: 2px solid rgba(90,50,250,0.15);
+  }
+  .uc-prose :global(td) {
+    padding: 10px 14px;
+    color: var(--scheme-text, #475569);
+    border-bottom: 1px solid var(--scheme-border, rgba(0,0,0,0.07));
+  }
+  .uc-prose :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  html.dark .uc-cta-secondary {
+    color: var(--scheme-title, #f1f5f9);
+  }
+</style>

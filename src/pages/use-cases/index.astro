@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+import "../../styles/global.css";
+import Header from "../../components/landing/LandingHeader.astro";
+import Footer from "../../components/Footer.astro";
+
+const useCases = (await getCollection('use-cases')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+
+const iconSvgs: Record<string, string> = {
+  route: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M5 7v4a2 2 0 0 0 2 2h8a2 2 0 0 1 2 2v2"/><path d="M10 5h4"/></svg>`,
+  shift: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>`,
+  task: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Use Cases — Timefold</title>
+    <meta name="description" content="Explore intelligent scheduling solutions for route, shift, and task optimization." />
+    <script is:inline>
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="scheme-default transition-colors duration-300 overflow-x-hidden">
+    <Header />
+
+    <section class="uc-index-hero scheme-default">
+      <div class="uc-index-hero-inner">
+        <p class="uc-eyebrow">Use Cases</p>
+        <h1 class="uc-index-title">Intelligent scheduling for any operation</h1>
+        <p class="uc-index-desc">
+          Timefold optimizes complex scheduling problems across logistics, workforce management, and field operations — delivered through a single API.
+        </p>
+      </div>
+    </section>
+
+    <div class="uc-index-body">
+      <div class="uc-grid">
+        {useCases.map((entry) => {
+          const svg = iconSvgs[entry.data.icon ?? 'task'] ?? iconSvgs.task;
+          return (
+            <a href={`/use-cases/${entry.slug}`} class="uc-card">
+              <div class="uc-card-icon" set:html={svg} />
+              <h2 class="uc-card-title">{entry.data.title}</h2>
+              <p class="uc-card-desc">{entry.data.description}</p>
+              <span class="uc-card-link">
+                Learn more
+                <svg width="13" height="13" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+                  <path d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"/>
+                </svg>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .uc-index-hero {
+    background-color: var(--scheme-base);
+    border-bottom: 1px solid var(--scheme-border, rgba(0,0,0,0.08));
+    padding: 4rem 1rem 4rem;
+    text-align: center;
+  }
+  .uc-index-hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .uc-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--scheme-accent, #5A32FA);
+    margin: 0 0 1rem;
+  }
+  .uc-index-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--scheme-title, #0f172a);
+    margin: 0 0 1rem;
+  }
+  .uc-index-desc {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--scheme-text, #475569);
+    margin: 0;
+  }
+
+  .uc-index-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3.5rem 1rem 5rem;
+  }
+  .uc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 48em) {
+    .uc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 60em) {
+    .uc-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .uc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    border: 1.5px solid var(--scheme-border, rgba(0,0,0,0.08));
+    border-radius: 1rem;
+    background-color: var(--scheme-base, #fff);
+    text-decoration: none;
+    transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+  }
+  .uc-card:hover {
+    border-color: var(--scheme-accent, #5A32FA);
+    box-shadow: 0 6px 24px rgba(90,50,250,0.1);
+    transform: translateY(-2px);
+  }
+  .uc-card-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(90,50,250,0.08);
+    border-radius: 0.625rem;
+    color: var(--scheme-accent, #5A32FA);
+    flex-shrink: 0;
+  }
+  .uc-card-icon :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .uc-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--scheme-title, #0f172a);
+    margin: 0;
+    line-height: 1.3;
+  }
+  .uc-card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--scheme-text, #64748b);
+    margin: 0;
+    flex: 1;
+  }
+  .uc-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--scheme-accent, #5A32FA);
+    margin-top: 0.25rem;
+  }
+</style>
