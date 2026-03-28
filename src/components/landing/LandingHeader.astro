@@ -12,12 +12,20 @@ const RESOURCES_LINKS = [
   { href: "/resources/newsletter", label: "Newsletter" },
 ];
 
-const NAV_LINKS = [
-  { href: "https://timefold.ai/solutions", label: "Use cases", external: true },
-  { href: "/blog", label: "Blog" },
-  { href: "https://timefold.ai/pricing", label: "Pricing", external: true },
-  { href: "/docs", label: "Documentation" },
-];
+const pathname = Astro.url.pathname;
+
+const isResourcesActive = pathname.startsWith("/blog") || pathname.startsWith("/resources");
+const isDocsActive = pathname.startsWith("/docs");
+
+const getDropdownItemClass = (href: string) => {
+  const active = pathname === href || (href !== "/resources" && pathname.startsWith(href));
+  return active ? "tf-dropdown-item is-active" : "tf-dropdown-item";
+};
+
+const getMobileSublinkClass = (href: string) => {
+  const active = pathname === href || (href !== "/resources" && pathname.startsWith(href));
+  return active ? "tf-mobile-sublink is-active" : "tf-mobile-sublink";
+};
 ---
 
 <header class="tf-header sticky top-0 z-50 bg-[var(--scheme-base)]/90 backdrop-blur-md border-b border-[var(--scheme-border)]">
@@ -50,7 +58,7 @@ const NAV_LINKS = [
       >
 
       <div class="tf-dropdown-wrap">
-        <a href="/resources" class="tf-nav-link">
+        <a href="/resources" class={`tf-nav-link${isResourcesActive ? " is-active" : ""}`}>
           Resources
           <svg
             class="w-3.5 h-3.5 opacity-50 ml-0.5"
@@ -67,7 +75,7 @@ const NAV_LINKS = [
         <div class="tf-dropdown" role="menu">
           {
             RESOURCES_LINKS.map((item) => (
-              <a href={item.href} class="tf-dropdown-item" role="menuitem">
+              <a href={item.href} class={getDropdownItemClass(item.href)} role="menuitem">
                 {item.label}
               </a>
             ))
@@ -82,7 +90,7 @@ const NAV_LINKS = [
         class="tf-nav-link">Pricing</a
       >
 
-      <a href="/docs" class="tf-nav-link">Documentation</a>
+      <a href="/docs" class={`tf-nav-link${isDocsActive ? " is-active" : ""}`}>Documentation</a>
     </nav>
 
     <div class="flex items-center gap-3 shrink-0">
@@ -138,7 +146,7 @@ const NAV_LINKS = [
         <div class="hidden pl-4 pb-1 flex flex-col gap-0.5" data-mobile-resources-submenu>
           {
             RESOURCES_LINKS.map((item) => (
-              <a href={item.href} class="tf-mobile-sublink">{item.label}</a>
+              <a href={item.href} class={getMobileSublinkClass(item.href)}>{item.label}</a>
             ))
           }
         </div>
@@ -215,6 +223,10 @@ const NAV_LINKS = [
     color: var(--scheme-accent);
     background-color: rgba(90, 50, 250, 0.07);
   }
+  .tf-nav-link.is-active {
+    color: var(--scheme-accent);
+    background-color: rgba(90, 50, 250, 0.08);
+  }
 
   .tf-dropdown-wrap {
     position: relative;
@@ -258,6 +270,15 @@ const NAV_LINKS = [
       color 0.12s ease;
   }
   .tf-dropdown-item:hover {
+    background-color: var(--scheme-accent);
+    color: #ffffff;
+  }
+  .tf-dropdown-item.is-active {
+    background-color: rgba(90, 50, 250, 0.1);
+    color: var(--scheme-accent);
+    font-weight: 600;
+  }
+  .tf-dropdown-item.is-active:hover {
     background-color: var(--scheme-accent);
     color: #ffffff;
   }
@@ -306,6 +327,11 @@ const NAV_LINKS = [
   .tf-mobile-sublink:hover {
     background-color: rgba(90, 50, 250, 0.07);
     color: var(--scheme-accent);
+  }
+  .tf-mobile-sublink.is-active {
+    color: var(--scheme-accent);
+    font-weight: 600;
+    background-color: rgba(90, 50, 250, 0.07);
   }
 </style>
 
