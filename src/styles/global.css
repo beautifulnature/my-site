@@ -875,28 +875,23 @@ section[data-type="split-grid"] + section[data-type="cta"] {
   --link-hover-color: var(--scheme-contrast);
 }
 
-/* Force white text on primary buttons with higher specificity (0,2,0) to beat any single-class rule
-   that may set a dark inherited color (e.g. .c-hero { color: var(--scheme-contrast) } = black).
-   Scheme-purple and scheme-grey are handled separately below. */
-.c-button.c-button--primary,
-a.c-button--primary {
+/* Force white text on all default/primary buttons (specificity 0,4,0) so that inherited
+   dark colors from parent containers like .c-hero { color: var(--scheme-contrast) }
+   never bleed through. Secondary, tertiary and unstyled variants are excluded. */
+.c-button:not(.c-button--secondary):not(.c-button--tertiary):not(.c-button--unstyled) {
   color: #fff;
 }
-.c-button.c-button--primary:hover,
-a.c-button--primary:hover {
+.c-button:not(.c-button--secondary):not(.c-button--tertiary):not(.c-button--unstyled):hover {
   color: #fff;
 }
-/* Restore dark text for buttons inside purple/grey scheme containers (white bg button → dark text) */
-.scheme-purple .c-button.c-button--primary,
-.scheme-purple a.c-button--primary,
-.scheme-grey .c-button.c-button--primary,
-.scheme-grey a.c-button--primary {
+/* Restore dark text for plain-colour buttons inside purple/grey scheme containers
+   (those schemes flip the button to a white/light background → dark text needed). */
+.scheme-purple .c-button:not(.c-button--secondary):not(.c-button--tertiary):not(.c-button--unstyled),
+.scheme-grey  .c-button:not(.c-button--secondary):not(.c-button--tertiary):not(.c-button--unstyled) {
   color: hsl(var(--color-neutral-0)/1);
 }
-.scheme-purple .c-button.c-button--primary:hover,
-.scheme-purple a.c-button--primary:hover,
-.scheme-grey .c-button.c-button--primary:hover,
-.scheme-grey a.c-button--primary:hover {
+.scheme-purple .c-button:not(.c-button--secondary):not(.c-button--tertiary):not(.c-button--unstyled):hover,
+.scheme-grey  .c-button:not(.c-button--secondary):not(.c-button--tertiary):not(.c-button--unstyled):hover {
   color: hsl(var(--color-neutral-100)/1);
 }
 
