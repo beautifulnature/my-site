@@ -10,23 +10,29 @@ const { title = SITE_CONTENT.defaultTitle } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body class="bg-timefold-dark text-slate-300 font-sans antialiased">
-		<Header />
+        <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width" />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="generator" content={Astro.generator} />
+                <title>{title}</title>
+                <link
+                  rel="alternate"
+                  type="application/rss+xml"
+                  title="Timefold Blog RSS Feed"
+                  href="/rss.xml"
+                />
+        </head>
+        <body class="bg-timefold-dark text-slate-300 font-sans antialiased">
+                <Header />
 
-		<main class="layout-container pb-6 pt-16">
-			<slot />
-		</main>
+                <main class="layout-container pb-6 pt-16">
+                        <slot />
+                </main>
 
-		<GoToTopButton />
-		<Footer />
-	</body>
+                <GoToTopButton />
+                <Footer />
+        </body>
 </html>
 
