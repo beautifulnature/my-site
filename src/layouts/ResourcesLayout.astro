@@ -21,6 +21,7 @@ const {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <script is:inline>
       (function () {
@@ -35,15 +36,15 @@ const {
       })();
     </script>
   </head>
-  <body class="scheme-default transition-colors duration-300">
+  <body class="scheme-default transition-colors duration-300 overflow-x-hidden">
     <Header />
     {
       title && (
         <section class="layout bound-x section-sm section-sm border-b border-solid prop-border scheme-default">
-          <div class="flex items-center justify-between py-8">
+          <div class="resource-title-bar">
             <h1 class="c-title">{title}</h1>
 
-            <nav class="resource-type-nav flex gap-3">
+            <nav class="resource-type-nav">
               {RESOURCE_NAV_ITEMS
                 .filter((item) => item.href !== currentPath)
                 .map((item) => (
@@ -53,7 +54,7 @@ const {
                     aria-label={item.label}
                     title={item.label}
                   >
-                    <ResourceIcons name={item.iconName} size={28} color="currentColor" />
+                    <ResourceIcons name={item.iconName} size={24} color="currentColor" />
                   </a>
                 ))}
             </nav>
@@ -63,18 +64,44 @@ const {
     }
 
     <style>
+      .resource-title-bar {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+      @media (min-width: 37.5em) {
+        .resource-title-bar {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+      .resource-type-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
       .resource-nav-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         border-radius: 10px;
         border: 2px solid var(--scheme-title);
         color: var(--scheme-title);
         background-color: transparent;
         transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
         text-decoration: none;
+        flex-shrink: 0;
+      }
+      @media (min-width: 60em) {
+        .resource-nav-btn {
+          width: 48px;
+          height: 48px;
+        }
       }
       .resource-nav-btn:hover {
         background-color: var(--scheme-accent);

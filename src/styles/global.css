@@ -10948,7 +10948,20 @@ html.dark .meta-label {
   color: hsl(var(--color-neutral-60));
 }
 
-/* 27. Link cards in more-items grid */
+/* 27. Link cards in resources index grid */
+.resource-link-card {
+  padding: 1.25rem 1.5rem;
+  border: 1.5px solid hsl(var(--color-neutral-20));
+  border-radius: 1rem;
+  background-color: hsl(var(--color-neutral-0));
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.resource-link-card:hover {
+  border-color: var(--scheme-accent, #7c3aed);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
 html.dark .resource-link-card {
   background-color: hsl(var(--color-darkgrey-20));
   border-color: hsl(var(--color-neutral-100) / 0.08);
