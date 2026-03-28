@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "WlNO6Xhu3lhvORXaF3dNz"
+uri = "file://DEVELOPMENT_GUIDE.md"
+type = "text"
+title = "Astro Project Development Guide — Complete Step-by-Step"
