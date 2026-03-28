@@ -1,6 +1,9 @@
 ---
+import { SITE_CONTENT } from "../../utils/siteContent";
+import { MAIN_NAV_ITEMS, TALK_TO_US_URL } from "../../utils/navigation";
+import ResourceIcons from "../ResourceIcons.astro";
 import ThemeToggle from "../ThemeToggle.astro";
-import { TALK_TO_US_URL } from "../../utils/navigation";
+// import { TALK_TO_US_URL } from "../../utils/navigation";
 
 const RESOURCES_LINKS = [
   { href: "/blog", label: "Blog" },
@@ -12,16 +15,34 @@ const RESOURCES_LINKS = [
 ];
 ---
 
-<header class="tf-header sticky top-0 z-50 vp12:layout vp12:bound-x px-4 vp12:px-14 bg-[var(--scheme-base)]/90 backdrop-blur-md border-b border-[var(--scheme-border)]">
+<header
+  class="tf-header sticky top-0 z-50 vp12:layout vp12:bound-x px-4 vp12:px-14 bg-[var(--scheme-base)]/90 backdrop-blur-md border-b border-[var(--scheme-border)]"
+>
   <div class="flex items-center justify-between h-14 w-full gap-4">
-
-    <a href="/" aria-label="Timefold home" class="flex items-center gap-2.5 shrink-0">
-      <div class="h-8 w-8 rounded-lg bg-[#5A32FA] flex items-center justify-center">
-        <svg class="w-[18px] h-[18px] text-white" viewBox="0 0 49.65 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M17.8038 9V0.5H8.5595V9H3.11566L0 17.5H8.5595V34.5H18.266C20.0635 34.5 21.6727 33.3814 22.2889 31.7052L24.1583 26.6018C24.1583 26.6018 24.3775 26.0034 25.0211 26.0034H38.5862L41.7019 17.5034H30.4889C28.6914 17.5034 27.0823 18.622 26.466 20.2982L24.5966 25.4016C24.5966 25.4016 24.3775 26 23.7338 26H17.8003V17.5H24.4939C26.2914 17.5 27.9005 16.3814 28.5168 14.7052L30.3862 9.6018C30.3862 9.6018 30.6053 9.0034 31.249 9.0034H46.526L49.6451 0.5H36.7202C34.9228 0.5 33.3136 1.6186 32.6973 3.2948L30.8279 8.3982C30.8279 8.3982 30.6088 8.9966 29.9651 8.9966H17.8003L17.8038 9Z"/>
+    <a
+      href="/"
+      aria-label="Timefold home"
+      class="flex items-center gap-2.5 shrink-0"
+    >
+      <div
+        class="h-8 w-8 rounded-lg bg-[#5A32FA] flex items-center justify-center"
+      >
+        <svg
+          class="w-[18px] h-[18px] text-white"
+          viewBox="0 0 49.65 35"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M17.8038 9V0.5H8.5595V9H3.11566L0 17.5H8.5595V34.5H18.266C20.0635 34.5 21.6727 33.3814 22.2889 31.7052L24.1583 26.6018C24.1583 26.6018 24.3775 26.0034 25.0211 26.0034H38.5862L41.7019 17.5034H30.4889C28.6914 17.5034 27.0823 18.622 26.466 20.2982L24.5966 25.4016C24.5966 25.4016 24.3775 26 23.7338 26H17.8003V17.5H24.4939C26.2914 17.5 27.9005 16.3814 28.5168 14.7052L30.3862 9.6018C30.3862 9.6018 30.6053 9.0034 31.249 9.0034H46.526L49.6451 0.5H36.7202C34.9228 0.5 33.3136 1.6186 32.6973 3.2948L30.8279 8.3982C30.8279 8.3982 30.6088 8.9966 29.9651 8.9966H17.8003L17.8038 9Z"
+          ></path>
         </svg>
       </div>
-      <span class="text-[17px] font-bold tracking-tight text-[var(--scheme-title)]">Timefold</span>
+      <span
+        class="text-[17px] font-bold tracking-tight text-[var(--scheme-title)]"
+        >Timefold</span
+      >
     </a>
 
     <nav class="flex items-center gap-0.5 flex-1 justify-center">
@@ -29,20 +50,32 @@ const RESOURCES_LINKS = [
         href="https://timefold.ai/solutions"
         target="_blank"
         rel="noopener noreferrer"
-        class="tf-nav-link"
-      >Use cases</a>
+        class="tf-nav-link">Use cases</a
+      >
 
       <div class="tf-dropdown-wrap">
         <a href="/resources" class="tf-nav-link">
           Resources
-          <svg class="w-3.5 h-3.5 opacity-50 ml-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          <svg
+            class="w-3.5 h-3.5 opacity-50 ml-0.5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
           </svg>
         </a>
         <div class="tf-dropdown" role="menu">
-          {RESOURCES_LINKS.map((item) => (
-            <a href={item.href} class="tf-dropdown-item" role="menuitem">{item.label}</a>
-          ))}
+          {
+            RESOURCES_LINKS.map((item) => (
+              <a href={item.href} class="tf-dropdown-item" role="menuitem">
+                {item.label}
+              </a>
+            ))
+          }
         </div>
       </div>
 
@@ -50,10 +83,49 @@ const RESOURCES_LINKS = [
         href="https://timefold.ai/pricing"
         target="_blank"
         rel="noopener noreferrer"
-        class="tf-nav-link"
-      >Pricing</a>
+        class="tf-nav-link">Pricing</a
+      >
 
       <a href="/docs" class="tf-nav-link">Documentation</a>
+      <button
+  type="button"
+  aria-label="Open menu"
+  aria-controls="mobile-nav"
+  aria-expanded="false"
+  data-mobile-menu-button
+  class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 block vp9:hidden"
+>
+  <span aria-hidden="true">☰</span>
+</button>
+
+      <div
+  id="mobile-nav"
+  class="hidden border-t border-slate-200 bg-white px-4 py-3"
+  data-mobile-nav
+>
+  <nav
+    aria-label="Mobile"
+    class="grid gap-1.5 font-medium text-slate-700"
+    data-main-nav
+  >
+    {
+      MAIN_NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class="rounded-md px-2 py-2 hover:bg-slate-50"
+          data-section-link={item.sectionLink ? true : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <a
+      href={TALK_TO_US_URL}
+      class="mt-1 rounded-full bg-slate-900 px-4 py-2 text-center font-semibold text-white"
+    >
+      {SITE_CONTENT.talkToUsLabel}
+    </a>
+  </nav>
     </nav>
 
     <div class="flex items-center gap-3 shrink-0">
@@ -62,8 +134,8 @@ const RESOURCES_LINKS = [
         href={TALK_TO_US_URL}
         class="tf-cta-btn"
         target="_blank"
-        rel="noopener noreferrer"
-      >Talk to us</a>
+        rel="noopener noreferrer">Talk to us</a
+      >
     </div>
   </div>
 </header>
@@ -79,7 +151,9 @@ const RESOURCES_LINKS = [
     color: var(--scheme-title);
     border-radius: 7px;
     text-decoration: none;
-    transition: color 0.14s ease, background-color 0.14s ease;
+    transition:
+      color 0.14s ease,
+      background-color 0.14s ease;
     white-space: nowrap;
   }
   .tf-nav-link:hover {
@@ -98,7 +172,7 @@ const RESOURCES_LINKS = [
     transform: translateX(-50%);
     min-width: 195px;
     background: var(--scheme-base);
-    border: 1px solid var(--scheme-border, rgba(0,0,0,0.1));
+    border: 1px solid var(--scheme-border, rgba(0, 0, 0, 0.1));
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
     padding: 6px;
@@ -124,7 +198,9 @@ const RESOURCES_LINKS = [
     color: var(--scheme-title);
     border-radius: 7px;
     text-decoration: none;
-    transition: background-color 0.12s ease, color 0.12s ease;
+    transition:
+      background-color 0.12s ease,
+      color 0.12s ease;
   }
   .tf-dropdown-item:hover {
     background-color: var(--scheme-accent);
@@ -148,3 +224,4 @@ const RESOURCES_LINKS = [
     opacity: 0.88;
   }
 </style>
+<script is:inline src="/mobile-menu.js"></script>
