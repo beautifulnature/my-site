@@ -10986,9 +10986,9 @@ html.dark .meta-label {
 /* 27. Link cards in resources index grid */
 .resource-link-card {
   padding: 1.25rem 1.5rem;
-  border: 1.5px solid hsl(var(--color-neutral-20));
+  border: 1.5px solid hsl(var(--color-neutral-90));
   border-radius: 1rem;
-  background-color: hsl(var(--color-neutral-0));
+  background-color: #fff;
   text-decoration: none;
   display: block;
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
