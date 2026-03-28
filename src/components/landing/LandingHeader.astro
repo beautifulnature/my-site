@@ -1,9 +1,7 @@
 ---
 import { SITE_CONTENT } from "../../utils/siteContent";
-import { MAIN_NAV_ITEMS, TALK_TO_US_URL } from "../../utils/navigation";
-import ResourceIcons from "../ResourceIcons.astro";
+import { TALK_TO_US_URL } from "../../utils/navigation";
 import ThemeToggle from "../ThemeToggle.astro";
-// import { TALK_TO_US_URL } from "../../utils/navigation";
 
 const RESOURCES_LINKS = [
   { href: "/blog", label: "Blog" },
@@ -13,20 +11,21 @@ const RESOURCES_LINKS = [
   { href: "/resources/press", label: "Press" },
   { href: "/resources/newsletter", label: "Newsletter" },
 ];
+
+const NAV_LINKS = [
+  { href: "https://timefold.ai/solutions", label: "Use cases", external: true },
+  { href: "/blog", label: "Blog" },
+  { href: "https://timefold.ai/pricing", label: "Pricing", external: true },
+  { href: "/docs", label: "Documentation" },
+];
 ---
 
-<header
-  class="tf-header sticky top-0 z-50 vp12:layout vp12:bound-x px-4 vp12:px-14 bg-[var(--scheme-base)]/90 backdrop-blur-md border-b border-[var(--scheme-border)]"
->
-  <div class="flex items-center justify-between h-14 w-full gap-4">
-    <a
-      href="/"
-      aria-label="Timefold home"
-      class="flex items-center gap-2.5 shrink-0"
-    >
-      <div
-        class="h-8 w-8 rounded-lg bg-[#5A32FA] flex items-center justify-center"
-      >
+<header class="tf-header sticky top-0 z-50 bg-[var(--scheme-base)]/90 backdrop-blur-md border-b border-[var(--scheme-border)]">
+
+  <div class="tf-header-inner flex items-center justify-between h-14 w-full gap-4 px-4 vp12:px-14 mx-auto" style="max-width: 1575px;">
+
+    <a href="/" aria-label="Timefold home" class="flex items-center gap-2.5 shrink-0">
+      <div class="h-8 w-8 rounded-lg bg-[#5A32FA] flex items-center justify-center">
         <svg
           class="w-[18px] h-[18px] text-white"
           viewBox="0 0 49.65 35"
@@ -39,13 +38,10 @@ const RESOURCES_LINKS = [
           ></path>
         </svg>
       </div>
-      <span
-        class="text-[17px] font-bold tracking-tight text-[var(--scheme-title)]"
-        >Timefold</span
-      >
+      <span class="text-[17px] font-bold tracking-tight text-[var(--scheme-title)]">Timefold</span>
     </a>
 
-    <nav class="flex items-center gap-0.5 flex-1 justify-center">
+    <nav class="tf-desktop-nav items-center gap-0.5 flex-1 justify-center" aria-label="Desktop navigation">
       <a
         href="https://timefold.ai/solutions"
         target="_blank"
@@ -87,60 +83,119 @@ const RESOURCES_LINKS = [
       >
 
       <a href="/docs" class="tf-nav-link">Documentation</a>
-      <button
-  type="button"
-  aria-label="Open menu"
-  aria-controls="mobile-nav"
-  aria-expanded="false"
-  data-mobile-menu-button
-  class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 block vp9:hidden"
->
-  <span aria-hidden="true">☰</span>
-</button>
-
-      <div
-  id="mobile-nav"
-  class="hidden border-t border-slate-200 bg-white px-4 py-3"
-  data-mobile-nav
->
-  <nav
-    aria-label="Mobile"
-    class="grid gap-1.5 font-medium text-slate-700"
-    data-main-nav
-  >
-    {
-      MAIN_NAV_ITEMS.map((item) => (
-        <a
-          href={item.href}
-          class="rounded-md px-2 py-2 hover:bg-slate-50"
-          data-section-link={item.sectionLink ? true : undefined}
-        >
-          {item.label}
-        </a>
-      ))
-    }
-    <a
-      href={TALK_TO_US_URL}
-      class="mt-1 rounded-full bg-slate-900 px-4 py-2 text-center font-semibold text-white"
-    >
-      {SITE_CONTENT.talkToUsLabel}
-    </a>
-  </nav>
     </nav>
 
     <div class="flex items-center gap-3 shrink-0">
       <ThemeToggle />
       <a
         href={TALK_TO_US_URL}
-        class="tf-cta-btn"
+        class="tf-cta-btn tf-desktop-only"
         target="_blank"
         rel="noopener noreferrer">Talk to us</a
       >
+
+      <button
+        type="button"
+        aria-label="Open menu"
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+        data-mobile-menu-button
+        class="tf-hamburger-btn h-9 w-9 items-center justify-center rounded-md border border-[var(--scheme-border)] text-[var(--scheme-title)] transition hover:bg-[var(--scheme-surface)]"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
+  </div>
+
+  <div
+    id="mobile-nav"
+    class="hidden tf-mobile-drawer border-t border-[var(--scheme-border)] bg-[var(--scheme-base)]"
+    data-mobile-nav
+    aria-label="Mobile navigation"
+  >
+    <nav class="flex flex-col px-4 py-3 gap-1 mx-auto" style="max-width: 1575px;">
+      <a
+        href="https://timefold.ai/solutions"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tf-mobile-link">Use cases</a
+      >
+
+      <div>
+        <button
+          type="button"
+          class="tf-mobile-link w-full flex items-center justify-between"
+          data-mobile-resources-toggle
+          aria-expanded="false"
+        >
+          <span>Resources</span>
+          <svg class="w-4 h-4 tf-mobile-chevron transition-transform" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="hidden pl-4 pb-1 flex flex-col gap-0.5" data-mobile-resources-submenu>
+          {
+            RESOURCES_LINKS.map((item) => (
+              <a href={item.href} class="tf-mobile-sublink">{item.label}</a>
+            ))
+          }
+        </div>
+      </div>
+
+      <a
+        href="https://timefold.ai/pricing"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tf-mobile-link">Pricing</a
+      >
+
+      <a href="/docs" class="tf-mobile-link">Documentation</a>
+
+      <div class="pt-2 border-t border-[var(--scheme-border)] mt-1">
+        <a
+          href={TALK_TO_US_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="tf-cta-btn block text-center w-full py-2.5"
+        >
+          {SITE_CONTENT.talkToUsLabel}
+        </a>
+      </div>
+    </nav>
   </div>
 </header>
 
 <style>
+  /* Responsive show/hide based on vp9 breakpoint (60em = 960px) */
+  .tf-desktop-nav {
+    display: none;
+  }
+  .tf-desktop-only {
+    display: none !important;
+  }
+  .tf-hamburger-btn {
+    display: inline-flex;
+  }
+  .tf-mobile-drawer {
+    /* mobile nav is visible when toggled via JS (removes hidden class) */
+  }
+  @media (min-width: 60em) {
+    .tf-desktop-nav {
+      display: flex;
+    }
+    .tf-desktop-only {
+      display: inline-flex !important;
+    }
+    .tf-hamburger-btn {
+      display: none;
+    }
+    .tf-mobile-drawer {
+      display: none !important;
+    }
+  }
+
   .tf-nav-link {
     display: inline-flex;
     align-items: center;
@@ -210,6 +265,7 @@ const RESOURCES_LINKS = [
   .tf-cta-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 7px 18px;
     font-size: 0.875rem;
     font-weight: 700;
@@ -223,5 +279,49 @@ const RESOURCES_LINKS = [
   .tf-cta-btn:hover {
     opacity: 0.88;
   }
+
+  .tf-mobile-link {
+    display: block;
+    padding: 10px 12px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--scheme-title);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.12s ease;
+  }
+  .tf-mobile-link:hover {
+    background-color: rgba(90, 50, 250, 0.07);
+  }
+  .tf-mobile-sublink {
+    display: block;
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--scheme-text, #64748b);
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background-color 0.12s ease;
+  }
+  .tf-mobile-sublink:hover {
+    background-color: rgba(90, 50, 250, 0.07);
+    color: var(--scheme-accent);
+  }
 </style>
+
 <script is:inline src="/mobile-menu.js"></script>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.querySelector('[data-mobile-resources-toggle]');
+    var submenu = document.querySelector('[data-mobile-resources-submenu]');
+    var chevron = document.querySelector('.tf-mobile-chevron');
+    if (toggle && submenu) {
+      toggle.addEventListener('click', function () {
+        var isOpen = !submenu.classList.contains('hidden');
+        submenu.classList.toggle('hidden');
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+      });
+    }
+  });
+</script>
