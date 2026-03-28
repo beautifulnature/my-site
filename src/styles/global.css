@@ -875,6 +875,31 @@ section[data-type="split-grid"] + section[data-type="cta"] {
   --link-hover-color: var(--scheme-contrast);
 }
 
+/* Force white text on primary buttons with higher specificity (0,2,0) to beat any single-class rule
+   that may set a dark inherited color (e.g. .c-hero { color: var(--scheme-contrast) } = black).
+   Scheme-purple and scheme-grey are handled separately below. */
+.c-button.c-button--primary,
+a.c-button--primary {
+  color: #fff;
+}
+.c-button.c-button--primary:hover,
+a.c-button--primary:hover {
+  color: #fff;
+}
+/* Restore dark text for buttons inside purple/grey scheme containers (white bg button → dark text) */
+.scheme-purple .c-button.c-button--primary,
+.scheme-purple a.c-button--primary,
+.scheme-grey .c-button.c-button--primary,
+.scheme-grey a.c-button--primary {
+  color: hsl(var(--color-neutral-0)/1);
+}
+.scheme-purple .c-button.c-button--primary:hover,
+.scheme-purple a.c-button--primary:hover,
+.scheme-grey .c-button.c-button--primary:hover,
+.scheme-grey a.c-button--primary:hover {
+  color: hsl(var(--color-neutral-100)/1);
+}
+
 .c-button,
 .c-button--primary {
   --button-default-color: hsl(var(--color-neutral-100)/1);
