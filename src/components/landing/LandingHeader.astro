@@ -204,6 +204,23 @@ const getMobileSublinkClass = (href: string) => {
     }
   }
 
+  /* Define accent/title/base defaults on the header itself so they work on
+     every page, even those without a scheme-* class on the body. */
+  .tf-header {
+    --tf-accent: var(--scheme-accent, #5A32FA);
+    --tf-title:  var(--scheme-title,  #0f172a);
+    --tf-base:   var(--scheme-base,   #ffffff);
+    --tf-border: var(--scheme-border, rgba(0, 0, 0, 0.1));
+    --tf-text:   var(--scheme-text,   #64748b);
+  }
+  html.dark .tf-header {
+    --tf-accent: var(--scheme-accent, #7c5af6);
+    --tf-title:  var(--scheme-title,  #f1f5f9);
+    --tf-base:   var(--scheme-base,   #0b0f19);
+    --tf-border: var(--scheme-border, rgba(255, 255, 255, 0.12));
+    --tf-text:   var(--scheme-text,   #94a3b8);
+  }
+
   .tf-nav-link {
     display: inline-flex;
     align-items: center;
@@ -211,7 +228,7 @@ const getMobileSublinkClass = (href: string) => {
     padding: 6px 14px;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--scheme-title);
+    color: var(--tf-title);
     border-radius: 7px;
     text-decoration: none;
     transition:
@@ -220,11 +237,11 @@ const getMobileSublinkClass = (href: string) => {
     white-space: nowrap;
   }
   .tf-nav-link:hover {
-    color: var(--scheme-accent);
+    color: var(--tf-accent);
     background-color: rgba(90, 50, 250, 0.07);
   }
   .tf-nav-link.is-active {
-    color: var(--scheme-accent);
+    color: var(--tf-accent);
     background-color: rgba(90, 50, 250, 0.08);
   }
 
@@ -238,8 +255,8 @@ const getMobileSublinkClass = (href: string) => {
     left: 50%;
     transform: translateX(-50%);
     min-width: 195px;
-    background: var(--scheme-base);
-    border: 1px solid var(--scheme-border, rgba(0, 0, 0, 0.1));
+    background: var(--tf-base);
+    border: 1px solid var(--tf-border);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
     padding: 6px;
@@ -262,7 +279,7 @@ const getMobileSublinkClass = (href: string) => {
     padding: 8px 14px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--scheme-title);
+    color: var(--tf-title);
     border-radius: 7px;
     text-decoration: none;
     transition:
@@ -270,16 +287,16 @@ const getMobileSublinkClass = (href: string) => {
       color 0.12s ease;
   }
   .tf-dropdown-item:hover {
-    background-color: var(--scheme-accent);
+    background-color: var(--tf-accent);
     color: #ffffff;
   }
   .tf-dropdown-item.is-active {
     background-color: rgba(90, 50, 250, 0.1);
-    color: var(--scheme-accent);
+    color: var(--tf-accent);
     font-weight: 600;
   }
   .tf-dropdown-item.is-active:hover {
-    background-color: var(--scheme-accent);
+    background-color: var(--tf-accent);
     color: #ffffff;
   }
 
@@ -291,7 +308,7 @@ const getMobileSublinkClass = (href: string) => {
     font-size: 0.875rem;
     font-weight: 700;
     color: #ffffff;
-    background-color: var(--scheme-accent);
+    background-color: var(--tf-accent);
     border-radius: 8px;
     text-decoration: none;
     transition: opacity 0.15s ease;
@@ -306,7 +323,7 @@ const getMobileSublinkClass = (href: string) => {
     padding: 10px 12px;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--scheme-title);
+    color: var(--tf-title);
     border-radius: 8px;
     text-decoration: none;
     transition: background-color 0.12s ease;
@@ -319,17 +336,17 @@ const getMobileSublinkClass = (href: string) => {
     padding: 8px 12px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--scheme-text, #64748b);
+    color: var(--tf-text);
     border-radius: 7px;
     text-decoration: none;
     transition: background-color 0.12s ease;
   }
   .tf-mobile-sublink:hover {
     background-color: rgba(90, 50, 250, 0.07);
-    color: var(--scheme-accent);
+    color: var(--tf-accent);
   }
   .tf-mobile-sublink.is-active {
-    color: var(--scheme-accent);
+    color: var(--tf-accent);
     font-weight: 600;
     background-color: rgba(90, 50, 250, 0.07);
   }
