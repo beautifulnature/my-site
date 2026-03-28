@@ -6,862 +6,728 @@ import ThemeToggle from "./ThemeToggle.astro";
 import "../styles/global.css";
 ---
 
-<header class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-dark bg-timefold-dark/90 backdrop-blur-md border-b border-timefold-border sticky top-0 z-50">
-    <nav class="flex flex-1 items-center justify-between h-[56px]">
-        <h2 class="sr-only">Navigation</h2>
-        <div class="flex items-center">
-            <a href="http://localhost:4321/" aria-label="Timefold logo" class="block h-8 w-auto">
-                <ResourceIcons name="timefold-logo" />
-                <!-- {SITE_CONTENT.siteName} -->
-            </a>
-        </div>
-        <div id="site-header-navigation" class="flex-1 flex items-center justify-center">
-            <ul class="flex gap-4">
-                <li>
-                    <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-slate-100 focus:outline-none">
-                        <span>Use cases</span>
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true"><path d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"/></svg>
-                    </button>
-                </li>
-                <li>
-                    <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-slate-100 focus:outline-none">
-                        <span>Resources</span>
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512" aria-hidden="true"><path d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"/></svg>
-                    </button>
-                </li>
-                <li>
-                    <a href="http://localhost:4321/pricing" class="px-3 py-2 rounded-md hover:bg-slate-100">Pricing</a>
-                </li>
-                <li>
-                    <a href="http://localhost:4321/" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-md hover:bg-slate-100 flex items-center gap-1">
-                        <span>Documentation</span>
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512" aria-hidden="true"><path d="M304 24c0 13.3 10.7 24 24 24H430.1L207 271c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l223-223V184c0 13.3 10.7 24 24 24s24-10.7 24-24V24c0-13.3-10.7-24-24-24H328c-13.3 0-24 10.7-24 24zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V440c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"/></svg>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://localhost:4321/talk-to-us" class="ml-4 px-4 py-2 rounded-full bg-timefold-accent text-timefold-dark shadow-glow-accent transition hover:bg-emerald-400 hover:scale-105 font-semibold">Talk to us</a>
-                </li>
-            </ul>
-            <ul class="hidden vp9:flex gap-4 ml-8">
-                <li class="flex items-center gap-2">
-                    {MAIN_NAV_ITEMS.map((item) => (
-                        <a
-                            href={item.href}
-                            class="px-3 py-2 rounded-md hover:text-[var(--scheme-accent)]"
-                            data-section-link={item.sectionLink ? true : undefined}
-                        >
-                            {item.label}
-                        </a>
-                    ))}
-                </li>
-            </ul>
-        </div>
-
-                                <span class="c-icon c-button__icon c-icon--after">                              >
-                                    <svg
-                                        class="c-icon__asset"
-                                        width="16"
-                                        height="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                        aria-hidden="true"
-                                        ><path
-                                            fill="currentColor"
-                                            d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"
-                                        ></path></svg
-                                    >
-                                </span>
-                            </button>
-
-                            <nav id="17644" class="c-extended-flyout__content" data-content="17644" >
-                                <div class="c-extended-flyout__container">
-                                    <div class="c-extended-flyout__header">
-                                        <div class="c-extended-flyout__title">
-                                            <p>Out-of-the-box Optimization APIs</p>
-                                        </div>
-
-                                        <div class="c-extended-flyout__description">
-                                            <p>Discover our use cases</p>
-                                        </div>
-                                    </div>
-
-                                    <ul class="c-extended-flyout__cols">
-                                        <li class="c-extended-flyout__col">
-                                            <a class="c-extended-flyout__col-header" href="http://localhost:4321/solutions/route-optimization" tabindex="-1">
-                                                <span class="c-extended-flyout__col-header-title">Route Scheduling</span>
-
-                                                <span
-                                                    class="c-icon c-extended-flyout__col-header-icon"
-                                                >
-                                                    <svg
-                                                        class="c-icon__asset"
-                                                        width="16"
-                                                        height="16"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 320 512"
-                                                        aria-hidden="true"
-                                                        ><path
-                                                            fill="currentColor"
-                                                            d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                        ></path></svg
-                                                    >
-                                                </span>
-                                            </a>
-
-                                            <ul
-                                                class="c-extended-flyout__items"
-                                            >
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/route-optimization-field-technicians"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >tools</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-tools"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Field Service</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Right
-                                                                technician,
-                                                                right time,
-                                                                every time</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/route-optimization-home-care"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >map-pin-heart</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-map-pin-heart"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Home Care</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Assign and
-                                                                route caregivers
-                                                                to patients
-                                                                optimally</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/route-optimization-nemt"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >report-medical</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-report-medical"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >NEMT</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Reduce miles,
-                                                                cut costs,
-                                                                improve patient
-                                                                experience</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/route-optimization-facility-maintenance"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >map-pin-cog</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-map-pin-cog"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Facility
-                                                                Maintenance</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Cut travel
-                                                                time, boost
-                                                                output, flawless
-                                                                facilities</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="c-extended-flyout__col">
-                                            <a
-                                                class="c-extended-flyout__col-header"
-                                                href="http://localhost:4321/solutions/shift-scheduling-optimization"
-                                                tabindex="-1"
-                                            >
-                                                <span
-                                                    class="c-extended-flyout__col-header-title"
-                                                    >Shift Scheduling</span
-                                                >
-
-                                                <span
-                                                    class="c-icon c-extended-flyout__col-header-icon"
-                                                >
-                                                    <svg
-                                                        class="c-icon__asset"
-                                                        width="16"
-                                                        height="16"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 320 512"
-                                                        aria-hidden="true"
-                                                        ><path
-                                                            fill="currentColor"
-                                                            d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                        ></path></svg
-                                                    >
-                                                </span>
-                                            </a>
-
-                                            <ul
-                                                class="c-extended-flyout__items"
-                                            >
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-nurse-rostering"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >building-hospital</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-building-hospital"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Healthcare
-                                                                Professionals</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Balance
-                                                                workload fairly,
-                                                                care
-                                                                effortlessly</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-retail-staff-scheduling"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >shopping-cart</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-shopping-cart"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Retail Staff</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Smarter
-                                                                schedules for
-                                                                peak efficiency</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-security-guard-scheduling"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >lock-check</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-lock-check"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Security &amp;
-                                                                Guards</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Complete
-                                                                coverage and
-                                                                adaptive
-                                                                rotations</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/shift-scheduling-optimization-hospitality-staff-scheduling"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >soup</span
-                                                            >
-                                                            <span
-                                                                class="ti ti-soup"
-                                                            ></span>
-                                                        </span>
-
-                                                        <div
-                                                            class="c-extended-flyout__item-header"
-                                                        >
-                                                            <span
-                                                                class="c-extended-flyout__item-title"
-                                                                >Hospitality
-                                                                Staff</span
-                                                            >
-
-                                                            <span
-                                                                class="c-extended-flyout__item-text"
-                                                                >Deliver
-                                                                excellent
-                                                                service with
-                                                                effortless
-                                                                scheduling</span
-                                                            >
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="c-extended-flyout__col">
-                                            <a
-                                                class="c-extended-flyout__col-header"
-                                                href="http://localhost:4321/solutions/task-assignment-optimization"
-                                                tabindex="-1"
-                                            >
-                                                <span
-                                                    class="c-extended-flyout__col-header-title"
-                                                    >Task Scheduling</span
-                                                >
-
-                                                <span
-                                                    class="c-icon c-extended-flyout__col-header-icon"
-                                                >
-                                                    <svg
-                                                        class="c-icon__asset"
-                                                        width="16"
-                                                        height="16"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 320 512"
-                                                        aria-hidden="true"
-                                                        ><path
-                                                            fill="currentColor"
-                                                            d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                        ></path></svg
-                                                    >
-                                                </span>
-                                            </a>
-
-                                            <ul
-                                                class="c-extended-flyout__items"
-                                            >
-                                                <li>
-                                                    <a
-                                                        class="c-extended-flyout__item"
-                                                        href="http://localhost:4321/use-case/task-assignment-project-scheduling-optimization"
-                                                        tabindex="-1"
-                                                    >
-                                                        <span
-                                                            class="c-icon c-extended-flyout__item-icon"
-                                                        >
-                                                            <span
-                                                                class="sr-only"
-                                                                >subtask</span
-                                                            >
-                                                            <!-- Removed invalid/stray markup -->
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-
-                                    <div class="c-extended-flyout__cta">
-                                        <div
-                                            class="c-extended-flyout__cta-header"
-                                        >
-                                            <div
-                                                class="c-extended-flyout__cta-title"
-                                            >
-                                                <p>
-                                                    Can't find your use
-                                                    case?&nbsp;
-                                                </p>
-                                            </div>
-
-                                            <div
-                                                class="c-extended-flyout__cta-description"
-                                            >
-                                                <p>
-                                                    Let's see if we can solve
-                                                    your problem.&nbsp;
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <a
-                                            class="c-extended-flyout__cta-link"
-                                            href="http://localhost:4321/talk-to-us"
-                                            target="_self"
-                                            tabindex="-1"
-                                        >
-                                            <span
-                                                class="c-extended-flyout__cta-text"
-                                                >Talk to us</span
-                                            >
-
-                                            <span
-                                                class="c-icon c-extended-flyout__cta-icon"
-                                            >
-                                                <svg
-                                                    class="c-icon__asset"
-                                                    width="16"
-                                                    height="16"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 320 512"
-                                                    aria-hidden="true"
-                                                    ><path
-                                                        fill="currentColor"
-                                                        d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                    ></path></svg
-                                                >
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </nav>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <div class="c-flyout js-flyout c-header__nav-item">
-                            <button
-                                class="c-flyout__button c-link c-header__dropdown"
-                                data-trigger="36"
-                                aria-controls="36"
-                                aria-expanded="false"
-                            >
-                                <span class="c-button__text">Resources</span>
-
-                                <span
-                                    class="c-icon c-button__icon c-icon--after"
-                                >
-                                    <svg
-                                        class="c-icon__asset"
-                                        width="16"
-                                        height="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 448 512"
-                                        aria-hidden="true"
-                                        ><path
-                                            fill="currentColor"
-                                            d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"
-                                        ></path></svg
-                                    >
-                                </span>
-                            </button>
-
-                            <nav
-                                id="36"
-                                class="c-flyout__content"
-                                data-content="36"
-                            >
-                                <ul class="c-flyout__list flex flex-col">
-                                    <li class="c-flyout__list-item">
-                                        <a
-                                            class="c-flyout__item"
-                                            href="http://localhost:4321/blog"
-                                            tabindex="-1"
-                                        >
-                                            <div class="c-flyout__item-header">
-                                                <span
-                                                    class="c-flyout__item-text"
-                                                    >Blog</span
-                                                >
-                                            </div>
-
-                                            <span
-                                                class="c-icon c-flyout__item-icon"
-                                            >
-                                                <svg
-                                                    class="c-icon__asset"
-                                                    width="16"
-                                                    height="16"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 320 512"
-                                                    aria-hidden="true"
-                                                    ><path
-                                                        fill="currentColor"
-                                                        d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                    ></path></svg
-                                                >
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li class="c-flyout__list-item">
-                                        <a
-                                            class="c-flyout__item"
-                                            href="http://localhost:4321/videos"
-                                            tabindex="-1"
-                                        >
-                                            <div class="c-flyout__item-header">
-                                                <span
-                                                    class="c-flyout__item-text"
-                                                    >Videos</span
-                                                >
-                                            </div>
-
-                                            <span
-                                                class="c-icon c-flyout__item-icon"
-                                            >
-                                                <svg
-                                                    class="c-icon__asset"
-                                                    width="16"
-                                                    height="16"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 320 512"
-                                                    aria-hidden="true"
-                                                    ><path
-                                                        fill="currentColor"
-                                                        d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                    ></path></svg
-                                                >
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li class="c-flyout__list-item">
-                                        <a
-                                            class="c-flyout__item"
-                                            href="http://localhost:4321/customer-stories"
-                                            tabindex="-1"
-                                        >
-                                            <div class="c-flyout__item-header">
-                                                <span
-                                                    class="c-flyout__item-text"
-                                                    >Customer Stories</span
-                                                >
-                                            </div>
-
-                                            <span
-                                                class="c-icon c-flyout__item-icon"
-                                            >
-                                                <svg
-                                                    class="c-icon__asset"
-                                                    width="16"
-                                                    height="16"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 320 512"
-                                                    aria-hidden="true"
-                                                    ><path
-                                                        fill="currentColor"
-                                                        d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                    ></path></svg
-                                                >
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li class="c-flyout__list-item">
-                                        <a
-                                            class="c-flyout__item"
-                                            href="http://localhost:4321/events"
-                                            tabindex="-1"
-                                        >
-                                            <div class="c-flyout__item-header">
-                                                <span
-                                                    class="c-flyout__item-text"
-                                                    >Events</span
-                                                >
-                                            </div>
-
-                                            <span
-                                                class="c-icon c-flyout__item-icon"
-                                            >
-                                                <svg
-                                                    class="c-icon__asset"
-                                                    width="16"
-                                                    height="16"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 320 512"
-                                                    aria-hidden="true"
-                                                    ><path
-                                                        fill="currentColor"
-                                                        d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                    ></path></svg
-                                                >
-                                            </span>
-                                        </a>
-                                    </li>
-
-                                    <li class="c-flyout__list-item">
-                                        <a
-                                            class="c-flyout__item"
-                                            href="http://localhost:4321/newsletter"
-                                            tabindex="-1"
-                                        >
-                                            <div class="c-flyout__item-header">
-                                                <span
-                                                    class="c-flyout__item-text"
-                                                    >Newsletter</span
-                                                >
-                                            </div>
-
-                                            <span
-                                                class="c-icon c-flyout__item-icon"
-                                            >
-                                                <svg
-                                                    class="c-icon__asset"
-                                                    width="16"
-                                                    height="16"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 320 512"
-                                                    aria-hidden="true"
-                                                    ><path
-                                                        fill="currentColor"
-                                                        d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
-                                                    ></path></svg
-                                                >
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </li>
-                    <li class="flex items-center">
-                        <a
-                            class="c-link c-header__nav-item"
-                            href="http://localhost:4321/pricing"
-                            target="_self"
-                        >
-                            <span class="c-link__text">Pricing</span>
-                        </a>
-                    </li>
-                    <li class="flex items-center">
-                        <a
-                            class="c-link c-header__nav-item"
-                            href="http://localhost:4321/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <span class="c-link__text">Documentation</span>
-
-                            <span class="c-icon c-icon--after">
-                                <svg
-                                    class="c-icon__asset"
-                                    width="16"
-                                    height="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 512 512"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fill="currentcolor"
-                                        d="M304 24c0 13.3 10.7 24 24 24H430.1L207 271c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l223-223V184c0 13.3 10.7 24 24 24s24-10.7 24-24V24c0-13.3-10.7-24-24-24H328c-13.3 0-24 10.7-24 24zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V440c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"
-                                    ></path>
-                                </svg>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="flex items-center mr-4">
-                        <ThemeToggle />
-                    </li>
-                    <li class="flex items-center">
-                        <a
-                            class="ml-4 px-5 py-2 rounded-full bg-timefold-accent text-timefold-dark shadow-glow-accent transition hover:bg-emerald-400 hover:scale-105 font-bold whitespace-nowrap"
-                            href="http://localhost:4321/talk-to-us"
-                            target="_self"
-                        >
-                            <span class="c-button__text">Talk to us</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="c-header__navigation-list">
-                    <li class="flex items-center">
-                        {
-                            MAIN_NAV_ITEMS.map((item) => (
-                                <a
-                                    href={item.href}
-                                    class={
-                                        item.href.startsWith("/")
-                                            ? "hover:text-[var(--scheme-accent)]"
-                                            : "hover:text-slate-900"
-                                    }
-                                    data-section-link={
-                                        item.sectionLink ? true : undefined
-                                    }
-                                >
-                                    {item.label}
-                                </a>
-                            ))
-                        }
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <button
-        type="button"
-        aria-label="Open menu"
-        aria-controls="mobile-nav"
-        aria-expanded="false"
-        data-mobile-menu-button
-        class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 vp9:hidden"
-    >
-        <span aria-hidden="true">☰</span>
-    </button>
-</header>
-
-<div
-    id="mobile-nav"
-    class="hidden border-t border-slate-200 bg-white px-4 py-3 vp9:hidden"
-    data-mobile-nav
+<header
+  class="c-header js-header vp12:layout vp12:bound-x px-4 vp12:px-14 scheme-dark bg-timefold-dark/90 backdrop-blur-md border-b border-timefold-border sticky top-0 z-50"
 >
-    <nav
-        aria-label="Mobile"
-        class="grid gap-1.5 font-medium text-slate-700"
-        data-main-nav
+  <nav class="flex flex-1 items-center justify-between h-[56px]">
+    <h2 class="sr-only">Navigation</h2>
+    <div class="flex items-center">
+      <a
+        href="http://localhost:4321/"
+        aria-label="Timefold logo"
+        class="block h-8 w-auto"
+      >
+        <ResourceIcons name="timefold-logo" />
+        <!-- {SITE_CONTENT.siteName} -->
+      </a>
+    </div>
+    <div
+      id="site-header-navigation"
+      class="flex-1 items-center justify-center hidden vp9:flex"
     >
-        {
+      <ul class="flex gap-4">
+        <li>
+          <button
+            class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-slate-100 focus:outline-none"
+          >
+            <span>Use cases</span>
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 448 512"
+              aria-hidden="true"
+              ><path
+                d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"
+              ></path></svg
+            >
+          </button>
+        </li>
+        <li>
+          <button
+            class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-slate-100 focus:outline-none"
+          >
+            <span>Resources</span>
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 448 512"
+              aria-hidden="true"
+              ><path
+                d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"
+              ></path></svg
+            >
+          </button>
+        </li>
+        <li>
+          <a
+            href="http://localhost:4321/pricing"
+            class="px-3 py-2 rounded-md hover:bg-slate-100">Pricing</a
+          >
+        </li>
+        <li>
+          <a
+            href="http://localhost:4321/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-2 rounded-md hover:bg-slate-100 flex items-center gap-1"
+          >
+            <span>Documentation</span>
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 512 512"
+              aria-hidden="true"
+              ><path
+                d="M304 24c0 13.3 10.7 24 24 24H430.1L207 271c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l223-223V184c0 13.3 10.7 24 24 24s24-10.7 24-24V24c0-13.3-10.7-24-24-24H328c-13.3 0-24 10.7-24 24zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V440c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"
+              ></path></svg
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="http://localhost:4321/talk-to-us"
+            class="ml-4 px-4 py-2 rounded-full bg-timefold-accent text-timefold-dark shadow-glow-accent transition hover:bg-emerald-400 hover:scale-105 font-semibold"
+            >Talk to us</a
+          >
+        </li>
+      </ul>
+      <ul class="hidden vp9:flex gap-4 ml-8">
+        <li class="flex items-center gap-2">
+          {
             MAIN_NAV_ITEMS.map((item) => (
-                <a
-                    href={item.href}
-                    class="rounded-md px-2 py-2 hover:bg-slate-50"
-                    data-section-link={item.sectionLink ? true : undefined}
-                >
-                    {item.label}
-                </a>
+              <a
+                href={item.href}
+                class="px-3 py-2 rounded-md hover:text-[var(--scheme-accent)]"
+                data-section-link={item.sectionLink ? true : undefined}
+              >
+                {item.label}
+              </a>
             ))
-        }
-        <a
-            href={TALK_TO_US_URL}
-            class="mt-1 rounded-full bg-slate-900 px-4 py-2 text-center font-semibold text-white"
+          }
+        </li>
+      </ul>
+    </div>
+
+    <span class="c-icon c-button__icon c-icon--after">
+      >
+      <svg
+        class="c-icon__asset"
+        width="16"
+        height="16"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+        aria-hidden="true"
+        ><path
+          fill="currentColor"
+          d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"
+        ></path></svg
+      >
+    </span>
+  </nav>
+
+  <nav id="17644" class="c-extended-flyout__content" data-content="17644">
+    <div class="c-extended-flyout__container">
+      <div class="c-extended-flyout__header">
+        <div class="c-extended-flyout__title">
+          <p>Out-of-the-box Optimization APIs</p>
+        </div>
+
+        <div class="c-extended-flyout__description">
+          <p>Discover our use cases</p>
+        </div>
+      </div>
+
+      <ul class="c-extended-flyout__cols">
+        <li class="c-extended-flyout__col">
+          <a
+            class="c-extended-flyout__col-header"
+            href="http://localhost:4321/solutions/route-optimization"
+            tabindex="-1"
+          >
+            <span class="c-extended-flyout__col-header-title"
+              >Route Scheduling</span
+            >
+
+            <span class="c-icon c-extended-flyout__col-header-icon">
+              <svg
+                class="c-icon__asset"
+                width="16"
+                height="16"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+                aria-hidden="true"
+                ><path
+                  fill="currentColor"
+                  d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                ></path></svg
+              >
+            </span>
+          </a>
+
+          <ul class="c-extended-flyout__items">
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/route-optimization-field-technicians"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">tools</span>
+                  <span class="ti ti-tools"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title"
+                    >Field Service</span
+                  >
+
+                  <span class="c-extended-flyout__item-text"
+                    >Right technician, right time, every time</span
+                  >
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/route-optimization-home-care"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">map-pin-heart</span>
+                  <span class="ti ti-map-pin-heart"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title">Home Care</span>
+
+                  <span class="c-extended-flyout__item-text"
+                    >Assign and route caregivers to patients optimally</span
+                  >
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/route-optimization-nemt"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">report-medical</span>
+                  <span class="ti ti-report-medical"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title">NEMT</span>
+
+                  <span class="c-extended-flyout__item-text"
+                    >Reduce miles, cut costs, improve patient experience</span
+                  >
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/route-optimization-facility-maintenance"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">map-pin-cog</span>
+                  <span class="ti ti-map-pin-cog"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title"
+                    >Facility Maintenance</span
+                  >
+
+                  <span class="c-extended-flyout__item-text"
+                    >Cut travel time, boost output, flawless facilities</span
+                  >
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="c-extended-flyout__col">
+          <a
+            class="c-extended-flyout__col-header"
+            href="http://localhost:4321/solutions/shift-scheduling-optimization"
+            tabindex="-1"
+          >
+            <span class="c-extended-flyout__col-header-title"
+              >Shift Scheduling</span
+            >
+
+            <span class="c-icon c-extended-flyout__col-header-icon">
+              <svg
+                class="c-icon__asset"
+                width="16"
+                height="16"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+                aria-hidden="true"
+                ><path
+                  fill="currentColor"
+                  d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                ></path></svg
+              >
+            </span>
+          </a>
+
+          <ul class="c-extended-flyout__items">
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/shift-scheduling-optimization-nurse-rostering"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">building-hospital</span>
+                  <span class="ti ti-building-hospital"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title"
+                    >Healthcare Professionals</span
+                  >
+
+                  <span class="c-extended-flyout__item-text"
+                    >Balance workload fairly, care effortlessly</span
+                  >
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/shift-scheduling-optimization-retail-staff-scheduling"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">shopping-cart</span>
+                  <span class="ti ti-shopping-cart"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title">Retail Staff</span
+                  >
+
+                  <span class="c-extended-flyout__item-text"
+                    >Smarter schedules for peak efficiency</span
+                  >
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/shift-scheduling-optimization-security-guard-scheduling"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">lock-check</span>
+                  <span class="ti ti-lock-check"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title"
+                    >Security &amp; Guards</span
+                  >
+
+                  <span class="c-extended-flyout__item-text"
+                    >Complete coverage and adaptive rotations</span
+                  >
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/shift-scheduling-optimization-hospitality-staff-scheduling"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">soup</span>
+                  <span class="ti ti-soup"></span>
+                </span>
+
+                <div class="c-extended-flyout__item-header">
+                  <span class="c-extended-flyout__item-title"
+                    >Hospitality Staff</span
+                  >
+
+                  <span class="c-extended-flyout__item-text"
+                    >Deliver excellent service with effortless scheduling</span
+                  >
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="c-extended-flyout__col">
+          <a
+            class="c-extended-flyout__col-header"
+            href="http://localhost:4321/solutions/task-assignment-optimization"
+            tabindex="-1"
+          >
+            <span class="c-extended-flyout__col-header-title"
+              >Task Scheduling</span
+            >
+
+            <span class="c-icon c-extended-flyout__col-header-icon">
+              <svg
+                class="c-icon__asset"
+                width="16"
+                height="16"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+                aria-hidden="true"
+                ><path
+                  fill="currentColor"
+                  d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                ></path></svg
+              >
+            </span>
+          </a>
+
+          <ul class="c-extended-flyout__items">
+            <li>
+              <a
+                class="c-extended-flyout__item"
+                href="http://localhost:4321/use-case/task-assignment-project-scheduling-optimization"
+                tabindex="-1"
+              >
+                <span class="c-icon c-extended-flyout__item-icon">
+                  <span class="sr-only">subtask</span>
+                  <!-- Removed invalid/stray markup -->
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="c-extended-flyout__cta">
+            <div class="c-extended-flyout__cta-header">
+              <div class="c-extended-flyout__cta-title">
+                <p>Can't find your use case?&nbsp;</p>
+              </div>
+
+              <div class="c-extended-flyout__cta-description">
+                <p>Let's see if we can solve your problem.&nbsp;</p>
+              </div>
+            </div>
+
+            <a
+              class="c-extended-flyout__cta-link"
+              href="http://localhost:4321/talk-to-us"
+              target="_self"
+              tabindex="-1"
+            >
+              <span class="c-extended-flyout__cta-text">Talk to us</span>
+
+              <span class="c-icon c-extended-flyout__cta-icon">
+                <svg
+                  class="c-icon__asset"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                  ></path></svg
+                >
+              </span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <li class="flex items-center">
+    <div class="c-flyout js-flyout c-header__nav-item">
+      <button
+        class="c-flyout__button c-link c-header__dropdown"
+        data-trigger="36"
+        aria-controls="36"
+        aria-expanded="false"
+      >
+        <span class="c-button__text">Resources</span>
+
+        <span class="c-icon c-button__icon c-icon--after">
+          <svg
+            class="c-icon__asset"
+            width="16"
+            height="16"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+            aria-hidden="true"
+            ><path
+              fill="currentColor"
+              d="M199 401c9.4 9.4 24.6 9.4 33.9 0L425 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L41 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L199 401z"
+            ></path></svg
+          >
+        </span>
+      </button>
+
+      <nav id="36" class="c-flyout__content" data-content="36">
+        <ul class="c-flyout__list flex flex-col">
+          <li class="c-flyout__list-item">
+            <a
+              class="c-flyout__item"
+              href="http://localhost:4321/blog"
+              tabindex="-1"
+            >
+              <div class="c-flyout__item-header">
+                <span class="c-flyout__item-text">Blog</span>
+              </div>
+
+              <span class="c-icon c-flyout__item-icon">
+                <svg
+                  class="c-icon__asset"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                  ></path></svg
+                >
+              </span>
+            </a>
+          </li>
+
+          <li class="c-flyout__list-item">
+            <a
+              class="c-flyout__item"
+              href="http://localhost:4321/videos"
+              tabindex="-1"
+            >
+              <div class="c-flyout__item-header">
+                <span class="c-flyout__item-text">Videos</span>
+              </div>
+
+              <span class="c-icon c-flyout__item-icon">
+                <svg
+                  class="c-icon__asset"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                  ></path></svg
+                >
+              </span>
+            </a>
+          </li>
+
+          <li class="c-flyout__list-item">
+            <a
+              class="c-flyout__item"
+              href="http://localhost:4321/customer-stories"
+              tabindex="-1"
+            >
+              <div class="c-flyout__item-header">
+                <span class="c-flyout__item-text">Customer Stories</span>
+              </div>
+
+              <span class="c-icon c-flyout__item-icon">
+                <svg
+                  class="c-icon__asset"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                  ></path></svg
+                >
+              </span>
+            </a>
+          </li>
+
+          <li class="c-flyout__list-item">
+            <a
+              class="c-flyout__item"
+              href="http://localhost:4321/events"
+              tabindex="-1"
+            >
+              <div class="c-flyout__item-header">
+                <span class="c-flyout__item-text">Events</span>
+              </div>
+
+              <span class="c-icon c-flyout__item-icon">
+                <svg
+                  class="c-icon__asset"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                  ></path></svg
+                >
+              </span>
+            </a>
+          </li>
+
+          <li class="c-flyout__list-item">
+            <a
+              class="c-flyout__item"
+              href="http://localhost:4321/newsletter"
+              tabindex="-1"
+            >
+              <div class="c-flyout__item-header">
+                <span class="c-flyout__item-text">Newsletter</span>
+              </div>
+
+              <span class="c-icon c-flyout__item-icon">
+                <svg
+                  class="c-icon__asset"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                  aria-hidden="true"
+                  ><path
+                    fill="currentColor"
+                    d="M297 239c9.4 9.4 9.4 24.6 0 33.9L105 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L71 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L297 239z"
+                  ></path></svg
+                >
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </li>
+  <li class="flex items-center">
+    <a
+      class="c-link c-header__nav-item"
+      href="http://localhost:4321/pricing"
+      target="_self"
+    >
+      <span class="c-link__text">Pricing</span>
+    </a>
+  </li>
+  <li class="flex items-center">
+    <a
+      class="c-link c-header__nav-item"
+      href="http://localhost:4321/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="c-link__text">Documentation</span>
+
+      <span class="c-icon c-icon--after">
+        <svg
+          class="c-icon__asset"
+          width="16"
+          height="16"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          aria-hidden="true"
         >
-            {SITE_CONTENT.talkToUsLabel}
+          <path
+            fill="currentcolor"
+            d="M304 24c0 13.3 10.7 24 24 24H430.1L207 271c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l223-223V184c0 13.3 10.7 24 24 24s24-10.7 24-24V24c0-13.3-10.7-24-24-24H328c-13.3 0-24 10.7-24 24zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V440c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"
+          ></path>
+        </svg>
+      </span>
+    </a>
+  </li>
+  <li class="flex items-center mr-4">
+    <ThemeToggle />
+  </li>
+  <li class="flex items-center">
+    <a
+      class="ml-4 px-5 py-2 rounded-full bg-timefold-accent text-timefold-dark shadow-glow-accent transition hover:bg-emerald-400 hover:scale-105 font-bold whitespace-nowrap"
+      href="http://localhost:4321/talk-to-us"
+      target="_self"
+    >
+      <span class="c-button__text">Talk to us</span>
+    </a>
+  </li>
+</header>
+<ul class="c-header__navigation-list">
+  <li class="flex items-center">
+    {
+      MAIN_NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class={
+            item.href.startsWith("/")
+              ? "hover:text-[var(--scheme-accent)]"
+              : "hover:text-slate-900"
+          }
+          data-section-link={item.sectionLink ? true : undefined}
+        >
+          {item.label}
         </a>
-    </nav>
+      ))
+    }
+  </li>
+</ul>
+
+<button
+  type="button"
+  aria-label="Open menu"
+  aria-controls="mobile-nav"
+  aria-expanded="false"
+  data-mobile-menu-button
+  class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700 block vp9:hidden"
+>
+  <span aria-hidden="true">☰</span>
+</button>
+
+<div id="script-debug">NO SCRIPT</div>
+<div
+  id="mobile-nav"
+  class="hidden border-t border-slate-200 bg-white px-4 py-3"
+  data-mobile-nav
+>
+  <nav
+    aria-label="Mobile"
+    class="grid gap-1.5 font-medium text-slate-700"
+    data-main-nav
+  >
+    {
+      MAIN_NAV_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          class="rounded-md px-2 py-2 hover:bg-slate-50"
+          data-section-link={item.sectionLink ? true : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <a
+      href={TALK_TO_US_URL}
+      class="mt-1 rounded-full bg-slate-900 px-4 py-2 text-center font-semibold text-white"
+    >
+      {SITE_CONTENT.talkToUsLabel}
+    </a>
+  </nav>
 </div>
+<script src="/mobile-menu.js"></script>

@@ -8168,6 +8168,8 @@ legend.c-form__field-label {
       0,
       0
     ) [pop-end] minmax(0, 0) [burst-end] var(--layout-end);
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .layout > * {
@@ -8178,6 +8180,8 @@ legend.c-form__field-label {
 .bound-x {
   --layout-bound-l: var(--layout-bound);
   --layout-bound-r: var(--layout-bound);
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 [class*="layout-bound"] {
