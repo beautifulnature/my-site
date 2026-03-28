@@ -10,6 +10,7 @@ import LandingProof from "../components/landing/LandingProof.astro";
 import LandingPlatform from "../components/landing/LandingPlatform.astro";
 import LandingCTA from "../components/landing/LandingCTA.astro";
 import Footer from "../components/landing/LandingFooter.astro";
+import AOSSetup from "../components/AOSSetup.astro";
 import "../styles/global.css";
 ---
 
@@ -34,7 +35,7 @@ import "../styles/global.css";
     </script>
   </head>
   <body class="bg-white dark:bg-[#0b0f19] text-gray-900 dark:text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-[#5A32FA] selection:text-white dark:selection:bg-[#10b981] dark:selection:text-[#0b0f19] pb-0 mb-0 transition-colors duration-300">
-    
+    <AOSSetup />
     <!-- Render universal UI that instantly adapts to tailwind .dark class natively! -->
     <LandingHeader />
     <main>

@@ -1,0 +1,30 @@
+<style>
+  @import 'aos/dist/aos.css';
+
+  /* Ensure elements with data-aos don't flash before AOS runs */
+  [data-aos] {
+    pointer-events: none;
+  }
+  [data-aos].aos-animate {
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  import AOS from 'aos';
+
+  function initAOS() {
+    AOS.init({
+      duration: 700,
+      easing: 'ease-out-quad',
+      once: true,
+      offset: 60,
+      delay: 0,
+    });
+  }
+
+  initAOS();
+
+  // Re-init after Astro view transitions if enabled
+  document.addEventListener('astro:page-load', initAOS);
+</script>
