@@ -1,0 +1,272 @@
+---
+import LandingHeader from '../components/landing/LandingHeader.astro';
+import LandingFooter from '../components/landing/LandingFooter.astro';
+import AOSSetup from '../components/AOSSetup.astro';
+import '../styles/global.css';
+
+const LOGSEQ_URL = 'https://beautifulnature.github.io/nagNotes';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes – Timefold</title>
+    <meta name="description" content="Personal knowledge base and notes powered by Logseq." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="bg-white dark:bg-[#0b0f19] text-gray-900 dark:text-slate-300 font-sans antialiased overflow-x-hidden transition-colors duration-300 flex flex-col" style="min-height:100vh;">
+    <AOSSetup />
+    <LandingHeader />
+
+    <main class="flex flex-col flex-1" style="min-height: 0;">
+      <div class="notes-header">
+        <h1 class="notes-title">Notes</h1>
+        <p class="notes-subtitle">
+          Knowledge base powered by&nbsp;<a href="https://logseq.com" target="_blank" rel="noopener noreferrer">Logseq</a>.
+          <a href={LOGSEQ_URL} target="_blank" rel="noopener noreferrer" class="notes-open-link">
+            Open in new tab ↗
+          </a>
+        </p>
+      </div>
+
+      <div class="notes-embed-wrapper">
+        <iframe
+          id="logseq-frame"
+          src={LOGSEQ_URL}
+          title="Logseq Notes"
+          class="notes-iframe"
+          allow="fullscreen"
+          loading="lazy"
+        ></iframe>
+
+        <div id="notes-unavailable" class="notes-unavailable">
+          <div class="notes-unavailable-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" class="notes-unavail-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <h2>Notes coming soon</h2>
+            <p>
+              The Logseq notes graph will appear here once the repository
+              <code>beautifulnature/nagNotes</code> is made public and
+              GitHub Pages is enabled.
+            </p>
+            <a
+              href="https://github.com/beautifulnature/nagNotes"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="notes-gh-btn"
+            >
+              View on GitHub ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <LandingFooter />
+  </body>
+</html>
+
+<script>
+  const frame = document.getElementById('logseq-frame') as HTMLIFrameElement | null;
+  const unavailable = document.getElementById('notes-unavailable');
+
+  if (frame && unavailable) {
+    let revealed = false;
+
+    const showFrame = () => {
+      if (revealed) return;
+      revealed = true;
+      unavailable.style.display = 'none';
+      frame.style.display = 'block';
+    };
+
+    const showUnavailable = () => {
+      if (revealed) return;
+      revealed = true;
+      frame.style.display = 'none';
+      unavailable.style.display = 'flex';
+    };
+
+    // Start hidden; show one or the other after load attempt
+    frame.style.display = 'none';
+
+    frame.addEventListener('load', () => {
+      try {
+        // If we can read contentDocument it's same-origin (unlikely but possible)
+        const doc = frame.contentDocument;
+        const text = doc?.body?.innerText?.trim() ?? '';
+        if (text === '' || doc?.title?.includes('404') || doc?.title?.includes('not found')) {
+          showUnavailable();
+        } else {
+          showFrame();
+        }
+      } catch {
+        // Cross-origin means the page loaded something — show it
+        showFrame();
+      }
+    });
+
+    frame.addEventListener('error', showUnavailable);
+
+    // Fallback timeout in case load never fires (e.g. blocked by browser)
+    setTimeout(showUnavailable, 10000);
+  }
+</script>
+
+<style>
+  .notes-header {
+    padding: 1.25rem 1.75rem 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid hsl(var(--color-neutral-90) / 0.2);
+  }
+
+  .notes-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  :global(html.dark) .notes-title {
+    color: #f1f5f9;
+  }
+
+  .notes-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  :global(html.dark) .notes-subtitle {
+    color: #94a3b8;
+  }
+
+  .notes-subtitle a {
+    color: #5306F7;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .notes-open-link {
+    font-weight: 600;
+  }
+
+  .notes-embed-wrapper {
+    flex: 1;
+    position: relative;
+    min-height: 600px;
+  }
+
+  .notes-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border: none;
+    display: none;
+    position: absolute;
+    inset: 0;
+  }
+
+  .notes-unavailable {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: #f9fafb;
+  }
+
+  :global(html.dark) .notes-unavailable {
+    background: #0f1629;
+  }
+
+  .notes-unavailable-inner {
+    text-align: center;
+    max-width: 460px;
+  }
+
+  .notes-unavail-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    color: #5306F7;
+    margin: 0 auto 1.25rem;
+    display: block;
+  }
+
+  .notes-unavailable-inner h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #111827;
+  }
+
+  :global(html.dark) .notes-unavailable-inner h2 {
+    color: #f1f5f9;
+  }
+
+  .notes-unavailable-inner p {
+    font-size: 0.9375rem;
+    color: #6b7280;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+
+  :global(html.dark) .notes-unavailable-inner p {
+    color: #94a3b8;
+  }
+
+  .notes-unavailable-inner code {
+    background: #e5e7eb;
+    padding: 0.15em 0.4em;
+    border-radius: 0.3em;
+    font-size: 0.875em;
+    font-family: monospace;
+    color: #374151;
+  }
+
+  :global(html.dark) .notes-unavailable-inner code {
+    background: #1e293b;
+    color: #cbd5e1;
+  }
+
+  .notes-gh-btn {
+    display: inline-block;
+    background: #5306F7;
+    color: #fff !important;
+    padding: 0.65rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+  }
+
+  .notes-gh-btn:hover {
+    opacity: 0.85;
+  }
+</style>

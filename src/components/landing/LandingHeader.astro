@@ -23,6 +23,7 @@ const pathname = Astro.url.pathname;
 const isUseCasesActive = pathname.startsWith("/use-cases");
 const isResourcesActive = pathname.startsWith("/blog") || pathname.startsWith("/resources");
 const isDocsActive = pathname.startsWith("/docs");
+const isNotesActive = pathname.startsWith("/notes");
 
 const getDropdownItemClass = (href: string) => {
   const active = pathname === href || (href !== "/resources" && pathname.startsWith(href));
@@ -121,6 +122,8 @@ const getMobileSublinkClass = (href: string) => {
       >
 
       <a href="/docs" class={`tf-nav-link${isDocsActive ? " is-active" : ""}`}>Documentation</a>
+
+      <a href="/notes" class={`tf-nav-link${isNotesActive ? " is-active" : ""}`}>Notes</a>
     </nav>
 
     <div class="flex items-center gap-3 shrink-0">
@@ -205,6 +208,8 @@ const getMobileSublinkClass = (href: string) => {
       >
 
       <a href="/docs" class="tf-mobile-link">Documentation</a>
+
+      <a href="/notes" class={`tf-mobile-link${isNotesActive ? " is-active" : ""}`}>Notes</a>
 
       <div class="pt-2 border-t border-[var(--scheme-border)] mt-1">
         <a
