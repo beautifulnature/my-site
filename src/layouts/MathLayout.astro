@@ -1,0 +1,407 @@
+---
+import LandingHeader from '../components/landing/LandingHeader.astro';
+import LandingFooter from '../components/landing/LandingFooter.astro';
+import '../styles/global.css';
+
+const { frontmatter = {} } = Astro.props;
+const { title = 'Math Notes', description = '', date, tags = [] } = frontmatter;
+
+const formattedDate = date
+  ? new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  : null;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} – Math Notes</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Theme bootstrap (prevents flash) -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- MathJax configuration — must appear before the MathJax script -->
+    <script is:inline>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['\\(', '\\)'], ['$', '$']],
+          displayMath: [['\\[', '\\]'], ['$$', '$$']],
+          processEscapes: true,
+          tags: 'ams',
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'math-content',
+        },
+        startup: {
+          ready() {
+            MathJax.startup.defaultReady();
+          },
+        },
+      };
+    </script>
+
+    <!-- MathJax CDN (v3) -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    ></script>
+
+    <!-- GeoGebra deployment script -->
+    <script src="https://www.geogebra.org/apps/deployggb.js" is:inline></script>
+  </head>
+
+  <body class="bg-white dark:bg-[#0b0f19] text-gray-900 dark:text-slate-300 font-sans antialiased overflow-x-hidden transition-colors duration-300">
+    <LandingHeader />
+
+    <main class="max-w-4xl mx-auto px-5 py-10 pt-8">
+      <!-- Breadcrumb -->
+      <nav class="mn-breadcrumb" aria-label="breadcrumb">
+        <a href="/math-notes">Math Notes</a>
+        <span aria-hidden="true">›</span>
+        <span>{title}</span>
+      </nav>
+
+      <!-- Article header -->
+      <header class="mn-article-header">
+        <h1 class="mn-article-title">{title}</h1>
+        {description && <p class="mn-article-desc">{description}</p>}
+        <div class="mn-article-meta">
+          {formattedDate && <time>{formattedDate}</time>}
+          {tags.length > 0 && (
+            <div class="mn-tags">
+              {tags.map((tag: string) => (
+                <span class="mn-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <!-- AsciiDoc rendered content -->
+      <article class="mn-content math-content">
+        <slot />
+      </article>
+    </main>
+
+    <LandingFooter />
+
+    <!-- GeoGebra applet initializer -->
+    <script is:inline>
+      (function initGeoGebra() {
+        var applets = document.querySelectorAll('.ggb-applet');
+        if (!applets.length) return;
+
+        function launchApplet(container) {
+          var id        = container.id;
+          var appName   = container.dataset.app || 'graphing';
+          var width     = parseInt(container.dataset.width  || '720', 10);
+          var height    = parseInt(container.dataset.height || '420', 10);
+          var cmds      = (container.dataset.commands || '').split(';').map(function(s){ return s.trim(); }).filter(Boolean);
+          var xmin      = parseFloat(container.dataset.xmin  || '-1');
+          var xmax      = parseFloat(container.dataset.xmax  || '7');
+          var ymin      = parseFloat(container.dataset.ymin  || '-1');
+          var ymax      = parseFloat(container.dataset.ymax  || '5');
+
+          var params = {
+            appName:             appName,
+            width:               width,
+            height:              height,
+            showToolBar:         false,
+            showAlgebraInput:    container.dataset.algebraInput === 'true',
+            showMenuBar:         false,
+            enableLabelDrags:    false,
+            enableShiftDragZoom: true,
+            enableRightClick:    false,
+            borderColor:         '#e5e7eb',
+            scaleContainerClass: 'ggb-applet',
+            ggbOnInit: function() {
+              var api = window[id];
+              if (!api) return;
+              // Set viewport
+              api.setCoordSystem(xmin, xmax, ymin, ymax);
+              // Run commands
+              cmds.forEach(function(cmd) {
+                if (cmd) api.evalCommand(cmd);
+              });
+              // Apply color hints from data-colors="objName:#rrggbb,..."
+              var colors = (container.dataset.colors || '').split(',');
+              colors.forEach(function(pair) {
+                var parts = pair.split(':');
+                if (parts.length === 2) {
+                  var name = parts[0].trim();
+                  var hex  = parts[1].trim().replace('#', '');
+                  var r    = parseInt(hex.substring(0,2), 16);
+                  var g    = parseInt(hex.substring(2,4), 16);
+                  var b    = parseInt(hex.substring(4,6), 16);
+                  api.setColor(name, r, g, b);
+                }
+              });
+            },
+          };
+
+          var applet = new GGBApplet(params, true);
+          applet.setHTML5Codebase('https://www.geogebra.org/apps/latest/web3d/');
+          applet.inject(id);
+        }
+
+        function tryInit() {
+          if (typeof GGBApplet === 'undefined') {
+            setTimeout(tryInit, 200);
+            return;
+          }
+          applets.forEach(launchApplet);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', tryInit);
+        } else {
+          tryInit();
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  /* ── Breadcrumb ── */
+  .mn-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1.75rem;
+  }
+  .mn-breadcrumb a {
+    color: #5306F7;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── Article header ── */
+  .mn-article-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  :global(html.dark) .mn-article-header {
+    border-color: #1e293b;
+  }
+  .mn-article-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin: 0 0 0.6rem;
+  }
+  :global(html.dark) .mn-article-title {
+    color: #f1f5f9;
+  }
+  .mn-article-desc {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin: 0 0 1rem;
+    line-height: 1.6;
+  }
+  :global(html.dark) .mn-article-desc {
+    color: #94a3b8;
+  }
+  .mn-article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+  .mn-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .mn-tag {
+    background: #ede9fe;
+    color: #5306F7;
+    padding: 0.15rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  :global(html.dark) .mn-tag {
+    background: #1e1b4b;
+    color: #a78bfa;
+  }
+
+  /* ── Article prose ── */
+  .mn-content {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: #1f2937;
+  }
+  :global(html.dark) .mn-content {
+    color: #cbd5e1;
+  }
+  :global(.mn-content h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #111827;
+    margin: 2.5rem 0 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 2px solid #e5e7eb;
+  }
+  :global(html.dark .mn-content h2) {
+    color: #f1f5f9;
+    border-color: #1e293b;
+  }
+  :global(.mn-content h3) {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 1.75rem 0 0.5rem;
+  }
+  :global(html.dark .mn-content h3) { color: #e2e8f0; }
+  :global(.mn-content h4) {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #374151;
+    margin: 1.25rem 0 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  :global(.mn-content p) { margin: 0.9rem 0; }
+  :global(.mn-content a) { color: #5306F7; text-decoration: underline; text-underline-offset: 2px; }
+  :global(.mn-content strong) { font-weight: 700; color: #111827; }
+  :global(html.dark .mn-content strong) { color: #f1f5f9; }
+  :global(.mn-content em) { font-style: italic; }
+
+  :global(.mn-content ul), :global(.mn-content ol) {
+    padding-left: 1.5rem;
+    margin: 0.75rem 0;
+  }
+  :global(.mn-content li) { margin: 0.3rem 0; }
+
+  /* AsciiDoc-generated blockquote / admonition boxes */
+  :global(.mn-content .admonitionblock) {
+    border-left: 4px solid #5306F7;
+    background: #f5f3ff;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    margin: 1.5rem 0;
+  }
+  :global(html.dark .mn-content .admonitionblock) {
+    background: #1e1b4b;
+    border-color: #7c3aed;
+  }
+  :global(.mn-content .admonitionblock td.content) { padding: 0; }
+  :global(.mn-content .admonitionblock .title) {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #5306F7;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Code blocks */
+  :global(.mn-content pre) {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    margin: 1.25rem 0;
+  }
+  :global(.mn-content code) {
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+  }
+  :global(.mn-content p code), :global(.mn-content li code) {
+    background: #f1f5f9;
+    padding: 0.1em 0.4em;
+    border-radius: 0.3em;
+    font-size: 0.88em;
+    color: #5306F7;
+  }
+  :global(html.dark .mn-content p code), :global(html.dark .mn-content li code) {
+    background: #1e293b;
+    color: #a78bfa;
+  }
+
+  /* AsciiDoc stem / MathJax blocks */
+  :global(.mn-content .stemblock) {
+    overflow-x: auto;
+    padding: 0.75rem 0;
+    text-align: center;
+  }
+  :global(.mn-content .stemblock .content) {
+    display: inline-block;
+    font-size: 1.05em;
+  }
+
+  /* ── GeoGebra applet containers ── */
+  :global(.ggb-applet) {
+    width: 100%;
+    max-width: 720px;
+    margin: 1.5rem auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: #f9fafb;
+  }
+  :global(html.dark .ggb-applet) {
+    border-color: #334155;
+    background: #0f172a;
+  }
+  :global(.ggb-applet-caption) {
+    text-align: center;
+    font-size: 0.825rem;
+    color: #6b7280;
+    margin-top: 0.4rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  /* Definition / theorem boxes */
+  :global(.mn-content .theorem-box) {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    margin: 1.5rem 0;
+  }
+  :global(html.dark .mn-content .theorem-box) {
+    background: #052e16;
+    border-color: #22c55e;
+  }
+  :global(.mn-content .definition-box) {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    margin: 1.5rem 0;
+  }
+  :global(html.dark .mn-content .definition-box) {
+    background: #0c1a35;
+    border-color: #60a5fa;
+  }
+
+  /* Section divider */
+  :global(.mn-content hr) {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 2rem 0;
+  }
+  :global(html.dark .mn-content hr) { border-color: #1e293b; }
+</style>

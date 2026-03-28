@@ -1,0 +1,309 @@
+---
+import LandingHeader from '../../components/landing/LandingHeader.astro';
+import LandingFooter from '../../components/landing/LandingFooter.astro';
+import AOSSetup from '../../components/AOSSetup.astro';
+import '../../styles/global.css';
+
+// Static list of math notes — add new entries here as you create more .astro pages
+const notes = [
+  {
+    slug: 'calculus-ftc',
+    title: 'The Fundamental Theorem of Calculus',
+    description:
+      'An interactive deep-dive into the FTC — from intuition to formal proof — with live GeoGebra visualizations and MathJax-rendered equations.',
+    date: new Date('2026-03-28'),
+    tags: ['calculus', 'integration', 'differentiation', 'analysis'],
+    href: '/math-notes/calculus-ftc',
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Math Notes – Timefold</title>
+    <meta name="description" content="Interactive math notes with MathJax proofs and GeoGebra visualizations." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body class="bg-white dark:bg-[#0b0f19] text-gray-900 dark:text-slate-300 font-sans antialiased overflow-x-hidden transition-colors duration-300">
+    <AOSSetup />
+    <LandingHeader />
+
+    <main class="max-w-4xl mx-auto px-5 py-12">
+      <!-- Page header -->
+      <div class="mn-index-header" data-aos="fade-up">
+        <div class="mn-index-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h16M4 12h10M4 17h7" />
+            <path d="M19 14l-3 3 3 3" />
+            <path d="M22 17h-6" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="mn-index-title">Math Notes</h1>
+          <p class="mn-index-subtitle">
+            Interactive notes with live proofs, MathJax rendering, and GeoGebra visualizations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Topics legend -->
+      <div class="mn-legend" data-aos="fade-up" data-aos-delay="80">
+        <span class="mn-legend-label">Topics:</span>
+        <span class="mn-legend-chip">Calculus</span>
+        <span class="mn-legend-chip">Linear Algebra</span>
+        <span class="mn-legend-chip">Analysis</span>
+        <span class="mn-legend-chip">Geometry</span>
+      </div>
+
+      <!-- Notes grid -->
+      {notes.length === 0 ? (
+        <p class="mn-empty">No notes yet. Add <code>.adoc</code> files to <code>src/pages/math-notes/</code>.</p>
+      ) : (
+        <ul class="mn-notes-list" role="list">
+          {notes.map((note, i) => (
+            <li data-aos="fade-up" data-aos-delay={String(i * 60)}>
+              <a href={note.href} class="mn-note-card">
+                <div class="mn-note-card-icon" aria-hidden="true">∑</div>
+                <div class="mn-note-card-body">
+                  <h2 class="mn-note-card-title">{note.title}</h2>
+                  {note.description && (
+                    <p class="mn-note-card-desc">{note.description}</p>
+                  )}
+                  <div class="mn-note-card-meta">
+                    {note.date && (
+                      <time class="mn-note-card-date">
+                        {note.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </time>
+                    )}
+                    {note.tags.length > 0 && (
+                      <div class="mn-note-card-tags">
+                        {note.tags.map((tag: string) => (
+                          <span class="mn-note-tag">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div class="mn-note-card-arrow" aria-hidden="true">→</div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+
+    <LandingFooter />
+  </body>
+</html>
+
+<style>
+  /* ── Page header ── */
+  .mn-index-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mn-index-icon {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #ede9fe;
+    color: #5306F7;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.25rem;
+  }
+  :global(html.dark) .mn-index-icon {
+    background: #1e1b4b;
+    color: #a78bfa;
+  }
+  .mn-index-icon svg { width: 1.5rem; height: 1.5rem; }
+
+  .mn-index-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #111827;
+    margin: 0 0 0.35rem;
+    line-height: 1.1;
+  }
+  :global(html.dark) .mn-index-title { color: #f1f5f9; }
+
+  .mn-index-subtitle {
+    font-size: 1.05rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+  }
+  :global(html.dark) .mn-index-subtitle { color: #94a3b8; }
+
+  /* ── Legend ── */
+  .mn-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  :global(html.dark) .mn-legend { border-color: #1e293b; }
+
+  .mn-legend-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+  }
+  .mn-legend-chip {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.2rem 0.65rem;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  :global(html.dark) .mn-legend-chip {
+    background: #1e293b;
+    color: #94a3b8;
+  }
+
+  /* ── Note cards ── */
+  .mn-notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mn-note-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    text-decoration: none;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  :global(html.dark) .mn-note-card {
+    background: #0f172a;
+    border-color: #1e293b;
+  }
+  .mn-note-card:hover {
+    border-color: #5306F7;
+    box-shadow: 0 4px 24px -4px rgba(83, 6, 247, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .mn-note-card-icon {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: #f5f3ff;
+    color: #5306F7;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.375rem;
+    font-weight: 700;
+    font-family: 'Georgia', serif;
+    margin-top: 0.1rem;
+  }
+  :global(html.dark) .mn-note-card-icon {
+    background: #1e1b4b;
+    color: #a78bfa;
+  }
+
+  .mn-note-card-body { flex: 1; min-width: 0; }
+
+  .mn-note-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.35rem;
+    line-height: 1.3;
+  }
+  :global(html.dark) .mn-note-card-title { color: #f1f5f9; }
+
+  .mn-note-card-desc {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+  }
+  :global(html.dark) .mn-note-card-desc { color: #94a3b8; }
+
+  .mn-note-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .mn-note-card-date {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+  .mn-note-card-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  .mn-note-tag {
+    background: #ede9fe;
+    color: #5306F7;
+    padding: 0.1rem 0.5rem;
+    border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  :global(html.dark) .mn-note-tag {
+    background: #1e1b4b;
+    color: #a78bfa;
+  }
+
+  .mn-note-card-arrow {
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    color: #d1d5db;
+    align-self: center;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .mn-note-card:hover .mn-note-card-arrow {
+    color: #5306F7;
+    transform: translateX(3px);
+  }
+
+  .mn-empty {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    padding: 2rem;
+    text-align: center;
+    border: 1px dashed #e5e7eb;
+    border-radius: 0.75rem;
+  }
+  .mn-empty code {
+    background: #f3f4f6;
+    padding: 0.1em 0.35em;
+    border-radius: 0.3em;
+    font-size: 0.85em;
+  }
+</style>
