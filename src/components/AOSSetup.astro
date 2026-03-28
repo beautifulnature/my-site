@@ -1,13 +1,5 @@
-<style>
+<style is:global>
   @import 'aos/dist/aos.css';
-
-  /* Ensure elements with data-aos don't flash before AOS runs */
-  [data-aos] {
-    pointer-events: none;
-  }
-  [data-aos].aos-animate {
-    pointer-events: auto;
-  }
 </style>
 
 <script>
@@ -23,8 +15,11 @@
     });
   }
 
-  initAOS();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAOS);
+  } else {
+    initAOS();
+  }
 
-  // Re-init after Astro view transitions if enabled
   document.addEventListener('astro:page-load', initAOS);
 </script>
