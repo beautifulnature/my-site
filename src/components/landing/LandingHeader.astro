@@ -2,6 +2,7 @@
 import { SITE_CONTENT } from "../../utils/siteContent";
 import { TALK_TO_US_URL } from "../../utils/navigation";
 import ThemeToggle from "../ThemeToggle.astro";
+import SearchModal from "../SearchModal.astro";
 
 const USE_CASE_LINKS = [
   { href: "/use-cases/route-scheduling", label: "Route Scheduling" },
@@ -130,6 +131,7 @@ const getMobileSublinkClass = (href: string) => {
     </nav>
 
     <div class="flex items-center gap-3 shrink-0">
+      <SearchModal />
       <ThemeToggle />
       <a
         href={TALK_TO_US_URL}
