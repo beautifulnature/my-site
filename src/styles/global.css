@@ -11059,3 +11059,17 @@ html.dark .c-toggle-carousel__pagination .swiper-pagination-bullet-active span {
 html.dark .c-toggle-carousel__tab {
   color: hsl(var(--color-neutral-100) / 1);
 }
+
+/* ============================================================
+   DARK MODE – CTA CARDS (shortcut / icon-cards section)
+   ============================================================ */
+
+html.dark .c-cta-card {
+  /* swap near-white smoke bg → dark elevated surface */
+  --cta-card-default-bg:  hsl(var(--color-darkgrey-20) / 1);
+  /* swap hardcoded black text → soft white */
+  --text-color:           hsl(var(--color-neutral-80) / 1);
+  --footer-text-color:    hsl(var(--color-neutral-80) / 1);
+  --title-color:          hsl(var(--color-neutral-100) / 1);
+  --cta-card-default-icon-color: hsl(var(--color-neutral-60) / 1);
+}
